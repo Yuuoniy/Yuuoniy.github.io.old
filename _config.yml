@@ -7,7 +7,7 @@
   subtitle:
   description: 慕名而来的人都会爱上我
   author: Lin Miaoqian
-  language:
+  language: en
   timezone:
   
   
@@ -86,6 +86,19 @@
   links:
   Hexo: http://hexo.io/
   Lmintlcx: http://blog.lmintlcx.com/
+  
+  #for comment
+  algolia:
+    applicationID: W9VSQ0GGKQ
+    apiKey: 74aef4d13e544170be082d500082ddb0
+    adminApiKey: ea81c4f069c4fbfcd2cad4c397ab0e81
+    indexName: yuuoniy
+    chunkSize: 5000
+
+  # Creative Commons 4.0 International License.
+  # http://creativecommons.org/
+  # Available: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
+  creative_commons: by-nc-sa
   
   
   
