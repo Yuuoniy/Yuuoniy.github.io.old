@@ -39,10 +39,10 @@
   relative_link: false
   future: true
   highlight:
-  enable: true
-  line_number: true
-  auto_detect: false
-  tab_replace:
+    enable: true
+    line_number: true
+    auto_detect: false
+    tab_replace:
   
   # Category & Tag
   default_category: uncategorized
@@ -69,18 +69,18 @@
   # Deployment
   ## Docs: https://hexo.io/docs/deployment.html
   deploy:
-  type: git
-  repository: https://github.com/Yuuoniy/Yuunoiy.github.io.git
-  branch: master
+    type: git
+    repository: git@github.com:Yuuoniy/Yuunoiy.github.io.git
+    branch: master
   ##
   ##since：2017
   avatar: /images/avatar.jpg
-  
+
   # Social links
   social:
-  GitHub: https://github.com/Yuuoniy
-  Weibo: http://weibo.com/weiweichenlun
-  Zhihu: https://www.zhihu.com/people/yuuoniy
+    GitHub: https://github.com/Yuuoniy
+    Weibo: http://weibo.com/weiweichenlun
+    Zhihu: https://www.zhihu.com/people/yuuoniy
   
   links_title: 友情链接
   links:
