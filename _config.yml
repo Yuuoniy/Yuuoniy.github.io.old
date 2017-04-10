@@ -4,7 +4,7 @@
   
   # Site
   title: 尿尿
-  subtitle:
+  subtitle: 没错就是尿尿啦
   description: 慕名而来的人都会爱上我
   author: Lin Miaoqian
   language: en
@@ -19,7 +19,7 @@
   permalink_defaults:
   
   # Directory
-  source_dir: source
+  source_dir: source 
   public_dir: public
   tag_dir: tags
   archive_dir: archives
@@ -34,7 +34,7 @@
   titlecase: false # Transform title into titlecase
   external_link: true # Open external links in new tab
   filename_case: 0
-  render_drafts: false
+  render_drafts: false #show drafts
   post_asset_folder: false
   relative_link: false
   future: true
@@ -81,6 +81,7 @@
     GitHub: https://github.com/Yuuoniy
     Weibo: http://weibo.com/weiweichenlun
     Zhihu: https://www.zhihu.com/people/yuuoniy
+    Email: linmq006@gamil.com
   
   links_title: 友情链接
   links:
@@ -98,7 +99,21 @@
   # Creative Commons 4.0 International License.
   # http://creativecommons.org/
   # Available: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
-  creative_commons: by-nc-sa
+  creative_commons: by-nc-sa 
+
+  index_generator:
+    per_page: 10 ##首页默认10篇文章标题 如果值为0不分页
+
+  archive_generator:
+    per_page: 20 ##归档页面默认20篇文章标题
+    yearly: true  ##生成年视图
+    monthly: true ##生成月视图
+
+  tag_generator:
+    per_page: 10 ##标签分类页面默认10篇文章
+
+  category_generator:
+    per_page: 10 ###分类页面默认10篇文章
   
   
   
