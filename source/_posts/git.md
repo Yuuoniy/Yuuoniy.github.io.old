@@ -4,7 +4,8 @@ date: 2017-04-10 07:16:05
 tags: git
 categories: 学习
 ---
-
+git相关配置及基础命令
+<!-- more -->
 
 配置简写：
 

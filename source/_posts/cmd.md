@@ -7,7 +7,7 @@ categories: 学习
 
 记录一些个人觉得实用但还不熟悉的cmd操作
 
-
+<!-- more -->
 * Alt+F4 或执行 exit 关闭命令提示符
 * Alt+Enter 在全屏或窗口模式之间切换
 

@@ -8,6 +8,7 @@ categories: 学习
 
 记录html 的一些要点以及注意事项
 方便自己复习回顾  
+<!--more-->
 > 注：内容摘自 [w3school](http://www.w3school.com.cn/)  
 
 - `<br>` 标签定义换行

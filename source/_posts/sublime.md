@@ -5,7 +5,7 @@ tags: sublime
 categories: 学习
 ---
 记录一些sublime的功能特性 快捷键（尤其是还不太熟的  
-
+<!-- more -->
 **Ctrl+K+K**： 从光标处至行尾删除。  
 Ctrl+K+Backspace：从光标处至行首删除。  
 ctrl M 跳到对应的括号  
