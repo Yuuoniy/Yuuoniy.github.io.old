@@ -52,4 +52,7 @@ hexo publish [layout] <filename>
 **db.json**： 待补充
 **package.json**： 待补充
 
+##### 插件 ####
+ 若使用Algolia的搜索服务, 增加新的文章后需要执行` hexo algolia` 来更新
+
 （要注意使用标题时#后不加空格无法渲染）
