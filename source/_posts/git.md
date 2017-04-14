@@ -28,5 +28,5 @@ git merge --abort，将文件恢复到你开始合并之前的状态
 git log --graph   
 git log --graph --pretty=oneline --abbrev-commit 可以展示合并信息
 --no-ff参数，表示禁用Fast forward  
-
+--allow-unrelated-histories
 记录的命令操作很不系统，但主要还是想记录自己不熟悉的内容（慢慢也会变熟悉的）
