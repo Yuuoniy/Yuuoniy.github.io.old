@@ -23,7 +23,8 @@ categories: 学习
 |Win+R|打开运行窗口|
 |Shift+F10|显示快捷菜单（相当于右击）|
 |Alt+Space|打开当前程序的快捷菜单|
-|Ctrl+Y|重做操作文件|
+|Ctrl+Z|撤销操作|
+|Ctrl+Y|取消撤销|
 |Ctrl+D|删除文件|
 |F2|重命名文件|
 |Alt+Enter|打开属性对话框|
