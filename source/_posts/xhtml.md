@@ -58,7 +58,7 @@ XHTML 是作为 XML 被重新设计的 HTML
 
 - 当在 HTML 页面中执行脚本时，页面是不可响应的，直到脚本已完成。
 
-
+<meta charset="UTF-8"> 
 
 
   

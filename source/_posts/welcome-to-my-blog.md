@@ -9,6 +9,6 @@ excited!
 
   　　Here, actually I don't very clear what should I post. Just step by step.    
  Some learning reflections, life thoughts,or sort of it. or maybe not, I can use it in my way since it is my personal blog.  
-  No doubt just a few people would come to here..  
+  No doubt just a few people would come here..  
 
    　　All in all, welcome come here! If you are interested or have some advice for me, feel free to contact me with the information provided I'll be glad to communicate with you：)   
