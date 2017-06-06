@@ -40,6 +40,7 @@ categories: 学习
 |Ctrl+G  |跳转到第几行|
 |Ctrl+R  |前往 method|
 |ctrl+   |   前往字段|
+|ctrl+ k v | 查看剪切板历史|
 
 `ctrl+shift+t` 打开终端  
 
