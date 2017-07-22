@@ -43,7 +43,49 @@ categories: 学习
 |Ctrl + o |使用 Chrome 打开计算机中的文件|
 |Ctrl + d|将当前网页保存为书签|
 |Ctrl+J  |查看”下载”页 |
+|Ctrl+H  |查看历史记录|
 |Alt+Home  |  打开主页 |
+|Ctrl+0 |将网页上的所有内容都恢复到正常大小|  
+|Ctrl+Shift+点击链接 |在新标签页中打开链接，同时切换到新打开的标签页|   
+| Ctrl+Shift+B  | 打开和关闭书签栏。|  
+|Ctrl+Shift+Delete|   打开“清除浏览数据”对话框|  
+| alt + ←| 后退到历史记录中的上一页面 |  
+|  alt + → | 前进到历史记录中的下一页面|
 
+ 
 
-
+#### sublime ####
+|快捷键|操作|
+|------|----|
+|Alt|调出菜单|  
+|Ctrl+`|调出控制台|
+|Ctrl+Shift+D|复制光标所在整行，插入在该行之前|
+|Ctrl+KK|从光标处删除至行尾  |
+|Ctrl+K+Backspace|从光标处删除至行首 |
+|Ctrl+J|合并(多)行（已选择需要合并的多行时）|
+|Ctrl+Shift+M|快速选择括号间的内容|
+|Ctrl+Shift+J|快速选择同缩进的内容|
+|F3|跳至当前关键字下一个位置|
+|Shift+F3|跳到当前关键字上一个位置|
+|Alt+F3|选中当前关键字出现的所有位置|
+|Ctrl+Shift+N|创建一个新窗口|
+|Shift+F11|切换无干扰全屏  |
+|Ctrl+F2|设置书签|
+|F2|下一个书签|
+|Shift+F2|上一个书签|
+|ctrl + m |括号前后移动光标 |
+|Ctrl+U|软撤销,撤销光标位置|
+|Ctrl+Shift+←| 向左单位性地选中文本。|
+|Ctrl+Shift+→ |向右单位性地选中文本。|
+|Ctrl+K+B|开关侧栏 |
+|Ctrl+Shift+/|当前位置插入注释 |
+|Ctrl+T |左右字母互换 |
+|Ctrl+Shift+W|关闭所有打开文件 |
+|Ctrl+Shift+Y|计算数学表达式|
+|alt+shift+↑ 或 ↓| 以10的步长改变数字|
+|ctrl+ ↑ 或 ↓ |以步长为1改变数字 |
+|ctrl+shift+A|选中标签内的内容不包括标签，继续按会继续往上一层选择|
+|Alt+数字|切换打开第N个文件 |
+|ctrl+k ctrl+v |查看剪切板历史记录|
+|Ctrl+KU |改为大写|
+|Ctrl+KL |改为小写|

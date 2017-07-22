@@ -26,6 +26,13 @@ categories: 学习
 
   这部分只记录一些我觉得会用到但是还不太熟悉的操作
 
+`hexo n(new) `"文章名" 新建文章   
+`hexo p (publish)`发布  
+`hexo g (generate)`生成静态网页   
+`hexo s (server) `启动服务预览  
+`hexo d (deploy)`部署  (与hexo g 合并为hexo d -g)
+
+
 ##### 删除 #####
     　　先删除本地文件，然后通过生成和部署命令进而将远程仓库中的文件也一并删除。具体来说，  
     以最开始默认形成的helloworld.md这篇文章为例。  
@@ -33,12 +40,13 @@ categories: 学习
     hexo d，就成功删除文章了。
 
 ##### 草稿 #####
-```
-hexo new draft "new draft"
-```
-　　草稿可以当作私密文章，一般不在页面中显示，如果想把某一篇文章移除显示，又不舍得删除，可以把它移动到_drafts目录之中。 
+`hexo publish [layout] <title>`
+
+　　草稿可以当作私密文章，一般不在页面中显示，  
+如果想把某一篇文章移除显示，又不舍得删除，可以把它移动到_drafts目录之中。 
 如果想要预览草稿，有两种方法：   
-1.在配置文件中设置render_drafts: true 2.hexo server --drafts  
+1.在配置文件中设置render_drafts: true   
+2.hexo server --drafts    
 
 通过以下命令将草稿变成正式文章
 
@@ -47,6 +55,14 @@ hexo publish [layout] <filename>
 ```
 
 另外，对于一些文章的修改只需要刷新一下就可以显示了。
+##### 服务器 #####
+`hexo server -s` 静态模式  
+`hexo server -p 5000 ` 更改端口  
+`hexo server -i 1.1.1.1`  自定义 IP  
+
+`hexo clean` 清除缓存   
+
+
 
 ##### 文件 ####
 **node_modules**： 包含整个hexo的依赖包  
