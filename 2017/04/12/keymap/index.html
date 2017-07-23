@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion" lang="">
+<html class="theme-next mist" lang="en">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -48,17 +46,35 @@
   
 
   
+    
+      
+    
 
-  
-
+    
   
 
   
 
   
     
+      
     
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -71,7 +87,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="keymap," />
 
 
 
@@ -87,17 +103,17 @@
 
 
 
-<meta name="description" content="慕名而来的人都会爱上我">
-<meta name="keywords">
+<meta name="description" content="记录win快捷键及常用软件快捷键，很多都是通用的（以前没怎么使用快捷键，现在发现挺方便的，于是学习。）">
+<meta name="keywords" content="keymap">
 <meta property="og:type" content="article">
-<meta property="og:title" content="My New Post">
-<meta property="og:url" content="http://yoursite.com/2017/04/09/My-New-Post/index.html">
+<meta property="og:title" content="日常快捷键学习">
+<meta property="og:url" content="http://yoursite.com/2017/04/12/keymap/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="慕名而来的人都会爱上我">
-<meta property="og:updated_time" content="2017-04-09T00:39:12.508Z">
+<meta property="og:description" content="记录win快捷键及常用软件快捷键，很多都是通用的（以前没怎么使用快捷键，现在发现挺方便的，于是学习。）">
+<meta property="og:updated_time" content="2017-06-06T10:26:05.227Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="My New Post">
-<meta name="twitter:description" content="慕名而来的人都会爱上我">
+<meta name="twitter:title" content="日常快捷键学习">
+<meta name="twitter:description" content="记录win快捷键及常用软件快捷键，很多都是通用的（以前没怎么使用快捷键，现在发现挺方便的，于是学习。）">
 
 
 
@@ -106,17 +122,17 @@
   var CONFIG = {
     root: '/',
     scheme: 'Mist',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
-    motion: true,
+    motion: false,
     duoshuo: {
       userId: '0',
       author: 'Author'
     },
     algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
+      applicationID: 'W9VSQ0GGKQ',
+      apiKey: '74aef4d13e544170be082d500082ddb0',
+      indexName: 'yuuoniy',
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
@@ -125,16 +141,16 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/09/My-New-Post/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/04/12/keymap/"/>
 
 
 
 
 
-  <title> My New Post | 尿尿 </title>
+  <title> 日常快捷键学习 | 尿尿 </title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="">
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
   
 
@@ -172,7 +188,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">没错就是尿尿啦</p>
       
   </div>
 
@@ -233,9 +249,47 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
   
 </nav>
 
@@ -260,7 +314,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/09/My-New-Post/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/12/keymap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lin Miaoqian">
@@ -281,7 +335,7 @@
             
             
               
-                My New Post
+                日常快捷键学习
               
             
           </h1>
@@ -296,8 +350,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-09T08:39:12+08:00">
-                2017-04-09
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-12T07:10:37+08:00">
+                2017-04-12
               </time>
             
 
@@ -306,6 +360,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -332,7 +408,140 @@
       
 
       
-        
+        <p>记录win快捷键及常用软件快捷键，很多都是通用的<br>（以前没怎么使用快捷键，现在发现挺方便的，于是学习。）<br><a id="more"></a></p>
+<h4 id="win"><a href="#win" class="headerlink" title="win"></a>win</h4><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Win+D</td>
+<td>显示桌面，最小化所有窗口</td>
+</tr>
+<tr>
+<td>Win+E</td>
+<td>打开资源管理器</td>
+</tr>
+<tr>
+<td>Ctrl+A</td>
+<td>全选文件</td>
+</tr>
+<tr>
+<td>Ctrl+Shift+N</td>
+<td>新建文件夹</td>
+</tr>
+<tr>
+<td>Win+L</td>
+<td>锁定计算机，回到登陆窗口</td>
+</tr>
+<tr>
+<td>Alt + 空格键 + n</td>
+<td>最小化当前窗口</td>
+</tr>
+<tr>
+<td>Ctrl+Esc</td>
+<td>打开开始菜单</td>
+</tr>
+<tr>
+<td>Win+→</td>
+<td>将窗口靠到屏幕的右侧</td>
+</tr>
+<tr>
+<td>Win+M</td>
+<td>最小化当前窗口</td>
+</tr>
+<tr>
+<td>Win+R</td>
+<td>打开运行窗口</td>
+</tr>
+<tr>
+<td>Shift+F10</td>
+<td>显示快捷菜单（相当于右击）</td>
+</tr>
+<tr>
+<td>Alt+Space</td>
+<td>打开当前程序的快捷菜单</td>
+</tr>
+<tr>
+<td>Ctrl+Z</td>
+<td>撤销操作</td>
+</tr>
+<tr>
+<td>Ctrl+Y</td>
+<td>取消撤销</td>
+</tr>
+<tr>
+<td>Ctrl+D</td>
+<td>删除文件</td>
+</tr>
+<tr>
+<td>F2</td>
+<td>重命名文件</td>
+</tr>
+<tr>
+<td>Alt+Enter</td>
+<td>打开属性对话框</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Chrome"><a href="#Chrome" class="headerlink" title="Chrome"></a>Chrome</h4><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl + n</td>
+<td>打开新窗口</td>
+</tr>
+<tr>
+<td>Ctrl + t</td>
+<td>打开新的标签页</td>
+</tr>
+<tr>
+<td>Ctrl + Shift + t</td>
+<td>重新打开最近关闭的标签页</td>
+</tr>
+<tr>
+<td>Ctrl + 1 到 Ctrl + 8</td>
+<td>跳转到特定的标签页</td>
+</tr>
+<tr>
+<td>Alt + 空格键 + n</td>
+<td>最小化当前窗口</td>
+</tr>
+<tr>
+<td>F5 或 Ctrl + r</td>
+<td>重新加载当前网页</td>
+</tr>
+<tr>
+<td>F11</td>
+<td>开启或关闭全屏模式</td>
+</tr>
+<tr>
+<td>Ctrl + o</td>
+<td>使用 Chrome 打开计算机中的文件</td>
+</tr>
+<tr>
+<td>Ctrl + d</td>
+<td>将当前网页保存为书签</td>
+</tr>
+<tr>
+<td>Ctrl+J</td>
+<td>查看”下载”页</td>
+</tr>
+<tr>
+<td>Alt+Home</td>
+<td>打开主页</td>
+</tr>
+</tbody>
+</table>
+
       
     </div>
 
@@ -359,6 +568,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/keymap/" rel="tag"># keymap</a>
+          
+        </div>
+      
 
       
         
@@ -368,8 +583,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/09/welcome-to-my-blog/" rel="next" title="welcome to my blog">
-                <i class="fa fa-chevron-left"></i> welcome to my blog
+              <a href="/2017/04/14/learncss1/" rel="next" title="CSS基础学习[1]">
+                <i class="fa fa-chevron-left"></i> CSS基础学习[1]
               </a>
             
           </div>
@@ -378,8 +593,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/09/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/11/xhtml/" rel="prev" title="html基础要点[2]">
+                html基础要点[2] <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -427,8 +642,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -443,22 +667,31 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
           
 
           
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
 
           
             
             
             <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">1</span>
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">tags</span>
-              
+              </a>
             </div>
           
 
@@ -496,10 +729,25 @@
                 </a>
               </span>
             
+              <span class="links-of-author-item">
+                <a href="linmq006@gamil.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
           
         </div>
 
         
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
         
 
         
@@ -510,6 +758,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#win"><span class="nav-number">1.</span> <span class="nav-text">win</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Chrome"><span class="nav-number">2.</span> <span class="nav-text">Chrome</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -535,7 +799,7 @@
 </div>
 
 
-<div class="powered-by">
+<!-- <div class="powered-by">
   Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
@@ -545,6 +809,24 @@
     NexT.Mist
   </a>
 </div>
+ -->
+
+<!-- 访问量（貌似不准） -->
+<!--  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ <span id="busuanzi_container_site_pv">
+ Page Views:<span id="busuanzi_value_site_pv"></span>
+ </span>
+ --> 
+
+ <!-- 运行时间 -->
+<!--  <script>
+ var birthDay = new Date("11/20/2014");
+ var now = new Date();
+ var duration = now.getTime() - birthDay.getTime();
+ var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+ document.getElementById("showDays").innerHTML = "have been running "+total+" days";
+ </script>
+ <span id="showDays"></span> -->
 
 
         
@@ -665,6 +947,19 @@
   
 
 
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
 
 
 
