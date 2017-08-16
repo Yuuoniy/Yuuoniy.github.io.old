@@ -110,7 +110,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/06/06/learn-hexo/index.html">
 <meta property="og:site_name" content="尿尿">
 <meta property="og:description" content="记录搭建博客的注意事项，hexo基本操作插件等内容">
-<meta property="og:updated_time" content="2017-07-11T13:50:42.542Z">
+<meta property="og:updated_time" content="2017-08-16T06:16:11.346Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="博客配置及hexo学习 　">
 <meta name="twitter:description" content="记录搭建博客的注意事项，hexo基本操作插件等内容">
@@ -386,6 +386,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/06/learn-hexo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/06/06/learn-hexo/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -415,7 +426,7 @@
 <li>注意yml语法 尤其是: 后面应该有一个空格，很多报错信息都是因为这个</li>
 <li>配置信息中不要出现中文(也可能是我语言设置的问题），我加了中文就导致了一连串的错误</li>
 <li>记得deploy 而不是push到github github pages 就会自动更新了<br>影响github pages 的是你有没有deploy （即使有些commit还没有push 到github 上<br>配置过程中发现自己对git还不是很熟</li>
-<li>pull 的时候可以加上 –allow-unrelated-histories</li>
+<li>push 的时候可以加上 –allow-unrelated-histories</li>
 <li>报错信息和实际错误可能是没有关系的，不要钻进去</li>
 </ul>
 <h4 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h4><p>  这部分只记录一些我觉得会用到但是还不太熟悉的操作</p>
@@ -436,6 +447,7 @@ hexo d，就成功删除文章了。
 <h5 id="编辑"><a href="#编辑" class="headerlink" title="编辑"></a>编辑</h5><ul>
 <li>正文中可以使用<!--more-->设置文章摘要<br>（要注意使用标题时#后不加空格无法渲染）</li>
 </ul>
+<p>每次添加新文章后记得<br><code>hexo algolia</code> 更新algolia插件收录的文章</p>
 
       
     </div>
@@ -516,6 +528,13 @@ hexo d，就成功删除文章了。
           
   <div class="comments" id="comments">
     
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
   </div>
 
 
@@ -562,7 +581,7 @@ hexo d，就成功删除文章了。
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -808,6 +827,26 @@ hexo d，就成功删除文章了。
 
   
 
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://yuuoniy.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/06/06/learn-hexo/';
+          this.page.identifier = '2017/06/06/learn-hexo/';
+          this.page.title = '博客配置及hexo学习 　';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yuuoniy.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
 
   
 
