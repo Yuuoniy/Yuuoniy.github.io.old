@@ -34,5 +34,6 @@ HTML 同理，根据上面提供的语法修改就可以了
 
 <img src="pictures/end.jpg" align="center">
 
-偷偷插入音乐 嘻嘻  
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=27562457&auto=1&height=66"></iframe>
+7.28补充： 用七牛云作为图床很棒！
+还可以用七牛的 imageView接口返回特定尺寸的图片  
+配合chrome的插件 qiniu upload files 超级方便(大概是我没有用过什么好东西)

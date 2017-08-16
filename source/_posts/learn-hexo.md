@@ -80,3 +80,5 @@ hexo publish [layout] <filename>
 （要注意使用标题时#后不加空格无法渲染）
 
 
+每次添加新文章后记得  
+`hexo algolia` 更新algolia插件收录的文章
