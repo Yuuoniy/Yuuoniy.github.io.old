@@ -18,7 +18,7 @@ categories: 学习
 - 记得deploy 而不是push到github github pages 就会自动更新了
 影响github pages 的是你有没有deploy （即使有些commit还没有push 到github 上
 配置过程中发现自己对git还不是很熟
-- pull 的时候可以加上 --allow-unrelated-histories
+- push 的时候可以加上 --allow-unrelated-histories
 - 报错信息和实际错误可能是没有关系的，不要钻进去
 
 
