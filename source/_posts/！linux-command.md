@@ -1,3 +1,12 @@
+---
+title: linux基础命令学习
+date: 2017-08-16 14:22:05
+tags: linux
+categories: 学习
+---
+有点乱的
+<!-- more -->
+
 date +(显示格式)
 cal (月份)(年份)
 bc 简单计算器 

@@ -1,5 +1,5 @@
 ---
-title: 如何在hexo博客中插入图片
+title: 如何在 hexo 博客中插入图片
 date: 2017-06-06 16:56:22
 tags: hexo
 ---
