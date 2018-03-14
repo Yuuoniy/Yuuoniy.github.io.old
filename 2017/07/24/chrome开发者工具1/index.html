@@ -110,7 +110,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/24/chrome开发者工具1/index.html">
 <meta property="og:site_name" content="尿尿">
 <meta property="og:description" content="element html结构面板 操作dom样式，结构，时间的显示面板  event listeners 观察绑定的事件 click 是事件名称 .div1 事件是索引名称（也就是通过什么绑定的） attachment 事件来源  handler里面包含事件的毁掉主体内容 ？？ useCapture表示该事件是否向上冒泡 Add attribut : 为该元素添加属性Edit attribute：">
-<meta property="og:updated_time" content="2017-07-24T04:15:05.698Z">
+<meta property="og:updated_time" content="2017-08-16T06:29:25.099Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="尿尿">
 <meta name="twitter:description" content="element html结构面板 操作dom样式，结构，时间的显示面板  event listeners 观察绑定的事件 click 是事件名称 .div1 事件是索引名称（也就是通过什么绑定的） attachment 事件来源  handler里面包含事件的毁掉主体内容 ？？ useCapture表示该事件是否向上冒泡 Add attribut : 为该元素添加属性Edit attribute：">
@@ -364,6 +364,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/24/chrome开发者工具1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/24/chrome开发者工具1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -386,19 +397,19 @@
       
 
       
-        <h5 id="element"><a href="#element" class="headerlink" title="element"></a>element</h5><ul>
+        <h4 id="element"><a href="#element" class="headerlink" title="element"></a>element</h4><ul>
 <li>html结构面板</li>
 <li>操作dom样式，结构，时间的显示面板</li>
 </ul>
-<p>event listeners 观察绑定的事件</p>
-<p>click 是事件名称</p>
-<p>.div1 事件是索引名称（也就是通过什么绑定的）</p>
-<p>attachment 事件来源 </p>
-<p>handler里面包含事件的毁掉主体内容 ？？</p>
-<p>useCapture表示该事件是否向上冒泡</p>
-<p>Add attribut : 为该元素添加属性<br>Edit attribute：修改该元素的属性<br>Force element state： 为元素激活某种状态（主要用在可以几乎的元素比如a、input、button等）<br>Edit as HTML：编辑该元素（你可以重写它的整个content）甚至修改它的标签名称<br>中间简单的掠过…….<br>Break on：为该元素添加dom操作事件监听。包含三个选项（树结构改变、属性改变、节点移除）。这个选项的作用是帮助我们监控和定位操作元素的代码 </p>
+<p><code>event listeners</code> 观察绑定的事件</p>
+<p><code>click</code> 是事件名称</p>
+<p><code>.div1</code> 事件是索引名称（也就是通过什么绑定的）</p>
+<p><code>attachment</code> 事件来源 </p>
+<p><code>handler</code>里面包含事件的毁掉主体内容 ？？</p>
+<p><code>useCapture</code>表示该事件是否向上冒泡</p>
+<p><code>Add attribu</code>t : 为该元素添加属性<br><code>Edit attribute</code>：修改该元素的属性<br><code>Force element state</code>： 为元素激活某种状态（主要用在可以几乎的元素比如a、input、button等）<br>Edit as HTML：编辑该元素（你可以重写它的整个content）甚至修改它的标签名称<br>中间简单的掠过…….<br>Break on：为该元素添加dom操作事件监听。包含三个选项（树结构改变、属性改变、节点移除）。这个选项的作用是帮助我们监控和定位操作元素的代码 </p>
 <p>ctrl+F 查找 </p>
-<h4 id="network"><a href="#network" class="headerlink" title="network"></a>network</h4><p>1.Network是一个监控当前网页所有的http请求的面版，它主体部分展示的是每个http请求，每个字段表示着该请求的不同属性和状态<br>Name：请求文件名称<br>Method：方法（常见的是get post）<br>Status：请求完成的状态<br>Type：请求的类型<br>Initiator：请求源也就是说该链接通过什么发送（常见的是Parser、Script）<br>Size：下载文件或者请求占的资源大小<br>Time：请求或下载的时间<br>Timeline：该链接在发送过程中的时间状态轴（我们可以把鼠标移动到这些红红绿绿的时间轴上，对应的会有它的详细信息：开始下载时间，等待加载时间，自身下载耗时）</p>
+<h4 id="network"><a href="#network" class="headerlink" title="network"></a>network</h4><p>1.<code>Network</code>是一个监控当前网页所有的http请求的面版，它主体部分展示的是每个http请求，每个字段表示着该请求的不同属性和状态<br><code>Name</code>：请求文件名称<br><code>Method</code>：方法（常见的是get post）<br><code>Status</code>：请求完成的状态<br><code>Type</code>：请求的类型<br><code>Initiator</code>：请求源也就是说该链接通过什么发送（常见的是Parser、Script）<br><code>Size</code>：下载文件或者请求占的资源大小<br><code>Time</code>：请求或下载的时间<br><code>Timeline</code>：该链接在发送过程中的时间状态轴（我们可以把鼠标移动到这些红红绿绿的时间轴上，对应的会有它的详细信息：开始下载时间，等待加载时间，自身下载耗时）</p>
 <p>单击面板中的任意一条http信息，会在底部弹出一个新的面板，其中记录了该条http请求的详细参数header（表头信息、返回信息、请求基本状态—请参看http1.1协议内容对号入座）、Preview（返回的格式化转移后文本信息）、response（转移之前的原始信息）、Cookies（该请求带的cookies）、Timing（请求时间变化）</p>
 <p>3.在主面板的顶部，有一些按钮从左到右它们的功能分别是：是否启用继续http监控（默认高亮选中过）、清空主面板中的http信息、是否启用过滤信息选项（启用后可以对http信息进行筛选）、列出多种属性、只列出name和time属性、preserve log（目前不清楚啥用）、Dishable cahe（禁用缓存，所有的304返回会和fromm cahe都回变成正常的请求忽视cache conctrol 设定）</p>
 <h4 id="sources部分"><a href="#sources部分" class="headerlink" title="sources部分"></a>sources部分</h4><p>展示了本界面所加载的资源列表。还有cookie和local storage 、SESSION 等本地存储信息，在这里，我们可以自由地修改、增加、删除本地存储。</p>
@@ -476,6 +487,13 @@
           
   <div class="comments" id="comments">
     
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
   </div>
 
 
@@ -522,7 +540,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -533,7 +551,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -544,7 +562,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -623,7 +641,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#element"><span class="nav-number">1.</span> <span class="nav-text">element</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#network"><span class="nav-number"></span> <span class="nav-text">network</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sources部分"><span class="nav-number"></span> <span class="nav-text">sources部分</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#element"><span class="nav-number">1.</span> <span class="nav-text">element</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#network"><span class="nav-number">2.</span> <span class="nav-text">network</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sources部分"><span class="nav-number">3.</span> <span class="nav-text">sources部分</span></a></li></ol></div>
             
 
           </div>
@@ -646,7 +664,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -768,6 +786,26 @@
 
   
 
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://yuuoniy.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/07/24/chrome开发者工具1/';
+          this.page.identifier = '2017/07/24/chrome开发者工具1/';
+          this.page.title = '';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yuuoniy.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
 
   
 
