@@ -1,8 +1,6 @@
 ---
-title: '''Defcon-2015-Qualifier-r0pbaby'''
+title: Defcon-2015-Qualifier-r0pbaby
 date: 2018-03-17 18:11:32
-
-
 tags: pwn
 ---
 64位需要rdi传参，有PIE保护不能使用程序中的gadget，此处可以从libc中找   

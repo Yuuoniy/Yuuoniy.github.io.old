@@ -1,5 +1,5 @@
 ---
-title: XDCTF2015-pwn200(DynELF)'
+title: XDCTF2015-pwn200(DynELF)
 date: 2018-03-18 19:40:11
 tags: pwn
 ---

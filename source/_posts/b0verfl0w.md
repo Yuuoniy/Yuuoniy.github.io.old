@@ -1,6 +1,5 @@
 ---
-layout: '''x-ctf'
-title: b0verfl0w'
+title: b0verfl0w
 date: 2018-03-18 23:11:36
 tags: pwn
 ---

@@ -1,5 +1,5 @@
 ---
-title: '''PlaidCTF-2013-ropasaurusrex'''
+title: PlaidCTF-2013-ropasaurusrex
 date: 2018-03-17 20:36:41
 tags: pwn
 ---
