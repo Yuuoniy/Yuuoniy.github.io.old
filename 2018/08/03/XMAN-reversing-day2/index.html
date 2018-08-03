@@ -110,7 +110,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/08/03/XMAN-reversing-day2/index.html">
 <meta property="og:site_name" content="尿尿">
 <meta property="og:description" content="逆向入门第二篇">
-<meta property="og:updated_time" content="2018-08-03T12:21:19.612Z">
+<meta property="og:updated_time" content="2018-08-03T12:55:13.631Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XMAN-reversing-2">
 <meta name="twitter:description" content="逆向入门第二篇">
@@ -425,7 +425,7 @@
 <li>firmware固件/raw bin/etc</li>
 <li>chip8/avr/clemency/risc-v/etc</li>
 </ul>
-<h4 id="找工具"><a href="#找工具" class="headerlink" title="找工具"></a>找工具</h4><ul>
+<h5 id="找工具"><a href="#找工具" class="headerlink" title="找工具"></a>找工具</h5><ul>
 <li>binary parser</li>
 <li>disassembler<br>  -必要的</li>
 <li>tracer<ul>
@@ -435,11 +435,11 @@
 <li>debugger</li>
 <li>decomplier</li>
 </ul>
-<h4 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h4><p>读文档<br>工具链 toolchains<br>教程 tutorial<br>例子 </p>
+<h5 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h5><p>读文档<br>工具链 toolchains<br>教程 tutorial<br>例子 </p>
 <ul>
 <li>haskell</li>
 </ul>
-<h4 id="find-binary"><a href="#find-binary" class="headerlink" title="find binary"></a>find binary</h4><ul>
+<h5 id="find-binary"><a href="#find-binary" class="headerlink" title="find binary"></a>find binary</h5><ul>
 <li>google</li>
 <li>firmware<ul>
 <li>rebase the binary 还原基址</li>
@@ -450,8 +450,12 @@
 <li>-strings/binwalk</li>
 <li>IDA/radare2/binary.ninja/ida loader</li>
 </ul>
-<h4 id="disassembler"><a href="#disassembler" class="headerlink" title="disassembler"></a>disassembler</h4><p>-google ‘xxx dissemab/xx IDA ‘<br>    -avr ida<br>-人工<br>-ida pro/radare2/binary.ninja interface<br>    IDA processor</p>
-<h4 id="tracer"><a href="#tracer" class="headerlink" title="tracer"></a>tracer</h4><ul>
+<h5 id="disassembler"><a href="#disassembler" class="headerlink" title="disassembler"></a>disassembler</h5><ul>
+<li>google ‘xxx dissemab/xx IDA ‘<br>  -avr ida</li>
+<li>人工</li>
+<li>ida pro/radare2/binary.ninja interface<br>  IDA processor</li>
+</ul>
+<h5 id="tracer"><a href="#tracer" class="headerlink" title="tracer"></a>tracer</h5><ul>
 <li>google 先搜文档</li>
 <li>tracer</li>
 <li>debugger<ul>
@@ -466,10 +470,10 @@
 </ul>
 </li>
 </ul>
-<h4 id="逆向工程"><a href="#逆向工程" class="headerlink" title="逆向工程"></a>逆向工程</h4><p>find code pattern</p>
-<h3 id="printf-machine"><a href="#printf-machine" class="headerlink" title="printf_machine"></a>printf_machine</h3><p>实现一套指令集<br>mov语句,脚本翻译<br>符号执行 </p>
-<h3 id="assem"><a href="#assem" class="headerlink" title="assem"></a>assem</h3><p>写个html 在浏览器调</p>
-<h3 id="re-3"><a href="#re-3" class="headerlink" title="re_3"></a>re_3</h3><p>ida/procs/<br><a href="https://github.com/themadinventor/ida-xtensa" target="_blank" rel="external">https://github.com/themadinventor/ida-xtensa</a><br>上网找适配器<br>找flag 字符串交叉引用</p>
+<h5 id="逆向工程"><a href="#逆向工程" class="headerlink" title="逆向工程"></a>逆向工程</h5><p>find code pattern</p>
+<h4 id="printf-machine"><a href="#printf-machine" class="headerlink" title="printf_machine"></a>printf_machine</h4><p>实现一套指令集<br>mov语句,脚本翻译<br>符号执行 </p>
+<h4 id="assem"><a href="#assem" class="headerlink" title="assem"></a>assem</h4><p>写个html 在浏览器调</p>
+<h4 id="re-3"><a href="#re-3" class="headerlink" title="re_3"></a>re_3</h4><p>ida/procs/<br><a href="https://github.com/themadinventor/ida-xtensa" target="_blank" rel="external">https://github.com/themadinventor/ida-xtensa</a><br>上网找适配器<br>找flag 字符串交叉引用</p>
 <h4 id="easy"><a href="#easy" class="headerlink" title="easy"></a>easy</h4><p>haskell 逆向<br>有反汇编 网上找</p>
 <h4 id="IDA"><a href="#IDA" class="headerlink" title="IDA"></a>IDA</h4><h5 id="断点"><a href="#断点" class="headerlink" title="断点"></a>断点</h5><ul>
 <li>执行断点是软件断点。 </li>
@@ -484,10 +488,9 @@
 </li>
 </ul>
 <p>对每种跟踪机制，都会记录相应的跟踪事件到跟踪缓存区，也可以保存到一个txt的文件中，同样可以通过Tracing-options里的选项来设定。</p>
-<p>插件：<br>keypatch<br>findcrypt-yara 找加密方式的插件 <a href="https://www.cnblogs.com/zhaijiahui/p/7978897.html" target="_blank" rel="external">https://www.cnblogs.com/zhaijiahui/p/7978897.html</a><br>FRIEND 链接：<a href="https://github.com/alexhude/FRIEND" target="_blank" rel="external">https://github.com/alexhude/FRIEND</a></p>
+<h5 id="插件："><a href="#插件：" class="headerlink" title="插件："></a>插件：</h5><p>keypatch<br>findcrypt-yara 找加密方式的插件 <a href="https://www.cnblogs.com/zhaijiahui/p/7978897.html" target="_blank" rel="external">https://www.cnblogs.com/zhaijiahui/p/7978897.html</a><br>FRIEND 链接：<a href="https://github.com/alexhude/FRIEND" target="_blank" rel="external">https://github.com/alexhude/FRIEND</a></p>
 <p> 翻页 esc 和 Ctrl+Enter </p>
 <p><strong>强制类型转换</strong></p>
-<h4 id="常见函数"><a href="#常见函数" class="headerlink" title="常见函数"></a>常见函数</h4><p>time64</p>
 <p>P:还是懒得贴图，我以后不知道自己在写什么鬼东西时一定会后悔的 嗯…<br>大佬讲的是在太难了,我还是先去做一些基础题呜呜呜</p>
 
       
@@ -723,7 +726,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#hide"><span class="nav-number">1.</span> <span class="nav-text">hide</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#magic"><span class="nav-number">2.</span> <span class="nav-text">magic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非常规逆向"><span class="nav-number">3.</span> <span class="nav-text">非常规逆向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#找工具"><span class="nav-number">4.</span> <span class="nav-text">找工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#格式"><span class="nav-number">5.</span> <span class="nav-text">格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#find-binary"><span class="nav-number">6.</span> <span class="nav-text">find binary</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#disassembler"><span class="nav-number">7.</span> <span class="nav-text">disassembler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tracer"><span class="nav-number">8.</span> <span class="nav-text">tracer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逆向工程"><span class="nav-number">9.</span> <span class="nav-text">逆向工程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#printf-machine"><span class="nav-number"></span> <span class="nav-text">printf_machine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assem"><span class="nav-number"></span> <span class="nav-text">assem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-3"><span class="nav-number"></span> <span class="nav-text">re_3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#easy"><span class="nav-number">1.</span> <span class="nav-text">easy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IDA"><span class="nav-number">2.</span> <span class="nav-text">IDA</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#断点"><span class="nav-number">2.1.</span> <span class="nav-text">断点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trace-功能"><span class="nav-number">2.2.</span> <span class="nav-text">trace 功能</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见函数"><span class="nav-number">3.</span> <span class="nav-text">常见函数</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#hide"><span class="nav-number">1.</span> <span class="nav-text">hide</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#magic"><span class="nav-number">2.</span> <span class="nav-text">magic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非常规逆向"><span class="nav-number">3.</span> <span class="nav-text">非常规逆向</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#找工具"><span class="nav-number">3.1.</span> <span class="nav-text">找工具</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#格式"><span class="nav-number">3.2.</span> <span class="nav-text">格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#find-binary"><span class="nav-number">3.3.</span> <span class="nav-text">find binary</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#disassembler"><span class="nav-number">3.4.</span> <span class="nav-text">disassembler</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tracer"><span class="nav-number">3.5.</span> <span class="nav-text">tracer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#逆向工程"><span class="nav-number">3.6.</span> <span class="nav-text">逆向工程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#printf-machine"><span class="nav-number">4.</span> <span class="nav-text">printf_machine</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#assem"><span class="nav-number">5.</span> <span class="nav-text">assem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#re-3"><span class="nav-number">6.</span> <span class="nav-text">re_3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#easy"><span class="nav-number">7.</span> <span class="nav-text">easy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IDA"><span class="nav-number">8.</span> <span class="nav-text">IDA</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#断点"><span class="nav-number">8.1.</span> <span class="nav-text">断点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trace-功能"><span class="nav-number">8.2.</span> <span class="nav-text">trace 功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#插件："><span class="nav-number">8.3.</span> <span class="nav-text">插件：</span></a></li></ol></li></ol></div>
             
 
           </div>
