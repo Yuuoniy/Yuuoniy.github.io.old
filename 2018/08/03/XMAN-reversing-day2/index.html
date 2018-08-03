@@ -87,7 +87,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="xman,reversing," />
 
 
 
@@ -103,17 +103,17 @@
 
 
 
-<meta name="description" content="乍一看不知道程序是干嘛的，那我再好好看一下。好了放过自己，先看一下别人的吧，毕竟还在学。不知道为什么有 :: 这反汇编好奇怪啊！atol()函数：将字符串转换成longatoll函数：将字符串转化为long long类型变量 程序几乎啥输出也没有，只能硬看了，大概是一个内存分配器，差不多有四个功能 1，分配指定大小的内存，并在bss段记录对应 chunk 的指针，假设其为global。2，根据指定">
-<meta name="keywords">
+<meta name="description" content="逆向入门第二篇">
+<meta name="keywords" content="xman,reversing">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2014-HITCON-stkof">
-<meta property="og:url" content="http://yoursite.com/2018/04/04/2014-HITCON-stkof/index.html">
+<meta property="og:title" content="XMAN-reversing-2">
+<meta property="og:url" content="http://yoursite.com/2018/08/03/XMAN-reversing-day2/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="乍一看不知道程序是干嘛的，那我再好好看一下。好了放过自己，先看一下别人的吧，毕竟还在学。不知道为什么有 :: 这反汇编好奇怪啊！atol()函数：将字符串转换成longatoll函数：将字符串转化为long long类型变量 程序几乎啥输出也没有，只能硬看了，大概是一个内存分配器，差不多有四个功能 1，分配指定大小的内存，并在bss段记录对应 chunk 的指针，假设其为global。2，根据指定">
-<meta property="og:updated_time" content="2018-04-05T03:50:33.522Z">
+<meta property="og:description" content="逆向入门第二篇">
+<meta property="og:updated_time" content="2018-08-03T12:21:19.612Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2014-HITCON-stkof">
-<meta name="twitter:description" content="乍一看不知道程序是干嘛的，那我再好好看一下。好了放过自己，先看一下别人的吧，毕竟还在学。不知道为什么有 :: 这反汇编好奇怪啊！atol()函数：将字符串转换成longatoll函数：将字符串转化为long long类型变量 程序几乎啥输出也没有，只能硬看了，大概是一个内存分配器，差不多有四个功能 1，分配指定大小的内存，并在bss段记录对应 chunk 的指针，假设其为global。2，根据指定">
+<meta name="twitter:title" content="XMAN-reversing-2">
+<meta name="twitter:description" content="逆向入门第二篇">
 
 
 
@@ -141,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/04/2014-HITCON-stkof/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/03/XMAN-reversing-day2/"/>
 
 
 
 
 
-  <title> 2014-HITCON-stkof | 尿尿 </title>
+  <title> XMAN-reversing-2 | 尿尿 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -314,7 +314,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/04/2014-HITCON-stkof/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/03/XMAN-reversing-day2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lin Miaoqian">
@@ -335,7 +335,7 @@
             
             
               
-                2014-HITCON-stkof
+                XMAN-reversing-2
               
             
           </h1>
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-04T23:27:02+08:00">
-                2018-04-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-03T08:50:25+08:00">
+                2018-08-03
               </time>
             
 
@@ -369,9 +369,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/04/04/2014-HITCON-stkof/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/03/XMAN-reversing-day2/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/04/04/2014-HITCON-stkof/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/03/XMAN-reversing-day2/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -397,17 +397,98 @@
       
 
       
-        <p>乍一看不知道程序是干嘛的，那我再好好看一下。<br>好了放过自己，先看一下别人的吧，毕竟还在学。<br>不知道为什么有 :: 这反汇编好奇怪啊！<br>atol()函数：将字符串转换成long<br>atoll函数：将字符串转化为long long类型变量</p>
-<p>程序几乎啥输出也没有，只能硬看了，大概是一个内存分配器，差不多有四个功能</p>
-<p>1，分配指定大小的内存，并在bss段记录对应 chunk 的指针，假设其为global。<br>2，根据指定索引，以及指定大小向指定内存处，读入数据。可见，这里存在堆溢出的情况，因为这里读入字节的大小是由我们来控制的。<br> <code>fgets(&amp;s, 16, stdin); n = atoll(&amp;s);</code><br>3，根据指定索引，释放已经分配的内存块。<br>4，这个功能并没有什么用</p>
-<p>值得注意的是，由于程序本身没有进行 setbuf 操作，所以在执行输入输出操作的时候会申请缓冲区。 什么意思？</p>
-<p>有很明显的堆溢出，输入的东西可以大于分配的空间。</p>
-<p>由于程序本身没有 leak，要想执行 system 等函数，我们的首要目的还是先构造 leak，基本思路如下</p>
-<p>利用 unlink 修改 global[2] 为 &amp;global[2]-0x18。 为什么是改为-0x18=24 我知道了<br>利用编辑功能修改 global[0] 为 free@got 地址，同时修改 global[1] 为puts@got 地址，global[2] 为 atoi@got 地址。<br>修改 free@got 为 puts@plt 的地址，从而当再次调用 free 函数时，即可直接调用 puts 函数。这样就可以泄漏函数内容。<br>free global[2]，即泄漏 puts@got 内容，从而知道 system 函数地址以及 libc 中 /bin/sh 地址。<br>修改 atoi@got 为 system 函数地址，再次调用时，输入 /bin/sh 地址即可。</p>
-<p>通过unlink漏洞,修改free@got为puts,输入puts@plt,输出puts函数的真实地址.修改atoi@got为system, 输入/bin/sh的地址, 获得shell.<br>使用pwntools，利用unlink漏洞，改写free为puts，实现任意地址泄露。然后使用DynELF找到system，再将free替换为system，执行system(‘/bin/sh’)。</p>
-<p>还是有一些东西不懂</p>
-<p>Allocate 2 buffers.<br>Overflow the first buffer into the second buffer.<br>Setup the data structures so that free() doesn’t error out and calls unlink() with our wanted values.<br>Free the 2nd buffer.<br>Call readin(idxb, ptrto) to put the destination pointer (a GOT address) in the bag and also put our ROP chain (which we will pivot to later) in the bag.<br>Call readin(idpto, what) to write to ptrto.</p>
-<p>相关资料：<br><a href="http://acez.re/ctf-writeup-hitcon-ctf-2014-stkof-or-modern-heap-overflow/" target="_blank" rel="external">http://acez.re/ctf-writeup-hitcon-ctf-2014-stkof-or-modern-heap-overflow/</a><br><a href="https://github.com/ctfs/write-ups-2014/tree/master/hitcon-ctf-2014/stkof" target="_blank" rel="external">https://github.com/ctfs/write-ups-2014/tree/master/hitcon-ctf-2014/stkof</a></p>
+        <p>逆向入门第二篇<br><a id="more"></a> </p>
+<h4 id="hide"><a href="#hide" class="headerlink" title="hide"></a>hide</h4><p>strings 查看到有壳upx 3.91</p>
+<p>运行起来相当于脱壳看，因此可以用dd 把两段(cat /proc/pidof xx/maps)dump下来之后拼在一起，可以在IDA里面看。但实际上文件结构会被破坏，因为是运行时镜像，动态脱壳都有这样的问题。dd<br>有反调试<br>使用strace<br>ptrace 相关的反调试<br>需要把反调试过掉<br>set $eax=0<br>gdb:<br>catch syscall ptrace </p>
+<p>main 函数：<br> if ** 反调试的位置<br> write<br> read<br> check_flag strcmp</p>
+<p> 把代码藏起来了<br> gdb<br> catch<br> hb *0x start地址 下硬件断点<br> record full (只有在静态执行时有用) 之后可以导着执行也可以正着执行<br> rsi<br> ni<br> ni<br> si<br>reverse-continue 倒着执行回到上一个断点</p>
+<p>ELF：init区，<br>字符串交叉引用 enter flag 看到哪些地方引用，找到藏起来的代码<br>p 出来F5有问题。<br>mov eax xxh<br>syscall<br>cmp eax 0<br>jnz xx<br>忽视syscall 会改变eax</p>
+<p>xor eax eax<br>syscall<br>cmp eax<br>所以此处也要改</p>
+<p>jnz 改成jz，就可以看但是语义会改变<br>是常见算法 Tea<br>Tea-&gt;异或-&gt;tea。。<br>v1 为加密后的flag<br>解密获得key  delta xtea</p>
+<p>字符串定位找到关键函数<br>附：<a href="https://blog.csdn.net/buaaqqq2015/article/details/79736026" target="_blank" rel="external">2018年强网杯初赛 逆向题目 hide writeup (超详细)</a><br><strong>符号匹配</strong><br>总结：ida flirt/rizzo.py 比IDA官方好,不支持IDA7.0/ <a href="https://github.com/A7um/CTFUtils" target="_blank" rel="external">https://github.com/A7um/CTFUtils</a> 支持IDA7.0</p>
+<p>写个简易的源码<br>gcc –static<br>安装插件rizoo (autm改进支持7.0的)<br>file-&gt;produce file-&gt;rizzo<br>file-&gt;load file-&gt;rizzo<br>静态编译，得到有符号的，使用工具匹配对照看，produce /load<br>windows 程序比较有用<br>ps -ef | grep 进程名</p>
+<h4 id="magic"><a href="#magic" class="headerlink" title="magic"></a>magic</h4><p>动态调试更方便<br>F5有问题,修改main调用约定<br><strong>调用约定</strong><br>options-&gt;complier-&gt;编译器-&gt;Vistual C++ 就可以了<br>首先设置断点发现问题，使用trace找到main之前调用的函数，通过交叉调用分析函数。<br>首先过掉 check_sercet  </p>
+<p>前三个<br>最后一个<br>simple_enc<br>int __usercall xxx@<rax></rax></p>
+<p>setjmp：设置jmp点。longjmp: 跳到setjmp设置的位置异常处理<br>虚拟机逆向题</p>
+<p>相关writeup<br><a href="https://www.52pojie.cn/thread-742361-1-1.html" target="_blank" rel="external">https://www.52pojie.cn/thread-742361-1-1.html</a>  RCTF - magic<br><a href="https://4hou.win/wordpress/?p=20989" target="_blank" rel="external">https://4hou.win/wordpress/?p=20989</a><br>haskell 编译中间语言<br>oooverflow<br>34c3ctf   </p>
+<p>了解到虚拟机逆向…我对逆向还真的一无所知  </p>
+<p>需要学习的: </p>
+<ul>
+<li>gdb 使用</li>
+<li>虚拟机逆向</li>
+<li>逆向题分析</li>
+<li>脱壳</li>
+<li>动态调试</li>
+</ul>
+<h4 id="非常规逆向"><a href="#非常规逆向" class="headerlink" title="非常规逆向"></a>非常规逆向</h4><ul>
+<li>lua/python/java/lua-jit/haskell/applescript/js混淆方法多/solidity/webassembly/etc</li>
+<li>firmware固件/raw bin/etc</li>
+<li>chip8/avr/clemency/risc-v/etc</li>
+</ul>
+<h4 id="找工具"><a href="#找工具" class="headerlink" title="找工具"></a>找工具</h4><ul>
+<li>binary parser</li>
+<li>disassembler<br>  -必要的</li>
+<li>tracer<ul>
+<li>disassembler+tracer=debugger</li>
+</ul>
+</li>
+<li>debugger</li>
+<li>decomplier</li>
+</ul>
+<h4 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h4><p>读文档<br>工具链 toolchains<br>教程 tutorial<br>例子 </p>
+<ul>
+<li>haskell</li>
+</ul>
+<h4 id="find-binary"><a href="#find-binary" class="headerlink" title="find binary"></a>find binary</h4><ul>
+<li>google</li>
+<li>firmware<ul>
+<li>rebase the binary 还原基址</li>
+<li>recover the symbol table </li>
+</ul>
+</li>
+<li>other</li>
+<li>-strings/binwalk</li>
+<li>IDA/radare2/binary.ninja/ida loader</li>
+</ul>
+<h4 id="disassembler"><a href="#disassembler" class="headerlink" title="disassembler"></a>disassembler</h4><p>-google ‘xxx dissemab/xx IDA ‘<br>    -avr ida<br>-人工<br>-ida pro/radare2/binary.ninja interface<br>    IDA processor</p>
+<h4 id="tracer"><a href="#tracer" class="headerlink" title="tracer"></a>tracer</h4><ul>
+<li>google 先搜文档</li>
+<li>tracer</li>
+<li>debugger<ul>
+<li>gdb-mutiarch</li>
+<li>qemu</li>
+<li>emulator</li>
+<li>trace reply</li>
+</ul>
+</li>
+<li>例子<ul>
+<li>solidity</li>
+</ul>
+</li>
+</ul>
+<h4 id="逆向工程"><a href="#逆向工程" class="headerlink" title="逆向工程"></a>逆向工程</h4><p>find code pattern</p>
+<h3 id="printf-machine"><a href="#printf-machine" class="headerlink" title="printf_machine"></a>printf_machine</h3><p>实现一套指令集<br>mov语句,脚本翻译<br>符号执行 </p>
+<h3 id="assem"><a href="#assem" class="headerlink" title="assem"></a>assem</h3><p>写个html 在浏览器调</p>
+<h3 id="re-3"><a href="#re-3" class="headerlink" title="re_3"></a>re_3</h3><p>ida/procs/<br><a href="https://github.com/themadinventor/ida-xtensa" target="_blank" rel="external">https://github.com/themadinventor/ida-xtensa</a><br>上网找适配器<br>找flag 字符串交叉引用</p>
+<h4 id="easy"><a href="#easy" class="headerlink" title="easy"></a>easy</h4><p>haskell 逆向<br>有反汇编 网上找</p>
+<h4 id="IDA"><a href="#IDA" class="headerlink" title="IDA"></a>IDA</h4><h5 id="断点"><a href="#断点" class="headerlink" title="断点"></a>断点</h5><ul>
+<li>执行断点是软件断点。 </li>
+<li>内存访问断点是硬件断点。</li>
+</ul>
+<h5 id="trace-功能"><a href="#trace-功能" class="headerlink" title="trace 功能"></a>trace 功能</h5><ul>
+<li><p>指令跟踪：IDA将会记录每一条指令的执行，并保存寄存器数值，通过使用这些信息，你可以找出应用程序的执行过程，并可找出哪条指令修改了哪个寄存器。</p>
+</li>
+<li><p>函数跟踪：IDA将会记录所有的函数调用和函数返回。</p>
+</li>
+<li><p>读写-写-执行跟踪：IDA将会记录一个对指定地址的所有访问。这种机制相当于是不停止的断点。</p>
+</li>
+</ul>
+<p>对每种跟踪机制，都会记录相应的跟踪事件到跟踪缓存区，也可以保存到一个txt的文件中，同样可以通过Tracing-options里的选项来设定。</p>
+<p>插件：<br>keypatch<br>findcrypt-yara 找加密方式的插件 <a href="https://www.cnblogs.com/zhaijiahui/p/7978897.html" target="_blank" rel="external">https://www.cnblogs.com/zhaijiahui/p/7978897.html</a><br>FRIEND 链接：<a href="https://github.com/alexhude/FRIEND" target="_blank" rel="external">https://github.com/alexhude/FRIEND</a></p>
+<p> 翻页 esc 和 Ctrl+Enter </p>
+<p><strong>强制类型转换</strong></p>
+<h4 id="常见函数"><a href="#常见函数" class="headerlink" title="常见函数"></a>常见函数</h4><p>time64</p>
+<p>P:还是懒得贴图，我以后不知道自己在写什么鬼东西时一定会后悔的 嗯…<br>大佬讲的是在太难了,我还是先去做一些基础题呜呜呜</p>
 
       
     </div>
@@ -435,6 +516,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/xman-reversing/" rel="tag"># xman,reversing</a>
+          
+        </div>
+      
 
       
         
@@ -444,8 +531,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/05/2016 ZCTF note2/" rel="next" title="2016 ZCTF note2">
-                <i class="fa fa-chevron-left"></i> 2016 ZCTF note2
+              <a href="/2018/08/03/XMAN-pwn-day1/" rel="next" title="XMAN-pwn-day1">
+                <i class="fa fa-chevron-left"></i> XMAN-pwn-day1
               </a>
             
           </div>
@@ -454,8 +541,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/29/Bullet/" rel="prev" title="Bullet">
-                Bullet <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/03/XMAN-reversing-1/" rel="prev" title="XMAN-reversing-1">
+                XMAN-reversing-1 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -510,8 +597,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -617,6 +713,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#hide"><span class="nav-number">1.</span> <span class="nav-text">hide</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#magic"><span class="nav-number">2.</span> <span class="nav-text">magic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非常规逆向"><span class="nav-number">3.</span> <span class="nav-text">非常规逆向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#找工具"><span class="nav-number">4.</span> <span class="nav-text">找工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#格式"><span class="nav-number">5.</span> <span class="nav-text">格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#find-binary"><span class="nav-number">6.</span> <span class="nav-text">find binary</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#disassembler"><span class="nav-number">7.</span> <span class="nav-text">disassembler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tracer"><span class="nav-number">8.</span> <span class="nav-text">tracer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逆向工程"><span class="nav-number">9.</span> <span class="nav-text">逆向工程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#printf-machine"><span class="nav-number"></span> <span class="nav-text">printf_machine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assem"><span class="nav-number"></span> <span class="nav-text">assem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-3"><span class="nav-number"></span> <span class="nav-text">re_3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#easy"><span class="nav-number">1.</span> <span class="nav-text">easy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IDA"><span class="nav-number">2.</span> <span class="nav-text">IDA</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#断点"><span class="nav-number">2.1.</span> <span class="nav-text">断点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trace-功能"><span class="nav-number">2.2.</span> <span class="nav-text">trace 功能</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见函数"><span class="nav-number">3.</span> <span class="nav-text">常见函数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -766,9 +878,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2018/04/04/2014-HITCON-stkof/';
-          this.page.identifier = '2018/04/04/2014-HITCON-stkof/';
-          this.page.title = '2014-HITCON-stkof';
+          this.page.url = 'http://yoursite.com/2018/08/03/XMAN-reversing-day2/';
+          this.page.identifier = '2018/08/03/XMAN-reversing-day2/';
+          this.page.title = 'XMAN-reversing-2';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://yuuoniy.disqus.com/embed.js';

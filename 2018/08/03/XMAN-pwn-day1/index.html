@@ -103,15 +103,17 @@
 
 
 
-<meta name="description" content="慕名而来的人都会爱上我">
-<meta property="og:type" content="website">
-<meta property="og:title" content="尿尿">
-<meta property="og:url" content="http://yoursite.com/archives/2018/08/index.html">
+<meta name="description" content="pwn 漏洞挖掘pwn 题逆向分析策略熟悉常见漏洞 缓冲区溢出 堆溢出 栈溢出 bss溢出 data溢出(通常覆盖指针) wellpan,alictf 2016 vss  整数溢出 无符号型与有符号的转换 (read 一般是无符号) 整数加减乘除法、如malloc(size2) size=边界/2+1 malloc(xy)  格式化字符串常见漏洞 UAF逻辑漏洞 访问控制、协议漏洞  逆向技巧 关">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XMAN-pwn-day1">
+<meta property="og:url" content="http://yoursite.com/2018/08/03/XMAN-pwn-day1/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="慕名而来的人都会爱上我">
+<meta property="og:description" content="pwn 漏洞挖掘pwn 题逆向分析策略熟悉常见漏洞 缓冲区溢出 堆溢出 栈溢出 bss溢出 data溢出(通常覆盖指针) wellpan,alictf 2016 vss  整数溢出 无符号型与有符号的转换 (read 一般是无符号) 整数加减乘除法、如malloc(size2) size=边界/2+1 malloc(xy)  格式化字符串常见漏洞 UAF逻辑漏洞 访问控制、协议漏洞  逆向技巧 关">
+<meta property="og:updated_time" content="2018-08-03T08:58:48.388Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="尿尿">
-<meta name="twitter:description" content="慕名而来的人都会爱上我">
+<meta name="twitter:title" content="XMAN-pwn-day1">
+<meta name="twitter:description" content="pwn 漏洞挖掘pwn 题逆向分析策略熟悉常见漏洞 缓冲区溢出 堆溢出 栈溢出 bss溢出 data溢出(通常覆盖指针) wellpan,alictf 2016 vss  整数溢出 无符号型与有符号的转换 (read 一般是无符号) 整数加减乘除法、如malloc(size2) size=边界/2+1 malloc(xy)  格式化字符串常见漏洞 UAF逻辑漏洞 访问控制、协议漏洞  逆向技巧 关">
 
 
 
@@ -139,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2018/08/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/03/XMAN-pwn-day1/"/>
 
 
 
 
 
-  <title> Archive | 尿尿 </title>
+  <title> XMAN-pwn-day1 | 尿尿 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -170,7 +172,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -302,139 +304,184 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-       
-      
-      OK! 36 posts in total. Keep on posting.
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2018">2018</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2018/08/03/XMAN-pwn-day1/" itemprop="url">
-              
-                <span itemprop="name">XMAN-pwn-day1</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-03T16:25:06+08:00"
-              content="2018-08-03" >
-          08-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2018/08/03/XMAN-reversing-day2/" itemprop="url">
-              
-                <span itemprop="name">XMAN-reversing-2</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-03T08:50:25+08:00"
-              content="2018-08-03" >
-          08-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2018/08/03/XMAN-reversing-1/" itemprop="url">
-              
-                <span itemprop="name">XMAN-reversing-1</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-03T00:24:43+08:00"
-              content="2018-08-03" >
-          08-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/03/XMAN-pwn-day1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lin Miaoqian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尿尿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                XMAN-pwn-day1
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-03T16:25:06+08:00">
+                2018-08-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/03/XMAN-pwn-day1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/03/XMAN-pwn-day1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="pwn-漏洞挖掘"><a href="#pwn-漏洞挖掘" class="headerlink" title="pwn 漏洞挖掘"></a>pwn 漏洞挖掘</h4><p>pwn 题逆向分析策略<br>熟悉常见漏洞</p>
+<h4 id="缓冲区溢出"><a href="#缓冲区溢出" class="headerlink" title="缓冲区溢出"></a>缓冲区溢出</h4><ul>
+<li>堆溢出 栈溢出 bss溢出 data溢出(通常覆盖指针)</li>
+<li>wellpan,alictf 2016 vss</li>
+</ul>
+<h4 id="整数溢出"><a href="#整数溢出" class="headerlink" title="整数溢出"></a>整数溢出</h4><ul>
+<li>无符号型与有符号的转换 (read 一般是无符号)</li>
+<li>整数加减乘除法、如malloc(size<em>2) size=边界/2+1 malloc(x</em>y)</li>
+</ul>
+<h4 id="格式化字符串"><a href="#格式化字符串" class="headerlink" title="格式化字符串"></a>格式化字符串</h4><p>常见漏洞</p>
+<h4 id="UAF"><a href="#UAF" class="headerlink" title="UAF"></a>UAF</h4><h4 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a>逻辑漏洞</h4><ul>
+<li>访问控制、协议漏洞</li>
+</ul>
+<h4 id="逆向技巧"><a href="#逆向技巧" class="headerlink" title="逆向技巧"></a>逆向技巧</h4><ul>
+<li>关键数据结构分析：还原结构体、接口、类</li>
+<li>控制流分析：函数名、变量名。理清程序的执行逻辑</li>
+<li>数据流分析：理清数据的流向</li>
+</ul>
+<h4 id="分析策略"><a href="#分析策略" class="headerlink" title="分析策略"></a>分析策略</h4><ul>
+<li>小：要分析得明明白白</li>
+<li>大：关注用户输入的地方 x read/gets 根据数据的处理逻辑,一定需要输入触发漏洞 </li>
+</ul>
+<h4 id="控制流分析"><a href="#控制流分析" class="headerlink" title="控制流分析"></a>控制流分析</h4><h4 id="代码识别"><a href="#代码识别" class="headerlink" title="代码识别"></a>代码识别</h4><h4 id="数据流分析"><a href="#数据流分析" class="headerlink" title="数据流分析"></a>数据流分析</h4><p>创建结构体<br>insert<br>调整为32位的<br>有lword 就是？</p>
+<p>看edit长度对不对 </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/03/XMAN-reversing-day2/" rel="prev" title="XMAN-reversing-2">
+                XMAN-reversing-2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -442,6 +489,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -461,8 +519,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -568,6 +635,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#pwn-漏洞挖掘"><span class="nav-number">1.</span> <span class="nav-text">pwn 漏洞挖掘</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓冲区溢出"><span class="nav-number">2.</span> <span class="nav-text">缓冲区溢出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#整数溢出"><span class="nav-number">3.</span> <span class="nav-text">整数溢出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#格式化字符串"><span class="nav-number">4.</span> <span class="nav-text">格式化字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UAF"><span class="nav-number">5.</span> <span class="nav-text">UAF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑漏洞"><span class="nav-number">6.</span> <span class="nav-text">逻辑漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逆向技巧"><span class="nav-number">7.</span> <span class="nav-text">逆向技巧</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析策略"><span class="nav-number">8.</span> <span class="nav-text">分析策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制流分析"><span class="nav-number">9.</span> <span class="nav-text">控制流分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码识别"><span class="nav-number">10.</span> <span class="nav-text">代码识别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据流分析"><span class="nav-number">11.</span> <span class="nav-text">数据流分析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -693,7 +776,9 @@
   
 
   
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
 
 
   
@@ -712,6 +797,18 @@
       <script id="dsq-count-scr" src="https://yuuoniy.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/08/03/XMAN-pwn-day1/';
+          this.page.identifier = '2018/08/03/XMAN-pwn-day1/';
+          this.page.title = 'XMAN-pwn-day1';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yuuoniy.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   

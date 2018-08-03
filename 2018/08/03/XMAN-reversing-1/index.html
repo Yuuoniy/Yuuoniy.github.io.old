@@ -110,7 +110,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/08/03/XMAN-reversing-1/index.html">
 <meta property="og:site_name" content="尿尿">
 <meta property="og:description" content="跟着萌新一起逆向入门呦。包括：基本知识点,简单题例子,常见操作">
-<meta property="og:updated_time" content="2018-08-02T17:13:24.792Z">
+<meta property="og:updated_time" content="2018-08-03T04:20:03.145Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XMAN-reversing-1">
 <meta name="twitter:description" content="跟着萌新一起逆向入门呦。包括：基本知识点,简单题例子,常见操作">
@@ -398,7 +398,23 @@
 
       
         <p>跟着萌新一起逆向入门呦。包括：基本知识点,简单题例子,常见操作<br><a id="more"></a><br>先来过一遍知识点吧！</p>
-<h4 id="常规逆向："><a href="#常规逆向：" class="headerlink" title="常规逆向："></a>常规逆向：</h4><p>ELF/PE/Mach-O file with x86/x64/arm<br>此外还有一些非常常规逆向，比如…不说啦哈哈哈哈<br>逆向的一般步骤：<strong>信息收集-&gt;定位关键代码-&gt;分析*</strong></p>
+<h4 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h4><ul>
+<li>Disassembler 反汇编器</li>
+<li>Tracer 记录运行的过程,如函数，指令</li>
+<li>Debugger 调试器</li>
+<li>Decompiler IDA、geb（支持mips、web assembly?)</li>
+<li>Emulator (qemu 模拟执行）知道CPU状态</li>
+<li>Symbolic execution 符号执行 angr、路径爆炸</li>
+</ul>
+<h5 id="具体工具"><a href="#具体工具" class="headerlink" title="具体工具"></a>具体工具</h5><ul>
+<li>IDA 支持脚本、手工定义的反汇编规则</li>
+<li>Geb 逆安卓 mips web<em>*</em></li>
+<li>Binary ninja 不支持反编译,api好用，通常提供静态分析</li>
+<li>R2 命令系统奇怪，支持以太坊智能合约</li>
+<li>Retdec </li>
+<li>capstone</li>
+</ul>
+<p><strong>常规逆向</strong><br>ELF/PE/Mach-O file with x86/x64/arm<br>此外还有一些非常常规逆向，比如…不说啦哈哈哈哈<br>逆向的一般步骤：<strong>信息收集-&gt;定位关键代码-&gt;分析*</strong></p>
 <h4 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h4><p>Strings(搜看看有没有源码..）/ binwalk file ida -&gt; google/github<br><strong>例子</strong>  </p>
 <ul>
 <li>CISCN 2018 re</li>
@@ -489,9 +505,12 @@
 <li>脚本执行 (IDA portable版本中不支持python执行…)</li>
 <li>修改函数结尾地址</li>
 <li>查看并修改sp(options-&gt;general)</li>
-<li>动态调试<br>快捷键需要熟悉噢！<br><strong>插件</strong></li>
+<li>动态调试</li>
+<li>options-&gt;complier 修改编译器</li>
+<li>模糊符号匹配<br>快捷键需要熟悉噢！<br><strong>插件</strong></li>
 <li>lazyIDA dump 数据超方便</li>
 <li>keypatch </li>
+<li>rizoo</li>
 </ul>
 <p><strong>参考资料</strong>  </p>
 <ul>
@@ -552,6 +571,10 @@
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/03/XMAN-reversing-day2/" rel="next" title="XMAN-reversing-2">
+                <i class="fa fa-chevron-left"></i> XMAN-reversing-2
+              </a>
             
           </div>
 
@@ -640,7 +663,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -662,7 +685,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -741,7 +764,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#常规逆向："><span class="nav-number">1.</span> <span class="nav-text">常规逆向：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信息收集"><span class="nav-number">2.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定位关键代码"><span class="nav-number">3.</span> <span class="nav-text">定位关键代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析代码"><span class="nav-number">4.</span> <span class="nav-text">分析代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#混淆"><span class="nav-number">5.</span> <span class="nav-text">混淆</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#例子："><span class="nav-number">5.1.</span> <span class="nav-text">例子：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解混淆"><span class="nav-number">5.2.</span> <span class="nav-text">解混淆</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#壳（packer"><span class="nav-number">6.</span> <span class="nav-text">壳（packer)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类型："><span class="nav-number">6.1.</span> <span class="nav-text">类型：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解决方法"><span class="nav-number">6.2.</span> <span class="nav-text">解决方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反调试"><span class="nav-number">7.</span> <span class="nav-text">反调试</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Debugger-detection"><span class="nav-number">7.1.</span> <span class="nav-text">Debugger detection</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Debugger-Interfering"><span class="nav-number">7.2.</span> <span class="nav-text">Debugger Interfering</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#re0"><span class="nav-number">8.</span> <span class="nav-text">re0</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#动态解密"><span class="nav-number">8.1.</span> <span class="nav-text">动态解密</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RE1"><span class="nav-number">9.</span> <span class="nav-text">RE1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#simplecheck"><span class="nav-number">10.</span> <span class="nav-text">simplecheck</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Evr1"><span class="nav-number">11.</span> <span class="nav-text">Evr1</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#工具介绍"><span class="nav-number">1.</span> <span class="nav-text">工具介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#具体工具"><span class="nav-number">1.1.</span> <span class="nav-text">具体工具</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信息收集"><span class="nav-number">2.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定位关键代码"><span class="nav-number">3.</span> <span class="nav-text">定位关键代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析代码"><span class="nav-number">4.</span> <span class="nav-text">分析代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#混淆"><span class="nav-number">5.</span> <span class="nav-text">混淆</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#例子："><span class="nav-number">5.1.</span> <span class="nav-text">例子：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解混淆"><span class="nav-number">5.2.</span> <span class="nav-text">解混淆</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#壳（packer"><span class="nav-number">6.</span> <span class="nav-text">壳（packer)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类型："><span class="nav-number">6.1.</span> <span class="nav-text">类型：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解决方法"><span class="nav-number">6.2.</span> <span class="nav-text">解决方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反调试"><span class="nav-number">7.</span> <span class="nav-text">反调试</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Debugger-detection"><span class="nav-number">7.1.</span> <span class="nav-text">Debugger detection</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Debugger-Interfering"><span class="nav-number">7.2.</span> <span class="nav-text">Debugger Interfering</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#re0"><span class="nav-number">8.</span> <span class="nav-text">re0</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#动态解密"><span class="nav-number">8.1.</span> <span class="nav-text">动态解密</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RE1"><span class="nav-number">9.</span> <span class="nav-text">RE1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#simplecheck"><span class="nav-number">10.</span> <span class="nav-text">simplecheck</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Evr1"><span class="nav-number">11.</span> <span class="nav-text">Evr1</span></a></li></ol></div>
             
 
           </div>
