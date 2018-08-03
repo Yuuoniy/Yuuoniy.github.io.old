@@ -106,13 +106,13 @@
 <meta name="description" content="stack privot 题目溢出的字节就只有50-0x20-4=14个字节，所以我们很难执行一些比较好的ROP。这里我们就考虑stack privot。 基本利用思路如下 利用栈溢出布置shellcode控制eip指向shellcode处 第一步，还是比较容易地，直接读取即可，但是由于程序本身会开启ASLR保护，所以我们很难直接知道shellcode的地址。但是栈上相对偏移是固定的，所以我们可以">
 <meta name="keywords" content="pwn">
 <meta property="og:type" content="article">
-<meta property="og:title" content="b0verfl0w'">
+<meta property="og:title" content="b0verfl0w">
 <meta property="og:url" content="http://yoursite.com/2018/03/18/b0verfl0w/index.html">
 <meta property="og:site_name" content="尿尿">
 <meta property="og:description" content="stack privot 题目溢出的字节就只有50-0x20-4=14个字节，所以我们很难执行一些比较好的ROP。这里我们就考虑stack privot。 基本利用思路如下 利用栈溢出布置shellcode控制eip指向shellcode处 第一步，还是比较容易地，直接读取即可，但是由于程序本身会开启ASLR保护，所以我们很难直接知道shellcode的地址。但是栈上相对偏移是固定的，所以我们可以">
-<meta property="og:updated_time" content="2018-03-18T16:00:49.864Z">
+<meta property="og:updated_time" content="2018-03-30T03:08:48.140Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="b0verfl0w'">
+<meta name="twitter:title" content="b0verfl0w">
 <meta name="twitter:description" content="stack privot 题目溢出的字节就只有50-0x20-4=14个字节，所以我们很难执行一些比较好的ROP。这里我们就考虑stack privot。 基本利用思路如下 利用栈溢出布置shellcode控制eip指向shellcode处 第一步，还是比较容易地，直接读取即可，但是由于程序本身会开启ASLR保护，所以我们很难直接知道shellcode的地址。但是栈上相对偏移是固定的，所以我们可以">
 
 
@@ -147,7 +147,7 @@
 
 
 
-  <title> b0verfl0w' | 尿尿 </title>
+  <title> b0verfl0w | 尿尿 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -335,7 +335,7 @@
             
             
               
-                b0verfl0w'
+                b0verfl0w
               
             
           </h1>
@@ -449,14 +449,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/03/29/Bullet/" rel="next" title="Bullet">
+                <i class="fa fa-chevron-left"></i> Bullet
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/18/XDCTF2015-pwn200/" rel="prev" title="XDCTF2015-pwn200(DynELF)'">
-                XDCTF2015-pwn200(DynELF)' <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/18/XDCTF2015-pwn200/" rel="prev" title="XDCTF2015-pwn200(DynELF)">
+                XDCTF2015-pwn200(DynELF) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -527,7 +531,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -549,7 +553,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -769,7 +773,7 @@
         var disqus_config = function () {
           this.page.url = 'http://yoursite.com/2018/03/18/b0verfl0w/';
           this.page.identifier = '2018/03/18/b0verfl0w/';
-          this.page.title = 'b0verfl0w\'';
+          this.page.title = 'b0verfl0w';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://yuuoniy.disqus.com/embed.js';
