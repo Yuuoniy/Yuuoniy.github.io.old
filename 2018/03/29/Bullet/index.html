@@ -87,7 +87,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="ctf,pwn," />
 
 
 
@@ -104,13 +104,13 @@
 
 
 <meta name="description" content="注意stack或是struct的layout 漏洞strncat(bullet-&amp;gt;desc,buf,MAX - bullet-&amp;gt;power);这样首先create长度为47的bullet，通过power_up 再增加一个power 此时bullet长度为48通过strnact 最后还会赋值 null ,因此造成溢出，,power會從\x2f蓋成\x00又因为 power = strle">
-<meta name="keywords">
+<meta name="keywords" content="ctf,pwn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bullet">
 <meta property="og:url" content="http://yoursite.com/2018/03/29/Bullet/index.html">
 <meta property="og:site_name" content="尿尿">
 <meta property="og:description" content="注意stack或是struct的layout 漏洞strncat(bullet-&amp;gt;desc,buf,MAX - bullet-&amp;gt;power);这样首先create长度为47的bullet，通过power_up 再增加一个power 此时bullet长度为48通过strnact 最后还会赋值 null ,因此造成溢出，,power會從\x2f蓋成\x00又因为 power = strle">
-<meta property="og:updated_time" content="2018-04-10T06:29:31.704Z">
+<meta property="og:updated_time" content="2018-09-09T13:31:36.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bullet">
 <meta name="twitter:description" content="注意stack或是struct的layout 漏洞strncat(bullet-&amp;gt;desc,buf,MAX - bullet-&amp;gt;power);这样首先create长度为47的bullet，通过power_up 再增加一个power 此时bullet长度为48通过strnact 最后还会赋值 null ,因此造成溢出，,power會從\x2f蓋成\x00又因为 power = strle">
@@ -442,6 +442,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/ctf-pwn/" rel="tag"># ctf,pwn</a>
+          
+        </div>
+      
 
       
         
@@ -533,7 +539,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -555,7 +561,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -713,6 +719,8 @@
   
 
 
+  
+
 
 
 
@@ -734,6 +742,9 @@
 
   
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   

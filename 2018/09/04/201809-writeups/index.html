@@ -1,0 +1,953 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到 readme_revenge分析程序，首先读取name，之后输出，存在栈溢出漏洞?反编译有问题，还是看汇编比较好，虽然我汇编很弱orzfile strings checksec一波 静态链接python subprocess 模块flag 在 0x00006B4040首先输出junk，程序崩溃，地址0x000000000045a">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="201809-writeups">
+<meta property="og:url" content="http://yoursite.com/2018/09/04/201809-writeups/index.html">
+<meta property="og:site_name" content="尿尿">
+<meta property="og:description" content="希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到 readme_revenge分析程序，首先读取name，之后输出，存在栈溢出漏洞?反编译有问题，还是看汇编比较好，虽然我汇编很弱orzfile strings checksec一波 静态链接python subprocess 模块flag 在 0x00006B4040首先输出junk，程序崩溃，地址0x000000000045a">
+<meta property="og:updated_time" content="2018-09-08T17:19:04.946Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="201809-writeups">
+<meta name="twitter:description" content="希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到 readme_revenge分析程序，首先读取name，之后输出，存在栈溢出漏洞?反编译有问题，还是看汇编比较好，虽然我汇编很弱orzfile strings checksec一波 静态链接python subprocess 模块flag 在 0x00006B4040首先输出junk，程序崩溃，地址0x000000000045a">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'W9VSQ0GGKQ',
+      apiKey: '74aef4d13e544170be082d500082ddb0',
+      indexName: 'yuuoniy',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/04/201809-writeups/"/>
+
+
+
+
+
+  <title> 201809-writeups | 尿尿 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">尿尿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">没错就是尿尿啦</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/04/201809-writeups/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lin Miaoqian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尿尿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                201809-writeups
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-04T11:12:38+08:00">
+                2018-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/04/201809-writeups/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/09/04/201809-writeups/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到</p>
+<h3 id="readme-revenge"><a href="#readme-revenge" class="headerlink" title="readme_revenge"></a>readme_revenge</h3><p>分析程序，首先读取name，之后输出，存在栈溢出漏洞?<br>反编译有问题，还是看汇编比较好，虽然我汇编很弱orz<br>file strings checksec一波 静态链接<br>python subprocess 模块<br>flag 在 0x00006B4040<br>首先输出junk，程序崩溃，地址0x000000000045ad64<br>看wp知道了rabin2 使用<br>为什么rabin2 -z readme_revenge | grep 34C3 能知道flag被隐藏在程序中?<br>看 wp 说 <strong>printf_modifier_table、</strong>printf_function_table和printf_arginfo_table ,之前利用过…</p>
+<p>劫持控制流….? flag 在程序中 打印出来就好，然而能想到这个也挺难的…</p>
+<h4 id="fortify-fail函数"><a href="#fortify-fail函数" class="headerlink" title="__fortify_fail函数"></a>__fortify_fail函数</h4><p><strong>fortify_fail函数 判断need_backtrace &amp;&amp; </strong>libc_argv[0] != NULL 后打印 <strong>libc_argv[0] 
+</strong>stack_chk_fail 调用了<strong>fortify_fail函数，</strong>fortify_fail函数调用了__libc_message函数</p>
+<p>利用思路：通过溢出覆盖指针， __libc_argv[0]指向flag的地址就可以打印出flag<br>libc_argv[0]在 0x06B7980<br>静态链接….<br>printf 有个新奇的功能… Customizing<br>环境变量LIBC_FATAL<em>STDERR</em>=1<br>查看printf 的实现，想想怎么劫持控制流 </p>
+<ol>
+<li>printf 调用 vprintf- do_positional-printf_positional-<strong>parse_one_specwc 
+</strong>builtin_expect(EXP, N)。 意思是：EXP==N的概率很大。<br><strong>builtin_expect((x),1)表示 x 的值为真的可能性更大；
+</strong>builtin_expect((x),0)表示 x 的值为假的可能性更大。</li>
+</ol>
+<p>__printf_arginfo_table 是printf_arginfo_size_function  结构体，我们可以伪造这个结构体</p>
+<ol>
+<li>do_positional ?</li>
+</ol>
+<p>printf_info 结构体</p>
+<ol>
+<li><p>调用_fortify_fail，伪造 printf_arginfo_size_function  包含call _fortify_fail的地址，对__printf_arginfo_table取操作时，就会访问那个地址，从而执行。</p>
+</li>
+<li><p>将**libc_argv 改了，这个地址<br>overflow 都能显示这两个。</p>
+</li>
+</ol>
+<p><em><strong>printf_arginfo_table[spec-&gt;info.spec] 这里是怎么构造的..?<br>看取的地址相对于</strong>printf_arginfo_table 的偏移，就是spec-&gt;info.spec的值</em>8，而spec-&gt;info.spec为s，所以是Ord(s)<em>8<br>format s offset 为什么是  ord(“s”)</em>8?<br>注意ljust 不会修改原来的字符产,所以需要赋值!</p>
+<p>参考:<a href="https://github.com/r00ta/myWriteUps/tree/master/34C32017/pwn_readme_revenge" target="_blank" rel="external">https://github.com/r00ta/myWriteUps/tree/master/34C32017/pwn_readme_revenge</a></p>
+<h3 id="jarvisoj-guestbook"><a href="#jarvisoj-guestbook" class="headerlink" title="jarvisoj guestbook"></a>jarvisoj guestbook</h3><p>首先读取一长串字符串，过长会出现非法访问内存的错误<br>看到good game函数，会打开flag.txt，所以应该劫持控制流让程序执行good game 函数<br>覆盖返回地址为good game<br>签到题orz</p>
+<h3 id="jarvisoj-smashes"><a href="#jarvisoj-smashes" class="headerlink" title="jarvisoj smashes"></a>jarvisoj smashes</h3><p>利用__stack_chk_fail</p>
+<p>flag 在 0x000600D21<br>利用漏洞打印出flag<br>flag 上面有个变量，<br>IO_gets 有漏洞吧 栈溢出<br>_IO_getc<br>会overwriteflag 就是会修改原来的flag<br>SSP<br>将libc_argv[0] 的地址覆盖为flag地址<br>需要知道：</p>
+<ol>
+<li>程序运行时argv[0]的地址</li>
+<li>读取字符串存放的地址<br>在main下断点，查看argv[0]地址</li>
+</ol>
+<p>使用search 程序名 查找<br>在 __IO_gets 后一句下断点，获得输入字符串的地址<br>覆盖前会映射到别的地方，可以search一下<br>构造好payload发过去就行了</p>
+<p><strong>ELF重映射：当可执行文件足够小时，在不同的区段可能被多次映射。</strong></p>
+<h3 id="jarvisoj-test-your-memory"><a href="#jarvisoj-test-your-memory" class="headerlink" title="jarvisoj test your memory"></a>jarvisoj test your memory</h3><p>首先分析一下程序 </p>
+<p>随机数<br>随机打印6个字符，输出<br>我们输入的字串要与随机生成的字串前四个字符相等??但是和hint中的cat flag有什么关系呢 </p>
+<p>data 段有个hint<br>漏洞在哪呢….<br>s 有栈溢出 scanf 会溢出吗</p>
+<p>直接覆盖返回地址为hint？？的地址???<br>win_fun 调用字符串</p>
+<p>很基础的 ret2libc</p>
+<p>080487E0 为 ‘cat flag’字符串<br>返回地址要设置为main函数的地址 </p>
+<h3 id="level3-x64"><a href="#level3-x64" class="headerlink" title="level3 x64"></a>level3 x64</h3><p>很明显的栈溢出<br>但是怎么利用呢，给了libc ，所以应该是rop,自己找gadgets？<br>直接找one_gadget呢,还有熟悉一下x64 寄存器内容<br>one_gadget 命令都不记得orz<br>果然我都不熟啊!<br>搜索onegadgets<br>pwngdb 里面是可以直接是由rop命令搜索的，还算方便</p>
+<p>但是没有rdx的gadgets 呀，因为不知道libc的基址…也没法用libc的，我们的目的是使rdx&gt;=8，如果满足就可以不用管了，可以调一调看满不满足 </p>
+<p>X64使用寄存器传参 </p>
+<ol>
+<li><p>构造 write 的调用栈打印函数got 地址<br>write(0,read_got,0x08) 将rdi-0，rsi-read_got,rdx-0x08</p>
+<p>32 位：system_plt, ‘b’ * 4, binsh_addr，函数参数在函数返回地址的上方<br>，函数调用时入栈顺序为</p>
+</li>
+</ol>
+<p>实参N~1→主调函数返回地址→主调函数帧基指针EBP→被调函数局部变量1~N<br>  64位：参数依次保存在RDI, RSI, RDX, RCX, R8 和 R9 寄存器中，如果还有更多的参数的话才会保存在栈上</p>
+<ol>
+<li>计算Libc 基址，获得system地址</li>
+<li>构造system 调用栈  </li>
+</ol>
+<p>复习一下x64 传参顺序!<br>需要的有…<br>用约定 32: eax—syscall号 ebx,ecx,edx参数 64: rax—syscall号 rdi,rsi,rdx,rcx,r8,r9</p>
+<p>构造好后为什么有问题呢…</p>
+<h3 id="level5"><a href="#level5" class="headerlink" title="level5"></a>level5</h3><p>mmap和mprotect练习，假设system和execve函数被禁用，请尝试使用mmap和mprotect完成本题。<br>没学过..mmap mprotect 刚好可以练练</p>
+<p>不让用system和execve，所以是执行shellcode<br>使用mprotect ，先leak出地址<br><strong>libc_csu_init()的一条万能gadgets!<br>_dl_runtime_resolve()中的gadget,通过这个gadget可以控制六个64位参数寄存器的值，当我们使用参数比较多的函数的时候（比如mmap和mprotect）就可以派上用场了。<br>disassemble </strong>libc_csu_init</p>
+<p>大致思路：<br>· 使用mmap开一段可以执行的空间，将shellcode放进去执行<br>· 使用mprotect，讲一段空间设置为RWX，将shellcode放进去执行</p>
+<p>具体思路是这样的：<br>1、通过libc和write函数泄露出write函数在内存中地址，计算出mprotect函数地址<br>2、劫持GOT表，覆盖某些表项的地址，通过read函数可以输入这些地址，将mprotect函数地址，bss段地址写到GOT表中去，为了下一步可以通过call命令直接调用<br>3、使用__libc_csu_init函数末尾的通过gadgets进行函数调用，执行mprotect设置为可移植性，然后执行shellcode获取权限<br>好难..<br>int mprotect(void *addr, size_t len, int prot);<br>log.info()<br>利用write函数泄露出libc内存信息  #write(1,write_got,8)</p>
+<p>然后计算出mprotect函数在libc中的地址 #mprotect_add = libc_base + libc.symbols[“mprotect”]</p>
+<p>将shellcdoe写入bss段</p>
+<p>将bss地址和mprotect地址写入got表 </p>
+<p>最后用通用gadget调用mprotect函数将bss段设置为可执行</p>
+<p>然后跳转到bss在got表的地址执行shellcode</p>
+<p>看别人wp的思路：栈溢出 -&gt; leak read -&gt; hijack got -&gt; write shellcode to bss -&gt; call mprotect to set ‘rwx’ -&gt; exec shellcode<br>先根据大佬的exp调一遍orz<br>一般设置r12为我们指向需要的地址的指针的地址（有点绕），rbx为0，rbp为1</p>
+<p>错位产生的gadgets<br>pop rdi，ret<br>pop rsi，pop r15,ret </p>
+<p>x/5i  address<br><strong>_gmon_start</strong> 符号,干嘛来着…</p>
+<p>gadgets 分两部分使用</p>
+<ol>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">1.执行gad1</div><div class="line"></div><div class="line">.text:000000000040089A                 pop     rbx  必须为0</div><div class="line">.text:000000000040089B                 pop     rbp  必须为1</div><div class="line">.text:000000000040089C                 pop     r12  call!!!!</div><div class="line">.text:000000000040089E                 pop     r13  arg3</div><div class="line">.text:00000000004008A0                 pop     r14  arg2</div><div class="line">.text:00000000004008A2                 pop     r15  arg1</div><div class="line">.text:00000000004008A4                 retn  ——&gt; to gad2</div></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">.text:0000000000400880                 mov     rdx, r13</div><div class="line">.text:0000000000400883                 mov     rsi, r14</div><div class="line">.text:0000000000400886                 mov     edi, r15d</div><div class="line">.text:0000000000400889                 call    qword ptr [r12+rbx*8] call!!!</div><div class="line">.text:000000000040088D                 add     rbx, 1</div><div class="line">.text:0000000000400891                 cmp     rbx, rbp</div><div class="line">.text:0000000000400894                 jnz     short loc_400880</div><div class="line">.text:0000000000400896                 add     rsp, 8</div><div class="line">.text:000000000040089A                 pop     rbx</div><div class="line">.text:000000000040089B                 pop     rbp</div><div class="line">.text:000000000040089C                 pop     r12</div><div class="line">.text:000000000040089E                 pop     r13</div><div class="line">.text:00000000004008A0                 pop     r14</div><div class="line">.text:00000000004008A2                 pop     r15</div><div class="line">.text:00000000004008A4                 retn ——&gt; 构造一些垫板(7*8=56byte)就返回了</div></pre></td></tr></table></figure>
+<p>嗯…都理解了…写wp的话…还是有点问题<br>感觉利用挺有趣的</p>
+<p> gmon_start 函数?<br> 指向 gmon初始化函数, 该函数开始记录 profiling信息并在 atexit()中注册了一个清理函数。<br>好奇怪…利用又失败了 </p>
+<h3 id="level4"><a href="#level4" class="headerlink" title="level4"></a>level4</h3><h4 id="借助dynELF实现无libc的漏洞利用"><a href="#借助dynELF实现无libc的漏洞利用" class="headerlink" title="借助dynELF实现无libc的漏洞利用"></a>借助dynELF实现无libc的漏洞利用</h4><p>模板：<br>我忘了…</p>
+<p>栈溢出<br>和3差不多，但是没有libc<br>因此需要自己泄露libc地址<br>同理，构造write 泄露两个函数地址…<br>得到libc版本,有必要知道Libc 版本吗?? 有 因为system需要</p>
+<p>那么怎么构造函数栈呢….<br>32位 的程序</p>
+<p>直接泄露system函数的地址就好了!把bin/sh 传到bss段<br>plt_write = elf.symbols[‘write’]<br>plt_read = elf.symbols[‘read’]</p>
+<p>泄露地址用got,执行用plt<br>为什么不行呢。…看wp别人都可以 连接超时，为什么呢…先放一下吧</p>
+<h3 id="jarivsoj-level6"><a href="#jarivsoj-level6" class="headerlink" title="jarivsoj level6"></a>jarivsoj level6</h3><p>freenote。。<br>很明显有个 double free 漏洞</p>
+<p>有点搞不清结构…<br>只有dalao的博客 orz<br>利用double free,触发unlink<br>调一下dalao的exp<br>最好尝试一下自己写..</p>
+<h3 id="guestbook-2"><a href="#guestbook-2" class="headerlink" title="guestbook 2"></a>guestbook 2</h3><p>堆题，先看delete<br>添加堆块有一个结构体：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">00000000 block           struc ; (sizeof=0x18, mappedto_6)</div><div class="line">00000000                                         ; XREF: list_struct/r</div><div class="line">00000000 inuse           dq ?</div><div class="line">00000008 length          dq ?</div><div class="line">00000010 ptr             dq ?</div><div class="line">00000018 block           ends</div><div class="line">00000018</div><div class="line">00000000 ; ---------------------------------------------------------------------------</div><div class="line">00000000</div><div class="line">00000000 list_struct     struc ; (sizeof=0x1810, mappedto_8)</div><div class="line">00000000 sum             dq ?</div><div class="line">00000008 number          dq ?</div><div class="line">00000010 block           block 256 dup(?)</div><div class="line">00001810 list_struct     ends</div></pre></td></tr></table></figure></p>
+<p>free 的时候没有把指针置为null，并且没有判断是否free过，所以有double漏洞，因此我们可以构造unlink</p>
+<p>定义结构体..<br>首先要弄清楚结构!<br>开始堆的布局<br>不能直接edit,free 过的堆块，但是我想直接利用double就可以啦<br>使用unlink ，修改对指针指向bss段，然后修改这个chunk 是得chunkx 的ptr实际为某函数got的地址，再修改chunk-x，就是把free 的got 修改为system函数地址，往chunk3中写入/bin/sh ，调用free，就可以成功getshell </p>
+<p>最多只能申请256个堆块，在add函数和edit函数中，真实malloc的size都是对用户输入的len0x80字节对齐后的?<br>是吗…在add函数中我看不出来这样的对齐?</p>
+<p>噢,realloc 函数的问题,之前没理解….<br>如果是扩大内存操作会把 ptr 指向的内存中的数据复制到新地址（新地址也可能会和原地址相同，但依旧不能对原指针进行任何操作）；如果是缩小内存操作，原始据会被复制并截取新长度。</p>
+<p>为什么会这样子打印呢..为什么以\x0a结尾? 是回车! 所以还有一个漏洞是没有以null结尾?<br>printf函数中的”%s”直到遇到内存中的’\0’标志时才会结束输出。<br>实在不明白为什么会输出那个地址。。</p>
+<p>unsorted bin 从头部插入，从尾部取出<br>offset 是怎么算出来来着??自己算了一下就好了…<br>学到了system(“$0”)</p>
+<h3 id="fastbin-attack-oreo"><a href="#fastbin-attack-oreo" class="headerlink" title="fastbin attack oreo"></a>fastbin attack oreo</h3><p>首先分析程序<br>没有delete 找不到洞怎么办orz<br>add:在head头部插入新的指针，<br>指针包含description,name,next,rifle信息<br>order,清空当前链表，指针清空不会置为null，double free 漏洞</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">.bss:0804A288 head            dd ?                    ; DATA XREF: add+11↑r</div><div class="line">.bss:0804A288                                         ; add+25↑w ...</div><div class="line">.bss:0804A28C                 align 20h</div><div class="line">.bss:0804A2A0 order_num       dd ?                    ; DATA XREF: order+5A↑r</div><div class="line">.bss:0804A2A0                                         ; order+62↑w ...</div><div class="line">.bss:0804A2A4 rifle_cnt       dd ?                    ; DATA XREF: add+C5↑r</div><div class="line">.bss:0804A2A4                                         ; add+CD↑w ...</div><div class="line">.bss:0804A2A8 ; char *notice</div><div class="line">.bss:0804A2A8 notice</div></pre></td></tr></table></figure>
+<p>没法调试怎么办??<br>Symbol ‘main arena’ not found. Try installing libc debugging symbols and try again.<br>怎么办..<br>有堆溢出..其实没有做过堆溢出的题目<br>为什么需要设置Number 为0x40？因为要伪造fastbin chunk</p>
+<p>house of spirit<br>（1）伪造堆块<br>在可控1及可控2构造好数据，将它伪造成一个fastbin。</p>
+<p>（2）覆盖堆指针指向上一步伪造的堆块。</p>
+<p>（3）释放堆块，将伪造的堆块释放入fastbin的单链表里面。</p>
+<p>（4）申请堆块，将刚刚释放的堆块申请出来，最终使得可以往目标区域中写入数据，实现目的。<br><a href="https://www.slideshare.net/YOKARO-MON/oreo-hacklu-ctf-2014-65771717" target="_blank" rel="external">https://www.slideshare.net/YOKARO-MON/oreo-hacklu-ctf-2014-65771717</a><br><a href="https://blog.betamao.me/2018/02/25/hack-lu-ctf-2014-oreo/" target="_blank" rel="external">https://blog.betamao.me/2018/02/25/hack-lu-ctf-2014-oreo/</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/06/pwn-tips/" rel="next" title="pwn-tips">
+                <i class="fa fa-chevron-left"></i> pwn-tips
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/01/reversing-kr-writeup/" rel="prev" title="reversing-kr-writeup">
+                reversing-kr-writeup <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Lin Miaoqian" />
+          <p class="site-author-name" itemprop="name">Lin Miaoqian</p>
+           
+              <p class="site-description motion-element" itemprop="description">慕名而来的人都会爱上我</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Yuuoniy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/weiweichenlun" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/yuuoniy" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="linmq006@gamil.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#readme-revenge"><span class="nav-number">1.</span> <span class="nav-text">readme_revenge</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fortify-fail函数"><span class="nav-number">1.1.</span> <span class="nav-text">__fortify_fail函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-guestbook"><span class="nav-number">2.</span> <span class="nav-text">jarvisoj guestbook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-smashes"><span class="nav-number">3.</span> <span class="nav-text">jarvisoj smashes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-test-your-memory"><span class="nav-number">4.</span> <span class="nav-text">jarvisoj test your memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level3-x64"><span class="nav-number">5.</span> <span class="nav-text">level3 x64</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level5"><span class="nav-number">6.</span> <span class="nav-text">level5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level4"><span class="nav-number">7.</span> <span class="nav-text">level4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#借助dynELF实现无libc的漏洞利用"><span class="nav-number">7.1.</span> <span class="nav-text">借助dynELF实现无libc的漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarivsoj-level6"><span class="nav-number">8.</span> <span class="nav-text">jarivsoj level6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#guestbook-2"><span class="nav-number">9.</span> <span class="nav-text">guestbook 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fastbin-attack-oreo"><span class="nav-number">10.</span> <span class="nav-text">fastbin attack oreo</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin Miaoqian</span>
+</div>
+
+
+<!-- <div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+ -->
+
+<!-- 访问量（貌似不准） -->
+<!--  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ <span id="busuanzi_container_site_pv">
+ Page Views:<span id="busuanzi_value_site_pv"></span>
+ </span>
+ --> 
+
+ <!-- 运行时间 -->
+<!--  <script>
+ var birthDay = new Date("11/20/2014");
+ var now = new Date();
+ var duration = now.getTime() - birthDay.getTime();
+ var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+ document.getElementById("showDays").innerHTML = "have been running "+total+" days";
+ </script>
+ <span id="showDays"></span> -->
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://yuuoniy.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/09/04/201809-writeups/';
+          this.page.identifier = '2018/09/04/201809-writeups/';
+          this.page.title = '201809-writeups';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yuuoniy.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
