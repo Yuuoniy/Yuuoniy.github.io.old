@@ -87,7 +87,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="reverse," />
 
 
 
@@ -103,17 +103,17 @@
 
 
 
-<meta name="description" content="easy_keygen首先读取name,经过处理存在res中读取serial，比较res与serial是否相同因此通过已知的serial反推name就是flag了注意变换时有个%2x,即将变化转化为十六进制，因此需要decode  Easy_UnpackMe简单脱壳联系有个大jmp找到OEP easy_elf分析读取字，存在bss段对于一些位进行异或变换,判断变换后的结果。因此写个简单的脚本反推就">
-<meta name="keywords">
+<meta name="description" content="easy_keygen首先读取 name,经过处理存在res中读取serial，比较res与serial是否相同因此通过已知的serial反推name就是flag了注意变换时有个%2x,即将变化转化为十六进制，因此需要decode  Easy_UnpackMe简单脱壳联系有个大jmp找到 OEP easy_elf分析读取字，存在bss段对于一些位进行异或变换,判断变换后的结果。因此写个简单的脚本反">
+<meta name="keywords" content="reverse">
 <meta property="og:type" content="article">
-<meta property="og:title" content="reversing-kr-writeup">
+<meta property="og:title" content="CTF|reversing-kr-writeup">
 <meta property="og:url" content="https://yuuoniy.github.io/2018/09/01/reversing-kr-writeup/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="easy_keygen首先读取name,经过处理存在res中读取serial，比较res与serial是否相同因此通过已知的serial反推name就是flag了注意变换时有个%2x,即将变化转化为十六进制，因此需要decode  Easy_UnpackMe简单脱壳联系有个大jmp找到OEP easy_elf分析读取字，存在bss段对于一些位进行异或变换,判断变换后的结果。因此写个简单的脚本反推就">
-<meta property="og:updated_time" content="2018-09-03T03:30:16.435Z">
+<meta property="og:description" content="easy_keygen首先读取 name,经过处理存在res中读取serial，比较res与serial是否相同因此通过已知的serial反推name就是flag了注意变换时有个%2x,即将变化转化为十六进制，因此需要decode  Easy_UnpackMe简单脱壳联系有个大jmp找到 OEP easy_elf分析读取字，存在bss段对于一些位进行异或变换,判断变换后的结果。因此写个简单的脚本反">
+<meta property="og:updated_time" content="2018-09-10T07:08:37.692Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="reversing-kr-writeup">
-<meta name="twitter:description" content="easy_keygen首先读取name,经过处理存在res中读取serial，比较res与serial是否相同因此通过已知的serial反推name就是flag了注意变换时有个%2x,即将变化转化为十六进制，因此需要decode  Easy_UnpackMe简单脱壳联系有个大jmp找到OEP easy_elf分析读取字，存在bss段对于一些位进行异或变换,判断变换后的结果。因此写个简单的脚本反推就">
+<meta name="twitter:title" content="CTF|reversing-kr-writeup">
+<meta name="twitter:description" content="easy_keygen首先读取 name,经过处理存在res中读取serial，比较res与serial是否相同因此通过已知的serial反推name就是flag了注意变换时有个%2x,即将变化转化为十六进制，因此需要decode  Easy_UnpackMe简单脱壳联系有个大jmp找到 OEP easy_elf分析读取字，存在bss段对于一些位进行异或变换,判断变换后的结果。因此写个简单的脚本反">
 
 
 
@@ -147,7 +147,7 @@
 
 
 
-  <title> reversing-kr-writeup | 尿尿 </title>
+  <title> CTF|reversing-kr-writeup | 尿尿 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -335,7 +335,7 @@
             
             
               
-                reversing-kr-writeup
+                CTF|reversing-kr-writeup
               
             
           </h1>
@@ -360,6 +360,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CTF/" itemprop="url" rel="index">
+                    <span itemprop="name">CTF</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -397,13 +419,14 @@
       
 
       
-        <h3 id="easy-keygen"><a href="#easy-keygen" class="headerlink" title="easy_keygen"></a>easy_keygen</h3><p>首先读取name,经过处理存在res中<br>读取serial，比较res与serial是否相同<br>因此通过已知的serial反推name就是flag了<br>注意变换时有个%2x,即将变化转化为十六进制，因此需要decode </p>
-<h3 id="Easy-UnpackMe"><a href="#Easy-UnpackMe" class="headerlink" title="Easy_UnpackMe"></a>Easy_UnpackMe</h3><p>简单脱壳联系<br>有个大jmp<br>找到OEP</p>
-<h3 id="easy-elf"><a href="#easy-elf" class="headerlink" title="easy_elf"></a>easy_elf</h3><p>分析<br>读取字，存在bss段<br>对于一些位进行异或变换,判断变换后的结果。因此写个简单的脚本反推就好了。<br>有个负数-35，应该转化为十六进制看为0xdd<br>返回值是1时正确</p>
+        <h3 id="easy-keygen"><a href="#easy-keygen" class="headerlink" title="easy_keygen"></a>easy_keygen</h3><p>首先读取 name,经过处理存在res中<br>读取serial，比较res与serial是否相同<br>因此通过已知的serial反推name就是flag了<br>注意变换时有个%2x,即将变化转化为十六进制，因此需要decode </p>
+<h3 id="Easy-UnpackMe"><a href="#Easy-UnpackMe" class="headerlink" title="Easy_UnpackMe"></a>Easy_UnpackMe</h3><p>简单脱壳联系<br>有个大jmp<br>找到 OEP</p>
+<h3 id="easy-elf"><a href="#easy-elf" class="headerlink" title="easy_elf"></a>easy_elf</h3><p>分析<br>读取字，存在bss段<br>对于一些位进行异或变换,判断变换后的结果。因此写个简单的脚本反推就好了。<br>有个负数-35，应该转化为十六进制看为<code>0xdd</code><br>返回值是1时正确</p>
 <h3 id="music-player"><a href="#music-player" class="headerlink" title="music player"></a>music player</h3><p>一开始没有思路</p>
 <p>先打开个音频文件播放，到一分钟时有弹框，字符串“1???????”<br>得知要了解vb,弹框的API<br>下载 vb complier,代码结构看起来清晰许多<br>VB弹窗调用的API是rtcMsgBox </p>
 <p>查看API:反汇编窗口，右键–查找–当前模块中的名称，就可以列出所有函数了。快捷键Ctrl+N<br>右键查看引用</p>
-<p>找到弹框，找到关键跳转，修改为jmp<br>抛出异常 380<br>怎么在抛出异常处下断点?</p>
+<p>找到弹框，找到关键跳转，修改为jmp<br>抛出异常 380 </p>
+<p>对不起..我应该插图的</p>
 
       
     </div>
@@ -430,6 +453,12 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/reverse/" rel="tag"># reverse</a>
+          
+        </div>
       
 
       
@@ -794,7 +823,7 @@
         var disqus_config = function () {
           this.page.url = 'https://yuuoniy.github.io/2018/09/01/reversing-kr-writeup/';
           this.page.identifier = '2018/09/01/reversing-kr-writeup/';
-          this.page.title = 'reversing-kr-writeup';
+          this.page.title = 'CTF|reversing-kr-writeup';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://yuuoniy.disqus.com/embed.js';

