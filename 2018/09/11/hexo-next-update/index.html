@@ -115,7 +115,7 @@
 <meta property="og:url" content="https://yuuoniy.github.io/2018/09/11/hexo-next-update/index.html">
 <meta property="og:site_name" content="尿尿">
 <meta property="og:description" content="我说…我的标题怎么没有居中呢,我的代码高亮怎么这么丑呢..我的主题看起来怎么和别人的不一样呢,突然发现自己的主题没有更新下">
-<meta property="og:updated_time" content="2018-09-11T09:19:32.797Z">
+<meta property="og:updated_time" content="2018-09-11T09:39:08.079Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo | NEXT 主题更新,从 5.1 到 6.0">
 <meta name="twitter:description" content="我说…我的标题怎么没有居中呢,我的代码高亮怎么这么丑呢..我的主题看起来怎么和别人的不一样呢,突然发现自己的主题没有更新下">
@@ -142,6 +142,16 @@
 
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0aff8f2cdbe4bb92b5d83006432c115a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -226,6 +236,14 @@
           <li class="menu-item menu-item-home">
     <a href="/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
   </li>
         
         
@@ -350,7 +368,7 @@
                 
               
 
-              <time title="Created: 2018-09-11 16:53:30 / Modified: 17:19:32" itemprop="dateCreated datePublished" datetime="2018-09-11T16:53:30+08:00">2018-09-11</time>
+              <time title="Created: 2018-09-11 16:53:30 / Modified: 17:39:08" itemprop="dateCreated datePublished" datetime="2018-09-11T16:53:30+08:00">2018-09-11</time>
             
 
             
@@ -363,6 +381,18 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/11/hexo-next-update/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/09/11/hexo-next-update/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -393,7 +423,9 @@
 <p>主要是更新时保留原来的配置</p>
 <p>首先:<br>下载新版本 next:<br>  <code>https://github.com/theme-next/hexo-theme-next themes/next-reloaded</code></p>
 <p>复制原版本next的config.yml文件到 next-reloaded 中<br>报错:<br><code>Unhandled rejection TypeError: path.substring is not a function</code><br>哎呀..还是重新配置一遍好了哈哈哈哈哈,也没花多大功夫</p>
-
+<h3 id="设置评论"><a href="#设置评论" class="headerlink" title="设置评论:"></a>设置评论:</h3><p>disqus:true</p>
+<h3 id="百度统计"><a href="#百度统计" class="headerlink" title="百度统计"></a>百度统计</h3><p>注册账号获取id,修改配置文件即可</p>
+<h3 id="阅读量统计"><a href="#阅读量统计" class="headerlink" title="阅读量统计"></a>阅读量统计</h3>
       
     </div>
 
@@ -451,6 +483,16 @@
           
 
   
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
 
 
 
@@ -473,8 +515,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -614,6 +665,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置评论"><span class="nav-number">1.</span> <span class="nav-text">设置评论:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#百度统计"><span class="nav-number">2.</span> <span class="nav-text">百度统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阅读量统计"><span class="nav-number">3.</span> <span class="nav-text">阅读量统计</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -758,9 +825,30 @@
 
   
 
-
+  
+    <script id="dsq-count-scr" src="https://yuuoniy.disqus.com/count.js" async></script>
+  
 
   
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'https://yuuoniy.github.io/2018/09/11/hexo-next-update/';
+        this.page.identifier = '2018/09/11/hexo-next-update/';
+        this.page.title = 'hexo | NEXT 主题更新,从 5.1 到 6.0';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yuuoniy.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
 
 
 
