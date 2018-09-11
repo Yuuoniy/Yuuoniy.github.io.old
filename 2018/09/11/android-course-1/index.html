@@ -115,7 +115,7 @@
 <meta property="og:url" content="https://yuuoniy.github.io/2018/09/11/android-course-1/index.html">
 <meta property="og:site_name" content="尿尿">
 <meta property="og:description" content="git 日常使用总结git 已经用很多了,大概就是需要了解仓库,分支等概念,熟悉本地和远程的关系,熟练使用clone commit pull push merge操作下面给出一下常用的命令:新建分支:git branch dev切换分支:git checkout dev添加文件 git add file ,常用 git add . 添加全部更新的文件 查看状态 git status 常见步骤:g">
-<meta property="og:updated_time" content="2018-09-11T09:21:36.774Z">
+<meta property="og:updated_time" content="2018-09-11T15:38:45.046Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android | 手机平台应用开发第一篇">
 <meta name="twitter:description" content="git 日常使用总结git 已经用很多了,大概就是需要了解仓库,分支等概念,熟悉本地和远程的关系,熟练使用clone commit pull push merge操作下面给出一下常用的命令:新建分支:git branch dev切换分支:git checkout dev添加文件 git add file ,常用 git add . 添加全部更新的文件 查看状态 git status 常见步骤:g">
@@ -368,7 +368,7 @@
                 
               
 
-              <time title="Created: 2018-09-11 14:47:50 / Modified: 17:21:36" itemprop="dateCreated datePublished" datetime="2018-09-11T14:47:50+08:00">2018-09-11</time>
+              <time title="Created: 2018-09-11 14:47:50 / Modified: 23:38:45" itemprop="dateCreated datePublished" datetime="2018-09-11T14:47:50+08:00">2018-09-11</time>
             
             
             
@@ -425,6 +425,7 @@
 <p>查看状态 <code>git status</code></p>
 <p>常见步骤:<code>git add -&gt;commit -&gt;push</code>, 如果有冲突还涉及到 merge 操作<br>对于入门者推荐 git 教程 <a href="https://classroom.udacity.com/courses/ud775" target="_blank" rel="external">如何使用 Git 和 GitHub</a><br>比较系统,之前我也是根据这个学的</p>
 <h3 id="Android开发环境搭建"><a href="#Android开发环境搭建" class="headerlink" title="Android开发环境搭建"></a>Android开发环境搭建</h3><p>之前已经安装过 AS 了,下载sdk应该要翻墙,不过我有梯子,不过下载gardle倒是失败了几次</p>
+<p><code>Unknown host &#39;dl.google.com&#39;. You may need to adjust the proxy settings in Gradle.</code><br>按照网上的方法:<br><code>File &gt; Settings &gt; Appearance &amp; Behavior &gt; System Settings &gt; HTTP Proxy [Under IDE Settings] Enable following option Auto-detect proxy settings</code><br>没有解决<br>很奇怪,在seeting 里面尝试连接谷歌是成功的,但是不知道为什么会失败<br>尝试 enable embedded maven repo 依旧失败<br>install build tool<br>failed to find build tools revision x.x.x<br>按照提示下载了 build tools<br>但是还是有问题,<br>依旧是 gardle project sync failed 的问题<br>结果发现翻了墙还是要改host呀，修改 Host 就好了，连接手机，完美运行app</p>
 
       
     </div>
