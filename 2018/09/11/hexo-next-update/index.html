@@ -108,17 +108,17 @@
 
 
 
-  <meta name="description" content="突然发现自己的主题没有更新,怪不得很多地方很奇怪,其实更新也不是很方便,所以才记录一下">
+  <meta name="description" content="我说…我的标题怎么没有居中呢,我的代码高亮怎么这么丑呢..我的主题看起来怎么和别人的不一样呢,突然发现自己的主题没有更新下">
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo | NEXT 主题更新,从 5.1 到 6.0">
 <meta property="og:url" content="https://yuuoniy.github.io/2018/09/11/hexo-next-update/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="突然发现自己的主题没有更新,怪不得很多地方很奇怪,其实更新也不是很方便,所以才记录一下">
-<meta property="og:updated_time" content="2018-09-11T08:57:23.286Z">
+<meta property="og:description" content="我说…我的标题怎么没有居中呢,我的代码高亮怎么这么丑呢..我的主题看起来怎么和别人的不一样呢,突然发现自己的主题没有更新下">
+<meta property="og:updated_time" content="2018-09-11T09:10:46.768Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo | NEXT 主题更新,从 5.1 到 6.0">
-<meta name="twitter:description" content="突然发现自己的主题没有更新,怪不得很多地方很奇怪,其实更新也不是很方便,所以才记录一下">
+<meta name="twitter:description" content="我说…我的标题怎么没有居中呢,我的代码高亮怎么这么丑呢..我的主题看起来怎么和别人的不一样呢,突然发现自己的主题没有更新下">
 
 
 
@@ -231,9 +231,33 @@
         
         
           
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+    <a href="/sitemap.xml" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />Sitemap</a>
   </li>
 
       
@@ -289,7 +313,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
       <meta itemprop="description" content="慕名而来的人都会爱上我">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -326,7 +350,7 @@
                 
               
 
-              <time title="Created: 2018-09-11 16:53:30 / Modified: 16:57:23" itemprop="dateCreated datePublished" datetime="2018-09-11T16:53:30+08:00">2018-09-11</time>
+              <time title="Created: 2018-09-11 16:53:30 / Modified: 17:10:46" itemprop="dateCreated datePublished" datetime="2018-09-11T16:53:30+08:00">2018-09-11</time>
             
 
             
@@ -364,9 +388,11 @@
       
 
       
-        <p>突然发现自己的主题没有更新,怪不得很多地方很奇怪,其实更新也不是很方便,所以才记录一下<br><a id="more"></a></p>
+        <p>我说…我的标题怎么没有居中呢,我的代码高亮怎么这么丑呢..我的主题看起来怎么和别人的不一样呢,突然发现自己的主题没有更新下<br><a id="more"></a></p>
 <p>(官方更新说明)[<a href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/UPDATE-FROM-5.1.X.md" target="_blank" rel="external">https://github.com/theme-next/hexo-theme-next/blob/master/docs/UPDATE-FROM-5.1.X.md</a>]</p>
 <p>主要是更新时保留原来的配置</p>
+<p>首先:<br>下载新版本 next:<br>  <code>https://github.com/theme-next/hexo-theme-next themes/next-reloaded</code><br>复制原版本next的config.yml文件到 next-reloaded 中</p>
+<p>报错:<br><code>Unhandled rejection TypeError: path.substring is not a function</code></p>
 
       
     </div>
@@ -451,6 +477,10 @@
       <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="yuuoniy" />
             
               <p class="site-author-name" itemprop="name">yuuoniy</p>
               <p class="site-description motion-element" itemprop="description">慕名而来的人都会爱上我</p>
@@ -547,22 +577,17 @@
             <div class="links-of-author motion-element">
               
                 <span class="links-of-author-item">
-                  <a href="https://github.com/Yuuoniy" target="_blank" title="GitHub"><i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  <a href="https://github.com/yuuoniy" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
                   
                 </span>
               
                 <span class="links-of-author-item">
-                  <a href="http://weibo.com/weiweichenlun" target="_blank" title="Weibo"><i class="fa fa-fw fa-globe"></i>Weibo</a>
+                  <a href="mailto:linmq006@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                   
                 </span>
               
                 <span class="links-of-author-item">
-                  <a href="https://www.zhihu.com/people/yuuoniy" target="_blank" title="Zhihu"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
-                  
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="linmq006@gamil.com" target="_blank" title="Email"><i class="fa fa-fw fa-globe"></i>Email</a>
+                  <a href="https://instagram.com/duouo" target="_blank" title="Instagram"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
                   
                 </span>
               
