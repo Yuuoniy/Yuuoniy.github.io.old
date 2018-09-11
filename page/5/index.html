@@ -615,23 +615,21 @@
       
         
           
-            <a id="more"></a>
-<p>在ubuntu上：<br><code>sudo apt-get install xrdp vnc4server xbase-clients</code>  </p>
-<p>通过搜索打开desktop sharing<br>按照下图设置: </p>
-<p><img src="http://otswdapxf.bkt.clouddn.com/desktopSharing.jpg?imageView/2/w/500" alt=""> </p>
-<p>安装dconf-editor:  </p>
-<p><code>sudo apt-get install dconf-editor</code></p>
-<p>打开：<br><code>dconf-editor</code><br>设置：org &gt; gnome &gt; desktop &gt; remote-access，取消 “requlre-encryption”  </p>
-<p><img src="http://otswdapxf.bkt.clouddn.com/%E8%AE%BE%E7%BD%AE.png?imageView/2/w/500" alt=""></p>
-<p>在windows中 打开远程桌面连接,输入ip地址   </p>
-<p><img src="http://otswdapxf.bkt.clouddn.com/%E8%BF%9E%E6%8E%A5.png?imageView/2/w/400" alt=""></p>
-<p>切换到如下界面：<br>选择vnc-any，输入ip地址，端口不变,输入刚刚在ubuntu上设置的密码:  </p>
-<p><img src="http://otswdapxf.bkt.clouddn.com/%E8%BF%9E%E6%8E%A52.png?imageView/2/w/500" alt=""> </p>
-<p>连接成功 ！好开心 ！  </p>
-<p><img src="http://otswdapxf.bkt.clouddn.com/%E8%BF%9E%E6%8E%A5%E6%88%90%E5%8A%9F.png?imageView/2/w/500" alt=""></p>
-<p>然后发现 两个鼠标不同步，十分不好用，再控制面板的鼠标设置中取消了 提高指针精确度<br>也没好多少..<br>又自己下载了VNC 好了一些,不过还是卡卡的<br>(具体的VNC设置就不说啦，就一步一步根据提示来吧，不难)  </p>
-
           
+在ubuntu上：sudo apt-get install xrdp vnc4server xbase-clients  
+通过搜索打开desktop sharing按照下图设置: 
+ 
+安装dconf-editor:  
+sudo apt-get install dconf-editor
+打开：
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/28/windows10连接Linux远程桌面/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -799,13 +797,17 @@
       
         
           
-            <p>执行命令：<br><code>sudo apt-get update</code><br><code>sudo apt-get gnome-desktop</code>  </p>
-<p>执行<code>startx</code>启动图形化界面(好像通过的方式这样会导致下面的问题…)   </p>
-<p>我遇到了登录后只显示壁纸的情况，解决方法：<br>打开一个终端(例：ctrl+alt+f2)<br>执行命令<br><code>rm -rf ~/.compiz ~/.cache</code><br><code>sudo systemctl restart lightdm</code><br>即可恢复正常<br>(其中的原因我并不了解)  </p>
-<p>添加用户到sudo用户组：<br>登录一个sudo账户：<code>sudo usermod -G sudo 用户名</code><br>通过groups 用户名可以查所属的用户组</p>
-<p>还有一些因人而异的问题…</p>
-
-          
+          执行命令：sudo apt-get updatesudo apt-get gnome-desktop  
+执行startx启动图形化界面(好像通过的方式这样会导致下面的问题…)   
+我遇到了登录后只显示壁纸的情况，解决方法：打开一个终端(例：ctrl+alt+f2)执行命令rm -rf ~/.co
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/28/ubuntu16.04安装桌面系统gnome/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -951,8 +953,15 @@
       
         
           
-            
           
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/24/chrome开发者工具3/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1102,17 +1111,17 @@
       
         
           
-            <h4 id="source"><a href="#source" class="headerlink" title="source"></a>source</h4><p>主要是显示网页加载的脚本文件：例如css， js等资源文件（它不包含cookie，img等静态资源文件）。<br>Sources: 包含该项目的静态资源文件。</p>
-<p>Scope 选项中列出了断点处私有和公有的变量信息<br> ctrl +p 快速打开文件 </p>
-<p>ctrl +g 快速定位到某一行<br>可以把鼠标放到区域2种的某个变量上，浏览器会弹出一个小框框，框框里面则是你悬浮其上的变量所有信息:<br>{}格式化代码 </p>
-<p>F10跟着js执行的路径一步一步地走下去，如果你遇到了一个函数包含着另外一个函数，那么你可以按F11进入到个函数中去观察它的代码执行活动。 </p>
-<p>console面板中拥有的是当前断点环境 </p>
-<p>ontent script 选项开里面包含着一些第三方插件或者浏览器自身的js代码,经常它是被忽略的，实际上它的作用很少。 </p>
-<p>在Sinppets中，我们也 可以编辑（重写）js代码片段。这些片段实际上就相当于你的js文件一样，不同的是本地的js文件在编辑器里面编辑的，而此处，你是在浏览器中编写的。这些代码片段在浏览器刷新的时候既不会消失，也不会执行，除非是你手动执行它。它可以存在你的本地浏览器中，即使关闭浏览器，再次打开时它依然还在那里。它的主要作用可以使得我们编写一些项目的测试代码时提供便捷，你知道，如果你在编辑器上编写这些代码，在发布时你必须为它们添加注释符号或者手动删除它们，而在浏览器上编写就不需要这样繁琐了。 </p>
-<p>Snippets 的非常功能强大，它的许多隐藏功能还有待发掘。目前卤煮使用它是在记住调试片段、单元测试、少量的功能代码编写功能上。 </p>
-<p>Snippets 的非常功能强大，它的许多隐藏功能还有待发掘。目前卤煮使用它是在记住调试片段、单元测试、少量的功能代码编写功能上。 </p>
-
-          
+          source主要是显示网页加载的脚本文件：例如css， js等资源文件（它不包含cookie，img等静态资源文件）。Sources: 包含该项目的静态资源文件。
+Scope 选项中列出了断点处私有和公有的变量信息 ctrl +p 快速打开文件 
+ctrl +g 快速定位到某一行可以把鼠标放到区域2
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/24/chrome开发者工具2/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1274,24 +1283,24 @@
       
         
           
-            <h4 id="element"><a href="#element" class="headerlink" title="element"></a>element</h4><ul>
-<li>html结构面板</li>
-<li>操作dom样式，结构，时间的显示面板</li>
-</ul>
-<p><code>event listeners</code> 观察绑定的事件</p>
-<p><code>click</code> 是事件名称</p>
-<p><code>.div1</code> 事件是索引名称（也就是通过什么绑定的）</p>
-<p><code>attachment</code> 事件来源 </p>
-<p><code>handler</code>里面包含事件的毁掉主体内容 ？？</p>
-<p><code>useCapture</code>表示该事件是否向上冒泡</p>
-<p><code>Add attribu</code>t : 为该元素添加属性<br><code>Edit attribute</code>：修改该元素的属性<br><code>Force element state</code>： 为元素激活某种状态（主要用在可以几乎的元素比如a、input、button等）<br>Edit as HTML：编辑该元素（你可以重写它的整个content）甚至修改它的标签名称<br>中间简单的掠过…….<br>Break on：为该元素添加dom操作事件监听。包含三个选项（树结构改变、属性改变、节点移除）。这个选项的作用是帮助我们监控和定位操作元素的代码 </p>
-<p>ctrl+F 查找 </p>
-<h4 id="network"><a href="#network" class="headerlink" title="network"></a>network</h4><p>1.<code>Network</code>是一个监控当前网页所有的http请求的面版，它主体部分展示的是每个http请求，每个字段表示着该请求的不同属性和状态<br><code>Name</code>：请求文件名称<br><code>Method</code>：方法（常见的是get post）<br><code>Status</code>：请求完成的状态<br><code>Type</code>：请求的类型<br><code>Initiator</code>：请求源也就是说该链接通过什么发送（常见的是Parser、Script）<br><code>Size</code>：下载文件或者请求占的资源大小<br><code>Time</code>：请求或下载的时间<br><code>Timeline</code>：该链接在发送过程中的时间状态轴（我们可以把鼠标移动到这些红红绿绿的时间轴上，对应的会有它的详细信息：开始下载时间，等待加载时间，自身下载耗时）</p>
-<p>单击面板中的任意一条http信息，会在底部弹出一个新的面板，其中记录了该条http请求的详细参数header（表头信息、返回信息、请求基本状态—请参看http1.1协议内容对号入座）、Preview（返回的格式化转移后文本信息）、response（转移之前的原始信息）、Cookies（该请求带的cookies）、Timing（请求时间变化）</p>
-<p>3.在主面板的顶部，有一些按钮从左到右它们的功能分别是：是否启用继续http监控（默认高亮选中过）、清空主面板中的http信息、是否启用过滤信息选项（启用后可以对http信息进行筛选）、列出多种属性、只列出name和time属性、preserve log（目前不清楚啥用）、Dishable cahe（禁用缓存，所有的304返回会和fromm cahe都回变成正常的请求忽视cache conctrol 设定）</p>
-<h4 id="sources部分"><a href="#sources部分" class="headerlink" title="sources部分"></a>sources部分</h4><p>展示了本界面所加载的资源列表。还有cookie和local storage 、SESSION 等本地存储信息，在这里，我们可以自由地修改、增加、删除本地存储。</p>
+          element
+html结构面板
+操作dom样式，结构，时间的显示面板
 
-          
+event listeners 观察绑定的事件
+click 是事件名称
+.div1 事件是索引名称（也就是通过什么绑定的）
+attachment 事件来源 
+handler里面包含事件的毁掉主体内容 ？？
+useCapture
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/24/chrome开发者工具1/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2356,6 +2365,31 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'VeQJNmfPOV9K2WFrArLoD0xN-gzGzoHsz',
+        appKey: 'TfDg8GxclLQKiTCGQ0hkV63P',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
 
 
 

