@@ -87,7 +87,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="xman,reversing," />
+  <meta name="keywords" content="reversing," />
 
 
 
@@ -104,18 +104,18 @@
 
 
 <meta name="description" content="逆向入门第二篇">
-<meta name="keywords" content="xman,reversing">
+<meta name="keywords" content="reversing">
 <meta property="og:type" content="article">
-<meta property="og:title" content="XMAN-reversing-2">
+<meta property="og:title" content="CTF | 逆向入门第二篇">
 <meta property="og:url" content="https://yuuoniy.github.io/2018/08/03/XMAN-reversing-day2/index.html">
 <meta property="og:site_name" content="尿尿">
 <meta property="og:description" content="逆向入门第二篇">
 <meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/upx3.91.png">
 <meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/hide-jz.png?imageView2/2/w/200">
 <meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/hide-patch.png?imageView2/2/w/200">
-<meta property="og:updated_time" content="2018-08-05T12:26:35.442Z">
+<meta property="og:updated_time" content="2018-09-11T02:13:36.135Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="XMAN-reversing-2">
+<meta name="twitter:title" content="CTF | 逆向入门第二篇">
 <meta name="twitter:description" content="逆向入门第二篇">
 <meta name="twitter:image" content="http://p6cwaqxnz.bkt.clouddn.com/upx3.91.png">
 
@@ -151,7 +151,7 @@
 
 
 
-  <title> XMAN-reversing-2 | 尿尿 </title>
+  <title> CTF | 逆向入门第二篇 | 尿尿 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -339,7 +339,7 @@
             
             
               
-                XMAN-reversing-2
+                CTF | 逆向入门第二篇
               
             
           </h1>
@@ -364,6 +364,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CTF/" itemprop="url" rel="index">
+                    <span itemprop="name">CTF</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -404,7 +426,7 @@
         <p>逆向入门第二篇<br><a id="more"></a> </p>
 <h4 id="hide"><a href="#hide" class="headerlink" title="hide"></a>hide</h4><p>strings 查看到有壳upx 3.91<br><img src="http://p6cwaqxnz.bkt.clouddn.com/upx3.91.png" alt=""></p>
 <h5 id="脱壳"><a href="#脱壳" class="headerlink" title="脱壳"></a>脱壳</h5><p>不能使用upx -d 直接脱。</p>
-<p>运行起来相当于脱壳看，因此可以用 dd 把data和text两段dump下来之后拼在一起，可以在IDA里面看。但实际上文件结构会被破坏，因为是运行时镜像，动态脱壳都有这样的问题。所以动态调试还是使用有壳的。dd<br>cat /proc/(pid hide)/maps 可以查看进程的内存映射<br>脱壳命令,其中的地址就是各段的地址,因为是静态的,因此都是不变的，可以直接复制：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo dd if=/proc/$(pidof hide)/mem of=hide_dump1 skip=4194304  bs=1c count=827392</div><div class="line">sudo dd if=/proc/$(pidof hide)/mem of=hide_dump2 skip=7110656  bs=1c count=20480</div><div class="line">cat hide_dump1 hide_dump2 &gt;hide_dump</div></pre></td></tr></table></figure></p>
+<p>运行起来相当于脱壳看，因此可以用 dd 把data和text两段dump下来之后拼在一起，可以在IDA里面看。但实际上文件结构会被破坏，因为是运行时镜像，动态脱壳都有这样的问题。所以动态调试还是使用有壳的。dd<br>cat /proc/(pid hide)/maps 可以查看进程的内存映射<br>脱壳命令,其中的地址就是各段的地址,因为是静态的,因此都是不变的，可以直接复制：<br><figure class="highlight tcl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo dd <span class="keyword">if</span>=/<span class="keyword">proc</span>/$(pidof<span class="title"> hide)/mem</span> of=hide_dump1<span class="title"> skip=4194304</span> <span class="title"> bs=1c</span> count=827392<span class="title"></span></div><div class="line">sudo dd<span class="title"> if=/proc/$(pidof</span> hide)/mem<span class="title"> of=hide_dump2</span> skip=7110656<span class="title">  bs=1c</span> count=20480<span class="title"></span></div><div class="line">cat hide_dump1<span class="title"> hide_dump2</span> &gt;hide_dump</div></pre></td></tr></table></figure></p>
 <p>看到别人说gdb dump binary 更方便,不过没试过(不会)</p>
 <h5 id="ptrace反调试"><a href="#ptrace反调试" class="headerlink" title="ptrace反调试"></a>ptrace反调试</h5><p><strong>ptrace介绍</strong>： ptrace提供了一种使父进程得以监视和控制其它进程的方式，它还能够改变子进程中的寄存器和内核映像，因而可以实现断点调试和系统调用的跟踪。使用ptrace，你可以在用户层拦截和修改系统调用(sys call)，修改它的参数，插入代码给正在运行的程序以及偷窥和篡改进程的寄存器和数据段。</p>
 <p>使用strace<br><strong>ptrace 相关的反调试</strong><br>需要把反调试过掉<br>gdb 中 <code>catch syscall ptrace</code> 设置断点<br>可以发现程序在<code>cmp eax,0</code> 处断下,此时通过<code>set $eax=0</code>,使程序可以往下执行。<br>c ,再修改一次，就可以成功过掉反调试了&gt;&lt; 队友说,ptrace 大概就是看eax有没有改变?一般就是<code>cmp eax,0</code>的地方了</p>
@@ -416,9 +438,11 @@
 <li>si </li>
 <li>reverse-continue 倒着执行回到上一个断点</li>
 </ul>
-<p>ELF：init区，在main 执行前会执行<br><strong>字符串交叉引用</strong> enter flag 看到哪些地方引用，找到藏起来的代码<br>p 出来F5有问题,算是IDA的bug吧。<br>mov eax xxh<br>syscall<br>cmp eax 0<br>jnz xx<br>忽视syscall 会改变eax</p>
-<p>xor eax eax<br>syscall<br>cmp eax<br>所以此处也要改<br>修改之后的：<br><img src="http://p6cwaqxnz.bkt.clouddn.com/hide-jz.png?imageView2/2/w/200" alt=""><br>结果：<br><img src="http://p6cwaqxnz.bkt.clouddn.com/hide-patch.png?imageView2/2/w/200" alt=""><br>jnz 改成jz，就可以看但是语义会改变<br>继续逆向程序,可以发现是常见算法 Tea<br>首先会判断字符串长度和几位字符是否符合要求，之后进行加密<br>加密过程为 xTea-&gt;异或-&gt;xtea。。<br>但是对于我来说..看半天都不知道是xtea加密吧<br>改下变量 key。。怎么没找到sum呢<br>v1 为加密后的flag<br>解密获得key  delta xtea<br>嗯..开始写脚本了…对我来说好难…还是试一下…先github上找到xtea<br>和网上找的xtea加密是一模一样的，应该没有修改<br>注意加密的v0,v1分别取data二进制数据的0-4,和4-8位,所以需要struct<br>感觉我反汇编还是有问题…看了别人写的脚本，和自己看到的加密有点不一样，尤其是sum部分。<br>终于…原来是我脚本的问题..<br>字符串定位找到关键函数<br>附：<a href="https://blog.csdn.net/buaaqqq2015/article/details/79736026" target="_blank" rel="external">2018年强网杯初赛 逆向题目 hide writeup (超详细)</a><br><strong>符号匹配</strong><br>总结：ida flirt/rizzo.py 比IDA官方好,不支持IDA7.0/ <a href="https://github.com/A7um/CTFUtils" target="_blank" rel="external">https://github.com/A7um/CTFUtils</a> 支持IDA7.0</p>
-<p>写个简易的源码<br>gcc –static<br>安装插件rizoo (autm改进支持7.0的)<br>file-&gt;produce file-&gt;rizzo<br>file-&gt;load file-&gt;rizzo<br>静态编译，得到有符号的，使用工具匹配对照看，produce /load<br>windows 程序比较有用<br>ps -ef | grep 进程名</p>
+<p>ELF：init区，在main 执行前会执行<br><strong>字符串交叉引用</strong> enter flag 看到哪些地方引用，找到藏起来的代码<br>p 出来F5有问题,算是IDA的bug吧。</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">mov</span> <span class="built_in">eax</span> xxh</div><div class="line"><span class="keyword">syscall</span></div><div class="line"><span class="keyword">cmp</span> <span class="built_in">eax</span> <span class="number">0</span></div><div class="line"><span class="keyword">jnz</span> xx</div></pre></td></tr></table></figure>
+<p>忽视syscall 会改变eax<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">xor</span> <span class="built_in">eax</span> <span class="built_in">eax</span></div><div class="line"><span class="keyword">syscall</span> </div><div class="line"><span class="keyword">cmp</span> <span class="built_in">eax</span></div></pre></td></tr></table></figure></p>
+<p>所以此处也要改<br>修改之后的：<br><img src="http://p6cwaqxnz.bkt.clouddn.com/hide-jz.png?imageView2/2/w/200" alt=""><br>结果：<br><img src="http://p6cwaqxnz.bkt.clouddn.com/hide-patch.png?imageView2/2/w/200" alt=""><br>jnz 改成jz，就可以看但是语义会改变<br>继续逆向程序,可以发现是常见算法 Tea<br>首先会判断字符串长度和几位字符是否符合要求，之后进行加密<br>加密过程为 xTea-&gt;异或-&gt;xtea。。<br>但是对于我来说..看半天都不知道是xtea加密吧<br>v1 为加密后的flag<br>解密获得key  delta xtea<br>嗯..开始写脚本了…对我来说好难…还是试一下…先github上找到xtea<br>和网上找的xtea加密是一模一样的，应该没有修改<br>注意加密的v0,v1分别取data二进制数据的0-4,和4-8位,所以需要struct<br>感觉我反汇编还是有问题…看了别人写的脚本，和自己看到的加密有点不一样，尤其是sum部分。<br>终于…原来是我脚本的问题..<br>字符串定位找到关键函数<br>附：<a href="https://blog.csdn.net/buaaqqq2015/article/details/79736026" target="_blank" rel="external">2018年强网杯初赛 逆向题目 hide writeup (超详细)</a><br><strong>符号匹配</strong><br>总结：ida flirt/rizzo.py 比IDA官方好,不支持IDA7.0/ <a href="https://github.com/A7um/CTFUtils" target="_blank" rel="external">https://github.com/A7um/CTFUtils</a> 支持IDA7.0</p>
+<p>写个简易的源码<br>gcc –static<br>安装插件 rizoo (autm改进支持7.0的)<br>file-&gt;produce file-&gt;rizzo<br>file-&gt;load file-&gt;rizzo<br>静态编译，得到有符号的，使用工具匹配对照看，produce /load<br>windows 程序比较有用<br><code>ps -ef | grep</code> 进程名</p>
 <h4 id="re2"><a href="#re2" class="headerlink" title="re2"></a>re2</h4><p>hook 原理<br><a href="https://bbs.pediy.com/thread-228669.htm" target="_blank" rel="external">https://bbs.pediy.com/thread-228669.htm</a><br>可以看出来是修改writefile的前五个字节，但是怎么看出来跳转到哪个函数的？<br>还需要注意优先级的问题，^ 和 +,不知道的话还是挺坑的…</p>
 <h4 id="magic"><a href="#magic" class="headerlink" title="magic"></a>magic</h4><p>动态调试更方便<br>F5有问题,修改main调用约定<br><strong>调用约定</strong><br>options-&gt;complier-&gt;编译器-&gt;Vistual C++ 就可以了<br>首先设置断点发现问题，使用trace找到main之前调用的函数，通过交叉调用分析函数。<br>首先过掉 check_sercet<br>(大佬是一开始交叉引用一波,然后看scanf的交叉引用就找到了关键函数)<br>前三个<br>最后一个<br>simple_enc<br>int __usercall xxx@<rax></rax></p>
 <p>setjmp：设置jmp点。longjmp: 跳到setjmp设置的位置异常处理<br>虚拟机逆向题</p>
@@ -533,7 +557,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/xman-reversing/" rel="tag"># xman,reversing</a>
+            <a href="/tags/reversing/" rel="tag"># reversing</a>
           
         </div>
       
@@ -546,8 +570,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/03/XMAN-pwn-day1/" rel="next" title="XMAN-pwn-day1">
-                <i class="fa fa-chevron-left"></i> XMAN-pwn-day1
+              <a href="/2018/08/03/XMAN-pwn-day1/" rel="next" title="CTF | pwn 题的逆向分析策略">
+                <i class="fa fa-chevron-left"></i> CTF | pwn 题的逆向分析策略
               </a>
             
           </div>
@@ -556,8 +580,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/03/XMAN-reversing-1/" rel="prev" title="XMAN-reversing-1">
-                XMAN-reversing-1 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/03/XMAN-reversing-1/" rel="prev" title="CTF | 逆向入门第一篇">
+                CTF | 逆向入门第一篇 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -637,7 +661,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -659,7 +683,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -900,7 +924,7 @@
         var disqus_config = function () {
           this.page.url = 'https://yuuoniy.github.io/2018/08/03/XMAN-reversing-day2/';
           this.page.identifier = '2018/08/03/XMAN-reversing-day2/';
-          this.page.title = 'XMAN-reversing-2';
+          this.page.title = 'CTF | 逆向入门第二篇';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://yuuoniy.disqus.com/embed.js';

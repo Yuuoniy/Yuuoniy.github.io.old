@@ -314,6 +314,144 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/08/06/XMAN-pwn-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuuoniy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尿尿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/08/06/XMAN-pwn-2/" itemprop="url">
+                  XMAN-pwn-2
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-06T08:53:52+08:00">
+                2018-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/06/XMAN-pwn-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/06/XMAN-pwn-2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          linux 堆管理  program-(free malloc)-heap allocator-(mmap,brk)-kernel  glic-ptmalloc2  主要结构：chunk,bin,arena  bins 管理空闲堆块  arena 记录分配信息  chunk –allocated/f
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/06/XMAN-pwn-2/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/08/05/XMAN-pwn-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -337,7 +475,7 @@
               
                 
                 <a class="post-title-link" href="/2018/08/05/XMAN-pwn-1/" itemprop="url">
-                  XMAN-pwn-1
+                  CTF | pwn 基础知识-栈溢出
                 </a>
               
             
@@ -402,10 +540,10 @@
       
         
           
-          lgcpku@gmail.com
-kernel spacestackmemory mapping regionheap(libc管理)bss segmentdata segmenttext segment  
+          kernel spacestackmemory mapping regionheap(libc管理)bss segmentdata segmenttext segment  
 
-register 寄存器：eax、ebx、ecx、edx、edi、esi、esp、eip
+register 寄存器：eax、ebx、ecx、edx、edi、esi、esp、eip、flags
+调用约定：-64 ：
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -645,7 +783,7 @@ java为主
               
                 
                 <a class="post-title-link" href="/2018/08/03/XMAN-pwn-day1/" itemprop="url">
-                  XMAN-pwn-day1
+                  CTF | pwn 题的逆向分析策略
                 </a>
               
             
@@ -671,6 +809,28 @@ java为主
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CTF/" itemprop="url" rel="index">
+                    <span itemprop="name">CTF</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -717,7 +877,7 @@ wellpan,alictf 2016 vss
 
 整数溢出
 无符号型与有符号的转换 (read 一般是无符号)
-整数加减乘除法、如malloc(size2) size=边界/2+
+整数加减乘除法、如  malloc(size*2) size=边界
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -790,7 +950,7 @@ wellpan,alictf 2016 vss
               
                 
                 <a class="post-title-link" href="/2018/08/03/XMAN-reversing-day2/" itemprop="url">
-                  XMAN-reversing-2
+                  CTF | 逆向入门第二篇
                 </a>
               
             
@@ -816,6 +976,28 @@ wellpan,alictf 2016 vss
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CTF/" itemprop="url" rel="index">
+                    <span itemprop="name">CTF</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -854,7 +1036,7 @@ wellpan,alictf 2016 vss
 
       
         
-          <p>逆向入门第二篇<br></p>
+          <p>逆向入门第二篇<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/08/03/XMAN-reversing-day2/#more" rel="contents">
@@ -926,7 +1108,7 @@ wellpan,alictf 2016 vss
               
                 
                 <a class="post-title-link" href="/2018/08/03/XMAN-reversing-1/" itemprop="url">
-                  XMAN-reversing-1
+                  CTF | 逆向入门第一篇
                 </a>
               
             
@@ -990,7 +1172,7 @@ wellpan,alictf 2016 vss
 
       
         
-          <p>跟着萌新一起逆向入门呦。包括：基本知识点,简单题例子,常见操作<br></p>
+          <p>跟着萌新一起逆向入门呦。包括：基本知识点,简单题例子,常见操作<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/08/03/XMAN-reversing-1/#more" rel="contents">
@@ -1590,145 +1772,6 @@ wellpan,alictf 2016 vss
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/03/18/XDCTF2015-pwn200/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="尿尿">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/03/18/XDCTF2015-pwn200/" itemprop="url">
-                  XDCTF2015-pwn200(DynELF)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-18T19:40:11+08:00">
-                2018-03-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/03/18/XDCTF2015-pwn200/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/03/18/XDCTF2015-pwn200/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          该题用到了 DynELF 技术  
-DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其基本代码框架如下。12345678910p = process(&apos;./xxx&apos;)def leak(address):  #各种预处理  payload = &quot;
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/18/XDCTF2015-pwn200/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1778,7 +1821,7 @@ DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其�
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1800,7 +1843,7 @@ DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其�
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

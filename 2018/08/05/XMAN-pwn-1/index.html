@@ -103,17 +103,17 @@
 
 
 
-<meta name="description" content="lgcpku@gmail.com kernel spacestackmemory mapping regionheap(libc管理)bss segmentdata segmenttext segment    register 寄存器：eax、ebx、ecx、edx、edi、esi、esp、eip、flags 调用约定：-64 ：rdi rsi rdx rcx r8 r9 stack 返回值：r">
+<meta name="description" content="kernel spacestackmemory mapping regionheap(libc管理)bss segmentdata segmenttext segment    register 寄存器：eax、ebx、ecx、edx、edi、esi、esp、eip、flags 调用约定：-64 ：rdi rsi rdx rcx r8 r9 stack 返回值：rax 32:stack 全部用栈传">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="XMAN-pwn-1">
+<meta property="og:title" content="CTF | pwn 基础知识-栈溢出">
 <meta property="og:url" content="https://yuuoniy.github.io/2018/08/05/XMAN-pwn-1/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="lgcpku@gmail.com kernel spacestackmemory mapping regionheap(libc管理)bss segmentdata segmenttext segment    register 寄存器：eax、ebx、ecx、edx、edi、esi、esp、eip、flags 调用约定：-64 ：rdi rsi rdx rcx r8 r9 stack 返回值：r">
-<meta property="og:updated_time" content="2018-08-05T15:17:39.939Z">
+<meta property="og:description" content="kernel spacestackmemory mapping regionheap(libc管理)bss segmentdata segmenttext segment    register 寄存器：eax、ebx、ecx、edx、edi、esi、esp、eip、flags 调用约定：-64 ：rdi rsi rdx rcx r8 r9 stack 返回值：rax 32:stack 全部用栈传">
+<meta property="og:updated_time" content="2018-09-11T02:25:16.694Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="XMAN-pwn-1">
-<meta name="twitter:description" content="lgcpku@gmail.com kernel spacestackmemory mapping regionheap(libc管理)bss segmentdata segmenttext segment    register 寄存器：eax、ebx、ecx、edx、edi、esi、esp、eip、flags 调用约定：-64 ：rdi rsi rdx rcx r8 r9 stack 返回值：r">
+<meta name="twitter:title" content="CTF | pwn 基础知识-栈溢出">
+<meta name="twitter:description" content="kernel spacestackmemory mapping regionheap(libc管理)bss segmentdata segmenttext segment    register 寄存器：eax、ebx、ecx、edx、edi、esi、esp、eip、flags 调用约定：-64 ：rdi rsi rdx rcx r8 r9 stack 返回值：rax 32:stack 全部用栈传">
 
 
 
@@ -147,7 +147,7 @@
 
 
 
-  <title> XMAN-pwn-1 | 尿尿 </title>
+  <title> CTF | pwn 基础知识-栈溢出 | 尿尿 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -335,7 +335,7 @@
             
             
               
-                XMAN-pwn-1
+                CTF | pwn 基础知识-栈溢出
               
             
           </h1>
@@ -397,8 +397,7 @@
       
 
       
-        <p>lgcpku@gmail.com</p>
-<p>kernel space<br>stack<br>memory mapping region<br>heap(libc管理)<br>bss segment<br>data segment<br>text segment  </p>
+        <p>kernel space<br>stack<br>memory mapping region<br>heap(libc管理)<br>bss segment<br>data segment<br>text segment  </p>
 <ul>
 <li>register 寄存器：eax、ebx、ecx、edx、edi、esi、esp、eip、flags</li>
 <li>调用约定：-64 ：rdi rsi rdx rcx r8 r9 stack 返回值：rax</li>
@@ -434,7 +433,7 @@
 <ul>
 <li><p>IO问题很关键：read 系统调用 有可能读成两次或一次 远程timeout很玄学，因此可以通过sleep 、readline、gets,scanf 影响结果<br>看到read想想要不要sleep</p>
 </li>
-<li><p>遇事不决先sleep 或 raw_input</p>
+<li><p>遇事不决先 sleep 或 raw_input</p>
 </li>
 <li>debug log_level </li>
 <li>context<br>amd64 i386<br>context(os,arch)<br>cyclic pattern(cyclic(),cyclic_find())<br>fmtstr_payload 格式化字符串</li>
@@ -595,7 +594,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -617,7 +616,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -858,7 +857,7 @@
         var disqus_config = function () {
           this.page.url = 'https://yuuoniy.github.io/2018/08/05/XMAN-pwn-1/';
           this.page.identifier = '2018/08/05/XMAN-pwn-1/';
-          this.page.title = 'XMAN-pwn-1';
+          this.page.title = 'CTF | pwn 基础知识-栈溢出';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://yuuoniy.disqus.com/embed.js';

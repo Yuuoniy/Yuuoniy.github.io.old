@@ -110,7 +110,7 @@
 <meta property="og:url" content="https://yuuoniy.github.io/2018/08/17/XMAN-wireless-attack-with-defense/index.html">
 <meta property="og:site_name" content="尿尿">
 <meta property="og:description" content="常见的无线攻击威胁fake ap攻击ARP&amp;amp;Dns劫持WIFI DOS 公攻击操作命令：iwconfigairmairodump-ng 名称airmon-ng start nameairodump-ng --bssid xxx -c 信道 -w 保存文件 wlan0monaircrack-ng 包 -w 字典airodump-ng --bssid B4:0B:44:C2:D5:FF -c">
-<meta property="og:updated_time" content="2018-09-11T02:02:26.064Z">
+<meta property="og:updated_time" content="2018-09-11T02:06:57.428Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CTF | 无线网络-802.11攻与防">
 <meta name="twitter:description" content="常见的无线攻击威胁fake ap攻击ARP&amp;amp;Dns劫持WIFI DOS 公攻击操作命令：iwconfigairmairodump-ng 名称airmon-ng start nameairodump-ng --bssid xxx -c 信道 -w 保存文件 wlan0monaircrack-ng 包 -w 字典airodump-ng --bssid B4:0B:44:C2:D5:FF -c">
@@ -412,9 +412,9 @@
 </ul>
 <p>fuzz 要根据协议规范，不然协议不认，长度无所谓，但是帧类型的话要根据规范<br>要知道ap发给客户端还是客户端发给ap</p>
 <p>wireshark 流量还原</p>
-<h4 id="wifuzz-小工具"><a href="#wifuzz-小工具" class="headerlink" title="wifuzz 小工具"></a>wifuzz 小工具</h4><p>python wifuzz.py -s 尿尿 -i wlan0mon probe<br>scapy  封装好协议 </p>
-<p>iwconfig wlan0mon channel 1</p>
-<p>airbase-ng -e “rm -rf” -c 1 -v wlan0mon</p>
+<h4 id="wifuzz-小工具"><a href="#wifuzz-小工具" class="headerlink" title="wifuzz 小工具"></a>wifuzz 小工具</h4><p><code>python wifuzz.py -s 尿尿 -i wlan0mon probe</code><br>scapy  封装好协议 </p>
+<p><code>iwconfig wlan0mon channel 1</code></p>
+<p><code>airbase-ng -e &quot;rm -rf&quot; -c 1 -v wlan0mon</code></p>
 <p>推荐博客：<a href="http://www.wiattack.net/index.php/archives/7/" target="_blank" rel="external">http://www.wiattack.net/index.php/archives/7/</a></p>
 
       
@@ -452,8 +452,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/17/jarvisoj-writeup/" rel="next" title="CTF|jarvisoj-writeup">
-                <i class="fa fa-chevron-left"></i> CTF|jarvisoj-writeup
+              <a href="/2018/08/17/jarvisoj-writeup/" rel="next" title="CTF | jarvisoj-writeup">
+                <i class="fa fa-chevron-left"></i> CTF | jarvisoj-writeup
               </a>
             
           </div>
@@ -543,7 +543,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -565,7 +565,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

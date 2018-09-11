@@ -421,12 +421,12 @@
       
         <p>git相关配置及基础命令<br><a id="more"></a></p>
 <p>配置简写：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git config --global alias.co checkout</div><div class="line">$ git config --global alias.ci commit</div><div class="line">$ git config --global alias.br branch</div></pre></td></tr></table></figure>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git <span class="keyword">config</span> --<span class="keyword">global</span> <span class="keyword">alias</span><span class="variable">.co</span> checkout</div><div class="line">$ git <span class="keyword">config</span> --<span class="keyword">global</span> <span class="keyword">alias</span><span class="variable">.ci</span> commit</div><div class="line">$ git <span class="keyword">config</span> --<span class="keyword">global</span> <span class="keyword">alias</span><span class="variable">.br</span> branch</div></pre></td></tr></table></figure>
 <p>git config –global core.autocrlf true。 修复因换行符不同产生的问题（对于windows)<br>git reset 从暂存区删除<br>git reset –hard 放弃工作目录或暂存区的所有更改（不能恢复的！！<br>git reset –hard HEAD (撤销合并)</p>
 <p>git diff –staged   </p>
 <p>git pull upstream/master<br>git add -u<br>注：-u 表示把所有已track的文件的新的修改加入缓存，但不加入新的文件。<br>git show （与父提交比较<br>git branch -d 删除某个分支（只是删除这个标签）<br>git merge 始终将所有指定的分支合并到当前检出的分支中，并为该分支新建一个提交。<br>git merge –abort，将文件恢复到你开始合并之前的状态  </p>
 <h4 id="log"><a href="#log" class="headerlink" title="log"></a>log</h4><p>git log –graph   看到分支合并图<br>git log –graph –pretty=oneline –abbrev-commit 可以展示合并信息<br>git log –stat   显示在每个提交(commit)中哪些文件被修改了,这些文件分别添加或删除了多少行内容.<br>git log –pretty=oneline (pretty参数格式化)<br>git log –pretty=short<br>–no-ff参数，表示禁用Fast forward<br>–allow-unrelated-histories<br>记录的命令操作很不系统，但主要还是想记录自己不熟悉的内容（慢慢也会变熟悉的）<br>gitk  查看图形化信息</p>
-<p>解决git在windows下中文乱码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ git config --global core.quotepath false          # 显示 status 编码</div><div class="line">$ git config --global gui.encoding utf-8            # 图形界面编码</div><div class="line">$ git config --global i18n.commit.encoding utf-8    # 提交信息编码</div><div class="line">$ git config --global i18n.logoutputencoding utf-8  # 输出 log 编码</div><div class="line">$ export LESSCHARSET=utf-8</div><div class="line"># 最后一条命令是因为 git log 默认使用 less 分页，所以需要 bash 对 less 命令进行 utf-8 编码</div></pre></td></tr></table></figure></p>
+<p>解决git在windows下中文乱码:<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ git config --<span class="built_in">global</span> core.quotepath <span class="literal">false</span>          <span class="comment"># 显示 status 编码</span></div><div class="line">$ git config --<span class="built_in">global</span> gui.encoding utf<span class="number">-8</span>            <span class="comment"># 图形界面编码</span></div><div class="line">$ git config --<span class="built_in">global</span> i18n.commit.encoding utf<span class="number">-8</span>    <span class="comment"># 提交信息编码</span></div><div class="line">$ git config --<span class="built_in">global</span> i18n.logoutputencoding utf<span class="number">-8</span>  <span class="comment"># 输出 log 编码</span></div><div class="line">$ <span class="keyword">export</span> LESSCHARSET=utf<span class="number">-8</span></div><div class="line"><span class="comment"># 最后一条命令是因为 git log 默认使用 less 分页，所以需要 bash 对 less 命令进行 utf-8 编码</span></div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -560,7 +560,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -582,7 +582,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
