@@ -353,7 +353,7 @@
                 
               
 
-              <time title="Created: 2018-09-11 16:53:30 / Modified: 17:10:46" itemprop="dateCreated datePublished" datetime="2018-09-11T16:53:30+08:00">2018-09-11</time>
+              <time title="Created: 2018-09-11 16:53:30 / Modified: 17:19:32" itemprop="dateCreated datePublished" datetime="2018-09-11T16:53:30+08:00">2018-09-11</time>
             
 
             
@@ -497,7 +497,7 @@
                 
               
 
-              <time title="Created: 2018-09-11 14:47:50 / Modified: 16:47:12" itemprop="dateCreated datePublished" datetime="2018-09-11T14:47:50+08:00">2018-09-11</time>
+              <time title="Created: 2018-09-11 14:47:50 / Modified: 17:21:36" itemprop="dateCreated datePublished" datetime="2018-09-11T14:47:50+08:00">2018-09-11</time>
             
 
             
@@ -537,7 +537,8 @@
       
         
           
-            <h3 id="git-日常使用总结"><a href="#git-日常使用总结" class="headerlink" title="git 日常使用总结"></a>git 日常使用总结</h3><p>git 已经用很多了,大概就是需要了解仓库,分支等概念,熟悉本地和远程的关系,熟练使用clone commit pull push merge操作<br>下面给出一下常用的命令:<br>新建分支:<code>git branch dev</code><br>切换分支:<code>git checkout dev</code><br>添加文件 <code>git add file</code> ,常用 <code>git add .</code> 添加全部更新的文件</p>
+            <a id="more"></a>
+<h3 id="git-日常使用总结"><a href="#git-日常使用总结" class="headerlink" title="git 日常使用总结"></a>git 日常使用总结</h3><p>git 已经用很多了,大概就是需要了解仓库,分支等概念,熟悉本地和远程的关系,熟练使用clone commit pull push merge操作<br>下面给出一下常用的命令:<br>新建分支:<code>git branch dev</code><br>切换分支:<code>git checkout dev</code><br>添加文件 <code>git add file</code> ,常用 <code>git add .</code> 添加全部更新的文件</p>
 <p>查看状态 <code>git status</code></p>
 <p>常见步骤:<code>git add -&gt;commit -&gt;push</code>, 如果有冲突还涉及到 merge 操作<br>对于入门者推荐 git 教程 <a href="https://classroom.udacity.com/courses/ud775" target="_blank" rel="external">如何使用 Git 和 GitHub</a><br>比较系统,之前我也是根据这个学的</p>
 <h3 id="Android开发环境搭建"><a href="#Android开发环境搭建" class="headerlink" title="Android开发环境搭建"></a>Android开发环境搭建</h3><p>之前已经安装过 AS 了,下载sdk应该要翻墙,不过我有梯子,不过下载gardle倒是失败了几次</p>
@@ -796,7 +797,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-09 01:19:04" itemprop="dateModified" datetime="2018-09-09T01:19:04+08:00">2018-09-09</time>
+                <time title="Modified: 2018-09-11 17:22:05" itemprop="dateModified" datetime="2018-09-11T17:22:05+08:00">2018-09-11</time>
               
             
           </span>
@@ -831,7 +832,8 @@
       
         
           
-            <p>希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到</p>
+            <a id="more"></a>
+<p>希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到</p>
 <h3 id="readme-revenge"><a href="#readme-revenge" class="headerlink" title="readme_revenge"></a>readme_revenge</h3><p>分析程序，首先读取name，之后输出，存在栈溢出漏洞?<br>反编译有问题，还是看汇编比较好，虽然我汇编很弱orz<br>file strings checksec一波 静态链接<br>python subprocess 模块<br>flag 在 0x00006B4040<br>首先输出junk，程序崩溃，地址0x000000000045ad64<br>看wp知道了rabin2 使用<br>为什么rabin2 -z readme_revenge | grep 34C3 能知道flag被隐藏在程序中?<br>看 wp 说 <strong>printf_modifier_table、</strong>printf_function_table和printf_arginfo_table ,之前利用过…</p>
 <p>劫持控制流….? flag 在程序中 打印出来就好，然而能想到这个也挺难的…</p>
 <h4 id="fortify-fail函数"><a href="#fortify-fail函数" class="headerlink" title="__fortify_fail函数"></a>__fortify_fail函数</h4><p><strong>fortify_fail函数 判断need_backtrace &amp;&amp; </strong>libc_argv[0] != NULL 后打印 <strong>libc_argv[0] 

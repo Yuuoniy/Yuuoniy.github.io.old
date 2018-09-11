@@ -108,17 +108,17 @@
 
 
 
-  <meta name="description" content="希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到 readme_revenge分析程序，首先读取name，之后输出，存在栈溢出漏洞?反编译有问题，还是看汇编比较好，虽然我汇编很弱orzfile strings checksec一波 静态链接python subprocess 模块flag 在 0x00006B4040首先输出junk，程序崩溃，地址0x000000000045a">
+  <meta name="description" content="希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到 readme_revenge分析程序，首先读取name，之后输出，存在栈溢出漏洞?反编译有问题，还是看汇编比较好，虽然我汇编很弱orzfile strings checksec一波 静态链接python subprocess 模块flag 在 0x00006B4040首先输出junk，程序崩溃，地址0x000000000045">
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="201809-writeups">
 <meta property="og:url" content="https://yuuoniy.github.io/2018/09/04/201809-writeups/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到 readme_revenge分析程序，首先读取name，之后输出，存在栈溢出漏洞?反编译有问题，还是看汇编比较好，虽然我汇编很弱orzfile strings checksec一波 静态链接python subprocess 模块flag 在 0x00006B4040首先输出junk，程序崩溃，地址0x000000000045a">
-<meta property="og:updated_time" content="2018-09-08T17:19:04.946Z">
+<meta property="og:description" content="希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到 readme_revenge分析程序，首先读取name，之后输出，存在栈溢出漏洞?反编译有问题，还是看汇编比较好，虽然我汇编很弱orzfile strings checksec一波 静态链接python subprocess 模块flag 在 0x00006B4040首先输出junk，程序崩溃，地址0x000000000045">
+<meta property="og:updated_time" content="2018-09-11T09:22:05.629Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="201809-writeups">
-<meta name="twitter:description" content="希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到 readme_revenge分析程序，首先读取name，之后输出，存在栈溢出漏洞?反编译有问题，还是看汇编比较好，虽然我汇编很弱orzfile strings checksec一波 静态链接python subprocess 模块flag 在 0x00006B4040首先输出junk，程序崩溃，地址0x000000000045a">
+<meta name="twitter:description" content="希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到 readme_revenge分析程序，首先读取name，之后输出，存在栈溢出漏洞?反编译有问题，还是看汇编比较好，虽然我汇编很弱orzfile strings checksec一波 静态链接python subprocess 模块flag 在 0x00006B4040首先输出junk，程序崩溃，地址0x000000000045">
 
 
 
@@ -367,7 +367,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-09 01:19:04" itemprop="dateModified" datetime="2018-09-09T01:19:04+08:00">2018-09-09</time>
+                <time title="Modified: 2018-09-11 17:22:05" itemprop="dateModified" datetime="2018-09-11T17:22:05+08:00">2018-09-11</time>
               
             
           </span>
@@ -400,7 +400,8 @@
       
 
       
-        <p>希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到</p>
+        <a id="more"></a>
+<p>希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到</p>
 <h3 id="readme-revenge"><a href="#readme-revenge" class="headerlink" title="readme_revenge"></a>readme_revenge</h3><p>分析程序，首先读取name，之后输出，存在栈溢出漏洞?<br>反编译有问题，还是看汇编比较好，虽然我汇编很弱orz<br>file strings checksec一波 静态链接<br>python subprocess 模块<br>flag 在 0x00006B4040<br>首先输出junk，程序崩溃，地址0x000000000045ad64<br>看wp知道了rabin2 使用<br>为什么rabin2 -z readme_revenge | grep 34C3 能知道flag被隐藏在程序中?<br>看 wp 说 <strong>printf_modifier_table、</strong>printf_function_table和printf_arginfo_table ,之前利用过…</p>
 <p>劫持控制流….? flag 在程序中 打印出来就好，然而能想到这个也挺难的…</p>
 <h4 id="fortify-fail函数"><a href="#fortify-fail函数" class="headerlink" title="__fortify_fail函数"></a>__fortify_fail函数</h4><p><strong>fortify_fail函数 判断need_backtrace &amp;&amp; </strong>libc_argv[0] != NULL 后打印 <strong>libc_argv[0] 
