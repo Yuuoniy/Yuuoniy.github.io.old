@@ -1,13 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
 
-<html class="theme-next mist" lang="en">
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
 
 
 
@@ -28,54 +49,7 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
 
 
 
@@ -84,34 +58,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
 
 
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
-
-
-
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
 
 
 
-<meta name="description" content="慕名而来的人都会爱上我">
-<meta property="og:type" content="website">
-<meta property="og:title" content="尿尿">
-<meta property="og:url" content="https://yuuoniy.github.io/page/5/index.html">
-<meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="慕名而来的人都会爱上我">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="尿尿">
-<meta name="twitter:description" content="慕名而来的人都会爱上我">
+
+
+
 
 
 
@@ -119,14 +84,14 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
-    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: false,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: 'W9VSQ0GGKQ',
       apiKey: '74aef4d13e544170be082d500082ddb0',
@@ -138,18 +103,37 @@
 </script>
 
 
+  
+
+
+
+
+  <meta name="description" content="慕名而来的人都会爱上我">
+<meta property="og:type" content="website">
+<meta property="og:title" content="尿尿">
+<meta property="og:url" content="https://yuuoniy.github.io/page/5/index.html">
+<meta property="og:site_name" content="尿尿">
+<meta property="og:description" content="慕名而来的人都会爱上我">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="尿尿">
+<meta name="twitter:description" content="慕名而来的人都会爱上我">
+
+
+
+
+
 
   <link rel="canonical" href="https://yuuoniy.github.io/page/5/"/>
 
 
 
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
-
-  <title> 尿尿 </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
+  <title>尿尿</title>
   
 
 
@@ -160,10 +144,36 @@
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
+</head>
 
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
   
   
@@ -171,8 +181,7 @@
   
 
   <div class="container sidebar-position-left 
-   page-home 
- ">
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -181,19 +190,21 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">尿尿</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
         <p class="site-subtitle">没错就是尿尿啦</p>
       
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -201,106 +212,58 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
 
       
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            Search
-          </a>
-        </li>
       
     </ul>
   
 
   
-    <div class="site-search">
-      
+    
+
   
-  <div class="algolia-popup popup search-popup">
-    <div class="algolia-search">
-      <div class="algolia-search-input-icon">
-        <i class="fa fa-search"></i>
-      </div>
-      <div class="algolia-search-input" id="algolia-search-input"></div>
-    </div>
 
-    <div class="algolia-results">
-      <div id="algolia-stats"></div>
-      <div id="algolia-hits"></div>
-      <div id="algolia-pagination" class="algolia-pagination"></div>
-    </div>
-
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-  </div>
-
-
-
-
-    </div>
   
 </nav>
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
@@ -313,13 +276,19 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2017/07/28/windows10连接Linux远程桌面/">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2017/07/28/解决ubuntu16.04不能打开terminal的问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -332,9 +301,168 @@
         
         
           <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/28/解决ubuntu16.04不能打开terminal的问题/" itemprop="url">
+                  解决ubuntu16.04不能打开terminal的问题
+                </a>
+              
             
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-07-28 14:44:49 / Modified: 14:56:56" itemprop="dateCreated datePublished" datetime="2017-07-28T14:44:49+08:00">2017-07-28</time>
+            
+
             
               
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习/" itemprop="url" rel="index"><span itemprop="name">学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>挺简单的<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/28/解决ubuntu16.04不能打开terminal的问题/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2017/07/28/windows10连接Linux远程桌面/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuuoniy">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尿尿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2017/07/28/windows10连接Linux远程桌面/" itemprop="url">
                   windows10连接远程桌面ubuntu16.04
@@ -346,6 +474,11 @@
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -353,13 +486,18 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-28T13:21:27+08:00">
-                2017-07-28
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2017-07-28 13:21:27 / Modified: 22:38:57" itemprop="dateCreated datePublished" datetime="2017-07-28T13:21:27+08:00">2017-07-28</time>
             
 
             
+              
 
+              
             
           </span>
 
@@ -375,11 +513,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习/" itemprop="url" rel="index">
-                    <span itemprop="name">学习</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习/" itemprop="url" rel="index"><span itemprop="name">学习</span></a></span>
 
                 
                 
@@ -388,17 +522,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/28/windows10连接Linux远程桌面/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/28/windows10连接Linux远程桌面/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -415,7 +538,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -424,36 +549,38 @@
       
         
           
+            <a id="more"></a>
+<p>在ubuntu上：<br><code>sudo apt-get install xrdp vnc4server xbase-clients</code>  </p>
+<p>通过搜索打开desktop sharing<br>按照下图设置: </p>
+<p><img src="http://otswdapxf.bkt.clouddn.com/desktopSharing.jpg?imageView/2/w/500" alt=""> </p>
+<p>安装dconf-editor:  </p>
+<p><code>sudo apt-get install dconf-editor</code></p>
+<p>打开：<br><code>dconf-editor</code><br>设置：org &gt; gnome &gt; desktop &gt; remote-access，取消 “requlre-encryption”  </p>
+<p><img src="http://otswdapxf.bkt.clouddn.com/%E8%AE%BE%E7%BD%AE.png?imageView/2/w/500" alt=""></p>
+<p>在windows中 打开远程桌面连接,输入ip地址   </p>
+<p><img src="http://otswdapxf.bkt.clouddn.com/%E8%BF%9E%E6%8E%A5.png?imageView/2/w/400" alt=""></p>
+<p>切换到如下界面：<br>选择vnc-any，输入ip地址，端口不变,输入刚刚在ubuntu上设置的密码:  </p>
+<p><img src="http://otswdapxf.bkt.clouddn.com/%E8%BF%9E%E6%8E%A52.png?imageView/2/w/500" alt=""> </p>
+<p>连接成功 ！好开心 ！  </p>
+<p><img src="http://otswdapxf.bkt.clouddn.com/%E8%BF%9E%E6%8E%A5%E6%88%90%E5%8A%9F.png?imageView/2/w/500" alt=""></p>
+<p>然后发现 两个鼠标不同步，十分不好用，再控制面板的鼠标设置中取消了 提高指针精确度<br>也没好多少..<br>又自己下载了VNC 好了一些,不过还是卡卡的<br>(具体的VNC设置就不说啦，就一步一步根据提示来吧，不难)  </p>
+
           
-在ubuntu上：sudo apt-get install xrdp vnc4server xbase-clients  
-通过搜索打开desktop sharing按照下图设置: 
- 
-安装dconf-editor:  
-sudo apt-get install dconf-editor
-打开：
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/28/windows10连接Linux远程桌面/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -467,6 +594,10 @@ sudo apt-get install dconf-editor
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -479,13 +610,19 @@ sudo apt-get install dconf-editor
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2017/07/28/ubuntu16.04安装桌面系统gnome/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -498,9 +635,6 @@ sudo apt-get install dconf-editor
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
                 <a class="post-title-link" href="/2017/07/28/ubuntu16.04安装桌面系统gnome/" itemprop="url">
                   ubuntu16.04安装桌面系统gnome
@@ -512,6 +646,11 @@ sudo apt-get install dconf-editor
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -519,13 +658,18 @@ sudo apt-get install dconf-editor
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-28T11:17:52+08:00">
-                2017-07-28
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2017-07-28 11:17:52 / Modified: 14:46:44" itemprop="dateCreated datePublished" datetime="2017-07-28T11:17:52+08:00">2017-07-28</time>
             
 
             
+              
 
+              
             
           </span>
 
@@ -541,11 +685,7 @@ sudo apt-get install dconf-editor
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习/" itemprop="url" rel="index">
-                    <span itemprop="name">学习</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习/" itemprop="url" rel="index"><span itemprop="name">学习</span></a></span>
 
                 
                 
@@ -554,17 +694,6 @@ sudo apt-get install dconf-editor
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/28/ubuntu16.04安装桌面系统gnome/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/28/ubuntu16.04安装桌面系统gnome/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -581,7 +710,9 @@ sudo apt-get install dconf-editor
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -590,32 +721,28 @@ sudo apt-get install dconf-editor
       
         
           
-          执行命令：sudo apt-get updatesudo apt-get gnome-desktop  
-执行startx启动图形化界面(好像通过的方式这样会导致下面的问题…)   
-我遇到了登录后只显示壁纸的情况，解决方法：打开一个终端(例：ctrl+alt+f2)执行命令rm -rf ~/.co
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/28/ubuntu16.04安装桌面系统gnome/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <p>执行命令：<br><code>sudo apt-get update</code><br><code>sudo apt-get gnome-desktop</code>  </p>
+<p>执行<code>startx</code>启动图形化界面(好像通过的方式这样会导致下面的问题…)   </p>
+<p>我遇到了登录后只显示壁纸的情况，解决方法：<br>打开一个终端(例：ctrl+alt+f2)<br>执行命令<br><code>rm -rf ~/.compiz ~/.cache</code><br><code>sudo systemctl restart lightdm</code><br>即可恢复正常<br>(其中的原因我并不了解)  </p>
+<p>添加用户到sudo用户组：<br>登录一个sudo账户：<code>sudo usermod -G sudo 用户名</code><br>通过groups 用户名可以查所属的用户组</p>
+<p>还有一些因人而异的问题…</p>
+
+          
         
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -629,6 +756,10 @@ sudo apt-get install dconf-editor
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -641,13 +772,19 @@ sudo apt-get install dconf-editor
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2017/07/24/chrome开发者工具3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -660,9 +797,6 @@ sudo apt-get install dconf-editor
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
                 <a class="post-title-link" href="/2017/07/24/chrome开发者工具3/" itemprop="url">
                   Untitled
@@ -674,6 +808,11 @@ sudo apt-get install dconf-editor
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -681,11 +820,12 @@ sudo apt-get install dconf-editor
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-24T12:50:26+08:00">
-                2017-07-24
-              </time>
-            
 
+              
+                
+              
+
+              <time title="Created: 2017-07-24 12:50:26" itemprop="dateCreated datePublished" datetime="2017-07-24T12:50:26+08:00">2017-07-24</time>
             
 
             
@@ -694,17 +834,6 @@ sudo apt-get install dconf-editor
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/24/chrome开发者工具3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/24/chrome开发者工具3/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -721,7 +850,9 @@ sudo apt-get install dconf-editor
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -730,30 +861,23 @@ sudo apt-get install dconf-editor
       
         
           
+            
           
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/24/chrome开发者工具3/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -767,6 +891,10 @@ sudo apt-get install dconf-editor
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -779,13 +907,19 @@ sudo apt-get install dconf-editor
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2017/07/24/chrome开发者工具2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -798,9 +932,6 @@ sudo apt-get install dconf-editor
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
                 <a class="post-title-link" href="/2017/07/24/chrome开发者工具2/" itemprop="url">
                   Untitled
@@ -812,6 +943,11 @@ sudo apt-get install dconf-editor
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -819,30 +955,24 @@ sudo apt-get install dconf-editor
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-24T12:15:17+08:00">
-                2017-07-24
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2017-07-24 12:15:17 / Modified: 12:50:10" itemprop="dateCreated datePublished" datetime="2017-07-24T12:15:17+08:00">2017-07-24</time>
             
 
             
+              
 
+              
             
           </span>
 
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/24/chrome开发者工具2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/24/chrome开发者工具2/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -859,7 +989,9 @@ sudo apt-get install dconf-editor
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -868,32 +1000,32 @@ sudo apt-get install dconf-editor
       
         
           
-          source主要是显示网页加载的脚本文件：例如css， js等资源文件（它不包含cookie，img等静态资源文件）。Sources: 包含该项目的静态资源文件。
-Scope 选项中列出了断点处私有和公有的变量信息 ctrl +p 快速打开文件 
-ctrl +g 快速定位到某一行可以把鼠标放到区域2
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/24/chrome开发者工具2/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h4 id="source"><a href="#source" class="headerlink" title="source"></a>source</h4><p>主要是显示网页加载的脚本文件：例如css， js等资源文件（它不包含cookie，img等静态资源文件）。<br>Sources: 包含该项目的静态资源文件。</p>
+<p>Scope 选项中列出了断点处私有和公有的变量信息<br> ctrl +p 快速打开文件 </p>
+<p>ctrl +g 快速定位到某一行<br>可以把鼠标放到区域2种的某个变量上，浏览器会弹出一个小框框，框框里面则是你悬浮其上的变量所有信息:<br>{}格式化代码 </p>
+<p>F10跟着js执行的路径一步一步地走下去，如果你遇到了一个函数包含着另外一个函数，那么你可以按F11进入到个函数中去观察它的代码执行活动。 </p>
+<p>console面板中拥有的是当前断点环境 </p>
+<p>ontent script 选项开里面包含着一些第三方插件或者浏览器自身的js代码,经常它是被忽略的，实际上它的作用很少。 </p>
+<p>在Sinppets中，我们也 可以编辑（重写）js代码片段。这些片段实际上就相当于你的js文件一样，不同的是本地的js文件在编辑器里面编辑的，而此处，你是在浏览器中编写的。这些代码片段在浏览器刷新的时候既不会消失，也不会执行，除非是你手动执行它。它可以存在你的本地浏览器中，即使关闭浏览器，再次打开时它依然还在那里。它的主要作用可以使得我们编写一些项目的测试代码时提供便捷，你知道，如果你在编辑器上编写这些代码，在发布时你必须为它们添加注释符号或者手动删除它们，而在浏览器上编写就不需要这样繁琐了。 </p>
+<p>Snippets 的非常功能强大，它的许多隐藏功能还有待发掘。目前卤煮使用它是在记住调试片段、单元测试、少量的功能代码编写功能上。 </p>
+<p>Snippets 的非常功能强大，它的许多隐藏功能还有待发掘。目前卤煮使用它是在记住调试片段、单元测试、少量的功能代码编写功能上。 </p>
+
+          
         
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -907,6 +1039,10 @@ ctrl +g 快速定位到某一行可以把鼠标放到区域2
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -919,13 +1055,19 @@ ctrl +g 快速定位到某一行可以把鼠标放到区域2
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2017/07/24/chrome开发者工具1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -938,9 +1080,6 @@ ctrl +g 快速定位到某一行可以把鼠标放到区域2
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
                 <a class="post-title-link" href="/2017/07/24/chrome开发者工具1/" itemprop="url">
                   Untitled
@@ -952,6 +1091,11 @@ ctrl +g 快速定位到某一行可以把鼠标放到区域2
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -959,30 +1103,36 @@ ctrl +g 快速定位到某一行可以把鼠标放到区域2
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-24T11:51:22+08:00">
-                2017-07-24
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2017-07-24 11:51:22" itemprop="dateCreated datePublished" datetime="2017-07-24T11:51:22+08:00">2017-07-24</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2017-08-16 14:29:25" itemprop="dateModified" datetime="2017-08-16T14:29:25+08:00">2017-08-16</time>
+              
             
           </span>
 
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/24/chrome开发者工具1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/24/chrome开发者工具1/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -999,7 +1149,9 @@ ctrl +g 快速定位到某一行可以把鼠标放到区域2
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1008,39 +1160,39 @@ ctrl +g 快速定位到某一行可以把鼠标放到区域2
       
         
           
-          element
-html结构面板
-操作dom样式，结构，时间的显示面板
+            <h4 id="element"><a href="#element" class="headerlink" title="element"></a>element</h4><ul>
+<li>html结构面板</li>
+<li>操作dom样式，结构，时间的显示面板</li>
+</ul>
+<p><code>event listeners</code> 观察绑定的事件</p>
+<p><code>click</code> 是事件名称</p>
+<p><code>.div1</code> 事件是索引名称（也就是通过什么绑定的）</p>
+<p><code>attachment</code> 事件来源 </p>
+<p><code>handler</code>里面包含事件的毁掉主体内容 ？？</p>
+<p><code>useCapture</code>表示该事件是否向上冒泡</p>
+<p><code>Add attribu</code>t : 为该元素添加属性<br><code>Edit attribute</code>：修改该元素的属性<br><code>Force element state</code>： 为元素激活某种状态（主要用在可以几乎的元素比如a、input、button等）<br>Edit as HTML：编辑该元素（你可以重写它的整个content）甚至修改它的标签名称<br>中间简单的掠过…….<br>Break on：为该元素添加dom操作事件监听。包含三个选项（树结构改变、属性改变、节点移除）。这个选项的作用是帮助我们监控和定位操作元素的代码 </p>
+<p>ctrl+F 查找 </p>
+<h4 id="network"><a href="#network" class="headerlink" title="network"></a>network</h4><p>1.<code>Network</code>是一个监控当前网页所有的http请求的面版，它主体部分展示的是每个http请求，每个字段表示着该请求的不同属性和状态<br><code>Name</code>：请求文件名称<br><code>Method</code>：方法（常见的是get post）<br><code>Status</code>：请求完成的状态<br><code>Type</code>：请求的类型<br><code>Initiator</code>：请求源也就是说该链接通过什么发送（常见的是Parser、Script）<br><code>Size</code>：下载文件或者请求占的资源大小<br><code>Time</code>：请求或下载的时间<br><code>Timeline</code>：该链接在发送过程中的时间状态轴（我们可以把鼠标移动到这些红红绿绿的时间轴上，对应的会有它的详细信息：开始下载时间，等待加载时间，自身下载耗时）</p>
+<p>单击面板中的任意一条http信息，会在底部弹出一个新的面板，其中记录了该条http请求的详细参数header（表头信息、返回信息、请求基本状态—请参看http1.1协议内容对号入座）、Preview（返回的格式化转移后文本信息）、response（转移之前的原始信息）、Cookies（该请求带的cookies）、Timing（请求时间变化）</p>
+<p>3.在主面板的顶部，有一些按钮从左到右它们的功能分别是：是否启用继续http监控（默认高亮选中过）、清空主面板中的http信息、是否启用过滤信息选项（启用后可以对http信息进行筛选）、列出多种属性、只列出name和time属性、preserve log（目前不清楚啥用）、Dishable cahe（禁用缓存，所有的304返回会和fromm cahe都回变成正常的请求忽视cache conctrol 设定）</p>
+<h4 id="sources部分"><a href="#sources部分" class="headerlink" title="sources部分"></a>sources部分</h4><p>展示了本界面所加载的资源列表。还有cookie和local storage 、SESSION 等本地存储信息，在这里，我们可以自由地修改、增加、删除本地存储。</p>
 
-event listeners 观察绑定的事件
-click 是事件名称
-.div1 事件是索引名称（也就是通过什么绑定的）
-attachment 事件来源 
-handler里面包含事件的毁掉主体内容 ？？
-useCapture
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/24/chrome开发者工具1/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -1054,6 +1206,10 @@ useCapture
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1066,13 +1222,19 @@ useCapture
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2017/07/11/sublime-package/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1085,9 +1247,6 @@ useCapture
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
                 <a class="post-title-link" href="/2017/07/11/sublime-package/" itemprop="url">
                   sublime 插件推荐
@@ -1099,6 +1258,11 @@ useCapture
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1106,13 +1270,18 @@ useCapture
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-11T21:53:49+08:00">
-                2017-07-11
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2017-07-11 21:53:49 / Modified: 22:06:12" itemprop="dateCreated datePublished" datetime="2017-07-11T21:53:49+08:00">2017-07-11</time>
             
 
             
+              
 
+              
             
           </span>
 
@@ -1128,11 +1297,7 @@ useCapture
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习/" itemprop="url" rel="index">
-                    <span itemprop="name">学习</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习/" itemprop="url" rel="index"><span itemprop="name">学习</span></a></span>
 
                 
                 
@@ -1141,17 +1306,6 @@ useCapture
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/11/sublime-package/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/11/sublime-package/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1168,7 +1322,9 @@ useCapture
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1188,17 +1344,17 @@ useCapture
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -1212,6 +1368,10 @@ useCapture
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1224,13 +1384,19 @@ useCapture
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2017/06/19/wxwidgets/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1243,9 +1409,6 @@ useCapture
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
                 <a class="post-title-link" href="/2017/06/19/wxwidgets/" itemprop="url">
                   wxwidgets编译安装
@@ -1257,6 +1420,11 @@ useCapture
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1264,13 +1432,18 @@ useCapture
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-19T09:47:55+08:00">
-                2017-06-19
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2017-06-19 09:47:55 / Modified: 09:49:42" itemprop="dateCreated datePublished" datetime="2017-06-19T09:47:55+08:00">2017-06-19</time>
             
 
             
+              
 
+              
             
           </span>
 
@@ -1286,11 +1459,7 @@ useCapture
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习/" itemprop="url" rel="index">
-                    <span itemprop="name">学习</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习/" itemprop="url" rel="index"><span itemprop="name">学习</span></a></span>
 
                 
                 
@@ -1299,17 +1468,6 @@ useCapture
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/06/19/wxwidgets/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/19/wxwidgets/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1326,7 +1484,9 @@ useCapture
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1346,17 +1506,17 @@ useCapture
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -1370,6 +1530,10 @@ useCapture
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1382,13 +1546,19 @@ useCapture
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2017/06/06/learn-hexo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1401,9 +1571,6 @@ useCapture
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
                 <a class="post-title-link" href="/2017/06/06/learn-hexo/" itemprop="url">
                   博客配置及hexo学习 　
@@ -1415,6 +1582,11 @@ useCapture
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1422,13 +1594,30 @@ useCapture
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-06T18:26:05+08:00">
-                2017-06-06
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2017-06-06 18:26:05" itemprop="dateCreated datePublished" datetime="2017-06-06T18:26:05+08:00">2017-06-06</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2017-08-16 14:16:11" itemprop="dateModified" datetime="2017-08-16T14:16:11+08:00">2017-08-16</time>
+              
             
           </span>
 
@@ -1444,11 +1633,7 @@ useCapture
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习/" itemprop="url" rel="index">
-                    <span itemprop="name">学习</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习/" itemprop="url" rel="index"><span itemprop="name">学习</span></a></span>
 
                 
                 
@@ -1457,17 +1642,6 @@ useCapture
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/06/06/learn-hexo/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/06/learn-hexo/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1484,7 +1658,9 @@ useCapture
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1504,17 +1680,17 @@ useCapture
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -1528,6 +1704,10 @@ useCapture
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1540,13 +1720,19 @@ useCapture
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2017/06/06/pictures/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1559,9 +1745,6 @@ useCapture
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
                 <a class="post-title-link" href="/2017/06/06/pictures/" itemprop="url">
                   如何在 hexo 博客中插入图片
@@ -1573,6 +1756,11 @@ useCapture
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1580,30 +1768,36 @@ useCapture
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-06T16:56:22+08:00">
-                2017-06-06
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2017-06-06 16:56:22" itemprop="dateCreated datePublished" datetime="2017-06-06T16:56:22+08:00">2017-06-06</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2017-09-02 14:17:04" itemprop="dateModified" datetime="2017-09-02T14:17:04+08:00">2017-09-02</time>
+              
             
           </span>
 
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/06/06/pictures/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/06/pictures/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1620,7 +1814,9 @@ useCapture
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1640,17 +1836,17 @@ useCapture
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -1664,164 +1860,10 @@ useCapture
         <div class="post-eof"></div>
       
     </footer>
-  </article>
-
-
-    
-      
-
-  
-
+  </div>
   
   
   
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2017/06/06/linux文件压缩/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="尿尿">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/06/linux文件压缩/" itemprop="url">
-                  linux之文件打包与解压缩
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-06T16:01:56+08:00">
-                2017-06-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习/" itemprop="url" rel="index">
-                    <span itemprop="name">学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/06/06/linux文件压缩/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/06/linux文件压缩/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>好久没有更新啦，尝试过把部分的学习内容直接push到github的仓库上，但是不便查看，所以还是在博客上发表吧。一些基础的学习命令，因为不常用，很快就忘了，还是想好好记下来。<br>本部分关于linx上常用的压缩和解压工具，主要是 zip,rar,tar<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/06/linux文件压缩/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </article>
 
 
@@ -1830,15 +1872,12 @@ useCapture
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
 
           </div>
-          
-
-
           
 
         </div>
@@ -1854,116 +1893,152 @@ useCapture
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.png"
-               alt="yuuoniy" />
-          <p class="site-author-name" itemprop="name">yuuoniy</p>
-           
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yuuoniy</p>
               <p class="site-description motion-element" itemprop="description">慕名而来的人都会爱上我</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">59</span>
-                <span class="site-state-item-name">posts</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
-                <span class="site-state-item-name">categories</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
-                <span class="site-state-item-name">tags</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/Yuuoniy" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/weiweichenlun" target="_blank" title="Weibo">
-                  
-                    <i class="fa fa-fw fa-weibo"></i>
-                  
-                  Weibo
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://www.zhihu.com/people/yuuoniy" target="_blank" title="Zhihu">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  Zhihu
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="linmq006@gamil.com" target="_blank" title="Email">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  Email
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-          <div class="cc-license motion-element" itemprop="license">
-            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
-              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
-            </a>
           </div>
-        
 
-        
-        
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
-        
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
 
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
 
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Yuuoniy" target="_blank" title="GitHub"><i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/weiweichenlun" target="_blank" title="Weibo"><i class="fa fa-fw fa-globe"></i>Weibo</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/yuuoniy" target="_blank" title="Zhihu"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="linmq006@gamil.com" target="_blank" title="Email"><i class="fa fa-fw fa-globe"></i>Email</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
       </section>
 
       
@@ -1980,48 +2055,41 @@ useCapture
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">yuuoniy</span>
+
+  
+
+  
 </div>
 
 
-<!-- <div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
 
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
- -->
 
-<!-- 访问量（貌似不准） -->
-<!--  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
- <span id="busuanzi_container_site_pv">
- Page Views:<span id="busuanzi_value_site_pv"></span>
- </span>
- --> 
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.3.1</div>
 
- <!-- 运行时间 -->
-<!--  <script>
- var birthDay = new Date("11/20/2014");
- var now = new Date();
- var duration = now.getTime() - birthDay.getTime();
- var total= Math.floor(duration / (1000 * 60 * 60 * 24));
- document.getElementById("showDays").innerHTML = "have been running "+total+" days";
- </script>
- <span id="showDays"></span> -->
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.1</div>
+
+
 
 
         
+
+
+
+
+
+
+
 
         
       </div>
@@ -2034,6 +2102,11 @@ useCapture
       </div>
     
 
+    
+	
+    
+
+    
   </div>
 
   
@@ -2052,43 +2125,45 @@ useCapture
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
 
   
 
 
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
 
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-  
-  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
 
 
 
@@ -2100,27 +2175,20 @@ useCapture
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
 
 
 
   
 
 
-  
-
-    
-      <script id="dsq-count-scr" src="https://yuuoniy.disqus.com/count.js" async></script>
-    
-
-    
 
   
 
 
 
 
-	
+
 
 
 
@@ -2134,35 +2202,16 @@ useCapture
 
   
 
-
-
-
+  
 
   
 
-
-
-
-
-
   
-
-
-
 
   
   
-  
-  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
 
   
-  
-  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
-  
-
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
-
-
 
   
 

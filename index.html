@@ -1,13 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
 
-<html class="theme-next mist" lang="en">
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
 
 
 
@@ -28,54 +49,7 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
 
 
 
@@ -84,34 +58,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
 
 
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
-
-
-
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
 
 
 
-<meta name="description" content="慕名而来的人都会爱上我">
-<meta property="og:type" content="website">
-<meta property="og:title" content="尿尿">
-<meta property="og:url" content="https://yuuoniy.github.io/index.html">
-<meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="慕名而来的人都会爱上我">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="尿尿">
-<meta name="twitter:description" content="慕名而来的人都会爱上我">
+
+
+
 
 
 
@@ -119,14 +84,14 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
-    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: false,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: 'W9VSQ0GGKQ',
       apiKey: '74aef4d13e544170be082d500082ddb0',
@@ -138,18 +103,37 @@
 </script>
 
 
+  
+
+
+
+
+  <meta name="description" content="慕名而来的人都会爱上我">
+<meta property="og:type" content="website">
+<meta property="og:title" content="尿尿">
+<meta property="og:url" content="https://yuuoniy.github.io/index.html">
+<meta property="og:site_name" content="尿尿">
+<meta property="og:description" content="慕名而来的人都会爱上我">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="尿尿">
+<meta name="twitter:description" content="慕名而来的人都会爱上我">
+
+
+
+
+
 
   <link rel="canonical" href="https://yuuoniy.github.io/"/>
 
 
 
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
-
-  <title> 尿尿 </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
+  <title>尿尿</title>
   
 
 
@@ -160,10 +144,36 @@
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
+</head>
 
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
   
   
@@ -171,8 +181,7 @@
   
 
   <div class="container sidebar-position-left 
-   page-home 
- ">
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -181,19 +190,21 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">尿尿</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
         <p class="site-subtitle">没错就是尿尿啦</p>
       
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -201,106 +212,58 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-home menu-item-active">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
 
       
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            Search
-          </a>
-        </li>
       
     </ul>
   
 
   
-    <div class="site-search">
-      
+    
+
   
-  <div class="algolia-popup popup search-popup">
-    <div class="algolia-search">
-      <div class="algolia-search-input-icon">
-        <i class="fa fa-search"></i>
-      </div>
-      <div class="algolia-search-input" id="algolia-search-input"></div>
-    </div>
 
-    <div class="algolia-results">
-      <div id="algolia-stats"></div>
-      <div id="algolia-hits"></div>
-      <div id="algolia-pagination" class="algolia-pagination"></div>
-    </div>
-
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-  </div>
-
-
-
-
-    </div>
   
 </nav>
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
@@ -313,13 +276,19 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/09/11/android-course-1/">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/09/11/hexo-next-update/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -332,12 +301,9 @@
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
-                <a class="post-title-link" href="/2018/09/11/android-course-1/" itemprop="url">
-                  android | 手机平台应用开发
+                <a class="post-title-link" href="/2018/09/11/hexo-next-update/" itemprop="url">
+                  hexo | NEXT 主题更新,从 5.1 到 6.0
                 </a>
               
             
@@ -346,6 +312,11 @@
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -353,30 +324,24 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-11T14:47:50+08:00">
-                2018-09-11
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2018-09-11 16:53:30 / Modified: 16:57:23" itemprop="dateCreated datePublished" datetime="2018-09-11T16:53:30+08:00">2018-09-11</time>
             
 
             
+              
 
+              
             
           </span>
 
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/09/11/android-course-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/09/11/android-course-1/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -393,7 +358,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -401,12 +368,10 @@
 
       
         
-          
-          git 日常使用总结git 已经用很多了,大概就是需要了解仓库,分支等概念,熟悉本地和远程的关系,熟练使用clone commit pull push merge操作下面给出一下常用的命令:新建分支:git branch dev切换分支:git checkout dev添加文件到残酷 git add
-          ...
+          <p>突然发现自己的主题没有更新,怪不得很多地方很奇怪,其实更新也不是很方便,所以才记录一下<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/11/android-course-1/#more" rel="contents">
+            <a class="btn" href="/2018/09/11/hexo-next-update/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -415,17 +380,17 @@
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -439,6 +404,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -451,13 +420,19 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/09/06/pwn-tips/">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/09/11/android-course-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -470,9 +445,149 @@
         
         
           <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/11/android-course-1/" itemprop="url">
+                  android | 手机平台应用开发第一篇
+                </a>
+              
             
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-11 14:47:50 / Modified: 16:47:12" itemprop="dateCreated datePublished" datetime="2018-09-11T14:47:50+08:00">2018-09-11</time>
+            
+
             
               
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="git-日常使用总结"><a href="#git-日常使用总结" class="headerlink" title="git 日常使用总结"></a>git 日常使用总结</h3><p>git 已经用很多了,大概就是需要了解仓库,分支等概念,熟悉本地和远程的关系,熟练使用clone commit pull push merge操作<br>下面给出一下常用的命令:<br>新建分支:<code>git branch dev</code><br>切换分支:<code>git checkout dev</code><br>添加文件 <code>git add file</code> ,常用 <code>git add .</code> 添加全部更新的文件</p>
+<p>查看状态 <code>git status</code></p>
+<p>常见步骤:<code>git add -&gt;commit -&gt;push</code>, 如果有冲突还涉及到 merge 操作<br>对于入门者推荐 git 教程 <a href="https://classroom.udacity.com/courses/ud775" target="_blank" rel="external">如何使用 Git 和 GitHub</a><br>比较系统,之前我也是根据这个学的</p>
+<h3 id="Android开发环境搭建"><a href="#Android开发环境搭建" class="headerlink" title="Android开发环境搭建"></a>Android开发环境搭建</h3><p>之前已经安装过 AS 了,下载sdk应该要翻墙,不过我有梯子,不过下载gardle倒是失败了几次</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/09/06/pwn-tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuuoniy">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尿尿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2018/09/06/pwn-tips/" itemprop="url">
                   pwn-tips
@@ -484,6 +599,11 @@
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -491,30 +611,24 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-06T17:17:32+08:00">
-                2018-09-06
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2018-09-06 17:17:32 / Modified: 17:17:33" itemprop="dateCreated datePublished" datetime="2018-09-06T17:17:32+08:00">2018-09-06</time>
             
 
             
+              
 
+              
             
           </span>
 
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/09/06/pwn-tips/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/09/06/pwn-tips/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -531,7 +645,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -540,30 +656,23 @@
       
         
           
+            
           
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/06/pwn-tips/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -577,6 +686,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -589,13 +702,19 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/09/04/201809-writeups/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -608,9 +727,6 @@
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
                 <a class="post-title-link" href="/2018/09/04/201809-writeups/" itemprop="url">
                   201809-writeups
@@ -622,6 +738,11 @@
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -629,30 +750,36 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-04T11:12:38+08:00">
-                2018-09-04
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2018-09-04 11:12:38" itemprop="dateCreated datePublished" datetime="2018-09-04T11:12:38+08:00">2018-09-04</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-09 01:19:04" itemprop="dateModified" datetime="2018-09-09T01:19:04+08:00">2018-09-09</time>
+              
             
           </span>
 
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/09/04/201809-writeups/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/09/04/201809-writeups/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -669,7 +796,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -678,31 +807,119 @@
       
         
           
-          希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到
-readme_revenge分析程序，首先读取name，之后输出，存在栈溢出漏洞?反编译有问题，还是看汇编比较好，虽然我汇编很弱orzfile strings checksec一波 静态链接python subprocess 模块
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/04/201809-writeups/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <p>希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到</p>
+<h3 id="readme-revenge"><a href="#readme-revenge" class="headerlink" title="readme_revenge"></a>readme_revenge</h3><p>分析程序，首先读取name，之后输出，存在栈溢出漏洞?<br>反编译有问题，还是看汇编比较好，虽然我汇编很弱orz<br>file strings checksec一波 静态链接<br>python subprocess 模块<br>flag 在 0x00006B4040<br>首先输出junk，程序崩溃，地址0x000000000045ad64<br>看wp知道了rabin2 使用<br>为什么rabin2 -z readme_revenge | grep 34C3 能知道flag被隐藏在程序中?<br>看 wp 说 <strong>printf_modifier_table、</strong>printf_function_table和printf_arginfo_table ,之前利用过…</p>
+<p>劫持控制流….? flag 在程序中 打印出来就好，然而能想到这个也挺难的…</p>
+<h4 id="fortify-fail函数"><a href="#fortify-fail函数" class="headerlink" title="__fortify_fail函数"></a>__fortify_fail函数</h4><p><strong>fortify_fail函数 判断need_backtrace &amp;&amp; </strong>libc_argv[0] != NULL 后打印 <strong>libc_argv[0] 
+</strong>stack_chk_fail 调用了<strong>fortify_fail函数，</strong>fortify_fail函数调用了__libc_message函数</p>
+<p>利用思路：通过溢出覆盖指针， __libc_argv[0]指向flag的地址就可以打印出flag<br>libc_argv[0]在 0x06B7980<br>静态链接….<br>printf 有个新奇的功能… Customizing<br>环境变量LIBC_FATAL<em>STDERR</em>=1<br>查看printf 的实现，想想怎么劫持控制流 </p>
+<ol>
+<li>printf 调用 vprintf- do_positional-printf_positional-<strong>parse_one_specwc 
+</strong>builtin_expect(EXP, N)。 意思是：EXP==N的概率很大。<br><strong>builtin_expect((x),1)表示 x 的值为真的可能性更大；
+</strong>builtin_expect((x),0)表示 x 的值为假的可能性更大。</li>
+</ol>
+<p>__printf_arginfo_table 是printf_arginfo_size_function  结构体，我们可以伪造这个结构体</p>
+<ol>
+<li>do_positional ?</li>
+</ol>
+<p>printf_info 结构体</p>
+<ol>
+<li><p>调用_fortify_fail，伪造 printf_arginfo_size_function  包含call _fortify_fail的地址，对__printf_arginfo_table取操作时，就会访问那个地址，从而执行。</p>
+</li>
+<li><p>将**libc_argv 改了，这个地址<br>overflow 都能显示这两个。</p>
+</li>
+</ol>
+<p><em><strong>printf_arginfo_table[spec-&gt;info.spec] 这里是怎么构造的..?<br>看取的地址相对于</strong>printf_arginfo_table 的偏移，就是spec-&gt;info.spec的值</em>8，而spec-&gt;info.spec为s，所以是Ord(s)<em>8<br>format s offset 为什么是  ord(“s”)</em>8?<br>注意ljust 不会修改原来的字符产,所以需要赋值!</p>
+<p>参考:<a href="https://github.com/r00ta/myWriteUps/tree/master/34C32017/pwn_readme_revenge" target="_blank" rel="external">https://github.com/r00ta/myWriteUps/tree/master/34C32017/pwn_readme_revenge</a></p>
+<h3 id="jarvisoj-guestbook"><a href="#jarvisoj-guestbook" class="headerlink" title="jarvisoj guestbook"></a>jarvisoj guestbook</h3><p>首先读取一长串字符串，过长会出现非法访问内存的错误<br>看到good game函数，会打开flag.txt，所以应该劫持控制流让程序执行good game 函数<br>覆盖返回地址为good game<br>签到题orz</p>
+<h3 id="jarvisoj-smashes"><a href="#jarvisoj-smashes" class="headerlink" title="jarvisoj smashes"></a>jarvisoj smashes</h3><p>利用__stack_chk_fail</p>
+<p>flag 在 0x000600D21<br>利用漏洞打印出flag<br>flag 上面有个变量，<br>IO_gets 有漏洞吧 栈溢出<br>_IO_getc<br>会overwriteflag 就是会修改原来的flag<br>SSP<br>将libc_argv[0] 的地址覆盖为flag地址<br>需要知道：</p>
+<ol>
+<li>程序运行时argv[0]的地址</li>
+<li>读取字符串存放的地址<br>在main下断点，查看argv[0]地址</li>
+</ol>
+<p>使用search 程序名 查找<br>在 __IO_gets 后一句下断点，获得输入字符串的地址<br>覆盖前会映射到别的地方，可以search一下<br>构造好payload发过去就行了</p>
+<p><strong>ELF重映射：当可执行文件足够小时，在不同的区段可能被多次映射。</strong></p>
+<h3 id="jarvisoj-test-your-memory"><a href="#jarvisoj-test-your-memory" class="headerlink" title="jarvisoj test your memory"></a>jarvisoj test your memory</h3><p>首先分析一下程序 </p>
+<p>随机数<br>随机打印6个字符，输出<br>我们输入的字串要与随机生成的字串前四个字符相等??但是和hint中的cat flag有什么关系呢 </p>
+<p>data 段有个hint<br>漏洞在哪呢….<br>s 有栈溢出 scanf 会溢出吗</p>
+<p>直接覆盖返回地址为hint？？的地址???<br>win_fun 调用字符串</p>
+<p>很基础的 ret2libc</p>
+<p>080487E0 为 ‘cat flag’字符串<br>返回地址要设置为main函数的地址 </p>
+<h3 id="level3-x64"><a href="#level3-x64" class="headerlink" title="level3 x64"></a>level3 x64</h3><p>很明显的栈溢出<br>但是怎么利用呢，给了libc ，所以应该是rop,自己找gadgets？<br>直接找one_gadget呢,还有熟悉一下x64 寄存器内容<br>one_gadget 命令都不记得orz<br>果然我都不熟啊!<br>搜索onegadgets<br>pwngdb 里面是可以直接是由rop命令搜索的，还算方便</p>
+<p>但是没有rdx的gadgets 呀，因为不知道libc的基址…也没法用libc的，我们的目的是使rdx&gt;=8，如果满足就可以不用管了，可以调一调看满不满足 </p>
+<p>X64使用寄存器传参 </p>
+<ol>
+<li><p>构造 write 的调用栈打印函数got 地址<br>write(0,read_got,0x08) 将rdi-0，rsi-read_got,rdx-0x08</p>
+<p>32 位：system_plt, ‘b’ * 4, binsh_addr，函数参数在函数返回地址的上方<br>，函数调用时入栈顺序为</p>
+</li>
+</ol>
+<p>实参N~1→主调函数返回地址→主调函数帧基指针EBP→被调函数局部变量1~N<br>  64位：参数依次保存在RDI, RSI, RDX, RCX, R8 和 R9 寄存器中，如果还有更多的参数的话才会保存在栈上</p>
+<ol>
+<li>计算Libc 基址，获得system地址</li>
+<li>构造system 调用栈  </li>
+</ol>
+<p>复习一下x64 传参顺序!<br>需要的有…<br>用约定 32: eax—syscall号 ebx,ecx,edx参数 64: rax—syscall号 rdi,rsi,rdx,rcx,r8,r9</p>
+<p>构造好后为什么有问题呢…</p>
+<h3 id="level5"><a href="#level5" class="headerlink" title="level5"></a>level5</h3><p>mmap和mprotect练习，假设system和execve函数被禁用，请尝试使用mmap和mprotect完成本题。<br>没学过..mmap mprotect 刚好可以练练</p>
+<p>不让用system和execve，所以是执行shellcode<br>使用mprotect ，先leak出地址<br><strong>libc_csu_init()的一条万能gadgets!<br>_dl_runtime_resolve()中的gadget,通过这个gadget可以控制六个64位参数寄存器的值，当我们使用参数比较多的函数的时候（比如mmap和mprotect）就可以派上用场了。<br>disassemble </strong>libc_csu_init</p>
+<p>大致思路：<br>· 使用mmap开一段可以执行的空间，将shellcode放进去执行<br>· 使用mprotect，讲一段空间设置为RWX，将shellcode放进去执行</p>
+<p>具体思路是这样的：<br>1、通过libc和write函数泄露出write函数在内存中地址，计算出mprotect函数地址<br>2、劫持GOT表，覆盖某些表项的地址，通过read函数可以输入这些地址，将mprotect函数地址，bss段地址写到GOT表中去，为了下一步可以通过call命令直接调用<br>3、使用__libc_csu_init函数末尾的通过gadgets进行函数调用，执行mprotect设置为可移植性，然后执行shellcode获取权限<br>好难..<br>int mprotect(void *addr, size_t len, int prot);<br>log.info()<br>利用write函数泄露出libc内存信息  #write(1,write_got,8)</p>
+<p>然后计算出mprotect函数在libc中的地址 #mprotect_add = libc_base + libc.symbols[“mprotect”]</p>
+<p>将shellcdoe写入bss段</p>
+<p>将bss地址和mprotect地址写入got表 </p>
+<p>最后用通用gadget调用mprotect函数将bss段设置为可执行</p>
+<p>然后跳转到bss在got表的地址执行shellcode</p>
+<p>看别人wp的思路：栈溢出 -&gt; leak read -&gt; hijack got -&gt; write shellcode to bss -&gt; call mprotect to set ‘rwx’ -&gt; exec shellcode<br>先根据大佬的exp调一遍orz<br>一般设置r12为我们指向需要的地址的指针的地址（有点绕），rbx为0，rbp为1</p>
+<p>错位产生的gadgets<br>pop rdi，ret<br>pop rsi，pop r15,ret </p>
+<p>x/5i  address<br><strong>_gmon_start</strong> 符号,干嘛来着…</p>
+<p>gadgets 分两部分使用</p>
+<ol>
+<li><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span>执行gad1</div><div class="line"></div><div class="line"><span class="symbol">.text:</span><span class="number">000000000040089</span>A                 <span class="keyword">pop</span>     rbx  必须为<span class="number">0</span></div><div class="line"><span class="symbol">.text:</span><span class="number">000000000040089</span>B                 <span class="keyword">pop</span>     rbp  必须为<span class="number">1</span></div><div class="line"><span class="symbol">.text:</span><span class="number">000000000040089</span>C                 <span class="keyword">pop</span>     <span class="built_in">r12</span>  <span class="keyword">call</span>!!!!</div><div class="line"><span class="symbol">.text:</span><span class="number">000000000040089</span>E                 <span class="keyword">pop</span>     <span class="built_in">r13</span>  arg3</div><div class="line"><span class="symbol">.text:</span><span class="number">00000000004008</span>A0                 <span class="keyword">pop</span>     <span class="built_in">r14</span>  arg2</div><div class="line"><span class="symbol">.text:</span><span class="number">00000000004008</span>A2                 <span class="keyword">pop</span>     <span class="built_in">r15</span>  arg1</div><div class="line"><span class="symbol">.text:</span><span class="number">00000000004008</span>A4                 retn  ——&gt; to gad2</div></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">.text:</span><span class="number">0000000000400880</span>                 <span class="keyword">mov</span>     <span class="built_in">rdx</span>, <span class="built_in">r13</span></div><div class="line"><span class="symbol">.text:</span><span class="number">0000000000400883</span>                 <span class="keyword">mov</span>     <span class="built_in">rsi</span>, <span class="built_in">r14</span></div><div class="line"><span class="symbol">.text:</span><span class="number">0000000000400886</span>                 <span class="keyword">mov</span>     <span class="built_in">edi</span>, <span class="built_in">r15d</span></div><div class="line"><span class="symbol">.text:</span><span class="number">0000000000400889</span>                 <span class="keyword">call</span>    <span class="built_in">qword</span> <span class="built_in">ptr</span> [<span class="built_in">r12</span>+<span class="built_in">rbx</span>*<span class="number">8</span>] <span class="keyword">call</span>!!!</div><div class="line"><span class="symbol">.text:</span><span class="number">000000000040088D</span>                 <span class="keyword">add</span>     <span class="built_in">rbx</span>, <span class="number">1</span></div><div class="line"><span class="symbol">.text:</span><span class="number">0000000000400891</span>                 <span class="keyword">cmp</span>     <span class="built_in">rbx</span>, <span class="built_in">rbp</span></div><div class="line"><span class="symbol">.text:</span><span class="number">0000000000400894</span>                 <span class="keyword">jnz</span>     short loc_400880</div><div class="line"><span class="symbol">.text:</span><span class="number">0000000000400896</span>                 <span class="keyword">add</span>     <span class="built_in">rsp</span>, <span class="number">8</span></div><div class="line"><span class="symbol">.text:</span>000000000040089A                 <span class="keyword">pop</span>     <span class="built_in">rbx</span></div><div class="line"><span class="symbol">.text:</span>000000000040089B                 <span class="keyword">pop</span>     <span class="built_in">rbp</span></div><div class="line"><span class="symbol">.text:</span>000000000040089C                 <span class="keyword">pop</span>     <span class="built_in">r12</span></div><div class="line"><span class="symbol">.text:</span>000000000040089E                 <span class="keyword">pop</span>     <span class="built_in">r13</span></div><div class="line"><span class="symbol">.text:</span>00000000004008A0                 <span class="keyword">pop</span>     <span class="built_in">r14</span></div><div class="line"><span class="symbol">.text:</span>00000000004008A2                 <span class="keyword">pop</span>     <span class="built_in">r15</span></div><div class="line"><span class="symbol">.text:</span>00000000004008A4                 <span class="keyword">retn</span> ——&gt; 构造一些垫板(<span class="number">7</span>*<span class="number">8</span>=56<span class="built_in">byte</span>)就返回了</div></pre></td></tr></table></figure>
+<p>嗯…都理解了…写wp的话…还是有点问题<br>感觉利用挺有趣的</p>
+<p> gmon_start 函数?<br> 指向 gmon初始化函数, 该函数开始记录 profiling信息并在 atexit()中注册了一个清理函数。<br>好奇怪…利用又失败了 </p>
+<h3 id="level4"><a href="#level4" class="headerlink" title="level4"></a>level4</h3><h4 id="借助dynELF实现无libc的漏洞利用"><a href="#借助dynELF实现无libc的漏洞利用" class="headerlink" title="借助dynELF实现无libc的漏洞利用"></a>借助dynELF实现无libc的漏洞利用</h4><p>模板：<br>我忘了…</p>
+<p>栈溢出<br>和3差不多，但是没有libc<br>因此需要自己泄露libc地址<br>同理，构造write 泄露两个函数地址…<br>得到libc版本,有必要知道Libc 版本吗?? 有 因为system需要</p>
+<p>那么怎么构造函数栈呢….<br>32位 的程序</p>
+<p>直接泄露system函数的地址就好了!把bin/sh 传到bss段<br>plt_write = elf.symbols[‘write’]<br>plt_read = elf.symbols[‘read’]</p>
+<p>泄露地址用got,执行用plt<br>为什么不行呢。…看wp别人都可以 连接超时，为什么呢…先放一下吧</p>
+<h3 id="jarivsoj-level6"><a href="#jarivsoj-level6" class="headerlink" title="jarivsoj level6"></a>jarivsoj level6</h3><p>freenote。。<br>很明显有个 double free 漏洞</p>
+<p>有点搞不清结构…<br>只有dalao的博客 orz<br>利用double free,触发unlink<br>调一下dalao的exp<br>最好尝试一下自己写..</p>
+<h3 id="guestbook-2"><a href="#guestbook-2" class="headerlink" title="guestbook 2"></a>guestbook 2</h3><p>堆题，先看delete<br>添加堆块有一个结构体：<br><figure class="highlight basic"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">00000000 </span>block           struc ; (sizeof=<span class="number">0</span>x18, mappedto_6)</div><div class="line"><span class="symbol">00000000 </span>                                        ; XREF: list_struct/r</div><div class="line"><span class="symbol">00000000 </span>inuse           dq ?</div><div class="line"><span class="symbol">00000008 </span>length          dq ?</div><div class="line"><span class="symbol">00000010 </span>ptr             dq ?</div><div class="line"><span class="symbol">00000018 </span>block           ends</div><div class="line"><span class="number">00000018</span></div><div class="line"><span class="symbol">00000000 </span>; ---------------------------------------------------------------------------</div><div class="line"><span class="number">00000000</span></div><div class="line"><span class="symbol">00000000 </span>list_struct     struc ; (sizeof=<span class="number">0</span>x1810, mappedto_8)</div><div class="line"><span class="symbol">00000000 </span>sum             dq ?</div><div class="line"><span class="symbol">00000008 </span>number          dq ?</div><div class="line"><span class="symbol">00000010 </span>block           block <span class="number">256</span> dup(?)</div><div class="line"><span class="symbol">00001810 </span>list_struct     ends</div></pre></td></tr></table></figure></p>
+<p>free 的时候没有把指针置为null，并且没有判断是否free过，所以有double漏洞，因此我们可以构造unlink</p>
+<p>定义结构体..<br>首先要弄清楚结构!<br>开始堆的布局<br>不能直接edit,free 过的堆块，但是我想直接利用double就可以啦<br>使用unlink ，修改对指针指向bss段，然后修改这个chunk 是得chunkx 的ptr实际为某函数got的地址，再修改chunk-x，就是把free 的got 修改为system函数地址，往chunk3中写入/bin/sh ，调用free，就可以成功getshell </p>
+<p>最多只能申请256个堆块，在add函数和edit函数中，真实malloc的size都是对用户输入的len0x80字节对齐后的?<br>是吗…在add函数中我看不出来这样的对齐?</p>
+<p>噢,realloc 函数的问题,之前没理解….<br>如果是扩大内存操作会把 ptr 指向的内存中的数据复制到新地址（新地址也可能会和原地址相同，但依旧不能对原指针进行任何操作）；如果是缩小内存操作，原始据会被复制并截取新长度。</p>
+<p>为什么会这样子打印呢..为什么以\x0a结尾? 是回车! 所以还有一个漏洞是没有以null结尾?<br>printf函数中的”%s”直到遇到内存中的’\0’标志时才会结束输出。<br>实在不明白为什么会输出那个地址。。</p>
+<p>unsorted bin 从头部插入，从尾部取出<br>offset 是怎么算出来来着??自己算了一下就好了…<br>学到了system(“$0”)</p>
+<h3 id="fastbin-attack-oreo"><a href="#fastbin-attack-oreo" class="headerlink" title="fastbin attack oreo"></a>fastbin attack oreo</h3><p>首先分析程序<br>没有delete 找不到洞怎么办orz<br>add:在head头部插入新的指针，<br>指针包含description,name,next,rifle信息<br>order,清空当前链表，指针清空不会置为null，double free 漏洞</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A288</span> <span class="selector-tag">head</span>            <span class="selector-tag">dd</span> ?                    ; <span class="selector-tag">DATA</span> <span class="selector-tag">XREF</span>: <span class="selector-tag">add</span>+11↑<span class="selector-tag">r</span></div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A288</span>                                         ; <span class="selector-tag">add</span>+25↑<span class="selector-tag">w</span> ...</div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A28C</span>                 <span class="selector-tag">align</span> 20<span class="selector-tag">h</span></div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A0</span> <span class="selector-tag">order_num</span>       <span class="selector-tag">dd</span> ?                    ; <span class="selector-tag">DATA</span> <span class="selector-tag">XREF</span>: <span class="selector-tag">order</span>+5<span class="selector-tag">A</span>↑<span class="selector-tag">r</span></div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A0</span>                                         ; <span class="selector-tag">order</span>+62↑<span class="selector-tag">w</span> ...</div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A4</span> <span class="selector-tag">rifle_cnt</span>       <span class="selector-tag">dd</span> ?                    ; <span class="selector-tag">DATA</span> <span class="selector-tag">XREF</span>: <span class="selector-tag">add</span>+<span class="selector-tag">C5</span>↑<span class="selector-tag">r</span></div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A4</span>                                         ; <span class="selector-tag">add</span>+<span class="selector-tag">CD</span>↑<span class="selector-tag">w</span> ...</div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A8</span> ; <span class="selector-tag">char</span> *<span class="selector-tag">notice</span></div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A8</span> <span class="selector-tag">notice</span></div></pre></td></tr></table></figure>
+<p>没法调试怎么办??<br>Symbol ‘main arena’ not found. Try installing libc debugging symbols and try again.<br>怎么办..<br>有堆溢出..其实没有做过堆溢出的题目<br>为什么需要设置Number 为0x40？因为要伪造fastbin chunk</p>
+<p>house of spirit<br>（1）伪造堆块<br>在可控1及可控2构造好数据，将它伪造成一个fastbin。</p>
+<p>（2）覆盖堆指针指向上一步伪造的堆块。</p>
+<p>（3）释放堆块，将伪造的堆块释放入fastbin的单链表里面。</p>
+<p>（4）申请堆块，将刚刚释放的堆块申请出来，最终使得可以往目标区域中写入数据，实现目的。<br><a href="https://www.slideshare.net/YOKARO-MON/oreo-hacklu-ctf-2014-65771717" target="_blank" rel="external">https://www.slideshare.net/YOKARO-MON/oreo-hacklu-ctf-2014-65771717</a><br><a href="https://blog.betamao.me/2018/02/25/hack-lu-ctf-2014-oreo/" target="_blank" rel="external">https://blog.betamao.me/2018/02/25/hack-lu-ctf-2014-oreo/</a></p>
+
+          
         
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -716,6 +933,10 @@ readme_revenge分析程序，首先读取name，之后输出，存在栈溢出�
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -728,13 +949,19 @@ readme_revenge分析程序，首先读取name，之后输出，存在栈溢出�
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/09/01/reversing-kr-writeup/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -747,9 +974,6 @@ readme_revenge分析程序，首先读取name，之后输出，存在栈溢出�
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
                 <a class="post-title-link" href="/2018/09/01/reversing-kr-writeup/" itemprop="url">
                   CTF|reversing-kr-writeup
@@ -761,6 +985,11 @@ readme_revenge分析程序，首先读取name，之后输出，存在栈溢出�
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -768,13 +997,30 @@ readme_revenge分析程序，首先读取name，之后输出，存在栈溢出�
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-01T20:51:01+08:00">
-                2018-09-01
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2018-09-01 20:51:01" itemprop="dateCreated datePublished" datetime="2018-09-01T20:51:01+08:00">2018-09-01</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-10 15:08:37" itemprop="dateModified" datetime="2018-09-10T15:08:37+08:00">2018-09-10</time>
+              
             
           </span>
 
@@ -790,11 +1036,7 @@ readme_revenge分析程序，首先读取name，之后输出，存在栈溢出�
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CTF/" itemprop="url" rel="index">
-                    <span itemprop="name">CTF</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a></span>
 
                 
                 
@@ -803,17 +1045,6 @@ readme_revenge分析程序，首先读取name，之后输出，存在栈溢出�
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/09/01/reversing-kr-writeup/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/09/01/reversing-kr-writeup/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -830,7 +1061,9 @@ readme_revenge分析程序，首先读取name，之后输出，存在栈溢出�
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -839,32 +1072,31 @@ readme_revenge分析程序，首先读取name，之后输出，存在栈溢出�
       
         
           
-          easy_keygen首先读取 name,经过处理存在res中读取serial，比较res与serial是否相同因此通过已知的serial反推name就是flag了注意变换时有个%2x,即将变化转化为十六进制，因此需要decode 
-Easy_UnpackMe简单脱壳联系有个大jmp找到 OEP
-e
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/01/reversing-kr-writeup/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h3 id="easy-keygen"><a href="#easy-keygen" class="headerlink" title="easy_keygen"></a>easy_keygen</h3><p>首先读取 name,经过处理存在res中<br>读取serial，比较res与serial是否相同<br>因此通过已知的serial反推name就是flag了<br>注意变换时有个%2x,即将变化转化为十六进制，因此需要decode </p>
+<h3 id="Easy-UnpackMe"><a href="#Easy-UnpackMe" class="headerlink" title="Easy_UnpackMe"></a>Easy_UnpackMe</h3><p>简单脱壳联系<br>有个大jmp<br>找到 OEP</p>
+<h3 id="easy-elf"><a href="#easy-elf" class="headerlink" title="easy_elf"></a>easy_elf</h3><p>分析<br>读取字，存在bss段<br>对于一些位进行异或变换,判断变换后的结果。因此写个简单的脚本反推就好了。<br>有个负数-35，应该转化为十六进制看为<code>0xdd</code><br>返回值是1时正确</p>
+<h3 id="music-player"><a href="#music-player" class="headerlink" title="music player"></a>music player</h3><p>一开始没有思路</p>
+<p>先打开个音频文件播放，到一分钟时有弹框，字符串“1???????”<br>得知要了解vb,弹框的API<br>下载 vb complier,代码结构看起来清晰许多<br>VB弹窗调用的API是rtcMsgBox </p>
+<p>查看API:反汇编窗口，右键–查找–当前模块中的名称，就可以列出所有函数了。快捷键Ctrl+N<br>右键查看引用</p>
+<p>找到弹框，找到关键跳转，修改为jmp<br>抛出异常 380 </p>
+<p>对不起..我应该插图的</p>
+
+          
         
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -878,6 +1110,10 @@ e
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -890,13 +1126,19 @@ e
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/08/24/awd/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -909,9 +1151,6 @@ e
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
                 <a class="post-title-link" href="/2018/08/24/awd/" itemprop="url">
                   CTF | awd
@@ -923,6 +1162,11 @@ e
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -930,30 +1174,54 @@ e
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-24T21:16:53+08:00">
-                2018-08-24
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2018-08-24 21:16:53" itemprop="dateCreated datePublished" datetime="2018-08-24T21:16:53+08:00">2018-08-24</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-11 16:43:23" itemprop="dateModified" datetime="2018-09-11T16:43:23+08:00">2018-09-11</time>
+              
             
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a></span>
+
+                
+                
+              
+            </span>
+          
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/24/awd/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/24/awd/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -970,7 +1238,9 @@ e
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -979,32 +1249,29 @@ e
       
         
           
-          tcpdumpsftpscp
-备份还原tar czvf backup.tar.gz main main.bak1cp -r main main.bak1
-paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/24/awd/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h4 id="tcpdump"><a href="#tcpdump" class="headerlink" title="tcpdump"></a>tcpdump</h4><p><code>sftp</code><br><code>scp</code></p>
+<p>备份还原<br><code>tar czvf backup.tar.gz main main.bak1</code><br><code>cp -r main main.bak1</code></p>
+<h4 id="paramiko"><a href="#paramiko" class="headerlink" title="paramiko"></a>paramiko</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">addr = search(data)</div><div class="line">hook(addr, new_addr)</div><div class="line">patch(addr, *compile arg*)</div><div class="line">addr = inject(*compile arg*)</div></pre></td></tr></table></figure>
+<p>反弹shell,<br><a href="http://www.zerokeeper.com/experience/a-variety-of-environmental-rebound-shell-method.html" target="_blank" rel="external">http://www.zerokeeper.com/experience/a-variety-of-environmental-rebound-shell-method.html</a></p>
+<p>crontab 定时任务 </p>
+<p>nmap<br>masscan<br>Beyond Compare</p>
+
+          
         
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -1018,6 +1285,10 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1030,13 +1301,19 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/08/17/jarvisoj-writeup/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1049,9 +1326,6 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
                 <a class="post-title-link" href="/2018/08/17/jarvisoj-writeup/" itemprop="url">
                   CTF | jarvisoj-writeup
@@ -1063,6 +1337,11 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1070,13 +1349,30 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-17T20:55:06+08:00">
-                2018-08-17
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2018-08-17 20:55:06" itemprop="dateCreated datePublished" datetime="2018-08-17T20:55:06+08:00">2018-08-17</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-11 16:43:28" itemprop="dateModified" datetime="2018-09-11T16:43:28+08:00">2018-09-11</time>
+              
             
           </span>
 
@@ -1092,11 +1388,7 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CTF/" itemprop="url" rel="index">
-                    <span itemprop="name">CTF</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a></span>
 
                 
                 
@@ -1105,17 +1397,6 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/17/jarvisoj-writeup/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/17/jarvisoj-writeup/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1132,7 +1413,9 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1141,32 +1424,27 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
       
         
           
-          levle2-x64差别在于32位和64位传参
-64位参数传递约定：前六个参数按顺序存储在寄存器rdi, rsi, rdx, rcx, r8, r9中参数超过六个时，从第七个开始压入栈中
-所以只需要在调用函数传递参数”bin/sh”时，将其传入寄存器即可使用rop ,pop rdi ret; 即为将
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/17/jarvisoj-writeup/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <p>levle2-x64<br>差别在于32位和64位传参</p>
+<p>64位参数传递约定：前六个参数按顺序存储在寄存器rdi, rsi, rdx, rcx, r8, r9中<br>参数超过六个时，从第七个开始压入栈中</p>
+<p>所以只需要在调用函数传递参数”bin/sh”时，将其传入寄存器即可<br>使用rop ,pop rdi ret; 即为将栈顶元素弹出并存入寄存器rdi，ret返回栈。</p>
+<p>level3_x64<br>需要自己设置好寄存器 按顺序为 rdi,rsi,rdx<br>构造 syscall<br>rdi - bin/sh<br>rsi -<br>rdx - </p>
+
+          
         
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -1180,6 +1458,10 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1192,13 +1474,19 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/08/17/XMAN-wireless-attack-with-defense/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1211,9 +1499,6 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
                 <a class="post-title-link" href="/2018/08/17/XMAN-wireless-attack-with-defense/" itemprop="url">
                   CTF | 无线网络-802.11攻与防
@@ -1225,6 +1510,11 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1232,30 +1522,36 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-17T08:56:44+08:00">
-                2018-08-17
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2018-08-17 08:56:44" itemprop="dateCreated datePublished" datetime="2018-08-17T08:56:44+08:00">2018-08-17</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-11 10:06:57" itemprop="dateModified" datetime="2018-09-11T10:06:57+08:00">2018-09-11</time>
+              
             
           </span>
 
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/17/XMAN-wireless-attack-with-defense/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/17/XMAN-wireless-attack-with-defense/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1272,7 +1568,9 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1281,30 +1579,42 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
       
         
           
-          常见的无线攻击威胁fake ap攻击ARP&amp;Dns劫持WIFI DOS 公攻击操作命令：iwconfigairmairodump-ng 名称airmon-ng start nameairodump-ng --bssid xxx -c 信道 -w 保存文件 wlan0monaircrack-n
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/17/XMAN-wireless-attack-with-defense/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h3 id="常见的无线攻击威胁"><a href="#常见的无线攻击威胁" class="headerlink" title="常见的无线攻击威胁"></a>常见的无线攻击威胁</h3><h4 id="fake-ap攻击"><a href="#fake-ap攻击" class="headerlink" title="fake ap攻击"></a>fake ap攻击</h4><h4 id="ARP-amp-Dns劫持"><a href="#ARP-amp-Dns劫持" class="headerlink" title="ARP&amp;Dns劫持"></a>ARP&amp;Dns劫持</h4><h4 id="WIFI-DOS-公攻击"><a href="#WIFI-DOS-公攻击" class="headerlink" title="WIFI DOS 公攻击"></a>WIFI DOS 公攻击</h4><h4 id="操作命令："><a href="#操作命令：" class="headerlink" title="操作命令："></a>操作命令：</h4><p><code>iwconfig</code><br><code>airm</code><br><code>airodump-ng 名称</code><br><code>airmon-ng start name</code><br><code>airodump-ng --bssid xxx -c 信道 -w 保存文件 wlan0mon</code><br><code>aircrack-ng 包 -w 字典</code><br><code>airodump-ng --bssid B4:0B:44:C2:D5:FF -c 11 -w xmantest wlan0mon</code><br><code>--ivs</code> 只抓握手包</p>
+<p><code>airodump-ng wlan0mon</code></p>
+<p>切换信道：<br><code>iwconfig wlan0mon channel 11</code><br>踢下线：<br><code>aireplay-ng -0 10000 -a  B4:0B:44:C2:D5:FF -c C4:B3:01:C4:27:31 wlan0mon</code><br>wlan.fc.type_subtype==12</p>
+<h3 id="无线攻防与进阶"><a href="#无线攻防与进阶" class="headerlink" title="无线攻防与进阶"></a>无线攻防与进阶</h3><ul>
+<li>ProbeRequest Frame<ul>
+<li>ProbeRequest SSID 暴露位置信息&amp;定位</li>
+</ul>
+</li>
+<li>WPA-Radius 企业无线攻防</li>
+<li>攻击802.11客户端<h3 id="针对无线设备的漏洞挖掘"><a href="#针对无线设备的漏洞挖掘" class="headerlink" title="针对无线设备的漏洞挖掘"></a>针对无线设备的漏洞挖掘</h3></li>
+<li>802.11 Fuzzing</li>
+<li><h3 id="无线攻击的识别与防御"><a href="#无线攻击的识别与防御" class="headerlink" title="无线攻击的识别与防御"></a>无线攻击的识别与防御</h3></li>
+</ul>
+<p>fuzz 要根据协议规范，不然协议不认，长度无所谓，但是帧类型的话要根据规范<br>要知道ap发给客户端还是客户端发给ap</p>
+<p>wireshark 流量还原</p>
+<h4 id="wifuzz-小工具"><a href="#wifuzz-小工具" class="headerlink" title="wifuzz 小工具"></a>wifuzz 小工具</h4><p><code>python wifuzz.py -s 尿尿 -i wlan0mon probe</code><br>scapy  封装好协议 </p>
+<p><code>iwconfig wlan0mon channel 1</code></p>
+<p><code>airbase-ng -e &quot;rm -rf&quot; -c 1 -v wlan0mon</code></p>
+<p>推荐博客：<a href="http://www.wiattack.net/index.php/archives/7/" target="_blank" rel="external">http://www.wiattack.net/index.php/archives/7/</a></p>
+
+          
         
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -1318,6 +1628,10 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1330,13 +1644,19 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/08/16/XMAN-freenote-writeup/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1349,9 +1669,6 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
                 <a class="post-title-link" href="/2018/08/16/XMAN-freenote-writeup/" itemprop="url">
                   CTF | freenote-writeup
@@ -1363,6 +1680,11 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1370,13 +1692,30 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-16T18:57:34+08:00">
-                2018-08-16
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2018-08-16 18:57:34" itemprop="dateCreated datePublished" datetime="2018-08-16T18:57:34+08:00">2018-08-16</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-10 15:30:43" itemprop="dateModified" datetime="2018-09-10T15:30:43+08:00">2018-09-10</time>
+              
             
           </span>
 
@@ -1392,11 +1731,7 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CTF/" itemprop="url" rel="index">
-                    <span itemprop="name">CTF</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a></span>
 
                 
                 
@@ -1405,17 +1740,6 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/16/XMAN-freenote-writeup/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/16/XMAN-freenote-writeup/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1432,7 +1756,9 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1441,31 +1767,24 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
       
         
           
-          首先有个double free 漏洞，+unlink 可以泄露Libc 地址和heap 地址具体怎么构造chunks 泄露heap 地址呢?http://angelboy.logdown.com/posts/259180-0ctf-2015-write-up
+            <p>首先有个double free 漏洞，+unlink 可以泄露Libc 地址和heap 地址<br>具体怎么构造chunks 泄露heap 地址呢?<br><a href="http://angelboy.logdown.com/posts/259180-0ctf-2015-write-up" target="_blank" rel="external">http://angelboy.logdown.com/posts/259180-0ctf-2015-write-up</a></p>
 
           
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/16/XMAN-freenote-writeup/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -1479,6 +1798,10 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1491,13 +1814,19 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/08/16/XMAN-android-kernel/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="description" content="慕名而来的人都会爱上我">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1510,9 +1839,6 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
                 <a class="post-title-link" href="/2018/08/16/XMAN-android-kernel/" itemprop="url">
                   安卓 NativeLib /kernel fuzz,调试和利用
@@ -1524,6 +1850,11 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1531,30 +1862,24 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-16T14:02:10+08:00">
-                2018-08-16
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2018-08-16 14:02:10 / Modified: 14:49:18" itemprop="dateCreated datePublished" datetime="2018-08-16T14:02:10+08:00">2018-08-16</time>
             
 
             
+              
 
+              
             
           </span>
 
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/16/XMAN-android-kernel/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/16/XMAN-android-kernel/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1571,7 +1896,9 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1580,37 +1907,42 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
       
         
           
-          玄武实验室的刘惠明xlab@tencent.com
-安卓nativelib 和 kernel 简介和攻击面安卓底层安全架构简介- android 架构
+            <p>玄武实验室的刘惠明<br>xlab@tencent.com</p>
+<h4 id="安卓nativelib-和-kernel-简介和攻击面"><a href="#安卓nativelib-和-kernel-简介和攻击面" class="headerlink" title="安卓nativelib 和 kernel 简介和攻击面"></a>安卓nativelib 和 kernel 简介和攻击面</h4><h5 id="安卓底层安全架构简介"><a href="#安卓底层安全架构简介" class="headerlink" title="安卓底层安全架构简介"></a>安卓底层安全架构简介</h5><pre><code>- android 架构
 
 - android 底层安全框架及攻击缓释技术
   - 自主访问控制
     基于uid gid 容易被突破
   - 强制访问控制
-    - S
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/16/XMAN-android-kernel/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+    - SELunix
+  - 验证启动模式
+  - 代码签名和平台密钥
+
+
+- 常用工具 技术 
+</code></pre><h5 id="原生代码库及其攻击面"><a href="#原生代码库及其攻击面" class="headerlink" title="原生代码库及其攻击面"></a>原生代码库及其攻击面</h5><h5 id="内核攻击面"><a href="#内核攻击面" class="headerlink" title="内核攻击面"></a>内核攻击面</h5><h4 id="常用Fuzz-技术"><a href="#常用Fuzz-技术" class="headerlink" title="常用Fuzz 技术"></a>常用Fuzz 技术</h4><h5 id="alf"><a href="#alf" class="headerlink" title="alf"></a>alf</h5><h5 id="syzkaller"><a href="#syzkaller" class="headerlink" title="syzkaller"></a>syzkaller</h5><h4 id="漏洞调试和利用"><a href="#漏洞调试和利用" class="headerlink" title="漏洞调试和利用"></a>漏洞调试和利用</h4><h5 id="buleborne"><a href="#buleborne" class="headerlink" title="buleborne"></a>buleborne</h5><h5 id="dirtycow"><a href="#dirtycow" class="headerlink" title="dirtycow"></a>dirtycow</h5><p>内容</p>
+<ul>
+<li>基础知识</li>
+<li>原生库漏洞Fuzz和调试利用</li>
+<li>内核漏洞Fuzz和利用</li>
+</ul>
+
+          
         
       
     </div>
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
+
+    
+
+    
 
     <footer class="post-footer">
       
@@ -1624,180 +1956,10 @@ paramiko1234addr = search(data)hook(addr, new_addr)patch(addr, *compile a
         <div class="post-eof"></div>
       
     </footer>
-  </article>
-
-
-    
-      
-
-  
-
+  </div>
   
   
   
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/08/16/XMAN-hardware-security/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yuuoniy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="尿尿">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/08/16/XMAN-hardware-security/" itemprop="url">
-                  CTF | XMAN-硬件安全
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-16T09:04:06+08:00">
-                2018-08-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CTF/" itemprop="url" rel="index">
-                    <span itemprop="name">CTF</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/16/XMAN-hardware-security/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/16/XMAN-hardware-security/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          破解一些终端… 售卖机等
-
-右键打发(目标：呼出文件管理)
-长按右键 呼出属性 帮助 打印 
-长按右键 关于flash 进而呼出文件管理
-
-
-
-窗口切换时，快速点点点窗口焦点变化时，退出全屏，呼出桌面
-
-异常信息
-加载插件点选文字等进行拖拽，退出全屏寻找url连接断电重启打法
-
-
-android 端
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/16/XMAN-hardware-security/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </article>
 
 
@@ -1806,15 +1968,12 @@ android 端
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
 
           </div>
-          
-
-
           
 
         </div>
@@ -1830,116 +1989,152 @@ android 端
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.png"
-               alt="yuuoniy" />
-          <p class="site-author-name" itemprop="name">yuuoniy</p>
-           
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yuuoniy</p>
               <p class="site-description motion-element" itemprop="description">慕名而来的人都会爱上我</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">59</span>
-                <span class="site-state-item-name">posts</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
-                <span class="site-state-item-name">categories</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
-                <span class="site-state-item-name">tags</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/Yuuoniy" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/weiweichenlun" target="_blank" title="Weibo">
-                  
-                    <i class="fa fa-fw fa-weibo"></i>
-                  
-                  Weibo
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://www.zhihu.com/people/yuuoniy" target="_blank" title="Zhihu">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  Zhihu
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="linmq006@gamil.com" target="_blank" title="Email">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  Email
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-          <div class="cc-license motion-element" itemprop="license">
-            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
-              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
-            </a>
           </div>
-        
 
-        
-        
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
 
-        
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
 
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
 
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Yuuoniy" target="_blank" title="GitHub"><i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/weiweichenlun" target="_blank" title="Weibo"><i class="fa fa-fw fa-globe"></i>Weibo</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/yuuoniy" target="_blank" title="Zhihu"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="linmq006@gamil.com" target="_blank" title="Email"><i class="fa fa-fw fa-globe"></i>Email</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
       </section>
 
       
@@ -1956,48 +2151,41 @@ android 端
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">yuuoniy</span>
+
+  
+
+  
 </div>
 
 
-<!-- <div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
 
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
- -->
 
-<!-- 访问量（貌似不准） -->
-<!--  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
- <span id="busuanzi_container_site_pv">
- Page Views:<span id="busuanzi_value_site_pv"></span>
- </span>
- --> 
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.3.1</div>
 
- <!-- 运行时间 -->
-<!--  <script>
- var birthDay = new Date("11/20/2014");
- var now = new Date();
- var duration = now.getTime() - birthDay.getTime();
- var total= Math.floor(duration / (1000 * 60 * 60 * 24));
- document.getElementById("showDays").innerHTML = "have been running "+total+" days";
- </script>
- <span id="showDays"></span> -->
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.1</div>
+
+
 
 
         
+
+
+
+
+
+
+
 
         
       </div>
@@ -2010,6 +2198,11 @@ android 端
       </div>
     
 
+    
+	
+    
+
+    
   </div>
 
   
@@ -2028,43 +2221,45 @@ android 端
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
 
   
 
 
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
 
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-  
-  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
 
 
 
@@ -2076,27 +2271,20 @@ android 端
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
 
 
 
   
 
 
-  
-
-    
-      <script id="dsq-count-scr" src="https://yuuoniy.disqus.com/count.js" async></script>
-    
-
-    
 
   
 
 
 
 
-	
+
 
 
 
@@ -2110,35 +2298,16 @@ android 端
 
   
 
-
-
-
+  
 
   
 
-
-
-
-
-
   
-
-
-
 
   
   
-  
-  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
 
   
-  
-  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
-  
-
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
-
-
 
   
 
