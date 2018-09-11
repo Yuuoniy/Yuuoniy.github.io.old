@@ -115,7 +115,7 @@
 <meta property="og:url" content="https://yuuoniy.github.io/2018/09/11/android-course-1/index.html">
 <meta property="og:site_name" content="尿尿">
 <meta property="og:description" content="git 日常使用总结git 已经用很多了,大概就是需要了解仓库,分支等概念,熟悉本地和远程的关系,熟练使用clone commit pull push merge操作下面给出一下常用的命令:新建分支:git branch dev切换分支:git checkout dev添加文件 git add file ,常用 git add . 添加全部更新的文件查看状态 git status取回远程仓库的变">
-<meta property="og:updated_time" content="2018-09-11T16:27:33.234Z">
+<meta property="og:updated_time" content="2018-09-11T16:44:45.799Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android | 手机平台应用开发第一篇">
 <meta name="twitter:description" content="git 日常使用总结git 已经用很多了,大概就是需要了解仓库,分支等概念,熟悉本地和远程的关系,熟练使用clone commit pull push merge操作下面给出一下常用的命令:新建分支:git branch dev切换分支:git checkout dev添加文件 git add file ,常用 git add . 添加全部更新的文件查看状态 git status取回远程仓库的变">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-12 00:27:33" itemprop="dateModified" datetime="2018-09-12T00:27:33+08:00">2018-09-12</time>
+                <time title="Modified: 2018-09-12 00:44:45" itemprop="dateModified" datetime="2018-09-12T00:44:45+08:00">2018-09-12</time>
               
             
           </span>
@@ -433,7 +433,7 @@
 
       
         <a id="more"></a>
-<h3 id="git-日常使用总结"><a href="#git-日常使用总结" class="headerlink" title="git 日常使用总结"></a>git 日常使用总结</h3><p>git 已经用很多了,大概就是需要了解仓库,分支等概念,熟悉本地和远程的关系,熟练使用clone commit pull push merge操作<br>下面给出一下常用的命令:<br>新建分支:<code>git branch dev</code><br>切换分支:<code>git checkout dev</code><br>添加文件 <code>git add file</code> ,常用 <code>git add .</code> 添加全部更新的文件<br>查看状态 <code>git status</code><br>取回远程仓库的变化，并与本地分支合并:<code>git pull [remote] [branch]</code><br>上传本地指定分支到远程仓库:<code>git push [remote] [branch]</code><br>常见步骤:<code>git add -&gt;commit -&gt;push</code>, 如果有冲突还涉及到 merge 操作<br>对于入门者推荐 git 教程 <a href="https://classroom.udacity.com/courses/ud775" target="_blank" rel="external">如何使用 Git 和 GitHub</a><br>比较系统,之前我也是根据这个学的</p>
+<h3 id="git-日常使用总结"><a href="#git-日常使用总结" class="headerlink" title="git 日常使用总结"></a>git 日常使用总结</h3><p>git 已经用很多了,大概就是需要了解仓库,分支等概念,熟悉本地和远程的关系,熟练使用clone commit pull push merge操作<br>下面给出一下常用的命令:<br>新建分支:<code>git branch dev</code><br>切换分支:<code>git checkout dev</code><br>添加文件 <code>git add file</code> ,常用 <code>git add .</code> 添加全部更新的文件<br>查看状态 <code>git status</code><br>取回远程仓库的变化，并与本地分支合并:<code>git pull [remote] [branch]</code><br>上传本地指定分支到远程仓库:<code>git push [remote] [branch]</code><br>常见步骤:<code>git add -&gt;commit -&gt;push</code>, 如果有冲突还涉及到 merge 操作<br>显示版本历史:<code>git log</code><br>显示暂存区和工作区的不同: <code>git diff</code><br>对于入门者推荐 git 教程 <a href="https://classroom.udacity.com/courses/ud775" target="_blank" rel="external">如何使用 Git 和 GitHub</a><br>比较系统,之前我也是根据这个学的</p>
 <h3 id="Android开发环境搭建"><a href="#Android开发环境搭建" class="headerlink" title="Android开发环境搭建"></a>Android开发环境搭建</h3><p>之前已经安装过 AS 了,下载sdk应该要翻墙,不过我有梯子,不过 sync gardle 时总是失败<br>错误：<br><code>Unknown host &#39;dl.google.com&#39;. You may need to adjust the proxy settings in Gradle.</code><br>按照网上的方法:<br><code>File &gt; Settings &gt; Appearance &amp; Behavior &gt; System Settings &gt; HTTP Proxy [Under IDE Settings] Enable following option Auto-detect proxy settings</code><br>没有解决<br>很奇怪,在 setting里面尝试连接谷歌是成功的<br>尝试 <code>enable embedded maven repo</code> 依旧失败</p>
 <p>又出现 <code>failed to find build tools revision x.x.x</code> 的问题<br>install build tool 后<br>依旧是  <code>gardle project sync failed</code> 的问题<br>结果发现翻了墙还是要改 host 呀，修改 Host 就好了，连接手机，完美运行app</p>
 
