@@ -115,7 +115,7 @@
 <meta property="og:url" content="https://yuuoniy.github.io/2018/09/11/hexo-next-update/index.html">
 <meta property="og:site_name" content="尿尿">
 <meta property="og:description" content="我说…我的标题怎么没有居中呢,我的代码高亮怎么这么丑呢..我的主题看起来怎么和别人的不一样呢,突然发现自己的主题没有更新下">
-<meta property="og:updated_time" content="2018-09-12T05:16:20.890Z">
+<meta property="og:updated_time" content="2018-09-12T08:25:03.597Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo | NEXT 主题更新,从 5.1 到 6.0">
 <meta name="twitter:description" content="我说…我的标题怎么没有居中呢,我的代码高亮怎么这么丑呢..我的主题看起来怎么和别人的不一样呢,突然发现自己的主题没有更新下">
@@ -385,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-12 13:16:20" itemprop="dateModified" datetime="2018-09-12T13:16:20+08:00">2018-09-12</time>
+                <time title="Modified: 2018-09-12 16:25:03" itemprop="dateModified" datetime="2018-09-12T16:25:03+08:00">2018-09-12</time>
               
             
           </span>
@@ -435,7 +435,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">700</span>
+                <span title="Symbols count in article">761</span>
               
 
               
@@ -473,13 +473,15 @@
 <p><a href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/UPDATE-FROM-5.1.X.md" target="_blank" rel="external">官方更新说明</a></p>
 <p>主要是更新时保留原来的配置</p>
 <p>首先:<br>下载新版本 next:<br>  <code>https://github.com/theme-next/hexo-theme-next themes/next-reloaded</code></p>
-<p>复制原版本next的config.yml文件到 next-reloaded 中<br>报错:<br><code>Unhandled rejection TypeError: path.substring is not a function</code><br>哎呀..还是重新配置一遍好了哈哈哈哈哈,也没花多大功夫<br>设置 auto_excerpt 为true,避免直接在主页显示全文</p>
+<p>复制原版本next的<code>config.yml</code>文件到 <code>next-reloaded</code> 中<br>报错:<br><code>Unhandled rejection TypeError: path.substring is not a function</code><br>哎呀..还是重新配置一遍好了哈哈哈哈哈,也没花多大功夫<br>设置 <code>auto_excerpt</code> 为<code>true</code>,避免直接在主页显示全文</p>
 <h3 id="设置评论"><a href="#设置评论" class="headerlink" title="设置评论:"></a>设置评论:</h3><p>disqus:true</p>
 <h3 id="百度统计"><a href="#百度统计" class="headerlink" title="百度统计"></a>百度统计</h3><p>注册账号获取id,修改配置文件即可</p>
 <h3 id="阅读量统计"><a href="#阅读量统计" class="headerlink" title="阅读量统计"></a>阅读量统计</h3><p>参考<a href="https://notes.doublemine.me/2015-10-21-%E4%B8%BANexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD.html#%E9%85%8D%E7%BD%AELeanCloud" target="_blank" rel="external">为NexT主题添加文章阅读量统计功能</a></p>
 <p><a href="http://www.jeyzhang.com/hexo-next-add-post-views.html" target="_blank" rel="external">添加文章阅读量</a></p>
-<p>最新的next主题已经配置好leancloud的，只需要在配置文件中设置为true,并且配置 appid appkey就好了，我乱七八糟搞了一堆还弄错了orz<br><a href="https://github.com/theme-next/hexo-symbols-count-time" target="_blank" rel="external">文章字数统计</a><br><code>npm install hexo-symbols-count-time --save</code><br>在配置文件中设置<code>symbols_count_time</code>相关属性</p>
-<p>不知道为什么突然出现了 Page build failed. 错误  ,原来是github的问题..<br>更新hexo后就崩了，有点难受…<br>提示：<br><code>Error: Cannot find module &#39;highlight.js/lib/languages/jboss-cli</code></p>
+<p>最新的next主题已经配置好<code>leancloud</code>的，只需要在配置文件中设置为true,并且配置 <code>appid appkey</code>就好了，我乱七八糟搞了一堆还弄错了orz<br><a href="https://github.com/theme-next/hexo-symbols-count-time" target="_blank" rel="external">文章字数统计</a><br><code>npm install hexo-symbols-count-time --save</code><br>在配置文件中设置<code>symbols_count_time</code>相关属性</p>
+<p>不知道为什么突然出现了 <code>Page build failed</code>. 错误  ,原来是github的问题..</p>
+<p>想着顺便更新一下hexo，生成的时候就崩了，有点难受… 尝试了没有解决<br>提示：<br><code>Error: Cannot find module &#39;highlight.js/lib/languages/jboss-cli</code></p>
+<p>所以我…又回退了 npm uninstall hexo 后，重新下载 解决问题…</p>
 
       
     </div>
@@ -506,6 +508,10 @@
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/12/android-course-2/" rel="next" title="android-course-2">
+                <i class="fa fa-chevron-left"></i> android-course-2
+              </a>
             
           </div>
 
@@ -599,7 +605,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">62</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -618,7 +624,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -669,7 +677,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -764,7 +774,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">80k</span>
+    <span title="Symbols count total">82k</span>
   
 
   
@@ -773,7 +783,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:13</span>
+    <span title="Reading time total">1:14</span>
   
 </div>
 
