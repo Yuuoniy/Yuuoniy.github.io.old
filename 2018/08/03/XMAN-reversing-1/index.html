@@ -586,7 +586,7 @@
 </ul>
 <p><strong>参考资料</strong>  </p>
 <ul>
-<li><a href="https://wenku.baidu.com/view/bb468fff910ef12d2af9e7c3.html" target="_blank" rel="external">https://wenku.baidu.com/view/bb468fff910ef12d2af9e7c3.html</a><br>下面就讲几道题叭！<br>源程序..有空再传到github上…需要可以直接找我呀<h4 id="re0"><a href="#re0" class="headerlink" title="re0"></a>re0</h4>首先需要对judge进行动态解密,解出来后修改judge函数尾(右键-&gt;edit function) U 取消定义 P定义函数,这样就能获得正确的judge函数啦！(因为IDA是程序一开始拖进来就分析好全部的函数栈帧了，因此这里不重新定义函数的话IDA的函数栈帧没有进行更新)  <h5 id="动态解密"><a href="#动态解密" class="headerlink" title="动态解密"></a>动态解密</h5>python 版<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import ida_bytes</div><div class="line">buf = ida_bytes.get_bytes(<span class="number">0</span>x600B00, <span class="number">182</span>)</div><div class="line"><span class="selector-tag">a</span> = <span class="string">""</span></div><div class="line"><span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> xrange(<span class="number">0</span>, len(buf)):</div><div class="line">    <span class="selector-tag">a</span> += chr(<span class="number">0</span>xC ^ ord(buf[i]))</div><div class="line">ida_bytes.patch_bytes(<span class="number">0</span>x600B00, a)</div></pre></td></tr></table></figure>
+<li><a href="https://wenku.baidu.com/view/bb468fff910ef12d2af9e7c3.html" target="_blank" rel="external">https://wenku.baidu.com/view/bb468fff910ef12d2af9e7c3.html</a><br>下面就讲几道题叭！<br>源程序..有空再传到github上…需要可以直接找我呀<h4 id="re0"><a href="#re0" class="headerlink" title="re0"></a>re0</h4>首先需要对judge进行动态解密,解出来后修改judge函数尾(右键-&gt;edit function) U 取消定义 P定义函数,这样就能获得正确的judge函数啦！(因为IDA是程序一开始拖进来就分析好全部的函数栈帧了，因此这里不重新定义函数的话IDA的函数栈帧没有进行更新)  <h5 id="动态解密"><a href="#动态解密" class="headerlink" title="动态解密"></a>动态解密</h5>python 版<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import ida_bytes</div><div class="line">buf = ida_bytes.get_bytes(0x600B00, 182)</div><div class="line">a = &quot;&quot;</div><div class="line">for i in xrange(0, len(buf)):</div><div class="line">    a += chr(0xC ^ ord(buf[i]))</div><div class="line">ida_bytes.patch_bytes(0x600B00, a)</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>idc 版<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;idc.idc&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">auto</span> cur = <span class="number">0x600B00</span>;</div><div class="line">    <span class="keyword">auto</span> i;</div><div class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= <span class="number">0xB5</span>; i++) &#123;</div><div class="line">        <span class="keyword">auto</span> c = Byte(cur) ^ <span class="number">0xC</span>;</div><div class="line">        PatchByte(cur, c);</div><div class="line">        cur = cur + <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -731,7 +731,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">63</span>
+                    <span class="site-state-item-count">62</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -900,7 +900,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">86k</span>
+    <span title="Symbols count total">88k</span>
   
 
   
@@ -909,7 +909,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:18</span>
+    <span title="Reading time total">1:20</span>
   
 </div>
 

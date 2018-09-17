@@ -494,7 +494,7 @@
         <p>逆向入门第二篇<br><a id="more"></a> </p>
 <h4 id="hide"><a href="#hide" class="headerlink" title="hide"></a>hide</h4><p>strings 查看到有壳upx 3.91<br><img src="http://p6cwaqxnz.bkt.clouddn.com/upx3.91.png" alt=""></p>
 <h5 id="脱壳"><a href="#脱壳" class="headerlink" title="脱壳"></a>脱壳</h5><p>不能使用upx -d 直接脱。</p>
-<p>运行起来相当于脱壳看，因此可以用 dd 把data和text两段dump下来之后拼在一起，可以在IDA里面看。但实际上文件结构会被破坏，因为是运行时镜像，动态脱壳都有这样的问题。所以动态调试还是使用有壳的。dd<br>cat /proc/(pid hide)/maps 可以查看进程的内存映射<br>脱壳命令,其中的地址就是各段的地址,因为是静态的,因此都是不变的，可以直接复制：<br><figure class="highlight tcl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo dd <span class="keyword">if</span>=/<span class="keyword">proc</span>/$(pidof<span class="title"> hide)/mem</span> of=hide_dump1<span class="title"> skip=4194304</span> <span class="title"> bs=1c</span> count=827392<span class="title"></span></div><div class="line">sudo dd<span class="title"> if=/proc/$(pidof</span> hide)/mem<span class="title"> of=hide_dump2</span> skip=7110656<span class="title">  bs=1c</span> count=20480<span class="title"></span></div><div class="line">cat hide_dump1<span class="title"> hide_dump2</span> &gt;hide_dump</div></pre></td></tr></table></figure></p>
+<p>运行起来相当于脱壳看，因此可以用 dd 把data和text两段dump下来之后拼在一起，可以在IDA里面看。但实际上文件结构会被破坏，因为是运行时镜像，动态脱壳都有这样的问题。所以动态调试还是使用有壳的。dd<br>cat /proc/(pid hide)/maps 可以查看进程的内存映射<br>脱壳命令,其中的地址就是各段的地址,因为是静态的,因此都是不变的，可以直接复制：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo dd if=/proc/$(pidof hide)/mem of=hide_dump1 skip=4194304  bs=1c count=827392</div><div class="line">sudo dd if=/proc/$(pidof hide)/mem of=hide_dump2 skip=7110656  bs=1c count=20480</div><div class="line">cat hide_dump1 hide_dump2 &gt;hide_dump</div></pre></td></tr></table></figure></p>
 <p>看到别人说gdb dump binary 更方便,不过没试过(不会)</p>
 <h5 id="ptrace反调试"><a href="#ptrace反调试" class="headerlink" title="ptrace反调试"></a>ptrace反调试</h5><p><strong>ptrace介绍</strong>： ptrace提供了一种使父进程得以监视和控制其它进程的方式，它还能够改变子进程中的寄存器和内核映像，因而可以实现断点调试和系统调用的跟踪。使用ptrace，你可以在用户层拦截和修改系统调用(sys call)，修改它的参数，插入代码给正在运行的程序以及偷窥和篡改进程的寄存器和数据段。</p>
 <p>使用strace<br><strong>ptrace 相关的反调试</strong><br>需要把反调试过掉<br>gdb 中 <code>catch syscall ptrace</code> 设置断点<br>可以发现程序在<code>cmp eax,0</code> 处断下,此时通过<code>set $eax=0</code>,使程序可以往下执行。<br>c ,再修改一次，就可以成功过掉反调试了&gt;&lt; 队友说,ptrace 大概就是看eax有没有改变?一般就是<code>cmp eax,0</code>的地方了</p>
@@ -725,7 +725,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">63</span>
+                    <span class="site-state-item-count">62</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -894,7 +894,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">86k</span>
+    <span title="Symbols count total">88k</span>
   
 
   
@@ -903,7 +903,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:18</span>
+    <span title="Reading time total">1:20</span>
   
 </div>
 

