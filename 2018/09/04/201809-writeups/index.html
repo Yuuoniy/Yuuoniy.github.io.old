@@ -64,10 +64,10 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=6.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.4.1">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=6.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.4.1">
 
 
   <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
@@ -108,13 +108,13 @@
 
 
 
-  <meta name="description" content="希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到 readme_revenge分析程序，首先读取name，之后输出，存在栈溢出漏洞?反编译有问题，还是看汇编比较好，虽然我汇编很弱orzfile strings checksec一波 静态链接python subprocess 模块flag 在 0x00006B4040首先输出junk，程序崩溃，地址0x000000000045">
+  <meta name="description" content="记录">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="201809-writeups">
+<meta property="og:title" content="CTF | 201809-writeups">
 <meta property="og:url" content="https://yuuoniy.github.io/2018/09/04/201809-writeups/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到 readme_revenge分析程序，首先读取name，之后输出，存在栈溢出漏洞?反编译有问题，还是看汇编比较好，虽然我汇编很弱orzfile strings checksec一波 静态链接python subprocess 模块flag 在 0x00006B4040首先输出junk，程序崩溃，地址0x000000000045">
+<meta property="og:description" content="记录">
 <meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-1.png">
 <meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-layout.png?imageView2/2/w/400">
 <meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-order-layout.png?imageView2/2/w/400">
@@ -125,10 +125,10 @@
 <meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-fake-chunk.png?imageView2/2/w/400">
 <meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-notice.png?imageView2/2/w/400">
 <meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-yeah.png">
-<meta property="og:updated_time" content="2018-09-17T10:10:32.486Z">
+<meta property="og:updated_time" content="2018-09-21T12:22:15.853Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="201809-writeups">
-<meta name="twitter:description" content="希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到 readme_revenge分析程序，首先读取name，之后输出，存在栈溢出漏洞?反编译有问题，还是看汇编比较好，虽然我汇编很弱orzfile strings checksec一波 静态链接python subprocess 模块flag 在 0x00006B4040首先输出junk，程序崩溃，地址0x000000000045">
+<meta name="twitter:title" content="CTF | 201809-writeups">
+<meta name="twitter:description" content="记录">
 <meta name="twitter:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-1.png">
 
 
@@ -146,7 +146,7 @@
   };
 </script>
 
-  <title>201809-writeups | 尿尿</title>
+  <title>CTF | 201809-writeups | 尿尿</title>
   
 
 
@@ -354,7 +354,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">201809-writeups
+          <h1 class="post-title" itemprop="name headline">CTF | 201809-writeups
               
             
           </h1>
@@ -396,7 +396,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-17 18:10:32" itemprop="dateModified" datetime="2018-09-17T18:10:32+08:00">2018-09-17</time>
+                <time title="Modified: 2018-09-21 20:22:15" itemprop="dateModified" datetime="2018-09-21T20:22:15+08:00">2018-09-21</time>
               
             
           </span>
@@ -421,7 +421,7 @@
 
           
           
-             <span id="/2018/09/04/201809-writeups/" class="leancloud_visitors" data-flag-title="201809-writeups">
+             <span id="/2018/09/04/201809-writeups/" class="leancloud_visitors" data-flag-title="CTF | 201809-writeups">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -480,8 +480,7 @@
       
 
       
-        <a id="more"></a>
-<p>希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到</p>
+        <p>记录<br><a id="more"></a><br>希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到</p>
 <h3 id="readme-revenge"><a href="#readme-revenge" class="headerlink" title="readme_revenge"></a>readme_revenge</h3><p>分析程序，首先读取name，之后输出，存在栈溢出漏洞?<br>反编译有问题，还是看汇编比较好，虽然我汇编很弱orz<br>file strings checksec一波 静态链接<br>python subprocess 模块<br>flag 在 0x00006B4040<br>首先输出junk，程序崩溃，地址0x000000000045ad64<br>看wp知道了rabin2 使用<br>为什么rabin2 -z readme_revenge | grep 34C3 能知道flag被隐藏在程序中?<br>看 wp 说 <strong>printf_modifier_table、</strong>printf_function_table和printf_arginfo_table ,之前利用过…</p>
 <p>劫持控制流….? flag 在程序中 打印出来就好，然而能想到这个也挺难的…</p>
 <h4 id="fortify-fail函数"><a href="#fortify-fail函数" class="headerlink" title="__fortify_fail函数"></a>__fortify_fail函数</h4><p><strong>fortify_fail函数 判断need_backtrace &amp;&amp; </strong>libc_argv[0] != NULL 后打印 <strong>libc_argv[0] 
@@ -1056,7 +1055,7 @@
       var disqus_config = function () {
         this.page.url = 'https://yuuoniy.github.io/2018/09/04/201809-writeups/';
         this.page.identifier = '2018/09/04/201809-writeups/';
-        this.page.title = '201809-writeups';
+        this.page.title = 'CTF | 201809-writeups';
         };
       function loadComments () {
         var d = document, s = d.createElement('script');

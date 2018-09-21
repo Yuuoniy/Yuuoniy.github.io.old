@@ -64,10 +64,10 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=6.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.4.1">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=6.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.4.1">
 
 
   <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
@@ -108,17 +108,17 @@
 
 
 
-  <meta name="description" content="easy_keygen首先读取 name,经过处理存在res中读取serial，比较res与serial是否相同因此通过已知的serial反推name就是flag了注意变换时有个%2x,即将变化转化为十六进制，因此需要decode  Easy_UnpackMe简单脱壳联系有个大jmp找到 OEP easy_elf分析读取字，存在bss段对于一些位进行异或变换,判断变换后的结果。因此写个简单的脚本反">
+  <meta name="description" content="记录 reversing.kr 上的一些题">
 <meta name="keywords" content="reverse">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CTF | reversing-kr-writeup">
 <meta property="og:url" content="https://yuuoniy.github.io/2018/09/01/reversing-kr-writeup/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="easy_keygen首先读取 name,经过处理存在res中读取serial，比较res与serial是否相同因此通过已知的serial反推name就是flag了注意变换时有个%2x,即将变化转化为十六进制，因此需要decode  Easy_UnpackMe简单脱壳联系有个大jmp找到 OEP easy_elf分析读取字，存在bss段对于一些位进行异或变换,判断变换后的结果。因此写个简单的脚本反">
-<meta property="og:updated_time" content="2018-09-12T02:51:50.391Z">
+<meta property="og:description" content="记录 reversing.kr 上的一些题">
+<meta property="og:updated_time" content="2018-09-21T12:22:46.156Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CTF | reversing-kr-writeup">
-<meta name="twitter:description" content="easy_keygen首先读取 name,经过处理存在res中读取serial，比较res与serial是否相同因此通过已知的serial反推name就是flag了注意变换时有个%2x,即将变化转化为十六进制，因此需要decode  Easy_UnpackMe简单脱壳联系有个大jmp找到 OEP easy_elf分析读取字，存在bss段对于一些位进行异或变换,判断变换后的结果。因此写个简单的脚本反">
+<meta name="twitter:description" content="记录 reversing.kr 上的一些题">
 
 
 
@@ -385,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-12 10:51:50" itemprop="dateModified" datetime="2018-09-12T10:51:50+08:00">2018-09-12</time>
+                <time title="Modified: 2018-09-21 20:22:46" itemprop="dateModified" datetime="2018-09-21T20:22:46+08:00">2018-09-21</time>
               
             
           </span>
@@ -453,7 +453,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">446</span>
+                <span title="Symbols count in article">468</span>
               
 
               
@@ -487,7 +487,8 @@
       
 
       
-        <h3 id="easy-keygen"><a href="#easy-keygen" class="headerlink" title="easy_keygen"></a>easy_keygen</h3><p>首先读取 name,经过处理存在res中<br>读取serial，比较res与serial是否相同<br>因此通过已知的serial反推name就是flag了<br>注意变换时有个%2x,即将变化转化为十六进制，因此需要decode </p>
+        <p>记录 reversing.kr 上的一些题<br><a id="more"></a></p>
+<h3 id="easy-keygen"><a href="#easy-keygen" class="headerlink" title="easy_keygen"></a>easy_keygen</h3><p>首先读取 name,经过处理存在res中<br>读取serial，比较res与serial是否相同<br>因此通过已知的serial反推name就是flag了<br>注意变换时有个%2x,即将变化转化为十六进制，因此需要decode </p>
 <h3 id="Easy-UnpackMe"><a href="#Easy-UnpackMe" class="headerlink" title="Easy_UnpackMe"></a>Easy_UnpackMe</h3><p>简单脱壳联系<br>有个大jmp<br>找到 OEP</p>
 <h3 id="easy-elf"><a href="#easy-elf" class="headerlink" title="easy_elf"></a>easy_elf</h3><p>分析<br>读取字，存在bss段<br>对于一些位进行异或变换,判断变换后的结果。因此写个简单的脚本反推就好了。<br>有个负数-35，应该转化为十六进制看为<code>0xdd</code><br>返回值是1时正确</p>
 <h3 id="music-player"><a href="#music-player" class="headerlink" title="music player"></a>music player</h3><p>一开始没有思路</p>
@@ -528,8 +529,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/04/201809-writeups/" rel="next" title="201809-writeups">
-                <i class="fa fa-chevron-left"></i> 201809-writeups
+              <a href="/2018/09/04/201809-writeups/" rel="next" title="CTF | 201809-writeups">
+                <i class="fa fa-chevron-left"></i> CTF | 201809-writeups
               </a>
             
           </div>
