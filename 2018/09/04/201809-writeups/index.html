@@ -125,7 +125,7 @@
 <meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-fake-chunk.png?imageView2/2/w/400">
 <meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-notice.png?imageView2/2/w/400">
 <meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-yeah.png">
-<meta property="og:updated_time" content="2018-09-17T09:42:50.063Z">
+<meta property="og:updated_time" content="2018-09-17T10:10:32.486Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="201809-writeups">
 <meta name="twitter:description" content="希望能坚持下去… 一天一道可能吗 可不可能自己说了算啦 别人都做得到 readme_revenge分析程序，首先读取name，之后输出，存在栈溢出漏洞?反编译有问题，还是看汇编比较好，虽然我汇编很弱orzfile strings checksec一波 静态链接python subprocess 模块flag 在 0x00006B4040首先输出junk，程序崩溃，地址0x000000000045">
@@ -396,7 +396,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-17 17:42:50" itemprop="dateModified" datetime="2018-09-17T17:42:50+08:00">2018-09-17</time>
+                <time title="Modified: 2018-09-17 18:10:32" itemprop="dateModified" datetime="2018-09-17T18:10:32+08:00">2018-09-17</time>
               
             
           </span>
@@ -607,7 +607,7 @@
 <li>可以控制栈溢出字节少，构造ROP不方便</li>
 <li>开启PIE(ASLR)保护，无法确定栈地址</li>
 </ol>
-
+<h3 id="IO-FILE"><a href="#IO-FILE" class="headerlink" title="IO FILE"></a>IO FILE</h3>
       
     </div>
 
@@ -730,7 +730,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-count">64</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -865,7 +865,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#readme-revenge"><span class="nav-number">1.</span> <span class="nav-text">readme_revenge</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fortify-fail函数"><span class="nav-number">1.1.</span> <span class="nav-text">__fortify_fail函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-guestbook"><span class="nav-number">2.</span> <span class="nav-text">jarvisoj guestbook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-smashes"><span class="nav-number">3.</span> <span class="nav-text">jarvisoj smashes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-test-your-memory"><span class="nav-number">4.</span> <span class="nav-text">jarvisoj test your memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level3-x64"><span class="nav-number">5.</span> <span class="nav-text">level3 x64</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level5"><span class="nav-number">6.</span> <span class="nav-text">level5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level4"><span class="nav-number">7.</span> <span class="nav-text">level4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#借助dynELF实现无libc的漏洞利用"><span class="nav-number">7.1.</span> <span class="nav-text">借助dynELF实现无libc的漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarivsoj-level6"><span class="nav-number">8.</span> <span class="nav-text">jarivsoj level6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#guestbook-2"><span class="nav-number">9.</span> <span class="nav-text">guestbook 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fastbin-attack-oreo"><span class="nav-number">10.</span> <span class="nav-text">fastbin attack oreo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#house-of-spirit"><span class="nav-number">10.1.</span> <span class="nav-text">house of spirit</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0ctf-2017-babyheap"><span class="nav-number">11.</span> <span class="nav-text">0ctf 2017 babyheap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inndy-smashes-the-stack"><span class="nav-number">12.</span> <span class="nav-text">inndy smashes-the-stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stack-pivoting-b0verfl0w"><span class="nav-number">13.</span> <span class="nav-text">stack pivoting  b0verfl0w</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#readme-revenge"><span class="nav-number">1.</span> <span class="nav-text">readme_revenge</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fortify-fail函数"><span class="nav-number">1.1.</span> <span class="nav-text">__fortify_fail函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-guestbook"><span class="nav-number">2.</span> <span class="nav-text">jarvisoj guestbook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-smashes"><span class="nav-number">3.</span> <span class="nav-text">jarvisoj smashes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-test-your-memory"><span class="nav-number">4.</span> <span class="nav-text">jarvisoj test your memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level3-x64"><span class="nav-number">5.</span> <span class="nav-text">level3 x64</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level5"><span class="nav-number">6.</span> <span class="nav-text">level5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level4"><span class="nav-number">7.</span> <span class="nav-text">level4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#借助dynELF实现无libc的漏洞利用"><span class="nav-number">7.1.</span> <span class="nav-text">借助dynELF实现无libc的漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarivsoj-level6"><span class="nav-number">8.</span> <span class="nav-text">jarivsoj level6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#guestbook-2"><span class="nav-number">9.</span> <span class="nav-text">guestbook 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fastbin-attack-oreo"><span class="nav-number">10.</span> <span class="nav-text">fastbin attack oreo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#house-of-spirit"><span class="nav-number">10.1.</span> <span class="nav-text">house of spirit</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0ctf-2017-babyheap"><span class="nav-number">11.</span> <span class="nav-text">0ctf 2017 babyheap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inndy-smashes-the-stack"><span class="nav-number">12.</span> <span class="nav-text">inndy smashes-the-stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stack-pivoting-b0verfl0w"><span class="nav-number">13.</span> <span class="nav-text">stack pivoting  b0verfl0w</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO-FILE"><span class="nav-number">14.</span> <span class="nav-text">IO FILE</span></a></li></ol></div>
             
 
           </div>
