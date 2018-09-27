@@ -108,17 +108,17 @@
 
 
 
-  <meta name="description" content="offbyone  fastbin attack chunk overlap heap 一步步调试系列… 题目就叫 offbyone，是 xman 小姐姐给的，不清楚出处… offbyone 漏洞的大致思路：  改写下一个块的size 改写下一个块的pre inuse位chunk overlap ： Overwrite next chunk’s size =&amp;gt; extend free chu">
+  <meta name="description" content="offbyone  fastbin attack chunk overlap heap 一步步调试系列…">
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CTF | offbyone writeup">
 <meta property="og:url" content="https://yuuoniy.github.io/2018/09/27/pwn-offbyone/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="offbyone  fastbin attack chunk overlap heap 一步步调试系列… 题目就叫 offbyone，是 xman 小姐姐给的，不清楚出处… offbyone 漏洞的大致思路：  改写下一个块的size 改写下一个块的pre inuse位chunk overlap ： Overwrite next chunk’s size =&amp;gt; extend free chu">
-<meta property="og:updated_time" content="2018-09-27T17:47:11.388Z">
+<meta property="og:description" content="offbyone  fastbin attack chunk overlap heap 一步步调试系列…">
+<meta property="og:updated_time" content="2018-09-27T17:49:42.481Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CTF | offbyone writeup">
-<meta name="twitter:description" content="offbyone  fastbin attack chunk overlap heap 一步步调试系列… 题目就叫 offbyone，是 xman 小姐姐给的，不清楚出处… offbyone 漏洞的大致思路：  改写下一个块的size 改写下一个块的pre inuse位chunk overlap ： Overwrite next chunk’s size =&amp;gt; extend free chu">
+<meta name="twitter:description" content="offbyone  fastbin attack chunk overlap heap 一步步调试系列…">
 
 
 
@@ -385,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-28 01:47:11" itemprop="dateModified" datetime="2018-09-28T01:47:11+08:00">2018-09-28</time>
+                <time title="Modified: 2018-09-28 01:49:42" itemprop="dateModified" datetime="2018-09-28T01:49:42+08:00">2018-09-28</time>
               
             
           </span>
@@ -469,17 +469,17 @@
       
 
       
-        <p><code>offbyone</code>  <code>fastbin attack</code> <code>chunk overlap</code><br> heap 一步步调试系列…<br><!--  --></p>
+        <p><code>offbyone</code>  <code>fastbin attack</code> <code>chunk overlap</code><br> heap 一步步调试系列…<br><a id="more"></a></p>
 <p>题目就叫 offbyone，是 xman 小姐姐给的，不清楚出处…</p>
 <p><code>offbyone</code> 漏洞的大致思路：</p>
 <ol>
-<li>改写下一个块的size</li>
-<li>改写下一个块的pre inuse位<br>chunk overlap ：</li>
+<li>改写下一个块的<code>size</code></li>
+<li>改写下一个块的<code>pre inuse</code>位<br>chunk overlap ：</li>
 <li>Overwrite next chunk’s size =&gt; extend free chunk</li>
 <li>Overwrite next chunk’s size =&gt; extend allocated chunk</li>
 <li>Overwrite next chunk’s size =&gt; shrink free chunk</li>
 </ol>
-<p>这道题的 offbyone 比较宽松，可以写任意字节，而不仅仅是 null</p>
+<p>这道题的 <code>offbyone</code> 比较宽松，可以写任意字节，而不仅仅是 <code>null</code></p>
 <h3 id="程序分析"><a href="#程序分析" class="headerlink" title="程序分析"></a>程序分析</h3><p><code>edit</code> 函数有 <code>offbyone</code>：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> ( v1 &gt;= <span class="number">0</span> &amp;&amp; v1 &lt;= <span class="number">15</span> &amp;&amp; ptrs[v1] )</div><div class="line">&#123;</div><div class="line">  <span class="built_in">puts</span>(<span class="string">"your note:"</span>);</div><div class="line">  v2 = <span class="built_in">strlen</span>(ptrs[v1]);</div><div class="line">  read(<span class="number">0</span>, (<span class="keyword">void</span> *)ptrs[v1], v2);</div><div class="line">  <span class="built_in">puts</span>(<span class="string">"done."</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h3 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h3><p>通过 <code>offbyone</code> 实现<code>chunk overlap</code>,利用 <code>unsorted bin</code>切分操作 <code>leak address</code>, 再利用 <code>fastbin attack</code> 构造 <code>fake chunk</code> 修改 <code>malloc_hook</code>, 最后 <code>getshell</code><br>有几个关键的点：</p>
 <ol>
