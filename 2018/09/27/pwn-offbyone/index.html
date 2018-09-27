@@ -108,17 +108,17 @@
 
 
 
-  <meta name="description" content="offbyone  fastbin attack chunk overlap heap 一步步调试系列…">
+  <meta name="description" content="offbyone  fastbin attack chunk overlap">
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CTF | offbyone writeup">
 <meta property="og:url" content="https://yuuoniy.github.io/2018/09/27/pwn-offbyone/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="offbyone  fastbin attack chunk overlap heap 一步步调试系列…">
-<meta property="og:updated_time" content="2018-09-27T17:49:42.481Z">
+<meta property="og:description" content="offbyone  fastbin attack chunk overlap">
+<meta property="og:updated_time" content="2018-09-27T17:51:32.111Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CTF | offbyone writeup">
-<meta name="twitter:description" content="offbyone  fastbin attack chunk overlap heap 一步步调试系列…">
+<meta name="twitter:description" content="offbyone  fastbin attack chunk overlap">
 
 
 
@@ -385,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-28 01:49:42" itemprop="dateModified" datetime="2018-09-28T01:49:42+08:00">2018-09-28</time>
+                <time title="Modified: 2018-09-28 01:51:32" itemprop="dateModified" datetime="2018-09-28T01:51:32+08:00">2018-09-28</time>
               
             
           </span>
@@ -469,12 +469,12 @@
       
 
       
-        <p><code>offbyone</code>  <code>fastbin attack</code> <code>chunk overlap</code><br> heap 一步步调试系列…<br><a id="more"></a></p>
-<p>题目就叫 offbyone，是 xman 小姐姐给的，不清楚出处…</p>
+        <p><code>offbyone</code>  <code>fastbin attack</code> <code>chunk overlap</code><br><a id="more"></a></p>
+<p>题目就叫 <code>offbyone</code>，是 <code>xman</code> 小姐姐给的，不清楚出处…</p>
 <p><code>offbyone</code> 漏洞的大致思路：</p>
 <ol>
 <li>改写下一个块的<code>size</code></li>
-<li>改写下一个块的<code>pre inuse</code>位<br>chunk overlap ：</li>
+<li>改写下一个块的<code>pre inuse</code>位<br><code>chunk overlap</code>：</li>
 <li>Overwrite next chunk’s size =&gt; extend free chunk</li>
 <li>Overwrite next chunk’s size =&gt; extend allocated chunk</li>
 <li>Overwrite next chunk’s size =&gt; shrink free chunk</li>
