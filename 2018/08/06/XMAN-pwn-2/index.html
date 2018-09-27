@@ -115,7 +115,7 @@
 <meta property="og:url" content="https://yuuoniy.github.io/2018/08/06/XMAN-pwn-2/index.html">
 <meta property="og:site_name" content="尿尿">
 <meta property="og:description" content="linux 堆管理  program-(free malloc)-heap allocator-(mmap,brk)-kernel  glic-ptmalloc2  主要结构：chunk,bin,arena  bins 管理空闲堆块  arena 记录分配信息  chunk –allocated/free  malloc 返回指向data的指针。  chunk size包含堆头部 对齐问题，siz">
-<meta property="og:updated_time" content="2018-08-14T07:10:08.597Z">
+<meta property="og:updated_time" content="2018-09-27T15:01:30.726Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XMAN-pwn-2">
 <meta name="twitter:description" content="linux 堆管理  program-(free malloc)-heap allocator-(mmap,brk)-kernel  glic-ptmalloc2  主要结构：chunk,bin,arena  bins 管理空闲堆块  arena 记录分配信息  chunk –allocated/free  malloc 返回指向data的指针。  chunk size包含堆头部 对齐问题，siz">
@@ -385,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-08-14 15:10:08" itemprop="dateModified" datetime="2018-08-14T15:10:08+08:00">2018-08-14</time>
+                <time title="Modified: 2018-09-27 23:01:30" itemprop="dateModified" datetime="2018-09-27T23:01:30+08:00">2018-09-27</time>
               
             
           </span>
@@ -435,7 +435,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">4.4k</span>
+                <span title="Symbols count in article">3.9k</span>
               
 
               
@@ -616,8 +616,7 @@
 <li>通过malloc 吧一个比当前（不满足</li>
 <li>addra+0x20 将被改写成victim指针</li>
 </ul>
-<p>freenote:防止与top chunk 合并</p>
-<p>伪造chunk p64(0x0)</p>
+<p>关键：控制fd指针，指向想要分配的地址值，uaf漏洞直接改写<br>free(1) free(2) free(1) ,即使malloc 又是 free,就可以改写<br>伪造chunk p64(0x0)</p>
 <p>unlink:<br>地址 前面伪造fd  bk,-0x18</p>
 <h4 id="house-of-xx系列"><a href="#house-of-xx系列" class="headerlink" title="house of xx系列"></a>house of xx系列</h4><ul>
 <li><strong>house of spirit</strong><ul>
@@ -636,14 +635,6 @@
 <li><p>houser of roman<br>没有泄露<br>malloc hook </p>
 </li>
 </ul>
-<p>例题<br>offbyone:<br>虽然我之前遇到好多次…但是一直觉得很难…一直放弃…听小姐姐讲的很清楚，所以决定还是好好调一调：<br>edit 函数有offbyone<br>需要时0x.8的格式，这样才会覆盖到pre_size<br>这道题的offbyone是比较宽松的。</p>
-<p>edit</p>
-<p>改写size域，扩大后面一个，堆块重叠，利用其中一个堆块对另一个堆块读写<br>泄露地址值，fast bin attack<br>puts \0 会被截断 如何打印fd指针？</p>
-<h1 id="note-1"><a href="#note-1" class="headerlink" title="note 1"></a>note 1</h1><h1 id="0x28-类型？"><a href="#0x28-类型？" class="headerlink" title="0x28 类型？"></a>0x28 类型？</h1><p>-0x170 </p>
-<p>切分成一部分 。unsorted bin 切分操作，让note2写入fd,bk指针 ，用show函数泄露<br>note 2 列入unsorted bin,存在 fd,bk指针，泄露main arana地址<br>vmmap<br>0x70 伪造成空闲的指针</p>
-<p>delete 3<br>delete 2 进入fast bin,修改note 5,即修改note2的fd </p>
-<p>fastbin attack<br>对size进行检查，只检查地32位。<br>one_gadget不好用-&gt;malloc_printf (k可以通过double free 触发，这样里面调用malloc函数) </p>
-<p>只能移除0byte ,缩小，<br>关键：控制fd指针，指向想要分配的地址值，uaf漏洞直接改写<br>free(1) free(2) free(1) ,即使malloc 又是 free,就可以改写<br>伪造chunk p64(0x0)</p>
 <p>pie:full relo:不能修改GOT,只能修改hook</p>
 <ul>
 <li>free_hook </li>
@@ -792,7 +783,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">61</span>
+                    <span class="site-state-item-count">62</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -927,7 +918,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#linux-堆管理"><span class="nav-number">1.</span> <span class="nav-text">linux 堆管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见堆漏洞"><span class="nav-number">2.</span> <span class="nav-text">常见堆漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆利用技巧"><span class="nav-number">3.</span> <span class="nav-text">堆利用技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#fastbin-attack"><span class="nav-number">3.1.</span> <span class="nav-text">fastbin attack</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#unsorted-bin"><span class="nav-number">3.2.</span> <span class="nav-text">unsorted bin</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#small-bin-stack"><span class="nav-number">3.3.</span> <span class="nav-text">small bin stack</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#large-bin"><span class="nav-number">3.4.</span> <span class="nav-text">large bin</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#house-of-xx系列"><span class="nav-number">4.</span> <span class="nav-text">house of xx系列</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#note-1"><span class="nav-number"></span> <span class="nav-text">note 1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x28-类型？"><span class="nav-number"></span> <span class="nav-text">0x28 类型？</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#linux-堆管理"><span class="nav-number">1.</span> <span class="nav-text">linux 堆管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见堆漏洞"><span class="nav-number">2.</span> <span class="nav-text">常见堆漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆利用技巧"><span class="nav-number">3.</span> <span class="nav-text">堆利用技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#fastbin-attack"><span class="nav-number">3.1.</span> <span class="nav-text">fastbin attack</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#unsorted-bin"><span class="nav-number">3.2.</span> <span class="nav-text">unsorted bin</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#small-bin-stack"><span class="nav-number">3.3.</span> <span class="nav-text">small bin stack</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#large-bin"><span class="nav-number">3.4.</span> <span class="nav-text">large bin</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#house-of-xx系列"><span class="nav-number">4.</span> <span class="nav-text">house of xx系列</span></a></li></ol></div>
             
 
           </div>
@@ -961,7 +952,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">118k</span>
+    <span title="Symbols count total">126k</span>
   
 
   
@@ -970,7 +961,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:47</span>
+    <span title="Reading time total">1:54</span>
   
 </div>
 
