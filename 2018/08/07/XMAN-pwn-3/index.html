@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'W9VSQ0GGKQ',
+      apiKey: '74aef4d13e544170be082d500082ddb0',
+      indexName: 'yuuoniy',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="##IOFILE ###history of __  seethefile house of orange WCTF 2017 wannaheap libc-2.24.so a NULL byte overwrite parrot tokoy wester WHCTF stackoverflow echo_back ciscn what is libc-2.26.so 阅读源码 _IO_list_">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XMAN-pwn-3">
+<meta property="og:url" content="https://yuuoniy.github.io/2018/08/07/XMAN-pwn-3/index.html">
+<meta property="og:site_name" content="尿尿">
+<meta property="og:description" content="##IOFILE ###history of __  seethefile house of orange WCTF 2017 wannaheap libc-2.24.so a NULL byte overwrite parrot tokoy wester WHCTF stackoverflow echo_back ciscn what is libc-2.26.so 阅读源码 _IO_list_">
+<meta property="og:updated_time" content="2018-08-21T08:37:31.052Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="XMAN-pwn-3">
+<meta name="twitter:description" content="##IOFILE ###history of __  seethefile house of orange WCTF 2017 wannaheap libc-2.24.so a NULL byte overwrite parrot tokoy wester WHCTF stackoverflow echo_back ciscn what is libc-2.26.so 阅读源码 _IO_list_">
+
+
+
+
+
+
+  <link rel="canonical" href="https://yuuoniy.github.io/2018/08/07/XMAN-pwn-3/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>XMAN-pwn-3 | 尿尿</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0aff8f2cdbe4bb92b5d83006432c115a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">尿尿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">没错就是尿尿啦</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+    <a href="/sitemap.xml" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />Sitemap</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/08/07/XMAN-pwn-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuuoniy">
+      <meta itemprop="description" content="世界本该是你醒来的模样">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尿尿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">XMAN-pwn-3
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-07 08:55:02" itemprop="dateCreated datePublished" datetime="2018-08-07T08:55:02+08:00">2018-08-07</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-08-21 16:37:31" itemprop="dateModified" datetime="2018-08-21T16:37:31+08:00">2018-08-21</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/07/XMAN-pwn-3/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/07/XMAN-pwn-3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/08/07/XMAN-pwn-3/" class="leancloud_visitors" data-flag-title="XMAN-pwn-3">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">5.2k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">5 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>##<strong>IO</strong>FILE</p>
+<p>###history of __</p>
+<ul>
+<li>seethefile</li>
+<li>house of orange</li>
+<li>WCTF 2017 wannaheap libc-2.24.so a NULL byte overwrite</li>
+<li>parrot tokoy wester</li>
+<li>WHCTF stackoverflow</li>
+<li>echo_back ciscn <h3 id="what-is"><a href="#what-is" class="headerlink" title="what is"></a>what is</h3></li>
+<li>libc-2.26.so</li>
+<li>阅读源码</li>
+<li>_IO_list_all 链表的头 可读可写的区域 _IO_list_all-stderr-stdout-stdin</li>
+<li>_io_file_plus 多了vtable 是个虚表，包含函数地址</li>
+<li>vtable is a _IO_jump</li>
+</ul>
+<p>文件操作</p>
+<p>####fread </p>
+<ul>
+<li><code>size_t fread ( void *buffer, size_t size, size_t count, FILE *stream)</code> ;</li>
+<li>_IO_XSGETN 虚表中的一个函数</li>
+<li><h4 id="fwrite"><a href="#fwrite" class="headerlink" title="fwrite"></a>fwrite</h4><h4 id="printf-puts"><a href="#printf-puts" class="headerlink" title="printf/puts"></a>printf/puts</h4><p>都会用到_IO_file_xsputn<br>gcc </p>
+<p>fp 设置成buf的地址 rbx</p>
+<p>首先看到crash在cmp r2,qword ptr[rdx+8]的地方。</p>
+<p>rdi+0x88 :fp-&gt;_lock 如果是0就不进行这段比较<br><strong>seethefile</strong></p>
+</li>
+</ul>
+<p>   的buf，<br>  再次crash，看crash 地址，让loca-&gt;pointer=0<br>  vtable 设置在伪造fp的后面，因为文件操作会有一些检查<br>，try not use the fp pointer internal data<br>aslr:要泄露libc地址，<br>/proc/self/maps,要多读几次</p>
+<h3 id="house-of-orange"><a href="#house-of-orange" class="headerlink" title="house of orange"></a>house of orange</h3><p>控制bk字段，往bk+0x10写unsortedbin固定的一个地址。<br>没有\0截断<br>如何想办法调用free?:init_free (free top chunk ): 前一个chunk 必须使用  最后12bit必须是0，对齐<br>任意地址+0x10写成unsorted bin 在libc的偏移。</p>
+<p>1.伪造的top chunk的大小 对齐问题<br>2.怎么覆盖到top chunk的size的？<br>3.地址的关系图<br>4.libc地址是怎么泄露出来的..<br>fd 与 libc 地址关系？unsorted bin的fd和bk指针就可以获取到bins[]地址，从而计算出libc的基地址。<br>fd_nextsize与heap地址关系？<br>unsortbin会从链表上卸下来（只要分配的大小不是fastchunk大小）</p>
+<p>larger than MINSIZE(0x10)<br>smaller than need size + MINSIZE<br>prev inuse is set<br>old_top + oldsize must be aligned a page.<br><a href="http://4ngelboy.blogspot.com/2016/10/hitcon-ctf-qual-2016-house-of-orange.html" target="_blank" rel="external">http://4ngelboy.blogspot.com/2016/10/hitcon-ctf-qual-2016-house-of-orange.html</a><br>fd_nextsize指向下一个比当前chunk大小小的第一个空闲块</p>
+<p>Abort routine：<br>bk 是上一个堆块<br>main_arena+0x58 是list_of_all,但是我们没法控制所以我们弄了 chunk,也就是fake io file,main_arena+0x58 出的fp，通过fp-&gt;chain 访问fake io file,而chain 的偏移刚好是smallbin[4],所以我们设置的大小是0x60,pre_inuse 要设为1，所以是0x61。对于fake io file,我们需要设置一些变量，才能出发overflow,我们把overflow的函数改为system函数<br>下一次通过malloc,就能getshell了<br>如果能构造_IO_jump_t，最后就能控制ip<br>两个比较有用的博客：<br><a href="https://www.cnblogs.com/shangye/p/6268981.html" target="_blank" rel="external">https://www.cnblogs.com/shangye/p/6268981.html</a><br>具体 IOfile构造的脚本：<a href="https://veritas501.space/2017/12/13/IO%20FILE%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_blank" rel="external">https://veritas501.space/2017/12/13/IO%20FILE%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a><br>一些打印信息有用的命令：<br>p <em>_IO_list_all<br>p _IO_list_all<br>p </em>(struct _IO_jump_t<em>)address<br>p </em>(struct _IO_FILE_plus*)address<br>p _IO_2_1<em>stdin</em></p>
+<p>malloc常看源码：<a href="https://code.woboq.org/userspace/glibc/malloc/malloc.c.html#__malloc_hook" target="_blank" rel="external">https://code.woboq.org/userspace/glibc/malloc/malloc.c.html#__malloc_hook</a><br>seethefile:<br><a href="https://www.jianshu.com/p/2e00afb01606" target="_blank" rel="external">https://www.jianshu.com/p/2e00afb01606</a><br>透过bookwriter学习top chunk和_IO_FILE利用 <a href="https://blog.csdn.net/weixin_40850881/article/details/80043934" target="_blank" rel="external">https://blog.csdn.net/weixin_40850881/article/details/80043934</a><br>visual stdio 快捷键：ctrl+shifit +v :markdown 预览<br>ctrl+shift+c 当前目录打开cmd<br>将free_hook重写为do_system</p>
+<p><a href="https://firmianay.gitbooks.io/ctf-all-in-one/doc/4.13_io_file.html" target="_blank" rel="external">https://firmianay.gitbooks.io/ctf-all-in-one/doc/4.13_io_file.html</a> 里面有偏移！！<br>fp-&gt;_mode                   : 0xc0<br>fp-&gt;_IO_write_base          : 0x20<br>fp-&gt;_IO_write_ptr           : 0x28<br>fp-&gt;_chain                  : 0x68<br>fp-&gt;_wide_data              : 0xa0<br>_wide_data-&gt;_IO_write_base  : 0x18<br>_wide_data-&gt;_IO_write_ptr   : 0x20<br>fp-&gt;vtable                  : 0xd8<br>IO_jump_t-&gt;__overflow       : 0x18</p>
+<h5 id="house-of-lemon"><a href="#house-of-lemon" class="headerlink" title="house of lemon"></a>house of lemon</h5><p>stdout 在 main arena,变成释放的advice的堆块</p>
+<p>通过stdout vtable 劫持控制流，但是没法设置参数<br>技巧：IO_str_jumps 另外一个虚表 </p>
+<p>stdin、stdout正好被编译在main_arena后面，就是说如果fastbin的尺寸合适是可以溢出main_arena覆盖到后面stdout\stdin结构的。我们知道堆中释放的内存只是逻辑上的释放，实际上的内存映射并不会取消，那么我们可以先在合适尺寸的堆中填入伪造的函数指针，再释放这个堆就可以溢出main_arena覆盖标准流的vtable从而劫持程序流程。</p>
+<p><a href="https://zhuanlan.kanxue.com/article-446.htm" target="_blank" rel="external">https://zhuanlan.kanxue.com/article-446.htm</a><br>p <em>stdout<br>io_str_jumps<br>telescope<br>new size 变成bin/sh 的地址<br>easy python decompiler<br><em>*parrot</em></em><br>泄露libc 地址，<br>init free 基址：free一个堆块，如果前面有fastbin，如果再add small bin ,检查前面有没有 fast bin，合并，放到unsorted bin，<br>heap<br><a href="https://github.com/scwuaptx/CTF/blob/master/2017-writeup/twctf/parrot.py" target="_blank" rel="external">https://github.com/scwuaptx/CTF/blob/master/2017-writeup/twctf/parrot.py</a><br><a href="http://shimasyaro.hatenablog.com/entry/2017/09/19/103327" target="_blank" rel="external">http://shimasyaro.hatenablog.com/entry/2017/09/19/103327</a><br><a href="https://github.com/scwuaptx/CTF/blob/master/2017-writeup/twctf/Parrot.md" target="_blank" rel="external">https://github.com/scwuaptx/CTF/blob/master/2017-writeup/twctf/Parrot.md</a><br><a href="http://brieflyx.me/2017/ctf-writeups/twctf3-2017-parrot/" target="_blank" rel="external">http://brieflyx.me/2017/ctf-writeups/twctf3-2017-parrot/</a><br>null byte 任意写</p>
+<p><a href="https://bbs.pediy.com/thread-223334.htm" target="_blank" rel="external">https://bbs.pediy.com/thread-223334.htm</a>  从BookWriter看house_of_orange原理【新手向】<br><a href="http://p4nda.top/2018/05/13/ciscn-ctf-2018/" target="_blank" rel="external">http://p4nda.top/2018/05/13/ciscn-ctf-2018/</a> echo back<br><a href="http://4ngelboy.blogspot.com/2016/10/hitcon-ctf-qual-2016-house-of-orange.html" target="_blank" rel="external">http://4ngelboy.blogspot.com/2016/10/hitcon-ctf-qual-2016-house-of-orange.html</a><br><a href="https://www.slideshare.net/AngelBoy1/advanced-heap-exploitaion" target="_blank" rel="external">https://www.slideshare.net/AngelBoy1/advanced-heap-exploitaion</a><br><a href="https://www.xctf.org.cn/library/details/54d5bc6b64467a4fd8f21cb2d5cb53a4fe5ae477/" target="_blank" rel="external">https://www.xctf.org.cn/library/details/54d5bc6b64467a4fd8f21cb2d5cb53a4fe5ae477/</a></p>
+<p>house of range:<br><a href="http://tacxingxing.com/2018/01/10/house-of-orange/#toc_6" target="_blank" rel="external">http://tacxingxing.com/2018/01/10/house-of-orange/#toc_6</a></p>
+<p>###伪造vtable劫持程序流程<br>_IO_FILE_plus结构中存在vtable，一些函数会取出vtable中的指针进行调用。<br>中心思想就是针对_IO_FILE_plus的vtable动手脚，通过把vtable指向我们控制的内存，并在其中布置函数指针来实现<br>vtable劫持分为两种，一种是直接改写vtable中的函数指针，通过任意地址写就可以实现。另一种是覆盖vtable的指针指向我们控制的内存，然后在其中布置函数指针</p>
+<p>###FSOP<br>File Stream Oriented Programming<br>进程内所有的_IO_FILE结构会使用_chain域相互连接形成一个链表，这个链表的头部由_IO_list_all维护<br>劫持_IO_list_all的值来伪造链表和其中的_IO_FILE项<br>触发方法是调用_IO_flush_all_lockp<br>这个函数会刷新_IO_list_all链表中所有项的文件流，相当于对每个FILE调用fflush，也对应着会调用_IO_FILE_plus.vtable中的_IO_overflow<br>在一些情况下这个函数会被系统调用：<br>当libc执行abort流程时<br>当执行exit函数时<br>当执行流从main函数返回时</p>
+<p>###新版本libc下IO_FILE的利用<br>glibc_2.24以后，全新加入了针对IO_FILE_plus的vtable劫持的检测措施，glibc 会在调用虚函数之前首先检查vtable地址的合法性<br>关注点从vtable转移到_IO_FILE结构内部的域中<br>进程中包含了系统默认的三个文件流stdin\stdout\stderr，因此这种方式可以不需要进程中存在文件操作，通过scanf\printf一样可以进行利用<br>在_IO_FILE中_IO_buf_base表示操作的起始地址，_IO_buf_end表示结束地址，通过控制这两个数据可以实现控制读写的操作</p>
+<p>vtable 的地址怎么算出来？就是算出来伪造的vtable在堆中的地址，通过动态调试可以看到的<br>TokyoWesterns 2017 - Parrot</p>
+<h3 id="FOSP"><a href="#FOSP" class="headerlink" title="FOSP"></a>FOSP</h3><p>劫持 _IO_list_all 来伪造链表的利用技术，通过调用 _IO_flush_all_lockp()触发，该函数函数下面三种情况下被调用：</p>
+<ul>
+<li>libc 检测到内存错误时</li>
+<li>执行exit函数时</li>
+<li>mian 函数返回时</li>
+</ul>
+<p>两条FSOP路径</p>
+<ol>
+<li>malloc err<br>_IO_OVERFLOW(fp, EOF) 的执行过程中最终会调用 system(‘/bin/sh’)。</li>
+<li>关闭流<br>_IO_FINISH (fp) 的执行过程中最终会调用 system(‘/bin/sh’)。<br>此时需要设置_lock 指向内容为0的地方，64位中偏移是0x88<h4 id="libc-2-24防御机制"><a href="#libc-2-24防御机制" class="headerlink" title="libc-2.24防御机制"></a>libc-2.24防御机制</h4></li>
+<li>IO_validate_vtable </li>
+<li>_IO_vtable_check<br>利用技术</li>
+</ol>
+<ul>
+<li>_IO_str_jumps<br>这个 vtable 中包含了一个叫做 _IO_str_overflow 的函数，该函数中存在相对地址的引用（可伪造）</li>
+</ul>
+<p><strong>bookwriter</strong></p>
+<p>ebp的内存单元存储的是saved ebp，上一个函数的ebp值，该值是栈的地址<br>Pie就是随便一个变量的pie地址，减去相对偏移，得到程序基址</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/08/XMAN-pwn-4/" rel="next" title="XMAN-pwn-4">
+                <i class="fa fa-chevron-left"></i> XMAN-pwn-4
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/06/XMAN-pwn-2/" rel="prev" title="XMAN-pwn-2">
+                XMAN-pwn-2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="yuuoniy" />
+            
+              <p class="site-author-name" itemprop="name">yuuoniy</p>
+              <p class="site-description motion-element" itemprop="description">世界本该是你醒来的模样</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:linmq006@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/weiweichenlun/" target="_blank" title="Weibo"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/yuuoniy/activities" target="_blank" title="Zhihu"><i class="fa fa-fw fa-zhihu"></i>Zhihu</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#what-is"><span class="nav-number">1.</span> <span class="nav-text">what is</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fwrite"><span class="nav-number">1.1.</span> <span class="nav-text">fwrite</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#printf-puts"><span class="nav-number">1.2.</span> <span class="nav-text">printf/puts</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#house-of-orange"><span class="nav-number">2.</span> <span class="nav-text">house of orange</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#house-of-lemon"><span class="nav-number">2.0.1.</span> <span class="nav-text">house of lemon</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FOSP"><span class="nav-number">3.</span> <span class="nav-text">FOSP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#libc-2-24防御机制"><span class="nav-number">3.1.</span> <span class="nav-text">libc-2.24防御机制</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuuoniy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">126k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">1:54</span>
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.3.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.1</div>
+
+
+
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://yuuoniy.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'https://yuuoniy.github.io/2018/08/07/XMAN-pwn-3/';
+        this.page.identifier = '2018/08/07/XMAN-pwn-3/';
+        this.page.title = 'XMAN-pwn-3';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yuuoniy.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'VeQJNmfPOV9K2WFrArLoD0xN-gzGzoHsz',
+        appKey: 'TfDg8GxclLQKiTCGQ0hkV63P',
+        placeholder: '大佬有什么想法',
+        avatar:'retro',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

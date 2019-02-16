@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'W9VSQ0GGKQ',
+      apiKey: '74aef4d13e544170be082d500082ddb0',
+      indexName: 'yuuoniy',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="android 安全概述 基于Linux开源操作系统adb：Android Debug Bridgeart   整体架构应用程序层 java为主 支持C/c++framework 层 为应用程序开发提供APIandroid runtime 提供了JAVA编程语言核心库的大多数功能 应用程序都对应独立的虚拟机 android 5.0以前：dalvik 虚拟机 android runtime系统运行库">
+<meta name="keywords" content="XMAN android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF | android 安全概述">
+<meta property="og:url" content="https://yuuoniy.github.io/2018/08/04/XMAN-android-1/index.html">
+<meta property="og:site_name" content="尿尿">
+<meta property="og:description" content="android 安全概述 基于Linux开源操作系统adb：Android Debug Bridgeart   整体架构应用程序层 java为主 支持C/c++framework 层 为应用程序开发提供APIandroid runtime 提供了JAVA编程语言核心库的大多数功能 应用程序都对应独立的虚拟机 android 5.0以前：dalvik 虚拟机 android runtime系统运行库">
+<meta property="og:updated_time" content="2018-09-10T07:30:02.942Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CTF | android 安全概述">
+<meta name="twitter:description" content="android 安全概述 基于Linux开源操作系统adb：Android Debug Bridgeart   整体架构应用程序层 java为主 支持C/c++framework 层 为应用程序开发提供APIandroid runtime 提供了JAVA编程语言核心库的大多数功能 应用程序都对应独立的虚拟机 android 5.0以前：dalvik 虚拟机 android runtime系统运行库">
+
+
+
+
+
+
+  <link rel="canonical" href="https://yuuoniy.github.io/2018/08/04/XMAN-android-1/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CTF | android 安全概述 | 尿尿</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0aff8f2cdbe4bb92b5d83006432c115a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">尿尿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">没错就是尿尿啦</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+    <a href="/sitemap.xml" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />Sitemap</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/08/04/XMAN-android-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuuoniy">
+      <meta itemprop="description" content="世界本该是你醒来的模样">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尿尿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CTF | android 安全概述
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-04 08:48:24" itemprop="dateCreated datePublished" datetime="2018-08-04T08:48:24+08:00">2018-08-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-10 15:30:02" itemprop="dateModified" datetime="2018-09-10T15:30:02+08:00">2018-09-10</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/04/XMAN-android-1/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/04/XMAN-android-1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/08/04/XMAN-android-1/" class="leancloud_visitors" data-flag-title="CTF | android 安全概述">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">5.3k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">5 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="android-安全概述"><a href="#android-安全概述" class="headerlink" title="android 安全概述"></a>android 安全概述</h3><!-- #### android 背景介绍 -->
+<p>基于Linux开源操作系统<br>adb：Android Debug Bridge<br>art  </p>
+<h5 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h5><h6 id="应用程序层"><a href="#应用程序层" class="headerlink" title="应用程序层"></a>应用程序层</h6><ul>
+<li><code>java</code>为主</li>
+<li>支持C/c++<h6 id="framework-层"><a href="#framework-层" class="headerlink" title="framework 层"></a>framework 层</h6></li>
+<li>为应用程序开发提供API<h6 id="android-runtime"><a href="#android-runtime" class="headerlink" title="android runtime"></a>android runtime</h6></li>
+<li>提供了JAVA编程语言核心库的大多数功能</li>
+<li>应用程序都对应独立的虚拟机<ul>
+<li><code>android 5.0</code>以前：<code>dalvik</code> 虚拟机</li>
+<li><code>android runtime</code><h6 id="系统运行库"><a href="#系统运行库" class="headerlink" title="系统运行库"></a>系统运行库</h6></li>
+</ul>
+</li>
+<li>C/C++库，为开发者提供服务<ul>
+<li>webkit、sqlite<br>手机端沙箱还没做好<h6 id="硬件抽象层"><a href="#硬件抽象层" class="headerlink" title="硬件抽象层"></a>硬件抽象层</h6></li>
+</ul>
+</li>
+<li><code>android framework</code> 与<code>linux  kernel</code>分隔</li>
+<li>保护厂商利益，因为linux GPL 协议</li>
+<li>驱动分为<code>user space</code>和<code>kernel space</code></li>
+</ul>
+<h6 id="linux-kernel"><a href="#linux-kernel" class="headerlink" title="linux kernel"></a>linux kernel</h6><ul>
+<li>硬件驱动、网络、文件系统…</li>
+</ul>
+<h4 id="android-安全模型"><a href="#android-安全模型" class="headerlink" title="android 安全模型"></a>android 安全模型</h4><h6 id="基于linux用户隔离"><a href="#基于linux用户隔离" class="headerlink" title="基于linux用户隔离"></a>基于linux用户隔离</h6><ul>
+<li>linux:用户 uid</li>
+<li>android:应用程序  uid/父进程一样,先从父进程fork</li>
+<li>应用有自己的数据存放目录</li>
+<li>共享uid、编译时要分配好<br>例子：<br>u0_a52:user id 为0(不同于uid),a52:10052(uid) 10000+52  <h6 id="应用权限"><a href="#应用权限" class="headerlink" title="应用权限"></a>应用权限</h6></li>
+<li>细粒度控制(网络、硬件、敏感数据)</li>
+<li>manifest.xml 申请权限（android 6可以动态申请）</li>
+<li>权限检查，andorid 或内核进行<ul>
+<li>check permission api</li>
+<li>看权限服务由谁提供</li>
+</ul>
+</li>
+</ul>
+<h6 id="代码签名"><a href="#代码签名" class="headerlink" title="代码签名"></a>代码签名</h6><ul>
+<li>apk 开发者签名</li>
+</ul>
+<h6 id="selinux"><a href="#selinux" class="headerlink" title="selinux"></a>selinux</h6><ul>
+<li>security enhancements for android</li>
+<li>强制访问控制（MAC）<ul>
+<li>假root</li>
+</ul>
+</li>
+<li>核心系统守护进程和用户应用隔离到不同domain</li>
+</ul>
+<h6 id="系统更新-刷机"><a href="#系统更新-刷机" class="headerlink" title="系统更新(刷机)"></a>系统更新(刷机)</h6><ul>
+<li>解锁 bootloader recovery</li>
+<li>recovery 单独小型system 访问所有所有分区，即可以修改</li>
+<li>只允许签名验证通过的刷写</li>
+<li>解锁：允许替换recovery 和系统镜像<ul>
+<li>清除所有用户数据,否则会可能恶意访问用户隐私</li>
+<li>例子：三星knotes?，关掉敏感操作 如pay</li>
+</ul>
+</li>
+</ul>
+<h4 id="分析环境与常用工具"><a href="#分析环境与常用工具" class="headerlink" title="分析环境与常用工具"></a>分析环境与常用工具</h4><ul>
+<li>santoku<ul>
+<li>基于<code>linux</code>的<code>android</code>取证、逆向、开发的平台</li>
+</ul>
+</li>
+<li>android studio <ul>
+<li>应用开发</li>
+<li>APK 分析、性能分析</li>
+</ul>
+</li>
+<li>jeb<ul>
+<li>逆向工具 </li>
+<li>无源码调试</li>
+<li>提供<code>ARM、Mips、Intel x86/64</code> 反编译支持</li>
+<li>插件支持</li>
+<li>java 版本问题，可以修改<code>jeb</code>配置文件</li>
+</ul>
+</li>
+<li>jadx<ul>
+<li>dex 文件反编译</li>
+</ul>
+</li>
+<li><p>smali、baksmali、apktool</p>
+<ul>
+<li>反汇编常用工具</li>
+<li>dex(字节码) 与 smali 代码相互转换</li>
+<li>apk 文件解包和打包</li>
+</ul>
+</li>
+<li><p>ida pro</p>
+<ul>
+<li>支持 dalvik(基于栈的虚拟机) 指令集反汇编</li>
+<li>动态调试native代码</li>
+</ul>
+</li>
+<li>服务器<ul>
+<li>直接编译android操作系统</li>
+<li>coding<ul>
+<li>make -j64 与 make -j4区别<br>符号执行</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>安卓堆分配机制是另外一套</p>
+<h4 id="android代码分析与对抗"><a href="#android代码分析与对抗" class="headerlink" title="android代码分析与对抗"></a>android代码分析与对抗</h4><p>动态调试：修改android debuggable 重打包</p>
+<h5 id="正向编译流程"><a href="#正向编译流程" class="headerlink" title="正向编译流程"></a>正向编译流程</h5><ul>
+<li>源码-资源文件-AIDL 文件? 依赖打包 —–编译器-生成 dex -debug/release keystore ——-打包 生成apk</li>
+<li>APK文件结构<ul>
+<li>zip 压缩包</li>
+<li>常见文件<ul>
+<li>manifest.xml 整体描述，组件，权限</li>
+<li>META-INF 签名信息</li>
+<li>classes.dex 可执行文件,多个 /dalvik 支持的方法数有限</li>
+</ul>
+<ul>
+<li>res 可编译资源</li>
+<li>assets 原生资源，很多加壳代码放在assets和lib </li>
+<li>lib 目录：C/C++代码编译so 文件，native逆向重点关注</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="反编译"><a href="#反编译" class="headerlink" title="反编译"></a>反编译</h5><ul>
+<li>dex 文件<ul>
+<li>java class 优化 java class:常量池 dex 包含所有的class:header、数据结构索引区 逐级索引、data</li>
+<li>android 可执行文件</li>
+</ul>
+<ul>
+<li>包含 dalvik 指令集</li>
+</ul>
+</li>
+<li>smali 代码学习<ul>
+<li>网上找资料</li>
+<li>每个class都是一个文件<br>L：是一个类<br><init> 类的构造函数<br>invoke 相当于call<br>Z:bool<br>寄存器的表示p 参数,v<br>内部类</init></li>
+</ul>
+</li>
+</ul>
+<p>bytecode<br>jeb 插件 scripts.txt<br>    快捷键 Q<br>jadx ：源码级别的搜索</p>
+<ul>
+<li>JNI<ul>
+<li>java 与 native 沟通的桥梁</li>
+<li>JNI注册<ul>
+<li>静态注册 名字对应</li>
+<li>动态注册 可以比较好隐藏注册了什么函数 方便加防御措施、混淆</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>JNI_Onload</strong><ul>
+<li>在加载so文件时将被执行,一般看这里有没有问题<br>ida 中修改为 JNIEev*</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>反调试<ul>
+<li>ida 端口 23946</li>
+<li>ptrace</li>
+<li>时间</li>
+<li>断点</li>
+</ul>
+</li>
+</ul>
+<p>JNI 层利用反射机制？？调用java代码<br>在native 动态加载处理加壳<br>installDexs<br>mCookie dex文件特征值array（java,dex 加载的内存机制（native<br>native c++ 代码  </p>
+<ul>
+<li>demo hiddendata</li>
+</ul>
+<h4 id="加壳技术"><a href="#加壳技术" class="headerlink" title="加壳技术"></a>加壳技术</h4><p>native 层动态代码加载</p>
+<ul>
+<li>提供的动态加载<ul>
+<li>dexclassloader:apk/jar/dex SD卡 通用</li>
+<li>pathclassloader：只能加载安装到系统中（/data/app 的apk 文件<br>demo crakeme</li>
+</ul>
+</li>
+</ul>
+<p>先找到<code>oncreate</code></p>
+<ul>
+<li>加载立即删除</li>
+<li>不落地的dex加载</li>
+<li>加载过程更加 隐蔽</li>
+<li><p>自己加载逻辑</p>
+</li>
+<li><p>android debug bridge</p>
+</li>
+<li><p>JDWP java调试栈协议</p>
+</li>
+<li><p>动态调试条件</p>
+<ul>
+<li>android:debuggable=”true”</li>
+<li>android os<ul>
+<li>ro.debuggable=1</li>
+<li>boot.img-&gt;default.prop 解压手机中img,修改文件</li>
+<li>模拟器或<code>userdebug</code>编译 </li>
+<li>mprop、BDOpner(Xposed模块)  从内存中修改属性值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>无源码动态调试 java</p>
+<ul>
+<li>smalidea+android studio</li>
+<li>ida pro </li>
+<li>jeb</li>
+</ul>
+</li>
+<li><p>native 代码调试</p>
+</li>
+<li>动态调试解决<code>hiddendata</code>(部分操作步骤见结尾)</li>
+</ul>
+<h5 id="方法跟踪"><a href="#方法跟踪" class="headerlink" title="方法跟踪"></a>方法跟踪</h5><ul>
+<li>android 带有<code>method trace</code><ul>
+<li>DDMS</li>
+<li>cpu Profile<br>函数调用，CPU耗时</li>
+</ul>
+</li>
+</ul>
+<p>as:tools-andorid devices monitor</p>
+<h5 id="脱壳技术"><a href="#脱壳技术" class="headerlink" title="脱壳技术"></a>脱壳技术</h5><ul>
+<li>运行时机<ul>
+<li>dex 文件加载</li>
+<li>类加载</li>
+<li>方法执行</li>
+</ul>
+</li>
+<li><p>针对内存加密壳的脱壳技术<br>   -暴力内存搜索 针对dex内存加载阶段</p>
+<ul>
+<li>关键函数断点 dex/类加载关键api</li>
+<li>DexHunter 开源 通用脱壳技术</li>
+<li>AppSpear 通用脱壳<br>Dex 文件基本格式<br>在内存中连续</li>
+</ul>
+</li>
+<li><p>暴力内存搜索</p>
+<ul>
+<li>dex 文件在内存中有特征<ul>
+<li>dexHunter magic number</li>
+<li>dex.035 035为版本号，还有037 038</li>
+<li>dey.036(odex 头部)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>关键函数代码</p>
+<ul>
+<li><p><strong>dvmDexFileOpenPartial</strong> (Dalvik虚拟机):位于dex优化的地方 dvm.so 文件</p>
+<ul>
+<li>addr -dex 起始地址</li>
+<li>len -dex 长度</li>
+<li>演示 jscrack 脱壳版本要求4.4.4<ul>
+<li>ida -debugger-attach to process</li>
+<li>断点，查看顶部寄存器的两个值 就可以dump出文件</li>
+<li><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> idc <span class="keyword">import</span> *</div><div class="line"><span class="keyword">from</span> idaapi <span class="keyword">import</span> * </div><div class="line">r0=get_reg_value(<span class="string">'r0'</span>)</div><div class="line">r1=get_reg_value(<span class="string">'r1'</span>)</div><div class="line"><span class="keyword">with</span> open(<span class="string">'dump,dex'</span>,wb) <span class="keyword">as</span> fp:</div><div class="line">    RefreshDebuggerMemory()</div><div class="line">    data = GetManyBytes(r0,r1)</div><div class="line">    fp.write(data)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>dex 加载流程</p>
+<ul>
+<li>验证 dex</li>
+<li>生成 odex</li>
+<li>解析 odex 生成内存结构</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>生成<code>odex</code>时<ul>
+<li><code>dvmOptimizeDexFile</code></li>
+<li>执行<code>/bin/dexopt</code> 进行dex优化 -&gt;dvmCon </li>
+</ul>
+</li>
+<li>DexFile:DexFile &amp;&amp; OpenAndReadMagic(ART) </li>
+</ul>
+</li>
+<li><strong>DexHunter</strong> (推到类加载执行完后在dump)与<code>AppSpear</code><ul>
+<li>主动初始化所有的类</li>
+<li>dex 文件内存重构技术 AppSpear</li>
+</ul>
+</li>
+</ul>
+<h5 id="反混淆"><a href="#反混淆" class="headerlink" title="反混淆"></a>反混淆</h5><ul>
+<li>花指令<ul>
+<li>simplify<ul>
+<li>动态执行去除花指令<br>符号执行 suit 框架?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>名称混淆 <ul>
+<li>根据类型信息重命名 smali 文件</li>
+<li>Demo 360 renameByType 脚本修改<ul>
+<li>jeb:文件-scripts-执行脚本<br>Hook:</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>hook 一切（xposed、Frida)</li>
+<li>hook 自己(virtualXposed 双开逻辑、legend) 代码热更新</li>
+</ul>
+<h4 id="应用层与Root安全"><a href="#应用层与Root安全" class="headerlink" title="应用层与Root安全"></a>应用层与Root安全</h4><p>四大组件</p>
+<ul>
+<li>Activity</li>
+<li>service</li>
+<li>content provider</li>
+<li><p>broadcast receiver</p>
+</li>
+<li><p>组件在Manifest 注册<br>  broadcastReceiver 也可以动态注册</p>
+</li>
+<li>组件生命周期<br>  + </li>
+<li>组件间通信<br>  intent为载体，底层由binder(linux kernel)实现</li>
+</ul>
+<h5 id="应用层安全"><a href="#应用层安全" class="headerlink" title="应用层安全"></a>应用层安全</h5><ul>
+<li>内层破坏漏洞<ul>
+<li>底层服务<ul>
+<li>蓝牙、V8、binder</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>应用逻辑漏洞<ul>
+<li>空指针异常</li>
+<li>权限设置(组建权限，存储权限)</li>
+<li>支付流程</li>
+</ul>
+</li>
+<li><p>网络通信</p>
+<ul>
+<li>SSL、web 安全 h5直接渲染</li>
+</ul>
+</li>
+<li><p>权限控制</p>
+<ul>
+<li>intent-filter 导出属性默认为true, android:exported=’true’</li>
+</ul>
+</li>
+<li><p>intent Scheme URLs: </p>
+<ul>
+<li>browser-&gt;intent-&gt;Activity</li>
+<li>加载任意网页</li>
+</ul>
+</li>
+<li><p><code>addJavascriptInterface</code></p>
+<ul>
+<li><p>js调用java代码 java代码可以反射</p>
+<p><strong>JAVA反射机制</strong> 是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。</p>
+</li>
+</ul>
+</li>
+<li><p>数据存储</p>
+<ul>
+<li>/data/data/<package_name></package_name></li>
+</ul>
+</li>
+</ul>
+<h5 id="root"><a href="#root" class="headerlink" title="root"></a>root</h5><ul>
+<li><p>工程机root</p>
+<ul>
+<li>adb 以 root 模式启动，随后drop权限</li>
+<li>adb root 始终root权限</li>
+<li>su命名 set uid</li>
+</ul>
+</li>
+<li><p>普通机器</p>
+<ul>
+<li>主动root superSU</li>
+<li>被动root 漏洞一把梭</li>
+</ul>
+</li>
+<li><p>superSU</p>
+<ul>
+<li>直接刷入su<ul>
+<li>system 分区以nosetuid挂载</li>
+<li>zygote 被drop权限</li>
+<li>SELinux 下划分了安全域</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>superSU 架构<ul>
+<li>daemeonsu &lt;-&gt; UNIX socket &lt;-&gt;untrusted App root权限守护进程</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>apktool</strong>使用<br><code>apktool d test.apk</code><br><code>apktool b test</code></p>
+<p><strong>动态调试</strong><br>连接mumu模拟器：<br><code>adb connect 127.0.0.1:7555</code><br>安装apk<br><code>adb install</code> 本地apk路径<br><code>adb shell am start -D -n com.j.hiddendata/.MainAcitivty</code> 调试模式启动一个进程</p>
+<p><code>ddms：android studio</code> 逐渐抛弃了，因此在tools下找不到,需要自己进到android-sdk/tools/,运行monitor就可以了</p>
+<p>获取系统版本：<code>adb shell getprop ro.build.version.release</code><br>获取系统api版本：<code>adb shell getprop ro.build.version.sdk</code><br>要保证程序是debuggable的</p>
+<p><a href="https://blog.csdn.net/u012203641/article/details/73927489" target="_blank" rel="external">【Android Studio】Android Monitor无法显示运行程序问题解决</a><br><code>Can&#39;t bind to local 8601 for debugger</code>问题：<br>看到as也可以调native层？不过没试过…<br>attach 了..然后出现了Cannot find module by package name 问题 然后…一系列问题<br>呜呜呜<br><strong>动态调试示例</strong><br><a href="https://www.jianshu.com/p/1a28e6439c6a" target="_blank" rel="external">AndroidStudio无源码动态调试apk</a><br>IDA调native:</p>
+<ol>
+<li><code>adb forward tcp:23946 tcp:23946</code> (使IDA连上设备 映射)</li>
+<li>IDA 选择remote linux debugger <code>hostname:127.0.0.1</code></li>
+<li>IDA:attach-process 连接IDA </li>
+<li>传IDA的android_x86_server 到模拟器   </li>
+</ol>
+<p>cd /data/tmp<br>java 层continue  </p>
+<p>1 重启adb服务</p>
+<p>adb kill-server</p>
+<p>adb start-server</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/XMAN-android/" rel="tag"># XMAN android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/05/XMAN-pwn-1/" rel="next" title="CTF | pwn 基础知识-栈溢出">
+                <i class="fa fa-chevron-left"></i> CTF | pwn 基础知识-栈溢出
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/03/XMAN-pwn-day1/" rel="prev" title="CTF | pwn 题的逆向分析策略">
+                CTF | pwn 题的逆向分析策略 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="yuuoniy" />
+            
+              <p class="site-author-name" itemprop="name">yuuoniy</p>
+              <p class="site-description motion-element" itemprop="description">世界本该是你醒来的模样</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:linmq006@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/weiweichenlun/" target="_blank" title="Weibo"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/yuuoniy/activities" target="_blank" title="Zhihu"><i class="fa fa-fw fa-zhihu"></i>Zhihu</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#android-安全概述"><span class="nav-number">1.</span> <span class="nav-text">android 安全概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#整体架构"><span class="nav-number">1.0.1.</span> <span class="nav-text">整体架构</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#应用程序层"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">应用程序层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#framework-层"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">framework 层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#android-runtime"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">android runtime</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#系统运行库"><span class="nav-number">1.0.1.4.</span> <span class="nav-text">系统运行库</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#硬件抽象层"><span class="nav-number">1.0.1.5.</span> <span class="nav-text">硬件抽象层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#linux-kernel"><span class="nav-number">1.0.1.6.</span> <span class="nav-text">linux kernel</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#android-安全模型"><span class="nav-number">1.1.</span> <span class="nav-text">android 安全模型</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#基于linux用户隔离"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">基于linux用户隔离</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#应用权限"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">应用权限</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#代码签名"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">代码签名</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#selinux"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">selinux</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#系统更新-刷机"><span class="nav-number">1.1.0.5.</span> <span class="nav-text">系统更新(刷机)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析环境与常用工具"><span class="nav-number">1.2.</span> <span class="nav-text">分析环境与常用工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#android代码分析与对抗"><span class="nav-number">1.3.</span> <span class="nav-text">android代码分析与对抗</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#正向编译流程"><span class="nav-number">1.3.1.</span> <span class="nav-text">正向编译流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#反编译"><span class="nav-number">1.3.2.</span> <span class="nav-text">反编译</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加壳技术"><span class="nav-number">1.4.</span> <span class="nav-text">加壳技术</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#方法跟踪"><span class="nav-number">1.4.1.</span> <span class="nav-text">方法跟踪</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#脱壳技术"><span class="nav-number">1.4.2.</span> <span class="nav-text">脱壳技术</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#反混淆"><span class="nav-number">1.4.3.</span> <span class="nav-text">反混淆</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用层与Root安全"><span class="nav-number">1.5.</span> <span class="nav-text">应用层与Root安全</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#应用层安全"><span class="nav-number">1.5.1.</span> <span class="nav-text">应用层安全</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#root"><span class="nav-number">1.5.2.</span> <span class="nav-text">root</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuuoniy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">126k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">1:54</span>
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.3.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.1</div>
+
+
+
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://yuuoniy.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'https://yuuoniy.github.io/2018/08/04/XMAN-android-1/';
+        this.page.identifier = '2018/08/04/XMAN-android-1/';
+        this.page.title = 'CTF | android 安全概述';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yuuoniy.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'VeQJNmfPOV9K2WFrArLoD0xN-gzGzoHsz',
+        appKey: 'TfDg8GxclLQKiTCGQ0hkV63P',
+        placeholder: '大佬有什么想法',
+        avatar:'retro',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
