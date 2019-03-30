@@ -119,7 +119,7 @@
 <meta property="og:image" content="http://otswdapxf.bkt.clouddn.com/ipv4-b.png">
 <meta property="og:image" content="http://otswdapxf.bkt.clouddn.com/ipv4-c.png">
 <meta property="og:image" content="http://otswdapxf.bkt.clouddn.com/ipv4-d.png">
-<meta property="og:updated_time" content="2018-09-12T09:59:50.851Z">
+<meta property="og:updated_time" content="2018-10-23T13:57:09.848Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计网 | 计算机网络实验基础">
 <meta name="twitter:description" content="此片介绍一些计网实验的基础，包括 Ipv4 地址，常用命令行命令，协议分析软件、网络仿真软件、拓扑图、路由器、交换机原理等。">
@@ -274,14 +274,6 @@
     <a href="/archives/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-sitemap">
-    <a href="/sitemap.xml" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />Sitemap</a>
-  </li>
 
       
       
@@ -373,12 +365,24 @@
                 
               
 
-              <time title="Created: 2018-09-12 16:40:33 / Modified: 17:59:50" itemprop="dateCreated datePublished" datetime="2018-09-12T16:40:33+08:00">2018-09-12</time>
+              <time title="Created: 2018-09-12 16:40:33" itemprop="dateCreated datePublished" datetime="2018-09-12T16:40:33+08:00">2018-09-12</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-10-23 21:57:09" itemprop="dateModified" datetime="2018-10-23T21:57:09+08:00">2018-10-23</time>
               
             
           </span>
@@ -446,7 +450,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">1.4k</span>
+                <span title="Symbols count in article">1.5k</span>
               
 
               
@@ -481,7 +485,7 @@
 
       
         <p>此片介绍一些计网实验的基础，包括 Ipv4 地址，常用命令行命令，协议分析软件、网络仿真软件、拓扑图、路由器、交换机原理等。<br><a id="more"></a></p>
-<h3 id="ipv4"><a href="#ipv4" class="headerlink" title="ipv4"></a>ipv4</h3><p>在IPv4系统中，IP地址是一个32位的二进制地址,通常分为4组，每组八位。</p>
+<h2 id="第一课"><a href="#第一课" class="headerlink" title="第一课"></a>第一课</h2><h3 id="ipv4"><a href="#ipv4" class="headerlink" title="ipv4"></a>ipv4</h3><p>在IPv4系统中，IP地址是一个32位的二进制地址,通常分为4组，每组八位。</p>
 <h4 id="地址结构"><a href="#地址结构" class="headerlink" title="地址结构"></a>地址结构</h4><p>地址格式 <code>NetID + HostID</code><br>网络标识(NetID)：表示主机所在网络<br>主机标识(HostID)：表示主机在网段中的唯一标识。</p>
 <h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>A类：1–126（127是回环和诊断测试保留用）<br>B类：128 – 191<br>C类：192 – 223<br>D类：224 – 239（保留，主要用于IP组播）<br>E类：240 – 254 （保留，研究测试用）</p>
 <p>A类：<br><img src="http://otswdapxf.bkt.clouddn.com/ipv4-a.png" alt="ipv4a"></p>
@@ -507,7 +511,13 @@
 <h4 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h4><p>显示当前活动的TCP连接、计算机侦听的端口、以太网统计信息、IP路由表、IPv4统计信息（对于IP、ICMP、TCP和UDP协议）以及IPv6统计信息 </p>
 <h4 id="arp"><a href="#arp" class="headerlink" title="arp"></a>arp</h4><p>把基于 TCP/IP 的软件使用的 IP 地址解析成 LAN 硬件使用的媒体访问控制地址。</p>
 <h4 id="route"><a href="#route" class="headerlink" title="route"></a>route</h4><p>查看并编辑计算机的 IP 路由表。<br><code>route print</code><br>  显示 IP 路由表的完整内容。<br><code>route print 10.*</code><br>  显示 IP 路由表中以 10. 开始的路由</p>
-<h3 id="wireshark"><a href="#wireshark" class="headerlink" title="wireshark"></a>wireshark</h3><h3 id="PacketTracer"><a href="#PacketTracer" class="headerlink" title="PacketTracer"></a>PacketTracer</h3>
+<h3 id="wireshark"><a href="#wireshark" class="headerlink" title="wireshark"></a>wireshark</h3><h3 id="PacketTracer"><a href="#PacketTracer" class="headerlink" title="PacketTracer"></a>PacketTracer</h3><h2 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h2><h3 id="套接字"><a href="#套接字" class="headerlink" title="套接字"></a>套接字</h3><p>两种类型：</p>
+<ul>
+<li>流套接字：面向连接的TCP</li>
+<li>数据报套接字：无连接的UDP</li>
+</ul>
+<h2 id="VLAN"><a href="#VLAN" class="headerlink" title="VLAN"></a>VLAN</h2><h3 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h3><p>进入 RCMS：<br>telnet 172.16.</p>
+
       
     </div>
 
@@ -550,8 +560,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/11/hexo-next-update/" rel="prev" title="hexo | NEXT 主题更新,从 5.1 到 6.0">
-                hexo | NEXT 主题更新,从 5.1 到 6.0 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/12/android-course-2/" rel="prev" title="android | 手机应用开发基础知识">
+                android | 手机应用开发基础知识 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -636,7 +646,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-count">78</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -710,7 +720,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -724,17 +740,12 @@
             <div class="links-of-author motion-element">
               
                 <span class="links-of-author-item">
+                  <a href="https://github.com/yuuoniy" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
                   <a href="mailto:linmq006@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="https://weibo.com/weiweichenlun/" target="_blank" title="Weibo"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
-                  
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="https://www.zhihu.com/people/yuuoniy/activities" target="_blank" title="Zhihu"><i class="fa fa-fw fa-zhihu"></i>Zhihu</a>
                   
                 </span>
               
@@ -771,7 +782,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ipv4"><span class="nav-number">1.</span> <span class="nav-text">ipv4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#地址结构"><span class="nav-number">1.1.</span> <span class="nav-text">地址结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分类"><span class="nav-number">1.2.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#私有地址"><span class="nav-number">1.3.</span> <span class="nav-text">私有地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊表示"><span class="nav-number">1.4.</span> <span class="nav-text">特殊表示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#网络地址（“0”地址）"><span class="nav-number">1.4.1.</span> <span class="nav-text">网络地址（“0”地址）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#广播地址（“1”地址）"><span class="nav-number">1.4.2.</span> <span class="nav-text">广播地址（“1”地址）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#全“0”地址回环地址"><span class="nav-number">1.4.3.</span> <span class="nav-text">全“0”地址回环地址</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络掩码"><span class="nav-number">1.5.</span> <span class="nav-text">网络掩码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#表示方式"><span class="nav-number">1.6.</span> <span class="nav-text">表示方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用命令"><span class="nav-number">2.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ping"><span class="nav-number">2.1.</span> <span class="nav-text">ping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tracert"><span class="nav-number">2.2.</span> <span class="nav-text">tracert</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ipconfig"><span class="nav-number">2.3.</span> <span class="nav-text">ipconfig</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#netstat"><span class="nav-number">2.4.</span> <span class="nav-text">netstat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#arp"><span class="nav-number">2.5.</span> <span class="nav-text">arp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#route"><span class="nav-number">2.6.</span> <span class="nav-text">route</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wireshark"><span class="nav-number">3.</span> <span class="nav-text">wireshark</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PacketTracer"><span class="nav-number">4.</span> <span class="nav-text">PacketTracer</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一课"><span class="nav-number">1.</span> <span class="nav-text">第一课</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ipv4"><span class="nav-number">1.1.</span> <span class="nav-text">ipv4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#地址结构"><span class="nav-number">1.1.1.</span> <span class="nav-text">地址结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分类"><span class="nav-number">1.1.2.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#私有地址"><span class="nav-number">1.1.3.</span> <span class="nav-text">私有地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊表示"><span class="nav-number">1.1.4.</span> <span class="nav-text">特殊表示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#网络地址（“0”地址）"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">网络地址（“0”地址）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#广播地址（“1”地址）"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">广播地址（“1”地址）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#全“0”地址回环地址"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">全“0”地址回环地址</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络掩码"><span class="nav-number">1.1.5.</span> <span class="nav-text">网络掩码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#表示方式"><span class="nav-number">1.1.6.</span> <span class="nav-text">表示方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用命令"><span class="nav-number">1.2.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ping"><span class="nav-number">1.2.1.</span> <span class="nav-text">ping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tracert"><span class="nav-number">1.2.2.</span> <span class="nav-text">tracert</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ipconfig"><span class="nav-number">1.2.3.</span> <span class="nav-text">ipconfig</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#netstat"><span class="nav-number">1.2.4.</span> <span class="nav-text">netstat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#arp"><span class="nav-number">1.2.5.</span> <span class="nav-text">arp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#route"><span class="nav-number">1.2.6.</span> <span class="nav-text">route</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wireshark"><span class="nav-number">1.3.</span> <span class="nav-text">wireshark</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PacketTracer"><span class="nav-number">1.4.</span> <span class="nav-text">PacketTracer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络编程"><span class="nav-number">2.</span> <span class="nav-text">网络编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#套接字"><span class="nav-number">2.1.</span> <span class="nav-text">套接字</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VLAN"><span class="nav-number">3.</span> <span class="nav-text">VLAN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用操作"><span class="nav-number">3.1.</span> <span class="nav-text">常用操作</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -793,7 +804,7 @@
       <div class="footer-inner">
         <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
-<div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2018</span>
+<div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -805,7 +816,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">126k</span>
+    <span title="Symbols count total">150k</span>
   
 
   
@@ -814,7 +825,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:54</span>
+    <span title="Reading time total">2:16</span>
   
 </div>
 
