@@ -5,15 +5,15 @@
   # Site
   title: 尿尿
   subtitle: 没错就是尿尿啦
-  description: 慕名而来的人都会爱上我
-  author: Lin Miaoqian
+  description: 世界本该是你醒来的模样
+  author: yuuoniy
   language: en
   timezone:
   
   
   # URL
   ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-  url: http://yoursite.com 
+  url: https://yuuoniy.github.io
   root: /
   permalink: :year/:month/:day/:title/
   permalink_defaults:
@@ -35,7 +35,7 @@
   external_link: true # Open external links in new tab
   filename_case: 0
   render_drafts: false #show drafts
-  post_asset_folder: true
+  post_asset_folder: false
   relative_link: false
   future: true
   highlight:
@@ -64,7 +64,7 @@
   # Extensions
   ## Plugins: https://hexo.io/plugins/
   ## Themes: https://hexo.io/themes/
-  theme: next
+  theme: next-reloaded
   
   # Deployment
   ## Docs: https://hexo.io/docs/deployment.html
@@ -116,7 +116,11 @@
     per_page: 10 ###分类页面默认10篇文章
   
   
-  
+  symbols_count_time:
+    symbols: true
+    time: true
+    total_symbols: true
+    total_time: true
   
   
   
