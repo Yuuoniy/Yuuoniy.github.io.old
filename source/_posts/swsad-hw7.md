@@ -14,7 +14,7 @@ tags:
 
   - 绘制用例图模型（到子用例）
 
-    ![](./pics/swasd-7-1.png)
+    ![](./pics/swasd-7.png)
 
   - 给出 make reservation 用例的活动图
 
