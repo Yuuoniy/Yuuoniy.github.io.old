@@ -43,4 +43,4 @@ tags:
 
     
 
-![](F:\CODE\git\blog\source\_posts\pics\swasd-7-4.png)
+![](./pics/swasd-7-4.png)
