@@ -41,7 +41,7 @@ final report-16340141
 
 前端：
 
-![](../../images/contribute.png)
+![](/images/contribute.png)
 
 ### 个人博客清单
 
