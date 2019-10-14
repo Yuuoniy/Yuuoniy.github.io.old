@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'W9VSQ0GGKQ',
+      apiKey: '74aef4d13e544170be082d500082ddb0',
+      indexName: 'yuuoniy',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="逆向入门第二篇">
+<meta name="keywords" content="reversing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF | 逆向入门第二篇">
+<meta property="og:url" content="https://yuuoniy.github.io/2018/08/03/XMAN-reversing-day2/index.html">
+<meta property="og:site_name" content="喵">
+<meta property="og:description" content="逆向入门第二篇">
+<meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/upx3.91.png">
+<meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/hide-jz.png?imageView2/2/w/200">
+<meta property="og:image" content="http://p6cwaqxnz.bkt.clouddn.com/hide-patch.png?imageView2/2/w/200">
+<meta property="og:updated_time" content="2018-09-11T02:13:36.135Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CTF | 逆向入门第二篇">
+<meta name="twitter:description" content="逆向入门第二篇">
+<meta name="twitter:image" content="http://p6cwaqxnz.bkt.clouddn.com/upx3.91.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://yuuoniy.github.io/2018/08/03/XMAN-reversing-day2/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CTF | 逆向入门第二篇 | 喵</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0aff8f2cdbe4bb92b5d83006432c115a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">喵</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">没错就是尿尿啦</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/08/03/XMAN-reversing-day2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuuoniy">
+      <meta itemprop="description" content="世界本该是你醒来的模样">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="喵">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CTF | 逆向入门第二篇
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-03 08:50:25" itemprop="dateCreated datePublished" datetime="2018-08-03T08:50:25+08:00">2018-08-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-11 10:13:36" itemprop="dateModified" datetime="2018-09-11T10:13:36+08:00">2018-09-11</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/03/XMAN-reversing-day2/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/03/XMAN-reversing-day2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/08/03/XMAN-reversing-day2/" class="leancloud_visitors" data-flag-title="CTF | 逆向入门第二篇">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">3.6k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">3 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>逆向入门第二篇<br><a id="more"></a> </p>
+<h4 id="hide"><a href="#hide" class="headerlink" title="hide"></a>hide</h4><p>strings 查看到有壳upx 3.91<br><img src="http://p6cwaqxnz.bkt.clouddn.com/upx3.91.png" alt=""></p>
+<h5 id="脱壳"><a href="#脱壳" class="headerlink" title="脱壳"></a>脱壳</h5><p>不能使用upx -d 直接脱。</p>
+<p>运行起来相当于脱壳看，因此可以用 dd 把data和text两段dump下来之后拼在一起，可以在IDA里面看。但实际上文件结构会被破坏，因为是运行时镜像，动态脱壳都有这样的问题。所以动态调试还是使用有壳的。dd<br>cat /proc/(pid hide)/maps 可以查看进程的内存映射<br>脱壳命令,其中的地址就是各段的地址,因为是静态的,因此都是不变的，可以直接复制：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo dd if=/proc/$(pidof hide)/mem of=hide_dump1 skip=4194304  bs=1c count=827392</div><div class="line">sudo dd if=/proc/$(pidof hide)/mem of=hide_dump2 skip=7110656  bs=1c count=20480</div><div class="line">cat hide_dump1 hide_dump2 &gt;hide_dump</div></pre></td></tr></table></figure></p>
+<p>看到别人说gdb dump binary 更方便,不过没试过(不会)</p>
+<h5 id="ptrace反调试"><a href="#ptrace反调试" class="headerlink" title="ptrace反调试"></a>ptrace反调试</h5><p><strong>ptrace介绍</strong>： ptrace提供了一种使父进程得以监视和控制其它进程的方式，它还能够改变子进程中的寄存器和内核映像，因而可以实现断点调试和系统调用的跟踪。使用ptrace，你可以在用户层拦截和修改系统调用(sys call)，修改它的参数，插入代码给正在运行的程序以及偷窥和篡改进程的寄存器和数据段。</p>
+<p>使用strace<br><strong>ptrace 相关的反调试</strong><br>需要把反调试过掉<br>gdb 中 <code>catch syscall ptrace</code> 设置断点<br>可以发现程序在<code>cmp eax,0</code> 处断下,此时通过<code>set $eax=0</code>,使程序可以往下执行。<br>c ,再修改一次，就可以成功过掉反调试了&gt;&lt; 队友说,ptrace 大概就是看eax有没有改变?一般就是<code>cmp eax,0</code>的地方了</p>
+<h6 id="附gdb-操作"><a href="#附gdb-操作" class="headerlink" title="附gdb 操作"></a>附gdb 操作</h6><ul>
+<li>hb *0x start地址 下硬件断点</li>
+<li>record full (只有在静态执行时有用) 之后可以倒着执行也可以正着执行</li>
+<li>rsi </li>
+<li>ni</li>
+<li>si </li>
+<li>reverse-continue 倒着执行回到上一个断点</li>
+</ul>
+<p>ELF：init区，在main 执行前会执行<br><strong>字符串交叉引用</strong> enter flag 看到哪些地方引用，找到藏起来的代码<br>p 出来F5有问题,算是IDA的bug吧。</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">mov</span> <span class="built_in">eax</span> xxh</div><div class="line"><span class="keyword">syscall</span></div><div class="line"><span class="keyword">cmp</span> <span class="built_in">eax</span> <span class="number">0</span></div><div class="line"><span class="keyword">jnz</span> xx</div></pre></td></tr></table></figure>
+<p>忽视syscall 会改变eax<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">xor</span> <span class="built_in">eax</span> <span class="built_in">eax</span></div><div class="line"><span class="keyword">syscall</span> </div><div class="line"><span class="keyword">cmp</span> <span class="built_in">eax</span></div></pre></td></tr></table></figure></p>
+<p>所以此处也要改<br>修改之后的：<br><img src="http://p6cwaqxnz.bkt.clouddn.com/hide-jz.png?imageView2/2/w/200" alt=""><br>结果：<br><img src="http://p6cwaqxnz.bkt.clouddn.com/hide-patch.png?imageView2/2/w/200" alt=""><br>jnz 改成jz，就可以看但是语义会改变<br>继续逆向程序,可以发现是常见算法 Tea<br>首先会判断字符串长度和几位字符是否符合要求，之后进行加密<br>加密过程为 xTea-&gt;异或-&gt;xtea。。<br>但是对于我来说..看半天都不知道是xtea加密吧<br>v1 为加密后的flag<br>解密获得key  delta xtea<br>嗯..开始写脚本了…对我来说好难…还是试一下…先github上找到xtea<br>和网上找的xtea加密是一模一样的，应该没有修改<br>注意加密的v0,v1分别取data二进制数据的0-4,和4-8位,所以需要struct<br>感觉我反汇编还是有问题…看了别人写的脚本，和自己看到的加密有点不一样，尤其是sum部分。<br>终于…原来是我脚本的问题..<br>字符串定位找到关键函数<br>附：<a href="https://blog.csdn.net/buaaqqq2015/article/details/79736026" target="_blank" rel="external">2018年强网杯初赛 逆向题目 hide writeup (超详细)</a><br><strong>符号匹配</strong><br>总结：ida flirt/rizzo.py 比IDA官方好,不支持IDA7.0/ <a href="https://github.com/A7um/CTFUtils" target="_blank" rel="external">https://github.com/A7um/CTFUtils</a> 支持IDA7.0</p>
+<p>写个简易的源码<br>gcc –static<br>安装插件 rizoo (autm改进支持7.0的)<br>file-&gt;produce file-&gt;rizzo<br>file-&gt;load file-&gt;rizzo<br>静态编译，得到有符号的，使用工具匹配对照看，produce /load<br>windows 程序比较有用<br><code>ps -ef | grep</code> 进程名</p>
+<h4 id="re2"><a href="#re2" class="headerlink" title="re2"></a>re2</h4><p>hook 原理<br><a href="https://bbs.pediy.com/thread-228669.htm" target="_blank" rel="external">https://bbs.pediy.com/thread-228669.htm</a><br>可以看出来是修改writefile的前五个字节，但是怎么看出来跳转到哪个函数的？<br>还需要注意优先级的问题，^ 和 +,不知道的话还是挺坑的…</p>
+<h4 id="magic"><a href="#magic" class="headerlink" title="magic"></a>magic</h4><p>动态调试更方便<br>F5有问题,修改main调用约定<br><strong>调用约定</strong><br>options-&gt;complier-&gt;编译器-&gt;Vistual C++ 就可以了<br>首先设置断点发现问题，使用trace找到main之前调用的函数，通过交叉调用分析函数。<br>首先过掉 check_sercet<br>(大佬是一开始交叉引用一波,然后看scanf的交叉引用就找到了关键函数)<br>前三个<br>最后一个<br>simple_enc<br>int __usercall xxx@<rax></rax></p>
+<p>setjmp：设置jmp点。longjmp: 跳到setjmp设置的位置异常处理<br>虚拟机逆向题</p>
+<p>相关writeup<br><a href="https://www.52pojie.cn/thread-742361-1-1.html" target="_blank" rel="external">https://www.52pojie.cn/thread-742361-1-1.html</a>  RCTF - magic<br><a href="https://4hou.win/wordpress/?p=20989" target="_blank" rel="external">https://4hou.win/wordpress/?p=20989</a><br>haskell 编译中间语言<br>oooverflow<br>34c3ctf   </p>
+<p>了解到虚拟机逆向…我对逆向还真的一无所知  </p>
+<p>需要学习的: </p>
+<ul>
+<li>gdb 使用</li>
+<li>虚拟机逆向</li>
+<li>逆向题分析</li>
+<li>脱壳</li>
+<li>动态调试</li>
+</ul>
+<h4 id="非常规逆向"><a href="#非常规逆向" class="headerlink" title="非常规逆向"></a>非常规逆向</h4><ul>
+<li>lua/python/java/lua-jit/haskell/applescript/js混淆方法多/solidity/webassembly/etc</li>
+<li>firmware固件/raw bin/etc</li>
+<li>chip8/avr/clemency/risc-v/etc</li>
+</ul>
+<h5 id="找工具"><a href="#找工具" class="headerlink" title="找工具"></a>找工具</h5><ul>
+<li>binary parser</li>
+<li>disassembler<br>  -必要的</li>
+<li>tracer<ul>
+<li>disassembler+tracer=debugger</li>
+</ul>
+</li>
+<li>debugger</li>
+<li>decomplier</li>
+</ul>
+<h5 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h5><p>读文档<br>工具链 toolchains<br>教程 tutorial<br>例子 </p>
+<ul>
+<li>haskell</li>
+</ul>
+<h5 id="find-binary"><a href="#find-binary" class="headerlink" title="find binary"></a>find binary</h5><ul>
+<li>google</li>
+<li>firmware<ul>
+<li>rebase the binary 还原基址</li>
+<li>recover the symbol table </li>
+</ul>
+</li>
+<li>other</li>
+<li>-strings/binwalk</li>
+<li>IDA/radare2/binary.ninja/ida loader</li>
+</ul>
+<h5 id="disassembler"><a href="#disassembler" class="headerlink" title="disassembler"></a>disassembler</h5><ul>
+<li>google ‘xxx dissemab/xx IDA ‘<br>  -avr ida</li>
+<li>人工</li>
+<li>ida pro/radare2/binary.ninja interface<br>  IDA processor</li>
+</ul>
+<h5 id="tracer"><a href="#tracer" class="headerlink" title="tracer"></a>tracer</h5><ul>
+<li>google 先搜文档</li>
+<li>tracer</li>
+<li>debugger<ul>
+<li>gdb-mutiarch</li>
+<li>qemu</li>
+<li>emulator</li>
+<li>trace reply</li>
+</ul>
+</li>
+<li>例子<ul>
+<li>solidity</li>
+</ul>
+</li>
+</ul>
+<h5 id="逆向工程"><a href="#逆向工程" class="headerlink" title="逆向工程"></a>逆向工程</h5><p>find code pattern</p>
+<h4 id="printf-machine"><a href="#printf-machine" class="headerlink" title="printf_machine"></a>printf_machine</h4><p>实现一套指令集<br>mov语句,脚本翻译<br>符号执行 </p>
+<h4 id="assem"><a href="#assem" class="headerlink" title="assem"></a>assem</h4><p>写个html 在浏览器调</p>
+<h4 id="re-3"><a href="#re-3" class="headerlink" title="re_3"></a>re_3</h4><p>ida/procs/<br><a href="https://github.com/themadinventor/ida-xtensa" target="_blank" rel="external">https://github.com/themadinventor/ida-xtensa</a><br>上网找适配器<br>找flag 字符串交叉引用</p>
+<h4 id="easy"><a href="#easy" class="headerlink" title="easy"></a>easy</h4><p>haskell 逆向<br>有反汇编 网上找</p>
+<h4 id="IDA"><a href="#IDA" class="headerlink" title="IDA"></a>IDA</h4><h5 id="断点"><a href="#断点" class="headerlink" title="断点"></a>断点</h5><ul>
+<li>执行断点是软件断点。 </li>
+<li>内存访问断点是硬件断点。</li>
+</ul>
+<h5 id="trace-功能"><a href="#trace-功能" class="headerlink" title="trace 功能"></a>trace 功能</h5><ul>
+<li><p>指令跟踪：IDA将会记录每一条指令的执行，并保存寄存器数值，通过使用这些信息，你可以找出应用程序的执行过程，并可找出哪条指令修改了哪个寄存器。</p>
+</li>
+<li><p>函数跟踪：IDA将会记录所有的函数调用和函数返回。</p>
+</li>
+<li><p>读写-写-执行跟踪：IDA将会记录一个对指定地址的所有访问。这种机制相当于是不停止的断点。</p>
+</li>
+</ul>
+<p>对每种跟踪机制，都会记录相应的跟踪事件到跟踪缓存区，也可以保存到一个txt的文件中，同样可以通过Tracing-options里的选项来设定。</p>
+<h5 id="插件："><a href="#插件：" class="headerlink" title="插件："></a>插件：</h5><p>keypatch<br>findcrypt-yara 找加密方式的插件 <a href="https://www.cnblogs.com/zhaijiahui/p/7978897.html" target="_blank" rel="external">https://www.cnblogs.com/zhaijiahui/p/7978897.html</a><br>FRIEND 链接：<a href="https://github.com/alexhude/FRIEND" target="_blank" rel="external">https://github.com/alexhude/FRIEND</a></p>
+<p> 翻页 esc 和 Ctrl+Enter </p>
+<p><strong>强制类型转换</strong></p>
+<p>P:还是懒得贴图，我以后不知道自己在写什么鬼东西时一定会后悔的 嗯…<br>大佬讲的是在太难了,我还是先去做一些基础题呜呜呜</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/reversing/" rel="tag"># reversing</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/14/seethefile-writeup/" rel="next" title="CTF | IO_FILE 相关利用">
+                <i class="fa fa-chevron-left"></i> CTF | IO_FILE 相关利用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/03/XMAN-reversing-1/" rel="prev" title="CTF | 逆向入门第一篇">
+                CTF | 逆向入门第一篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="yuuoniy" />
+            
+              <p class="site-author-name" itemprop="name">yuuoniy</p>
+              <p class="site-description motion-element" itemprop="description">世界本该是你醒来的模样</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">48</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yuuoniy" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:linmq006@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#hide"><span class="nav-number">1.</span> <span class="nav-text">hide</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#脱壳"><span class="nav-number">1.1.</span> <span class="nav-text">脱壳</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ptrace反调试"><span class="nav-number">1.2.</span> <span class="nav-text">ptrace反调试</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#附gdb-操作"><span class="nav-number">1.2.1.</span> <span class="nav-text">附gdb 操作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#re2"><span class="nav-number">2.</span> <span class="nav-text">re2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#magic"><span class="nav-number">3.</span> <span class="nav-text">magic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非常规逆向"><span class="nav-number">4.</span> <span class="nav-text">非常规逆向</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#找工具"><span class="nav-number">4.1.</span> <span class="nav-text">找工具</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#格式"><span class="nav-number">4.2.</span> <span class="nav-text">格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#find-binary"><span class="nav-number">4.3.</span> <span class="nav-text">find binary</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#disassembler"><span class="nav-number">4.4.</span> <span class="nav-text">disassembler</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tracer"><span class="nav-number">4.5.</span> <span class="nav-text">tracer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#逆向工程"><span class="nav-number">4.6.</span> <span class="nav-text">逆向工程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#printf-machine"><span class="nav-number">5.</span> <span class="nav-text">printf_machine</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#assem"><span class="nav-number">6.</span> <span class="nav-text">assem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#re-3"><span class="nav-number">7.</span> <span class="nav-text">re_3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#easy"><span class="nav-number">8.</span> <span class="nav-text">easy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IDA"><span class="nav-number">9.</span> <span class="nav-text">IDA</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#断点"><span class="nav-number">9.1.</span> <span class="nav-text">断点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trace-功能"><span class="nav-number">9.2.</span> <span class="nav-text">trace 功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#插件："><span class="nav-number">9.3.</span> <span class="nav-text">插件：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuuoniy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">113k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">1:43</span>
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.3.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.1</div>
+
+
+
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://yuuoniy.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'https://yuuoniy.github.io/2018/08/03/XMAN-reversing-day2/';
+        this.page.identifier = '2018/08/03/XMAN-reversing-day2/';
+        this.page.title = 'CTF | 逆向入门第二篇';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yuuoniy.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'VeQJNmfPOV9K2WFrArLoD0xN-gzGzoHsz',
+        appKey: 'TfDg8GxclLQKiTCGQ0hkV63P',
+        placeholder: '大佬有什么想法',
+        avatar:'retro',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

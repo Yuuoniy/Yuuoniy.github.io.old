@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'W9VSQ0GGKQ',
+      apiKey: '74aef4d13e544170be082d500082ddb0',
+      indexName: 'yuuoniy',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="破解一些终端… 售卖机等  右键打发(目标：呼出文件管理) 长按右键 呼出属性 帮助 打印  长按右键 关于flash 进而呼出文件管理    窗口切换时，快速点点点窗口焦点变化时，退出全屏，呼出桌面  异常信息 加载插件点选文字等进行拖拽，退出全屏寻找url连接断电重启打法   android 端：顶栏下拉，输入法中设置  呼出软键盘 osk.exe 输入法自带的软键盘 去网站下载准备好的木马">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF | XMAN-硬件安全">
+<meta property="og:url" content="https://yuuoniy.github.io/2018/08/16/XMAN-hardware-security/index.html">
+<meta property="og:site_name" content="喵">
+<meta property="og:description" content="破解一些终端… 售卖机等  右键打发(目标：呼出文件管理) 长按右键 呼出属性 帮助 打印  长按右键 关于flash 进而呼出文件管理    窗口切换时，快速点点点窗口焦点变化时，退出全屏，呼出桌面  异常信息 加载插件点选文字等进行拖拽，退出全屏寻找url连接断电重启打法   android 端：顶栏下拉，输入法中设置  呼出软键盘 osk.exe 输入法自带的软键盘 去网站下载准备好的木马">
+<meta property="og:updated_time" content="2018-09-10T07:34:00.676Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CTF | XMAN-硬件安全">
+<meta name="twitter:description" content="破解一些终端… 售卖机等  右键打发(目标：呼出文件管理) 长按右键 呼出属性 帮助 打印  长按右键 关于flash 进而呼出文件管理    窗口切换时，快速点点点窗口焦点变化时，退出全屏，呼出桌面  异常信息 加载插件点选文字等进行拖拽，退出全屏寻找url连接断电重启打法   android 端：顶栏下拉，输入法中设置  呼出软键盘 osk.exe 输入法自带的软键盘 去网站下载准备好的木马">
+
+
+
+
+
+
+  <link rel="canonical" href="https://yuuoniy.github.io/2018/08/16/XMAN-hardware-security/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CTF | XMAN-硬件安全 | 喵</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0aff8f2cdbe4bb92b5d83006432c115a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">喵</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">没错就是尿尿啦</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/08/16/XMAN-hardware-security/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuuoniy">
+      <meta itemprop="description" content="世界本该是你醒来的模样">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="喵">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CTF | XMAN-硬件安全
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-16 09:04:06" itemprop="dateCreated datePublished" datetime="2018-08-16T09:04:06+08:00">2018-08-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-10 15:34:00" itemprop="dateModified" datetime="2018-09-10T15:34:00+08:00">2018-09-10</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/16/XMAN-hardware-security/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/16/XMAN-hardware-security/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/08/16/XMAN-hardware-security/" class="leancloud_visitors" data-flag-title="CTF | XMAN-硬件安全">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">2.7k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">2 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>破解一些终端… 售卖机等</p>
+<ul>
+<li>右键打发(目标：呼出文件管理)<ul>
+<li>长按右键 呼出属性 帮助 打印 </li>
+<li>长按右键 关于flash 进而呼出文件管理</li>
+</ul>
+</li>
+</ul>
+<p>窗口切换时，快速点点点<br>窗口焦点变化时，退出全屏，呼出桌面</p>
+<ul>
+<li>异常信息</li>
+<li>加载插件<br>点选文字等进行拖拽，退出全屏<br>寻找url连接<br>断电重启打法</li>
+<li></li>
+</ul>
+<p>android 端：顶栏下拉，输入法中设置</p>
+<ul>
+<li>呼出软键盘</li>
+<li>osk.exe</li>
+<li>输入法自带的软键盘</li>
+<li>去网站下载准备好的木马</li>
+</ul>
+<p>软键盘全被删除</p>
+<ul>
+<li>输入法软键盘</li>
+<li><p>记事本粘贴拼凑</p>
+</li>
+<li><p>重启大法也无能为力，启动时隐藏开始菜单，只有快速闪过的命令行</p>
+<ul>
+<li>以最快的速度，找到最近浏览</li>
+</ul>
+</li>
+<li><p>不通网</p>
+<ul>
+<li>拿下一台这个域的机器</li>
+<li>自己连入该网络，共享数据or主动获取数据</li>
+</ul>
+</li>
+<li><p>可造成的危害<br>…<br>防范措施</p>
+</li>
+<li>禁止断电，重启后几秒内触碰失效</li>
+<li>针对右键：禁用右键</li>
+</ul>
+<h3 id="黑科技"><a href="#黑科技" class="headerlink" title="黑科技"></a>黑科技</h3><h4 id="无线电安全"><a href="#无线电安全" class="headerlink" title="无线电安全"></a>无线电安全</h4><p>随意收发不同频率电磁波<br>无线电分不同频率，wifi 蓝牙：2.4GHz<br>软件无线电：可以收发广泛频率的无线电信号的设备 </p>
+<p>调谐器-检波器-放大器-扬声器</p>
+<h5 id="hackrf"><a href="#hackrf" class="headerlink" title="hackrf"></a>hackrf</h5><p>入门 1000+<br>覆盖频段：30MHz-6Ghz<br>带宽：20Mhz<br>伪造GPS 信号，接受ADSB,<br>USRP 接收无线电信号 </p>
+<ul>
+<li>Gunradio 界面-FM发射<br>包含 源 处理模块  调幅 调频 输出</li>
+<li>ADSB 信号跟踪飞机 1090MHZ</li>
+</ul>
+<h4 id="GPS-系统"><a href="#GPS-系统" class="headerlink" title="GPS 系统"></a>GPS 系统</h4><ul>
+<li>4 颗卫星完成定位</li>
+<li></li>
+<li></li>
+<li>根据星历，和目标位置 时间</li>
+</ul>
+<h5 id="伪造"><a href="#伪造" class="headerlink" title="伪造"></a>伪造</h5><ul>
+<li>星历文件</li>
+<li>gps-sdr-sim</li>
+</ul>
+<h5 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h5><ul>
+<li>控制定位</li>
+<li>污染导航</li>
+<li>解除一些限制eg:北京飞行器禁飞限制</li>
+<li>修改机器时间,GPS授时，解除时间限制等</li>
+<li>网络混乱</li>
+<li>Apollo 自动驾驶依靠GPS&amp;RTK精确定位，是否也受影响?</li>
+</ul>
+<h4 id="中间人攻击"><a href="#中间人攻击" class="headerlink" title="中间人攻击"></a>中间人攻击</h4><h5 id="手机有什么安全问题"><a href="#手机有什么安全问题" class="headerlink" title="手机有什么安全问题"></a>手机有什么安全问题</h5><ul>
+<li>2G GSM，<ul>
+<li>单向鉴权并非双向</li>
+<li>伪造基站</li>
+</ul>
+</li>
+<li><p>伪基站</p>
+<ul>
+<li>结构<ul>
+<li>收发板<ul>
+<li>usrP 抄板</li>
+</ul>
+</li>
+<li>功放</li>
+<li>双工器</li>
+<li>电源</li>
+<li>天线</li>
+<li>外部笔记本+软件 openbts 2.8 开源基站系统</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>伪基站及产业链</p>
+<ul>
+<li>诈骗信息</li>
+<li>违法信息</li>
+<li>广告推销</li>
+<li>ssrp 板子 行情不好</li>
+</ul>
+</li>
+<li><p>伪基站原理</p>
+<ul>
+<li>基于openbts2.8+usrp1</li>
+<li>吸入关键：路径损耗值 C1 小区重选参数C2<ul>
+<li>手机开机（小区选择）看C1 主要由信号强度决定</li>
+<li>小区重选看C2，通过参数CRO,PT等人为影响重选</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>伪基站做了什么</p>
+<ol>
+<li>寻找弱频点 MCC MNC 等参数和周围一样，LAC不一样</li>
+<li>手机获知广播信息，C1 C2大，重选小区到伪基站 LAC 变，位置更新请求</li>
+<li>鉴权信息 </li>
+<li>伪基站看IMSI ，发短信</li>
+</ol>
+<p>检测伪基站</p>
+<ul>
+<li>硬件检测<ul>
+<li>异常LAC</li>
+<li>异常信号强度，C1 C2</li>
+<li>对不上的MMC MNC LAC celllD</li>
+</ul>
+</li>
+<li>运营商检测<ul>
+<li>一段时间内</li>
+</ul>
+</li>
+<li>APP 检测</li>
+</ul>
+<p>传统伪基站问题</p>
+<ul>
+<li>只能在2G环境下，url还需要钓鱼成功</li>
+<li>伪基站<ul>
+<li>2 3 4 G都可以。多模手机下，电信也没有问题</li>
+<li>对流量完全劫持</li>
+<li>短信 数据 童话都可以控制</li>
+</ul>
+</li>
+</ul>
+<p>国内使用500W 600-1000MHZ 定向干扰器<br>伪基站 gprs监听<br><code>bladerf+yatebts</code>  </p>
+<ul>
+<li>关键技术点<ul>
+<li>搭建BTS,主动搜索连入</li>
+<li>实际攻击场景，需要被动连入</li>
+<li>结合伪基站的思路，修改yatebts源码，增强C2</li>
+<li>bingo</li>
+</ul>
+</li>
+</ul>
+<p>短信明文</p>
+<ul>
+<li>A5/1 加密被破解</li>
+<li><p>国内2G SMS 明文传输</p>
+</li>
+<li><p>GSM SMS 监听</p>
+</li>
+</ul>
+<h4 id="共享单车安全"><a href="#共享单车安全" class="headerlink" title="共享单车安全"></a>共享单车安全</h4><p>云端-GSM-主控-GPS<br>OFO：每次通信时会取下次的密码<br>分类：</p>
+<ul>
+<li>自主研发</li>
+<li>采购 自研平台</li>
+</ul>
+<h4 id="儿童手表"><a href="#儿童手表" class="headerlink" title="儿童手表"></a>儿童手表</h4><h4 id="wifi安全"><a href="#wifi安全" class="headerlink" title="wifi安全"></a>wifi安全</h4><p>破解方式</p>
+<ul>
+<li>wep 加密</li>
+<li>pin码加密</li>
+<li>wpa也有办法</li>
+<li>神器-wifi万能钥匙<br>跑包</li>
+</ul>
+<p>搞到wifi:</p>
+<ul>
+<li>ARP中间人，获取&amp;控制流量<ul>
+<li>污染DNS</li>
+<li>盗取cookie</li>
+<li>更改流量数据</li>
+</ul>
+</li>
+<li>入侵路由留后门，改dns</li>
+</ul>
+<p>企业 ：漫游内网</p>
+<p>如何挖web相关漏洞：<br>src:web 移动<br>web:</p>
+<ul>
+<li>子域名爆破 IP 段 端口扫描 mnscan  无状态扫描 80 21 21 23 3300 6379 11211<br>小业务<br>IP 反查域名<br>url 路径爆破 爬虫<br>注入 上传 管理系统 留言板xss cms漏洞 struct2<br>其他思路：<br>网盘信息泄露<br>qq群混入<br>无线问题<br>黑产信息<br>nmap 扫描端口看是什么服务</li>
+</ul>
+<h2 id="生物识别"><a href="#生物识别" class="headerlink" title="生物识别"></a>生物识别</h2><p>常见的生物识别都存在易于获取，反而不安全</p>
+<ul>
+<li>指纹</li>
+<li>人脸</li>
+<li>红魔</li>
+<li>指静脉</li>
+<li>声音</li>
+<li>DNA</li>
+<li>掌纹<br>密码学中的验证<ul>
+<li>我是谁 指纹 虹膜 面部</li>
+<li>我有什么token 证书 U盾</li>
+<li>我知道什么 密码 安全问题 订单 好友</li>
+</ul>
+</li>
+</ul>
+<p>特征识别技术：</p>
+<ul>
+<li>唯一性？</li>
+<li>无法被看见，甚至表皮下，就无法被偷走?</li>
+<li>检测设备只认活的?</li>
+<li>单一性?<br>研究思路</li>
+<li>控制传感器看到的内容<h4 id="指纹识别"><a href="#指纹识别" class="headerlink" title="指纹识别"></a>指纹识别</h4>光学 电容<br>识别过程<ul>
+<li>指纹图像获取</li>
+</ul>
+</li>
+<li>光学折射原理</li>
+<li>电荷感应 <ul>
+<li>预处理<br>计算方向场 图像增强 二值化，细化   特征提取 </li>
+<li>图像增强</li>
+<li>特征处理</li>
+</ul>
+</li>
+</ul>
+<h3 id="指纹图像获取"><a href="#指纹图像获取" class="headerlink" title="指纹图像获取"></a>指纹图像获取</h3><h3 id="制作假指纹"><a href="#制作假指纹" class="headerlink" title="制作假指纹"></a>制作假指纹</h3><p>  根据成像原理，必须实现凹凸<br>  光敏刻章，采用光敏成型<br>  解决导电性问题</p>
+<h3 id="有趣的问题"><a href="#有趣的问题" class="headerlink" title="有趣的问题"></a>有趣的问题</h3><p>左右拇指/食指<br>活体检测不奏效<br>解锁设备上本身就有大量指纹<br>如何通过特征，反推指纹，万能指纹</p>
+<h3 id="虹膜识别"><a href="#虹膜识别" class="headerlink" title="虹膜识别"></a>虹膜识别</h3><ul>
+<li>识别过程<ul>
+<li>红外光照射眼球<br>不可见，具有穿透性<br>夜视仪 遥控器 监控。 人体不同组织对红外光吸收不一样</li>
+<li>捕捉虹膜图像</li>
+<li>利用算法定位</li>
+<li>其余和指纹类似</li>
+</ul>
+</li>
+</ul>
+<p>红外相机：CMOS/CCD 本身具备捕获近红外的能力</p>
+<ul>
+<li>大多被封印</li>
+<li>需要去除低通滤镜</li>
+<li>同时加上840nm红外截止镜</li>
+</ul>
+<p>识别处理算法<br>图像获取-定位-眼睑检测-睫毛检测-归一化-虹膜特征码提取<br>hough 斌换</p>
+<h4 id="如何破解"><a href="#如何破解" class="headerlink" title="如何破解"></a>如何破解</h4><p>对虹膜识别仪进行拆解分析，hook到获取的图像<br>激光黑白打印机碳粉对近红外吸收效果好 </p>
+<p>红外光透视 湿的更好</p>
+<h4 id="指静脉识别"><a href="#指静脉识别" class="headerlink" title="指静脉识别"></a>指静脉识别</h4><ul>
+<li>对手指照射近红外光</li>
+<li>对血管中血红蛋白对进红外光吸收，颜色加深</li>
+<li>对静脉进行采集</li>
+<li>滤波器对静脉脉络进行处理</li>
+</ul>
+<p>识别处理算法<br>图像增强：高斯滤波 gabor<br>静脉分割：</p>
+<p>bypass:<br>。。。</p>
+<h4 id="人脸识别"><a href="#人脸识别" class="headerlink" title="人脸识别"></a>人脸识别</h4><ul>
+<li>依靠摄像头 传统算法 深度学习</li>
+<li>运用最多活体检测的生物识别</li>
+<li>人脸范围监测点 </li>
+</ul>
+<p>bypass:</p>
+<ul>
+<li><p>普通环境<br>激光打印红外照片<br>喷墨打印机<br>激光打印机 </p>
+</li>
+<li><p>支付环境</p>
+<ul>
+<li>静态图像检测</li>
+<li>主动检测</li>
+</ul>
+</li>
+</ul>
+<p>FACEID：</p>
+<ul>
+<li>采集了人脸的三维信息</li>
+<li>采用结构光技术</li>
+<li>小型的kinect</li>
+</ul>
+<p>  各种生物识别类似<br>  攻击方法<br>  用其他设备捕获生物特征-寻找可以让传感器看到类似特征的截止-优化特征，欺骗传感器</p>
+<p>推荐博客：<br>雪碧：<a href="https://cn0xroot.com/" target="_blank" rel="external">https://cn0xroot.com/</a> </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/16/XMAN-freenote-writeup/" rel="next" title="CTF | 0ctf 2015 freenote writeup">
+                <i class="fa fa-chevron-left"></i> CTF | 0ctf 2015 freenote writeup
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/15/wireless/" rel="prev" title="CTF | 基于软件无线电对无线世界的探索">
+                CTF | 基于软件无线电对无线世界的探索 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="yuuoniy" />
+            
+              <p class="site-author-name" itemprop="name">yuuoniy</p>
+              <p class="site-description motion-element" itemprop="description">世界本该是你醒来的模样</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">48</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yuuoniy" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:linmq006@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#黑科技"><span class="nav-number">1.</span> <span class="nav-text">黑科技</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#无线电安全"><span class="nav-number">1.1.</span> <span class="nav-text">无线电安全</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#hackrf"><span class="nav-number">1.1.1.</span> <span class="nav-text">hackrf</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GPS-系统"><span class="nav-number">1.2.</span> <span class="nav-text">GPS 系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#伪造"><span class="nav-number">1.2.1.</span> <span class="nav-text">伪造</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#危害"><span class="nav-number">1.2.2.</span> <span class="nav-text">危害</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中间人攻击"><span class="nav-number">1.3.</span> <span class="nav-text">中间人攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#手机有什么安全问题"><span class="nav-number">1.3.1.</span> <span class="nav-text">手机有什么安全问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共享单车安全"><span class="nav-number">1.4.</span> <span class="nav-text">共享单车安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#儿童手表"><span class="nav-number">1.5.</span> <span class="nav-text">儿童手表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#wifi安全"><span class="nav-number">1.6.</span> <span class="nav-text">wifi安全</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生物识别"><span class="nav-number"></span> <span class="nav-text">生物识别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#指纹识别"><span class="nav-number">0.1.</span> <span class="nav-text">指纹识别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指纹图像获取"><span class="nav-number">1.</span> <span class="nav-text">指纹图像获取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#制作假指纹"><span class="nav-number">2.</span> <span class="nav-text">制作假指纹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有趣的问题"><span class="nav-number">3.</span> <span class="nav-text">有趣的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虹膜识别"><span class="nav-number">4.</span> <span class="nav-text">虹膜识别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#如何破解"><span class="nav-number">4.1.</span> <span class="nav-text">如何破解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指静脉识别"><span class="nav-number">4.2.</span> <span class="nav-text">指静脉识别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#人脸识别"><span class="nav-number">4.3.</span> <span class="nav-text">人脸识别</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuuoniy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">113k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">1:43</span>
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.3.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.1</div>
+
+
+
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://yuuoniy.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'https://yuuoniy.github.io/2018/08/16/XMAN-hardware-security/';
+        this.page.identifier = '2018/08/16/XMAN-hardware-security/';
+        this.page.title = 'CTF | XMAN-硬件安全';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yuuoniy.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'VeQJNmfPOV9K2WFrArLoD0xN-gzGzoHsz',
+        appKey: 'TfDg8GxclLQKiTCGQ0hkV63P',
+        placeholder: '大佬有什么想法',
+        avatar:'retro',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
