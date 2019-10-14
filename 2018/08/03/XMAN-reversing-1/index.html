@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'W9VSQ0GGKQ',
+      apiKey: '74aef4d13e544170be082d500082ddb0',
+      indexName: 'yuuoniy',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="跟着萌新一起逆向入门呦。包括：基本知识点,简单题例子,常见操作">
+<meta name="keywords" content="xman reversing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF | 逆向入门第一篇">
+<meta property="og:url" content="https://yuuoniy.github.io/2018/08/03/XMAN-reversing-1/index.html">
+<meta property="og:site_name" content="喵">
+<meta property="og:description" content="跟着萌新一起逆向入门呦。包括：基本知识点,简单题例子,常见操作">
+<meta property="og:updated_time" content="2019-10-14T17:25:42.027Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CTF | 逆向入门第一篇">
+<meta name="twitter:description" content="跟着萌新一起逆向入门呦。包括：基本知识点,简单题例子,常见操作">
+
+
+
+
+
+
+  <link rel="canonical" href="https://yuuoniy.github.io/2018/08/03/XMAN-reversing-1/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CTF | 逆向入门第一篇 | 喵</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0aff8f2cdbe4bb92b5d83006432c115a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">喵</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">没错就是尿尿啦</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/08/03/XMAN-reversing-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuuoniy">
+      <meta itemprop="description" content="世界本该是你醒来的模样">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="喵">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CTF | 逆向入门第一篇
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-03 00:24:43" itemprop="dateCreated datePublished" datetime="2018-08-03T00:24:43+08:00">2018-08-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-10-15 01:25:42" itemprop="dateModified" datetime="2019-10-15T01:25:42+08:00">2019-10-15</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/03/XMAN-reversing-1/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/03/XMAN-reversing-1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/08/03/XMAN-reversing-1/" class="leancloud_visitors" data-flag-title="CTF | 逆向入门第一篇">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">5.8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">5 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>跟着萌新一起逆向入门呦。包括：基本知识点,简单题例子,常见操作<br><a id="more"></a><br>先来过一遍知识点吧！</p>
+<h4 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h4><ul>
+<li>Disassembler 反汇编器</li>
+<li>Tracer 记录运行的过程,如函数，指令</li>
+<li>Debugger 调试器</li>
+<li>Decompiler IDA、geb（支持mips、web assembly?)</li>
+<li>Emulator (qemu 模拟执行）知道CPU状态</li>
+<li>Symbolic execution 符号执行 angr、路径爆炸</li>
+</ul>
+<h5 id="具体工具"><a href="#具体工具" class="headerlink" title="具体工具"></a>具体工具</h5><ul>
+<li>IDA 支持脚本、手工定义的反汇编规则</li>
+<li>Geb 逆安卓 mips web<em>*</em></li>
+<li>Binary ninja 不支持反编译,api好用，通常提供静态分析</li>
+<li>R2 命令系统奇怪，支持以太坊智能合约</li>
+<li>Retdec </li>
+<li>capstone</li>
+</ul>
+<p><strong>常规逆向</strong><br>ELF/PE/Mach-O file with x86/x64/arm<br>此外还有一些非常常规逆向，比如…不说啦哈哈哈哈<br>逆向的一般步骤：<strong>信息收集-&gt;定位关键代码-&gt;分析*</strong></p>
+<h4 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h4><p>Strings(搜看看有没有源码..）/ binwalk file ida -&gt; google/github<br><strong>例子</strong>  </p>
+<ul>
+<li>CISCN 2018 re</li>
+<li>酷狗音乐盒<h4 id="定位关键代码"><a href="#定位关键代码" class="headerlink" title="定位关键代码"></a>定位关键代码</h4></li>
+<li>根据控制流</li>
+<li>Data 交叉引用</li>
+<li>代码交叉引用</li>
+<li>Memory searching +r/w breakpoint.输入数据  内存搜索 记录地址 对该地址下断点 读写断点（保证运行地址不变？）</li>
+<li>Tracing<br>  <strong>例子</strong>：youku client reversing </li>
+</ul>
+<h4 id="分析代码"><a href="#分析代码" class="headerlink" title="分析代码"></a>分析代码</h4><p><strong>Tips</strong></p>
+<ul>
+<li>代码是人写的 <ul>
+<li>区分库代码和程序代码 （库代码也不用仔细逆）</li>
+<li>区分人写的和编译器加上的代码</li>
+<li>不需要仔细逆向编译器加上的代码</li>
+<li>Binary 由编译器生成<ul>
+<li>Binary layout pattern 即生成的程序有规律</li>
+<li>|executable|lib1|lib2|lib3|</li>
+<li>识别出编译器优化的代码</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>代码重用<ul>
+<li>String xref</li>
+<li>Code style</li>
+</ul>
+</li>
+<li>文件是可执行的<ul>
+<li>善用动态调试<ul>
+<li>找到关键代码，验证猜测</li>
+<li>Debugging </li>
+<li>Tracing</li>
+<li>Symbolic execution</li>
+<li>Taint analysis<br>• 七分猜</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>技巧：一块一块看而不是一行一行</strong></p>
+<ul>
+<li>常见算法（xxsearch ida 插件自动识别加密算法）<br>  -Tea/Xtea/</li>
+<li>常见数据结构</li>
+<li>常见设计模式<br>  -Proxy stub/工厂模式</li>
+<li>常见框架</li>
+</ul>
+<h4 id="混淆"><a href="#混淆" class="headerlink" title="混淆"></a>混淆</h4><h5 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h5><ul>
+<li>Ollvm (平坦的控制流 主分发器）</li>
+<li>ovfus。。 去掉分支</li>
+<li>Push rax,ret (把所有的跳转 jump rax) mov rax 0x222, 模拟执行看rax 是什么 patch 掉啥？？ </li>
+<li>Vm/self modify code</li>
+</ul>
+<h5 id="解混淆"><a href="#解混淆" class="headerlink" title="解混淆"></a>解混淆</h5><pre><code>• 知道混淆的原理，恢复控制流
+• 模拟执行/符号执行
+</code></pre><p>https://  <a href="https://security.tencent.com/index.php/blog/msg/112" target="_blank" rel="external">https://security.tencent.com/index.php/blog/msg/112</a><br>反混淆：搜索：符号执行 ollvm</p>
+<h4 id="壳（packer"><a href="#壳（packer" class="headerlink" title="壳（packer)"></a>壳（packer)</h4><h5 id="类型："><a href="#类型：" class="headerlink" title="类型："></a>类型：</h5><pre><code>• 解压-&gt;运行
+• 解压-&gt;运行-&gt;解压..-&gt;运行
+• 解压 decoder|encoded code-&gt;decode -&gt;exc
+• Run the virtual machine 
+</code></pre><h5 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h5><ul>
+<li>Case by case</li>
+<li>Esp law (oep 找到？？)</li>
+<li>Read /proc/[pid]/mem</li>
+</ul>
+<h4 id="反调试"><a href="#反调试" class="headerlink" title="反调试"></a>反调试</h4><p>搜索：Windows  anti-debugging</p>
+<h5 id="Debugger-detection"><a href="#Debugger-detection" class="headerlink" title="Debugger detection"></a>Debugger detection</h5><ul>
+<li>API call,isDebuggerPresent()</li>
+<li>Try {int3},catch{}</li>
+<li>Timestamp</li>
+</ul>
+<h5 id="Debugger-Interfering"><a href="#Debugger-Interfering" class="headerlink" title="Debugger Interfering"></a>Debugger Interfering</h5><ul>
+<li>如果有内核权限 debugport overweite</li>
+<li>Self debugging 父进程调试子进程</li>
+</ul>
+<p>大概是首先分析一下代码，并且使用IDA一波操作修改一下变量名、平衡堆栈、定义函数等就开始好逆。<br><strong>IDA的一些操作</strong>:</p>
+<ul>
+<li>修改变量名 N</li>
+<li>修改函数类型</li>
+<li>修改变量类型 Y(常见有修改为数组提高可读性)</li>
+<li>数字转化为char R</li>
+<li>Nop</li>
+<li>Patch </li>
+<li>取消/定义函数 U/P</li>
+<li>交叉引用发现问题时，自己在函数处按P定义函数</li>
+<li>修改函数结尾</li>
+<li>脚本执行 (IDA portable版本中不支持python执行…)</li>
+<li>修改函数结尾地址</li>
+<li>查看并修改sp(options-&gt;general)</li>
+<li>动态调试</li>
+<li>options-&gt;complier 修改编译器</li>
+<li>模糊符号匹配<br>快捷键需要熟悉噢！<br><strong>插件</strong></li>
+<li>lazyIDA dump 数据超方便</li>
+<li>keypatch </li>
+<li>rizoo</li>
+</ul>
+<p><strong>参考资料</strong>  </p>
+<ul>
+<li><a href="https://wenku.baidu.com/view/bb468fff910ef12d2af9e7c3.html" target="_blank" rel="external">https://wenku.baidu.com/view/bb468fff910ef12d2af9e7c3.html</a><br>下面就讲几道题叭！<br>源程序..有空再传到github上…需要可以直接找我呀<h4 id="re0"><a href="#re0" class="headerlink" title="re0"></a>re0</h4>首先需要对judge进行动态解密,解出来后修改judge函数尾(右键-&gt;edit function) U 取消定义 P定义函数,这样就能获得正确的judge函数啦！(因为IDA是程序一开始拖进来就分析好全部的函数栈帧了，因此这里不重新定义函数的话IDA的函数栈帧没有进行更新)  <h5 id="动态解密"><a href="#动态解密" class="headerlink" title="动态解密"></a>动态解密</h5>python 版<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import ida_bytes</div><div class="line">buf = ida_bytes.get_bytes(0x600B00, 182)</div><div class="line">a = &quot;&quot;</div><div class="line">for i in xrange(0, len(buf)):</div><div class="line">    a += chr(0xC ^ ord(buf[i]))</div><div class="line">ida_bytes.patch_bytes(0x600B00, a)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>idc 版<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;idc.idc&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">auto</span> cur = <span class="number">0x600B00</span>;</div><div class="line">    <span class="keyword">auto</span> i;</div><div class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= <span class="number">0xB5</span>; i++) &#123;</div><div class="line">        <span class="keyword">auto</span> c = Byte(cur) ^ <span class="number">0xC</span>;</div><div class="line">        PatchByte(cur, c);</div><div class="line">        cur = cur + <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后进行解密：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">flag_enc=<span class="string">"fmcd\x7fk7d;V\x60;np"</span></div><div class="line">flag=<span class="string">""</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(flag_enc)):</div><div class="line">    c=flag_enc[i]</div><div class="line">    flag+=chr(ord(c)^i)</div><div class="line"></div><div class="line"><span class="keyword">print</span> flag</div></pre></td></tr></table></figure></p>
+<h4 id="RE1"><a href="#RE1" class="headerlink" title="RE1"></a>RE1</h4><p>首先分析程序<br>尝试像atum那样直接patch 程序dump 出来..始终没弄清楚<br>直接使用OD动态看了<br>首先需要过掉长度的检查，因此输入长度需要为33<br>之后程序就可以执行下一验证逻辑<br>在00x401669 处下断点(F2)<br>可以依次得到flag</p>
+<h4 id="simplecheck"><a href="#simplecheck" class="headerlink" title="simplecheck"></a>simplecheck</h4><p>2018 强网杯的题<br>在jeb中打开，找到主代码逻辑，进行分析<br>首先定义a、b、c、d 四个各组<br>并且要求输入的字符串长度等于b 的长度，即34<br>接下来，创建数组V4，v4[0]=0，将输入的字符串添加到v4后面<br>后面是if验证 相当于一元二次方程，直接写脚本爆破即可，脚本如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> string <span class="keyword">import</span> printable</div><div class="line">a = [<span class="number">0</span>, <span class="number">146527998</span>, <span class="number">205327308</span>, <span class="number">94243885</span>, <span class="number">138810487</span>, <span class="number">408218567</span>, <span class="number">77866117</span>, <span class="number">71548549</span>, <span class="number">563255818</span>, <span class="number">559010506</span>, <span class="number">449018203</span>, <span class="number">576200653</span>, <span class="number">307283021</span>, <span class="number">467607947</span>, <span class="number">314806739</span>, <span class="number">341420795</span>, <span class="number">341420795</span>, <span class="number">469998524</span>, <span class="number">417733494</span>, <span class="number">342206934</span>, <span class="number">392460324</span>, <span class="number">382290309</span>, <span class="number">185532945</span>, <span class="number">364788505</span>, <span class="number">210058699</span>, <span class="number">198137551</span>, <span class="number">360748557</span>, <span class="number">440064477</span>, <span class="number">319861317</span>, <span class="number">676258995</span>, <span class="number">389214123</span>, <span class="number">829768461</span>, <span class="number">534844356</span>, <span class="number">427514172</span>, <span class="number">864054312</span>];</div><div class="line">b = [<span class="number">13710</span>, <span class="number">46393</span>, <span class="number">49151</span>, <span class="number">36900</span>, <span class="number">59564</span>, <span class="number">35883</span>, <span class="number">3517</span>, <span class="number">52957</span>, <span class="number">1509</span>, <span class="number">61207</span>, <span class="number">63274</span>, <span class="number">27694</span>, <span class="number">20932</span>, <span class="number">37997</span>, <span class="number">22069</span>, <span class="number">8438</span>, <span class="number">33995</span>, <span class="number">53298</span>, <span class="number">16908</span>, <span class="number">30902</span>, <span class="number">64602</span>, <span class="number">64028</span>, <span class="number">29629</span>, <span class="number">26537</span>, <span class="number">12026</span>, <span class="number">31610</span>, <span class="number">48639</span>, <span class="number">19968</span>, <span class="number">45654</span>, <span class="number">51972</span>, <span class="number">64956</span>, <span class="number">45293</span>, <span class="number">64752</span>, <span class="number">37108</span>];</div><div class="line">c = [<span class="number">38129</span>, <span class="number">57355</span>, <span class="number">22538</span>, <span class="number">47767</span>, <span class="number">8940</span>, <span class="number">4975</span>, <span class="number">27050</span>, <span class="number">56102</span>, <span class="number">21796</span>, <span class="number">41174</span>, <span class="number">63445</span>, <span class="number">53454</span>, <span class="number">28762</span>, <span class="number">59215</span>, <span class="number">16407</span>, <span class="number">64340</span>, <span class="number">37644</span>, <span class="number">59896</span>, <span class="number">41276</span>, <span class="number">25896</span>, <span class="number">27501</span>, <span class="number">38944</span>, <span class="number">37039</span>, <span class="number">38213</span>, <span class="number">61842</span>, <span class="number">43497</span>, <span class="number">9221</span>, <span class="number">9879</span>, <span class="number">14436</span>, <span class="number">60468</span>, <span class="number">19926</span>, <span class="number">47198</span>, <span class="number">8406</span>, <span class="number">64666</span>];</div><div class="line">d = [<span class="number">0</span>, <span class="number">-341994984</span>, <span class="number">-370404060</span>, <span class="number">-257581614</span>, <span class="number">-494024809</span>, <span class="number">-135267265</span>, <span class="number">54930974</span>, <span class="number">-155841406</span>, <span class="number">540422378</span>, <span class="number">-107286502</span>, <span class="number">-128056922</span>, <span class="number">265261633</span>, <span class="number">275964257</span>, <span class="number">119059597</span>, <span class="number">202392013</span>, <span class="number">283676377</span>, <span class="number">126284124</span>, <span class="number">-68971076</span>, <span class="number">261217574</span>, <span class="number">197555158</span>, <span class="number">-12893337</span>, <span class="number">-10293675</span>, <span class="number">93868075</span>, <span class="number">121661845</span>, <span class="number">167461231</span>, <span class="number">123220255</span>, <span class="number">221507</span>, <span class="number">258914772</span>, <span class="number">180963987</span>, <span class="number">107841171</span>, <span class="number">41609001</span>, <span class="number">276531381</span>, <span class="number">169983906</span>, <span class="number">276158562</span>];</div><div class="line">flag=<span class="string">''</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(c)):</div><div class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> printable:</div><div class="line">    <span class="keyword">if</span>(a[i]==b[i]*ord(j)*ord(j)+c[i]*ord(j)+d[i]):</div><div class="line">      flag+=j</div><div class="line">flag+=<span class="string">"&#125;"</span></div><div class="line"><span class="keyword">print</span> flag</div></pre></td></tr></table></figure></p>
+<h4 id="Evr1"><a href="#Evr1" class="headerlink" title="Evr1"></a>Evr1</h4><p>对输入的flag进行加密，与已知的密文比较。分析程序看到许多反编译的以及干扰的，提取出关键部分,flag主要分为5部分，进行了4次变换，第一次变换，对于flag的每个字符。后面3次变换均为7字符</p>
+<ul>
+<li>变换0：对flag进行变换，存到flag_tr0 中   </li>
+<li>变换1：对flag_str0的7-13进行变换，存到flag_str1[0-7]     </li>
+<li>变换2：对flag_str0的14-20进行变换，存到flag_str2[0-6]  </li>
+<li>变换3 :对flag_str0的21-27进行变换，存到flag_str3[0-6]<br>flag、flag_str0、byte_xxxx … 在地址上连续<br>对flag_tr0分段赋值<br>比较flag_tr0与密文，相等即可，比较位数为35<br>因此使用脚本爆破即可   <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">flag_enc=[<span class="number">0x1E</span>, <span class="number">0x15</span>, <span class="number">0x02</span>, <span class="number">0x10</span>, <span class="number">0x0D</span>, <span class="number">0x48</span>, <span class="number">0x48</span>, <span class="number">0x6F</span>, <span class="number">0xDD</span>, <span class="number">0xDD</span>, <span class="number">0x48</span>, <span class="number">0x64</span>, <span class="number">0x63</span>, <span class="number">0xD7</span>, <span class="number">0x2E</span>, <span class="number">0x2C</span>, <span class="number">0xFE</span>, <span class="number">0x6A</span>, <span class="number">0x6D</span>, <span class="number">0x2A</span>, <span class="number">0xF2</span>, <span class="number">0x6F</span>, <span class="number">0x9A</span>, <span class="number">0x4D</span>, <span class="number">0x8B</span>, <span class="number">0x4B</span>, <span class="number">0x0A</span>, <span class="number">0x8A</span>, <span class="number">0x4F</span>, <span class="number">0x45</span>, <span class="number">0x17</span>, <span class="number">0x46</span>, <span class="number">0x4F</span>, <span class="number">0x14</span>,<span class="number">0xb</span>];</div><div class="line">flag=<span class="string">''</span></div><div class="line"><span class="comment">#变换 0</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">7</span>):</div><div class="line">  flag+=chr(flag_enc[i]^<span class="number">0x76</span>)</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">7</span>):</div><div class="line">  <span class="keyword">for</span> c <span class="keyword">in</span> range(<span class="number">0x20</span>,<span class="number">0x7f</span>):</div><div class="line">    originc = c</div><div class="line">    c = c^<span class="number">0x76</span>^<span class="number">0xAD</span>;</div><div class="line">    c = <span class="number">2</span>*c&amp;<span class="number">0xAA</span>|((c&amp;<span class="number">0xAA</span>)&gt;&gt;<span class="number">1</span>)</div><div class="line">    <span class="keyword">if</span>(c==flag_enc[i+<span class="number">7</span>]):</div><div class="line">      flag+=chr(originc)</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">7</span>):</div><div class="line">  <span class="keyword">for</span> c <span class="keyword">in</span> range(<span class="number">0x20</span>,<span class="number">0x7f</span>):</div><div class="line">    originc = c</div><div class="line">    c = c^<span class="number">0x76</span>^<span class="number">0xBE</span>;</div><div class="line">    c = <span class="number">4</span>*c&amp;<span class="number">0xCC</span>|((c&amp;<span class="number">0xCC</span>)&gt;&gt;<span class="number">2</span>)</div><div class="line">    <span class="keyword">if</span>(c==flag_enc[i+<span class="number">14</span>]):</div><div class="line">      flag+=chr(originc)</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">7</span>):</div><div class="line">  <span class="keyword">for</span> c <span class="keyword">in</span> range(<span class="number">0x20</span>,<span class="number">0x7f</span>):</div><div class="line">    originc = c</div><div class="line">    c = c^<span class="number">0x76</span>^<span class="number">0xEF</span>;</div><div class="line">    c = <span class="number">16</span>*c&amp;<span class="number">0xF0</span>|((c&amp;<span class="number">0xF0</span>)&gt;&gt;<span class="number">4</span>)</div><div class="line">    <span class="keyword">if</span>(c==flag_enc[i+<span class="number">21</span>]):</div><div class="line">      flag+=chr(originc)</div><div class="line"></div><div class="line">  </div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">7</span>):</div><div class="line">  flag+=chr(flag_enc[i+<span class="number">28</span>]^<span class="number">0x76</span>)</div><div class="line"></div><div class="line"><span class="keyword">print</span> flag</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>hctf{&gt;&gt;D55_CH0CK3R_B0o0M!-9193a09b}<br>嘤嘤嘤我实在是懒得传图<br>有些地方偷了些懒，有问题可以联系我噢，应该有错的，也会随着日后学习中进行修补。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/xman-reversing/" rel="tag"># xman reversing</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/03/XMAN-reversing-day2/" rel="next" title="CTF | 逆向入门第二篇">
+                <i class="fa fa-chevron-left"></i> CTF | 逆向入门第二篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/05/2016 ZCTF note2/" rel="prev" title="CTF | 2016 ZCTF note2">
+                CTF | 2016 ZCTF note2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="yuuoniy" />
+            
+              <p class="site-author-name" itemprop="name">yuuoniy</p>
+              <p class="site-description motion-element" itemprop="description">世界本该是你醒来的模样</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">48</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yuuoniy" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:linmq006@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#工具介绍"><span class="nav-number">1.</span> <span class="nav-text">工具介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#具体工具"><span class="nav-number">1.1.</span> <span class="nav-text">具体工具</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信息收集"><span class="nav-number">2.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定位关键代码"><span class="nav-number">3.</span> <span class="nav-text">定位关键代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析代码"><span class="nav-number">4.</span> <span class="nav-text">分析代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#混淆"><span class="nav-number">5.</span> <span class="nav-text">混淆</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#例子："><span class="nav-number">5.1.</span> <span class="nav-text">例子：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解混淆"><span class="nav-number">5.2.</span> <span class="nav-text">解混淆</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#壳（packer"><span class="nav-number">6.</span> <span class="nav-text">壳（packer)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类型："><span class="nav-number">6.1.</span> <span class="nav-text">类型：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解决方法"><span class="nav-number">6.2.</span> <span class="nav-text">解决方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反调试"><span class="nav-number">7.</span> <span class="nav-text">反调试</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Debugger-detection"><span class="nav-number">7.1.</span> <span class="nav-text">Debugger detection</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Debugger-Interfering"><span class="nav-number">7.2.</span> <span class="nav-text">Debugger Interfering</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#re0"><span class="nav-number">8.</span> <span class="nav-text">re0</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#动态解密"><span class="nav-number">8.1.</span> <span class="nav-text">动态解密</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RE1"><span class="nav-number">9.</span> <span class="nav-text">RE1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#simplecheck"><span class="nav-number">10.</span> <span class="nav-text">simplecheck</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Evr1"><span class="nav-number">11.</span> <span class="nav-text">Evr1</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuuoniy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">113k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">1:43</span>
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.3.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.1</div>
+
+
+
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://yuuoniy.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'https://yuuoniy.github.io/2018/08/03/XMAN-reversing-1/';
+        this.page.identifier = '2018/08/03/XMAN-reversing-1/';
+        this.page.title = 'CTF | 逆向入门第一篇';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yuuoniy.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'VeQJNmfPOV9K2WFrArLoD0xN-gzGzoHsz',
+        appKey: 'TfDg8GxclLQKiTCGQ0hkV63P',
+        placeholder: '大佬有什么想法',
+        avatar:'retro',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

