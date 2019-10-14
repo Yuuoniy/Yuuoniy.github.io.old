@@ -3,7 +3,7 @@
   ## Source: https://github.com/hexojs/hexo/
   
   # Site
-  title: 尿尿
+  title: 喵
   subtitle: 没错就是尿尿啦
   description: 世界本该是你醒来的模样
   author: yuuoniy
@@ -35,7 +35,7 @@
   external_link: true # Open external links in new tab
   filename_case: 0
   render_drafts: false #show drafts
-  post_asset_folder: false
+  post_asset_folder: true
   relative_link: false
   future: true
   highlight:
