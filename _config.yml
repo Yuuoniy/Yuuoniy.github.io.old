@@ -71,7 +71,7 @@
   deploy:
     type: git
     repository: git@github.com:Yuuoniy/Yuunoiy.github.io.git
-    branch: master
+    branch: gh-pages
   ##
   ##since：2017
   avatar: /images/avatar.jpg
